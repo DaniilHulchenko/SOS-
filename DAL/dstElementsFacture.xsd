@@ -1,0 +1,802 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dstElementsFacture" targetNamespace="http://tempuri.org/dstElementsFacture.xsd" xmlns:mstns="http://tempuri.org/dstElementsFacture.xsd" xmlns="http://tempuri.org/dstElementsFacture.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="1" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="SmartRapportConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="SmartRapportConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.SosMedecins.SmartRapport.DAL.Properties.Settings.GlobalReference.Default.SmartRapportConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="SmartRapportConnectionString1" IsAppSettingsProperty="true" Modifier="Assembly" Name="SmartRapportConnectionString1 (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.SosMedecins.SmartRapport.DAL.Properties.Settings.GlobalReference.Default.SmartRapportConnectionString1" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="factureTableAdapter" GeneratorDataComponentClassName="factureTableAdapter" Name="facture" UserDataComponentName="factureTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SmartRapportConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT     facture.NFacture, facture.DateCreation, facture.TypeEnvoi, facture.Tarif, facture.TTT, facture.TypeAssurance, facture.TypeSortie, facture.NAccident, 
+                      facture.DateAccident, facture.RefPatient, facture.FlagConcerne, facture.Commentaire, facture.TotalFacture, facture.Solde, facture.TypeDestinataire, 
+                      facture.CodeDestinataire, facture.AdresseDestinataire, facture.TypeDocJoint, facture.UrlDocJoint, facture.AdresseDestinataire2, facture.FactNum_AVS,
+                      tableconsultations.NConsultation, tablemedecin.Nom, tableactes.DSL, tableconsultations.IndicePatient
+FROM         tablepatient INNER JOIN
+                      tablepersonne ON tablepatient.IdPersonne = tablepersonne.IdPersonne INNER JOIN
+                      tablemedecin INNER JOIN
+                      tableactes ON tablemedecin.CodeIntervenant = tableactes.CodeIntervenant INNER JOIN
+                      facture INNER JOIN
+                      factureconsultation ON facture.NFacture = factureconsultation.NFacture INNER JOIN
+                      tableconsultations ON factureconsultation.NConsultation = tableconsultations.NConsultation ON tableactes.Num = tableconsultations.CodeAppel ON 
+                      tablepatient.IdPatient = tableconsultations.NConsultation</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="NFacture" DataSetColumn="NFacture" />
+              <Mapping SourceColumn="DateCreation" DataSetColumn="DateCreation" />
+              <Mapping SourceColumn="TypeEnvoi" DataSetColumn="TypeEnvoi" />
+              <Mapping SourceColumn="Tarif" DataSetColumn="Tarif" />
+              <Mapping SourceColumn="TTT" DataSetColumn="TTT" />
+              <Mapping SourceColumn="TypeAssurance" DataSetColumn="TypeAssurance" />
+              <Mapping SourceColumn="TypeSortie" DataSetColumn="TypeSortie" />
+              <Mapping SourceColumn="NAccident" DataSetColumn="NAccident" />
+              <Mapping SourceColumn="DateAccident" DataSetColumn="DateAccident" />
+              <Mapping SourceColumn="RefPatient" DataSetColumn="RefPatient" />
+              <Mapping SourceColumn="FlagConcerne" DataSetColumn="FlagConcerne" />
+              <Mapping SourceColumn="Commentaire" DataSetColumn="Commentaire" />
+              <Mapping SourceColumn="TotalFacture" DataSetColumn="TotalFacture" />
+              <Mapping SourceColumn="Solde" DataSetColumn="Solde" />
+              <Mapping SourceColumn="TypeDestinataire" DataSetColumn="TypeDestinataire" />
+              <Mapping SourceColumn="CodeDestinataire" DataSetColumn="CodeDestinataire" />
+              <Mapping SourceColumn="TypeDocJoint" DataSetColumn="TypeDocJoint" />
+              <Mapping SourceColumn="UrlDocJoint" DataSetColumn="UrlDocJoint" />
+              <Mapping SourceColumn="AdresseDestinataire2" DataSetColumn="AdresseDestinataire2" />
+              <Mapping SourceColumn="NConsultation" DataSetColumn="NConsultation" />
+              <Mapping SourceColumn="DSL" DataSetColumn="DateConsultation" />
+              <Mapping SourceColumn="IndicePatient" DataSetColumn="IndicePatient" />
+              <Mapping SourceColumn="AdresseDestinataire" DataSetColumn="AdresseDestinataire" />
+              <Mapping SourceColumn="Nom" DataSetColumn="NomMedecinSos" />
+              <Mapping SourceColumn="FactNum_AVS" DataSetColumn="FactNum_AVS" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="SmartRapportConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillByNFacture" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByNFacture" GeneratorSourceName="FillByNFacture" GetMethodModifier="Public" GetMethodName="GetDataByNFacture" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByNFacture" UserSourceName="FillByNFacture">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT     facture.AdresseDestinataire, facture.AdresseDestinataire2, facture.CodeDestinataire, facture.Commentaire, facture.DateAccident, facture.DateCreation, 
+                      facture.FlagConcerne, facture.NAccident, facture.NFacture, facture.RefPatient, facture.factNum_AVS, facture.Solde, facture.TTT, facture.Tarif, facture.TotalFacture, 
+                      facture.TypeAssurance, facture.TypeDestinataire, facture.TypeDocJoint, facture.TypeEnvoi, facture.TypeSortie, facture.UrlDocJoint, 
+                      tableconsultations.NConsultation, tablemedecin.Nom, tableactes.DSL, tableconsultations.IndicePatient
+FROM         tablemedecin INNER JOIN
+                      tableactes ON tablemedecin.CodeIntervenant = tableactes.CodeIntervenant INNER JOIN
+                      facture INNER JOIN
+                      factureconsultation ON facture.NFacture = factureconsultation.NFacture INNER JOIN
+                      tableconsultations ON factureconsultation.NConsultation = tableconsultations.NConsultation ON 
+                      tableactes.Num = tableconsultations.CodeAppel
+WHERE     (facture.NFacture = @NFacture)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="NFacture" ColumnName="NFacture" DataSourceName="SmartRapport.dbo.facture" DataTypeServer="bigint" DbType="Int64" Direction="Input" ParameterName="@NFacture" Precision="0" ProviderType="BigInt" Scale="0" Size="8" SourceColumn="NFacture" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="SmartRapportConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBy" GeneratorSourceName="UpdateSolde" Modifier="Public" Name="UpdateSolde" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="UpdateSolde">
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>UPDATE    facture
+SET              Solde = @Solde
+WHERE (NFacture = @NFacture)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="Solde" ColumnName="Solde" DataSourceName="SmartRapport.dbo.facture" DataTypeServer="float" DbType="Double" Direction="Input" ParameterName="@Solde" Precision="0" ProviderType="Float" Scale="0" Size="8" SourceColumn="Solde" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="NFacture" ColumnName="NFacture" DataSourceName="SmartRapport.dbo.facture" DataTypeServer="bigint" DbType="Int64" Direction="Input" ParameterName="@NFacture" Precision="0" ProviderType="BigInt" Scale="0" Size="8" SourceColumn="NFacture" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="facture_etatsTableAdapter" GeneratorDataComponentClassName="facture_etatsTableAdapter" Name="facture_etats" UserDataComponentName="facture_etatsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SmartRapportConnectionString (Settings)" DbObjectName="SmartRapport.dbo.facture_etats" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [facture_etats] WHERE (((@IsNull_NFacture = 1 AND [NFacture] IS NULL) OR ([NFacture] = @Original_NFacture)) AND ((@IsNull_Etat = 1 AND [Etat] IS NULL) OR ([Etat] = @Original_Etat)) AND ((@IsNull_DateEtat = 1 AND [DateEtat] IS NULL) OR ([DateEtat] = @Original_DateEtat)) AND ((@IsNull_DateOp = 1 AND [DateOp] IS NULL) OR ([DateOp] = @Original_DateOp)) AND ((@IsNull_CommentaireEtat = 1 AND [CommentaireEtat] IS NULL) OR ([CommentaireEtat] = @Original_CommentaireEtat)) AND ((@IsNull_Param1 = 1 AND [Param1] IS NULL) OR ([Param1] = @Original_Param1)) AND ((@IsNull_Param2 = 1 AND [Param2] IS NULL) OR ([Param2] = @Original_Param2)) AND ((@IsNull_CodeUtilisateur = 1 AND [CodeUtilisateur] IS NULL) OR ([CodeUtilisateur] = @Original_CodeUtilisateur)) AND ((@IsNull_Montant = 1 AND [Montant] IS NULL) OR ([Montant] = @Original_Montant)) AND ((@IsNull_DatePaye = 1 AND [DatePaye] IS NULL) OR ([DatePaye] = @Original_DatePaye)) AND ((@IsNull_Moyen = 1 AND [Moyen] IS NULL) OR ([Moyen] = @Original_Moyen)) AND ([Compteur] = @Original_Compteur))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_NFacture" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="NFacture" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@Original_NFacture" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="NFacture" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Etat" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Etat" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Original_Etat" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Etat" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_DateEtat" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="DateEtat" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_DateEtat" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="DateEtat" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_DateOp" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="DateOp" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_DateOp" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="DateOp" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_CommentaireEtat" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="CommentaireEtat" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_CommentaireEtat" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="CommentaireEtat" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Param1" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Param1" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Param1" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Param1" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Param2" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Param2" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Param2" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Param2" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_CodeUtilisateur" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="CodeUtilisateur" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_CodeUtilisateur" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="CodeUtilisateur" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Montant" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Montant" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Double" Direction="Input" ParameterName="@Original_Montant" Precision="0" ProviderType="Float" Scale="0" Size="0" SourceColumn="Montant" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_DatePaye" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="DatePaye" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_DatePaye" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="DatePaye" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Moyen" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Moyen" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Original_Moyen" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Moyen" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@Original_Compteur" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="Compteur" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [facture_etats] ([NFacture], [Etat], [DateEtat], [DateOp], [CommentaireEtat], [Param1], [Param2], [CodeUtilisateur], [Montant], [DatePaye], [Moyen]) VALUES (@NFacture, @Etat, @DateEtat, @DateOp, @CommentaireEtat, @Param1, @Param2, @CodeUtilisateur, @Montant, @DatePaye, @Moyen)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@NFacture" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="NFacture" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Etat" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Etat" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@DateEtat" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="DateEtat" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@DateOp" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="DateOp" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@CommentaireEtat" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="CommentaireEtat" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Param1" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Param1" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Param2" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Param2" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@CodeUtilisateur" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="CodeUtilisateur" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Double" Direction="Input" ParameterName="@Montant" Precision="0" ProviderType="Float" Scale="0" Size="0" SourceColumn="Montant" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@DatePaye" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="DatePaye" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Moyen" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Moyen" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT     NFacture, Etat, DateEtat, DateOp, CommentaireEtat, Param1, Param2, CodeUtilisateur, Montant, DatePaye, Moyen, Compteur
+FROM         facture_etats</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [facture_etats] SET [NFacture] = @NFacture, [Etat] = @Etat, [DateEtat] = @DateEtat, [DateOp] = @DateOp, [CommentaireEtat] = @CommentaireEtat, [Param1] = @Param1, [Param2] = @Param2, [CodeUtilisateur] = @CodeUtilisateur, [Montant] = @Montant, [DatePaye] = @DatePaye, [Moyen] = @Moyen WHERE (((@IsNull_NFacture = 1 AND [NFacture] IS NULL) OR ([NFacture] = @Original_NFacture)) AND ((@IsNull_Etat = 1 AND [Etat] IS NULL) OR ([Etat] = @Original_Etat)) AND ((@IsNull_DateEtat = 1 AND [DateEtat] IS NULL) OR ([DateEtat] = @Original_DateEtat)) AND ((@IsNull_DateOp = 1 AND [DateOp] IS NULL) OR ([DateOp] = @Original_DateOp)) AND ((@IsNull_CommentaireEtat = 1 AND [CommentaireEtat] IS NULL) OR ([CommentaireEtat] = @Original_CommentaireEtat)) AND ((@IsNull_Param1 = 1 AND [Param1] IS NULL) OR ([Param1] = @Original_Param1)) AND ((@IsNull_Param2 = 1 AND [Param2] IS NULL) OR ([Param2] = @Original_Param2)) AND ((@IsNull_CodeUtilisateur = 1 AND [CodeUtilisateur] IS NULL) OR ([CodeUtilisateur] = @Original_CodeUtilisateur)) AND ((@IsNull_Montant = 1 AND [Montant] IS NULL) OR ([Montant] = @Original_Montant)) AND ((@IsNull_DatePaye = 1 AND [DatePaye] IS NULL) OR ([DatePaye] = @Original_DatePaye)) AND ((@IsNull_Moyen = 1 AND [Moyen] IS NULL) OR ([Moyen] = @Original_Moyen)) AND ([Compteur] = @Original_Compteur))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@NFacture" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="NFacture" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Etat" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Etat" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@DateEtat" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="DateEtat" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@DateOp" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="DateOp" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@CommentaireEtat" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="CommentaireEtat" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Param1" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Param1" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Param2" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Param2" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@CodeUtilisateur" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="CodeUtilisateur" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Double" Direction="Input" ParameterName="@Montant" Precision="0" ProviderType="Float" Scale="0" Size="0" SourceColumn="Montant" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@DatePaye" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="DatePaye" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Moyen" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Moyen" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_NFacture" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="NFacture" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@Original_NFacture" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="NFacture" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Etat" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Etat" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Original_Etat" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Etat" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_DateEtat" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="DateEtat" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_DateEtat" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="DateEtat" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_DateOp" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="DateOp" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_DateOp" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="DateOp" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_CommentaireEtat" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="CommentaireEtat" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_CommentaireEtat" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="CommentaireEtat" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Param1" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Param1" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Param1" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Param1" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Param2" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Param2" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Param2" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Param2" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_CodeUtilisateur" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="CodeUtilisateur" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_CodeUtilisateur" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="CodeUtilisateur" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Montant" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Montant" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Double" Direction="Input" ParameterName="@Original_Montant" Precision="0" ProviderType="Float" Scale="0" Size="0" SourceColumn="Montant" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_DatePaye" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="DatePaye" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_DatePaye" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="DatePaye" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Moyen" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Moyen" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Original_Moyen" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Moyen" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int64" Direction="Input" ParameterName="@Original_Compteur" Precision="0" ProviderType="BigInt" Scale="0" Size="0" SourceColumn="Compteur" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="NFacture" DataSetColumn="NFacture" />
+              <Mapping SourceColumn="Etat" DataSetColumn="Etat" />
+              <Mapping SourceColumn="DateEtat" DataSetColumn="DateEtat" />
+              <Mapping SourceColumn="DateOp" DataSetColumn="DateOp" />
+              <Mapping SourceColumn="CommentaireEtat" DataSetColumn="CommentaireEtat" />
+              <Mapping SourceColumn="Param1" DataSetColumn="Param1" />
+              <Mapping SourceColumn="Param2" DataSetColumn="Param2" />
+              <Mapping SourceColumn="CodeUtilisateur" DataSetColumn="CodeUtilisateur" />
+              <Mapping SourceColumn="Montant" DataSetColumn="Montant" />
+              <Mapping SourceColumn="DatePaye" DataSetColumn="DatePaye" />
+              <Mapping SourceColumn="Moyen" DataSetColumn="Moyen" />
+              <Mapping SourceColumn="Compteur" DataSetColumn="Compteur" />
+            </Mappings>
+            <Sources>
+              <DbSource ConnectionRef="SmartRapportConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="DeleteQuery" Modifier="Public" Name="DeleteQuery" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="DeleteQuery">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>DELETE FROM [facture_etats] WHERE [Compteur] = @Original_Compteur</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="Original_Compteur" ColumnName="Compteur" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="bigint" DbType="Int64" Direction="Input" ParameterName="@Original_Compteur" Precision="0" ProviderType="BigInt" Scale="0" Size="8" SourceColumn="Compteur" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+              </DbSource>
+              <DbSource ConnectionRef="SmartRapportConnectionString (Settings)" DbObjectName="SmartRapport.dbo.facture_etats" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillByIdPatient" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByIdPatient" GeneratorSourceName="FillByIdPatient" GetMethodModifier="Public" GetMethodName="GetDataByIdPatient" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByIdPatient" UserSourceName="FillByIdPatient">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT facture_etats.CodeUtilisateur, facture_etats.CommentaireEtat, facture_etats.Compteur, facture_etats.DateEtat, facture_etats.DateOp, facture_etats.DatePaye, facture_etats.Etat, facture_etats.Montant, facture_etats.Moyen, facture_etats.NFacture, facture_etats.Param1, facture_etats.Param2 FROM facture_etats INNER JOIN factureconsultation ON facture_etats.NFacture = factureconsultation.NFacture INNER JOIN tableconsultations ON factureconsultation.NConsultation = tableconsultations.NConsultation WHERE (tableconsultations.IndicePatient in ( @IdPatient))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="IdPatient" ColumnName="" DataSourceName="" DataTypeServer="unknown" DbType="String" Direction="Input" ParameterName="@IdPatient" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="SmartRapportConnectionString (Settings)" DbObjectName="SmartRapport.dbo.facture_etats" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillByNFacture" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataByNFacture" GeneratorSourceName="FillByNFacture" GetMethodModifier="Public" GetMethodName="GetDataByNFacture" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataByNFacture" UserSourceName="FillByNFacture">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT     CodeUtilisateur, CommentaireEtat, Compteur, DateEtat, DateOp, DatePaye, Etat, Montant, Moyen, NFacture, Param1, Param2
+FROM         facture_etats
+WHERE     (NFacture = @NFacture)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="NFacture" ColumnName="NFacture" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="bigint" DbType="Int64" Direction="Input" ParameterName="@NFacture" Precision="0" ProviderType="BigInt" Scale="0" Size="8" SourceColumn="NFacture" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+              <DbSource ConnectionRef="SmartRapportConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="InsertQuery" Modifier="Public" Name="InsertQuery" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="InsertQuery">
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>INSERT INTO [facture_etats] ([NFacture], [Etat], [DateEtat], [DateOp], [CommentaireEtat], [Param1], [Param2], [CodeUtilisateur], [Montant], [DatePaye], [Moyen]) VALUES (@NFacture, @Etat, @DateEtat, @DateOp, @CommentaireEtat, @Param1, @Param2, @CodeUtilisateur, @Montant, @DatePaye, @Moyen)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="NFacture" ColumnName="NFacture" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="bigint" DbType="Int64" Direction="Input" ParameterName="@NFacture" Precision="0" ProviderType="BigInt" Scale="0" Size="8" SourceColumn="NFacture" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Etat" ColumnName="Etat" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="smallint" DbType="Int16" Direction="Input" ParameterName="@Etat" Precision="0" ProviderType="SmallInt" Scale="0" Size="2" SourceColumn="Etat" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="DateEtat" ColumnName="DateEtat" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="datetime" DbType="DateTime" Direction="Input" ParameterName="@DateEtat" Precision="0" ProviderType="DateTime" Scale="0" Size="8" SourceColumn="DateEtat" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="DateOp" ColumnName="DateOp" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="datetime" DbType="DateTime" Direction="Input" ParameterName="@DateOp" Precision="0" ProviderType="DateTime" Scale="0" Size="8" SourceColumn="DateOp" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="CommentaireEtat" ColumnName="CommentaireEtat" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="nvarchar(255)" DbType="String" Direction="Input" ParameterName="@CommentaireEtat" Precision="0" ProviderType="NVarChar" Scale="0" Size="255" SourceColumn="CommentaireEtat" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Param1" ColumnName="Param1" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@Param1" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="Param1" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Param2" ColumnName="Param2" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@Param2" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="Param2" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="CodeUtilisateur" ColumnName="CodeUtilisateur" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="nvarchar(5)" DbType="String" Direction="Input" ParameterName="@CodeUtilisateur" Precision="0" ProviderType="NVarChar" Scale="0" Size="5" SourceColumn="CodeUtilisateur" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Montant" ColumnName="Montant" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="float" DbType="Double" Direction="Input" ParameterName="@Montant" Precision="0" ProviderType="Float" Scale="0" Size="8" SourceColumn="Montant" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="DatePaye" ColumnName="DatePaye" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="datetime" DbType="DateTime" Direction="Input" ParameterName="@DatePaye" Precision="0" ProviderType="DateTime" Scale="0" Size="8" SourceColumn="DatePaye" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Moyen" ColumnName="Moyen" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="smallint" DbType="Int16" Direction="Input" ParameterName="@Moyen" Precision="0" ProviderType="SmallInt" Scale="0" Size="2" SourceColumn="Moyen" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+              </DbSource>
+              <DbSource ConnectionRef="SmartRapportConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="UpdateQuery" Modifier="Public" Name="UpdateQuery" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="UpdateQuery">
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>UPDATE [facture_etats] SET [NFacture] = @NFacture, [Etat] = @Etat, [DateEtat] = @DateEtat, [DateOp] = @DateOp, [CommentaireEtat] = @CommentaireEtat, [Param1] = @Param1, [Param2] = @Param2, [CodeUtilisateur] = @CodeUtilisateur, [Montant] = @Montant, [DatePaye] = @DatePaye, [Moyen] = @Moyen WHERE [Compteur] = @Original_Compteur</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="true" AutogeneratedName="NFacture" ColumnName="NFacture" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="bigint" DbType="Int64" Direction="Input" ParameterName="@NFacture" Precision="0" ProviderType="BigInt" Scale="0" Size="8" SourceColumn="NFacture" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Etat" ColumnName="Etat" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="smallint" DbType="Int16" Direction="Input" ParameterName="@Etat" Precision="0" ProviderType="SmallInt" Scale="0" Size="2" SourceColumn="Etat" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="DateEtat" ColumnName="DateEtat" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="datetime" DbType="DateTime" Direction="Input" ParameterName="@DateEtat" Precision="0" ProviderType="DateTime" Scale="0" Size="8" SourceColumn="DateEtat" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="DateOp" ColumnName="DateOp" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="datetime" DbType="DateTime" Direction="Input" ParameterName="@DateOp" Precision="0" ProviderType="DateTime" Scale="0" Size="8" SourceColumn="DateOp" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="CommentaireEtat" ColumnName="CommentaireEtat" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="nvarchar(255)" DbType="String" Direction="Input" ParameterName="@CommentaireEtat" Precision="0" ProviderType="NVarChar" Scale="0" Size="255" SourceColumn="CommentaireEtat" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Param1" ColumnName="Param1" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@Param1" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="Param1" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Param2" ColumnName="Param2" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@Param2" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="Param2" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="CodeUtilisateur" ColumnName="CodeUtilisateur" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="nvarchar(5)" DbType="String" Direction="Input" ParameterName="@CodeUtilisateur" Precision="0" ProviderType="NVarChar" Scale="0" Size="5" SourceColumn="CodeUtilisateur" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Montant" ColumnName="Montant" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="float" DbType="Double" Direction="Input" ParameterName="@Montant" Precision="0" ProviderType="Float" Scale="0" Size="8" SourceColumn="Montant" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="DatePaye" ColumnName="DatePaye" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="datetime" DbType="DateTime" Direction="Input" ParameterName="@DatePaye" Precision="0" ProviderType="DateTime" Scale="0" Size="8" SourceColumn="DatePaye" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="Moyen" ColumnName="Moyen" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="smallint" DbType="Int16" Direction="Input" ParameterName="@Moyen" Precision="0" ProviderType="SmallInt" Scale="0" Size="2" SourceColumn="Moyen" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Original_Compteur" ColumnName="Compteur" DataSourceName="SmartRapport.dbo.facture_etats" DataTypeServer="bigint" DbType="Int64" Direction="Input" ParameterName="@Original_Compteur" Precision="0" ProviderType="BigInt" Scale="0" Size="8" SourceColumn="Compteur" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="facture_moyenTableAdapter" GeneratorDataComponentClassName="facture_moyenTableAdapter" Name="facture_moyen" UserDataComponentName="facture_moyenTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SmartRapportConnectionString (Settings)" DbObjectName="SmartRapport.dbo.facture_moyen" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[facture_moyen] WHERE (([Code] = @Original_Code) AND ([Libelle] = @Original_Libelle) AND ([Ordre] = @Original_Ordre))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Original_Code" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Code" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Libelle" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Libelle" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Original_Ordre" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Ordre" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[facture_moyen] ([Code], [Libelle], [Ordre]) VALUES (@Code, @Libelle, @Ordre);
+SELECT Code, Libelle, Ordre FROM facture_moyen WHERE (Code = @Code)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Code" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Code" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Libelle" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Libelle" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Ordre" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Ordre" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT Code, Libelle, Ordre FROM dbo.facture_moyen</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[facture_moyen] SET [Code] = @Code, [Libelle] = @Libelle, [Ordre] = @Ordre WHERE (([Code] = @Original_Code) AND ([Libelle] = @Original_Libelle) AND ([Ordre] = @Original_Ordre));
+SELECT Code, Libelle, Ordre FROM facture_moyen WHERE (Code = @Code)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Code" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Code" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Libelle" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Libelle" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Ordre" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Ordre" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Original_Code" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Code" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Libelle" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Libelle" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Original_Ordre" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Ordre" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Code" DataSetColumn="Code" />
+              <Mapping SourceColumn="Libelle" DataSetColumn="Libelle" />
+              <Mapping SourceColumn="Ordre" DataSetColumn="Ordre" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="facture_typeTableAdapter" GeneratorDataComponentClassName="facture_typeTableAdapter" Name="facture_type" UserDataComponentName="facture_typeTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SmartRapportConnectionString (Settings)" DbObjectName="SmartRapport.dbo.facture_type" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [facture_type] WHERE (([Etat] = @Original_Etat) AND ((@IsNull_Libelle = 1 AND [Libelle] IS NULL) OR ([Libelle] = @Original_Libelle)) AND ([Ordre] = @Original_Ordre) AND ([Paiement] = @Original_Paiement))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Original_Etat" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Etat" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Libelle" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Libelle" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Libelle" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Libelle" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Original_Ordre" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Ordre" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_Paiement" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Paiement" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [facture_type] ([Etat], [Libelle], [Ordre], [Paiement]) VALUES (@Etat, @Libelle, @Ordre, @Paiement);
+SELECT Etat, Libelle, Ordre, Paiement FROM facture_type WHERE (Etat = @Etat)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Etat" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Etat" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Libelle" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Libelle" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Ordre" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Ordre" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Paiement" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Paiement" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT     Etat, Libelle, Ordre, Paiement
+FROM         facture_type</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [facture_type] SET [Etat] = @Etat, [Libelle] = @Libelle, [Ordre] = @Ordre, [Paiement] = @Paiement WHERE (([Etat] = @Original_Etat) AND ((@IsNull_Libelle = 1 AND [Libelle] IS NULL) OR ([Libelle] = @Original_Libelle)) AND ([Ordre] = @Original_Ordre) AND ([Paiement] = @Original_Paiement));
+SELECT Etat, Libelle, Ordre, Paiement FROM facture_type WHERE (Etat = @Etat)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Etat" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Etat" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Libelle" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Libelle" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Ordre" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Ordre" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Paiement" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Paiement" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Original_Etat" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Etat" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Libelle" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Libelle" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Libelle" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Libelle" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Original_Ordre" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="Ordre" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="@Original_Paiement" Precision="0" ProviderType="Bit" Scale="0" Size="0" SourceColumn="Paiement" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Etat" DataSetColumn="Etat" />
+              <Mapping SourceColumn="Libelle" DataSetColumn="Libelle" />
+              <Mapping SourceColumn="Ordre" DataSetColumn="Ordre" />
+              <Mapping SourceColumn="Paiement" DataSetColumn="Paiement" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="tableutilisateurTableAdapter" GeneratorDataComponentClassName="tableutilisateurTableAdapter" Name="tableutilisateur" UserDataComponentName="tableutilisateurTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SmartRapportConnectionString1 (Settings)" DbObjectName="SmartRapport.dbo.tableutilisateur" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[tableutilisateur] WHERE (([CodeUtilisateur] = @Original_CodeUtilisateur) AND ((@IsNull_Pass = 1 AND [Pass] IS NULL) OR ([Pass] = @Original_Pass)) AND ((@IsNull_Nom = 1 AND [Nom] IS NULL) OR ([Nom] = @Original_Nom)) AND ((@IsNull_droits = 1 AND [droits] IS NULL) OR ([droits] = @Original_droits)) AND ((@IsNull_Initiale = 1 AND [Initiale] IS NULL) OR ([Initiale] = @Original_Initiale)) AND ((@IsNull_Mail = 1 AND [Mail] IS NULL) OR ([Mail] = @Original_Mail)) AND ((@IsNull_DateDerConnexion = 1 AND [DateDerConnexion] IS NULL) OR ([DateDerConnexion] = @Original_DateDerConnexion)) AND ((@IsNull_Archive = 1 AND [Archive] IS NULL) OR ([Archive] = @Original_Archive)) AND ((@IsNull_NomGeneve = 1 AND [NomGeneve] IS NULL) OR ([NomGeneve] = @Original_NomGeneve)) AND ((@IsNull_PrenomGeneve = 1 AND [PrenomGeneve] IS NULL) OR ([PrenomGeneve] = @Original_PrenomGeneve)) AND ((@IsNull_Concordat = 1 AND [Concordat] IS NULL) OR ([Concordat] = @Original_Concordat)) AND ((@IsNull_EAN = 1 AND [EAN] IS NULL) OR ([EAN] = @Original_EAN)) AND ((@IsNull_Commentaire = 1 AND [Commentaire] IS NULL) OR ([Commentaire] = @Original_Commentaire)))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_CodeUtilisateur" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="CodeUtilisateur" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Pass" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Pass" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Pass" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Pass" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Nom" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Nom" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Nom" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Nom" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_droits" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="droits" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Original_droits" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="droits" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Initiale" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Initiale" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Initiale" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Initiale" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Mail" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Mail" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Mail" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Mail" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_DateDerConnexion" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="DateDerConnexion" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_DateDerConnexion" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="DateDerConnexion" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Archive" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Archive" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Archive" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Archive" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_NomGeneve" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="NomGeneve" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_NomGeneve" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="NomGeneve" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_PrenomGeneve" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="PrenomGeneve" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_PrenomGeneve" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="PrenomGeneve" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Concordat" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Concordat" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Concordat" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Concordat" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_EAN" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EAN" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_EAN" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="EAN" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Commentaire" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Commentaire" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Commentaire" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Commentaire" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[tableutilisateur] ([CodeUtilisateur], [Pass], [Nom], [droits], [Initiale], [Mail], [DateDerConnexion], [Archive], [NomGeneve], [PrenomGeneve], [Concordat], [EAN], [Commentaire]) VALUES (@CodeUtilisateur, @Pass, @Nom, @droits, @Initiale, @Mail, @DateDerConnexion, @Archive, @NomGeneve, @PrenomGeneve, @Concordat, @EAN, @Commentaire);
+SELECT CodeUtilisateur, Pass, Nom, droits, Initiale, Mail, DateDerConnexion, Archive, NomGeneve, PrenomGeneve, Concordat, EAN, Commentaire FROM tableutilisateur WHERE (CodeUtilisateur = @CodeUtilisateur)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@CodeUtilisateur" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="CodeUtilisateur" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Pass" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Pass" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Nom" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Nom" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@droits" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="droits" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Initiale" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Initiale" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Mail" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Mail" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@DateDerConnexion" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="DateDerConnexion" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Archive" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Archive" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@NomGeneve" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="NomGeneve" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@PrenomGeneve" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="PrenomGeneve" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Concordat" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Concordat" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@EAN" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="EAN" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Commentaire" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Commentaire" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT CodeUtilisateur, Pass, Nom, droits, Initiale, Mail, DateDerConnexion, Archive, NomGeneve, PrenomGeneve, Concordat, EAN, Commentaire FROM dbo.tableutilisateur</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[tableutilisateur] SET [CodeUtilisateur] = @CodeUtilisateur, [Pass] = @Pass, [Nom] = @Nom, [droits] = @droits, [Initiale] = @Initiale, [Mail] = @Mail, [DateDerConnexion] = @DateDerConnexion, [Archive] = @Archive, [NomGeneve] = @NomGeneve, [PrenomGeneve] = @PrenomGeneve, [Concordat] = @Concordat, [EAN] = @EAN, [Commentaire] = @Commentaire WHERE (([CodeUtilisateur] = @Original_CodeUtilisateur) AND ((@IsNull_Pass = 1 AND [Pass] IS NULL) OR ([Pass] = @Original_Pass)) AND ((@IsNull_Nom = 1 AND [Nom] IS NULL) OR ([Nom] = @Original_Nom)) AND ((@IsNull_droits = 1 AND [droits] IS NULL) OR ([droits] = @Original_droits)) AND ((@IsNull_Initiale = 1 AND [Initiale] IS NULL) OR ([Initiale] = @Original_Initiale)) AND ((@IsNull_Mail = 1 AND [Mail] IS NULL) OR ([Mail] = @Original_Mail)) AND ((@IsNull_DateDerConnexion = 1 AND [DateDerConnexion] IS NULL) OR ([DateDerConnexion] = @Original_DateDerConnexion)) AND ((@IsNull_Archive = 1 AND [Archive] IS NULL) OR ([Archive] = @Original_Archive)) AND ((@IsNull_NomGeneve = 1 AND [NomGeneve] IS NULL) OR ([NomGeneve] = @Original_NomGeneve)) AND ((@IsNull_PrenomGeneve = 1 AND [PrenomGeneve] IS NULL) OR ([PrenomGeneve] = @Original_PrenomGeneve)) AND ((@IsNull_Concordat = 1 AND [Concordat] IS NULL) OR ([Concordat] = @Original_Concordat)) AND ((@IsNull_EAN = 1 AND [EAN] IS NULL) OR ([EAN] = @Original_EAN)) AND ((@IsNull_Commentaire = 1 AND [Commentaire] IS NULL) OR ([Commentaire] = @Original_Commentaire)));
+SELECT CodeUtilisateur, Pass, Nom, droits, Initiale, Mail, DateDerConnexion, Archive, NomGeneve, PrenomGeneve, Concordat, EAN, Commentaire FROM tableutilisateur WHERE (CodeUtilisateur = @CodeUtilisateur)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@CodeUtilisateur" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="CodeUtilisateur" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Pass" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Pass" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Nom" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Nom" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@droits" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="droits" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Initiale" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Initiale" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Mail" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Mail" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@DateDerConnexion" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="DateDerConnexion" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Archive" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Archive" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@NomGeneve" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="NomGeneve" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@PrenomGeneve" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="PrenomGeneve" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Concordat" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Concordat" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@EAN" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="EAN" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Commentaire" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Commentaire" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_CodeUtilisateur" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="CodeUtilisateur" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Pass" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Pass" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Pass" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Pass" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Nom" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Nom" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Nom" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Nom" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_droits" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="droits" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int16" Direction="Input" ParameterName="@Original_droits" Precision="0" ProviderType="SmallInt" Scale="0" Size="0" SourceColumn="droits" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Initiale" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Initiale" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Initiale" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Initiale" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Mail" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Mail" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Mail" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Mail" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_DateDerConnexion" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="DateDerConnexion" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_DateDerConnexion" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="DateDerConnexion" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Archive" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Archive" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Archive" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Archive" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_NomGeneve" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="NomGeneve" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_NomGeneve" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="NomGeneve" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_PrenomGeneve" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="PrenomGeneve" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_PrenomGeneve" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="PrenomGeneve" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Concordat" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Concordat" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Concordat" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Concordat" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_EAN" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="EAN" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_EAN" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="EAN" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@IsNull_Commentaire" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Commentaire" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="@Original_Commentaire" Precision="0" ProviderType="NVarChar" Scale="0" Size="0" SourceColumn="Commentaire" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="CodeUtilisateur" DataSetColumn="CodeUtilisateur" />
+              <Mapping SourceColumn="Pass" DataSetColumn="Pass" />
+              <Mapping SourceColumn="Nom" DataSetColumn="Nom" />
+              <Mapping SourceColumn="droits" DataSetColumn="droits" />
+              <Mapping SourceColumn="Initiale" DataSetColumn="Initiale" />
+              <Mapping SourceColumn="Mail" DataSetColumn="Mail" />
+              <Mapping SourceColumn="DateDerConnexion" DataSetColumn="DateDerConnexion" />
+              <Mapping SourceColumn="Archive" DataSetColumn="Archive" />
+              <Mapping SourceColumn="NomGeneve" DataSetColumn="NomGeneve" />
+              <Mapping SourceColumn="PrenomGeneve" DataSetColumn="PrenomGeneve" />
+              <Mapping SourceColumn="Concordat" DataSetColumn="Concordat" />
+              <Mapping SourceColumn="EAN" DataSetColumn="EAN" />
+              <Mapping SourceColumn="Commentaire" DataSetColumn="Commentaire" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dstElementsFacture" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="dstElementsFacture" msprop:Generator_UserDSName="dstElementsFacture">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="facture" msprop:Generator_UserTableName="facture" msprop:Generator_RowEvArgName="factureRowChangeEvent" msprop:Generator_TableVarName="tablefacture" msprop:Generator_TablePropName="facture" msprop:Generator_RowDeletingName="factureRowDeleting" msprop:Generator_RowChangingName="factureRowChanging" msprop:Generator_RowDeletedName="factureRowDeleted" msprop:Generator_RowEvHandlerName="factureRowChangeEventHandler" msprop:Generator_RowChangedName="factureRowChanged" msprop:Generator_TableClassName="factureDataTable" msprop:Generator_RowClassName="factureRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="NFacture" msprop:Generator_ColumnVarNameInTable="columnNFacture" msprop:Generator_ColumnPropNameInRow="NFacture" msprop:Generator_ColumnPropNameInTable="NFactureColumn" msprop:Generator_UserColumnName="NFacture" type="xs:long" />
+              <xs:element name="DateCreation" msprop:Generator_ColumnVarNameInTable="columnDateCreation" msprop:Generator_ColumnPropNameInRow="DateCreation" msprop:Generator_ColumnPropNameInTable="DateCreationColumn" msprop:Generator_UserColumnName="DateCreation" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="TypeEnvoi" msprop:Generator_ColumnVarNameInTable="columnTypeEnvoi" msprop:Generator_ColumnPropNameInRow="TypeEnvoi" msprop:Generator_ColumnPropNameInTable="TypeEnvoiColumn" msprop:Generator_UserColumnName="TypeEnvoi" type="xs:short" minOccurs="0" />
+              <xs:element name="Tarif" msprop:Generator_ColumnVarNameInTable="columnTarif" msprop:Generator_ColumnPropNameInRow="Tarif" msprop:Generator_ColumnPropNameInTable="TarifColumn" msprop:Generator_UserColumnName="Tarif" type="xs:short" minOccurs="0" />
+              <xs:element name="TTT" msprop:Generator_ColumnVarNameInTable="columnTTT" msprop:Generator_ColumnPropNameInRow="TTT" msprop:Generator_ColumnPropNameInTable="TTTColumn" msprop:Generator_UserColumnName="TTT" type="xs:short" minOccurs="0" />
+              <xs:element name="TypeAssurance" msprop:Generator_ColumnVarNameInTable="columnTypeAssurance" msprop:Generator_ColumnPropNameInRow="TypeAssurance" msprop:Generator_ColumnPropNameInTable="TypeAssuranceColumn" msprop:Generator_UserColumnName="TypeAssurance" type="xs:short" minOccurs="0" />
+              <xs:element name="TypeSortie" msprop:Generator_ColumnVarNameInTable="columnTypeSortie" msprop:Generator_ColumnPropNameInRow="TypeSortie" msprop:Generator_ColumnPropNameInTable="TypeSortieColumn" msprop:Generator_UserColumnName="TypeSortie" type="xs:short" minOccurs="0" />
+              <xs:element name="NAccident" msprop:Generator_ColumnVarNameInTable="columnNAccident" msprop:Generator_ColumnPropNameInRow="NAccident" msprop:Generator_ColumnPropNameInTable="NAccidentColumn" msprop:Generator_UserColumnName="NAccident" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DateAccident" msprop:Generator_ColumnVarNameInTable="columnDateAccident" msprop:Generator_ColumnPropNameInRow="DateAccident" msprop:Generator_ColumnPropNameInTable="DateAccidentColumn" msprop:Generator_UserColumnName="DateAccident" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="RefPatient" msprop:Generator_ColumnVarNameInTable="columnRefPatient" msprop:Generator_ColumnPropNameInRow="RefPatient" msprop:Generator_ColumnPropNameInTable="RefPatientColumn" msprop:Generator_UserColumnName="RefPatient" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FlagConcerne" msprop:Generator_ColumnVarNameInTable="columnFlagConcerne" msprop:Generator_ColumnPropNameInRow="FlagConcerne" msprop:Generator_ColumnPropNameInTable="FlagConcerneColumn" msprop:Generator_UserColumnName="FlagConcerne" type="xs:short" minOccurs="0" />
+              <xs:element name="Commentaire" msprop:Generator_ColumnVarNameInTable="columnCommentaire" msprop:Generator_ColumnPropNameInRow="Commentaire" msprop:Generator_ColumnPropNameInTable="CommentaireColumn" msprop:Generator_UserColumnName="Commentaire" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TotalFacture" msprop:Generator_ColumnVarNameInTable="columnTotalFacture" msprop:Generator_ColumnPropNameInRow="TotalFacture" msprop:Generator_ColumnPropNameInTable="TotalFactureColumn" msprop:Generator_UserColumnName="TotalFacture" type="xs:double" minOccurs="0" />
+              <xs:element name="Solde" msprop:Generator_ColumnVarNameInTable="columnSolde" msprop:Generator_ColumnPropNameInRow="Solde" msprop:Generator_ColumnPropNameInTable="SoldeColumn" msprop:Generator_UserColumnName="Solde" type="xs:double" minOccurs="0" />
+              <xs:element name="TypeDestinataire" msprop:Generator_ColumnVarNameInTable="columnTypeDestinataire" msprop:Generator_ColumnPropNameInRow="TypeDestinataire" msprop:Generator_ColumnPropNameInTable="TypeDestinataireColumn" msprop:Generator_UserColumnName="TypeDestinataire" type="xs:short" minOccurs="0" />
+              <xs:element name="CodeDestinataire" msprop:Generator_ColumnVarNameInTable="columnCodeDestinataire" msprop:Generator_ColumnPropNameInRow="CodeDestinataire" msprop:Generator_ColumnPropNameInTable="CodeDestinataireColumn" msprop:Generator_UserColumnName="CodeDestinataire" type="xs:int" minOccurs="0" />
+              <xs:element name="TypeDocJoint" msprop:Generator_ColumnVarNameInTable="columnTypeDocJoint" msprop:Generator_ColumnPropNameInRow="TypeDocJoint" msprop:Generator_ColumnPropNameInTable="TypeDocJointColumn" msprop:Generator_UserColumnName="TypeDocJoint" type="xs:short" minOccurs="0" />
+              <xs:element name="UrlDocJoint" msprop:Generator_ColumnVarNameInTable="columnUrlDocJoint" msprop:Generator_ColumnPropNameInRow="UrlDocJoint" msprop:Generator_ColumnPropNameInTable="UrlDocJointColumn" msprop:Generator_UserColumnName="UrlDocJoint" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AdresseDestinataire2" msprop:Generator_ColumnVarNameInTable="columnAdresseDestinataire2" msprop:Generator_ColumnPropNameInRow="AdresseDestinataire2" msprop:Generator_ColumnPropNameInTable="AdresseDestinataire2Column" msprop:Generator_UserColumnName="AdresseDestinataire2" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NConsultation" msprop:Generator_ColumnVarNameInTable="columnNConsultation" msprop:Generator_ColumnPropNameInRow="NConsultation" msprop:Generator_ColumnPropNameInTable="NConsultationColumn" msprop:Generator_UserColumnName="NConsultation" type="xs:long" />
+              <xs:element name="DateConsultation" msprop:Generator_ColumnVarNameInTable="columnDateConsultation" msprop:Generator_ColumnPropNameInRow="DateConsultation" msprop:Generator_ColumnPropNameInTable="DateConsultationColumn" msprop:Generator_UserColumnName="DateConsultation" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IndicePatient" msprop:Generator_ColumnVarNameInTable="columnIndicePatient" msprop:Generator_ColumnPropNameInRow="IndicePatient" msprop:Generator_ColumnPropNameInTable="IndicePatientColumn" msprop:Generator_UserColumnName="IndicePatient" type="xs:long" minOccurs="0" />
+              <xs:element name="AdresseDestinataire" msprop:Generator_ColumnVarNameInTable="columnAdresseDestinataire" msprop:Generator_ColumnPropNameInRow="AdresseDestinataire" msprop:Generator_ColumnPropNameInTable="AdresseDestinataireColumn" msprop:Generator_UserColumnName="AdresseDestinataire" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="NomMedecinSos" msdata:Caption="Nom" msprop:Generator_ColumnVarNameInTable="columnNomMedecinSos" msprop:Generator_ColumnPropNameInRow="NomMedecinSos" msprop:Generator_ColumnPropNameInTable="NomMedecinSosColumn" msprop:Generator_UserColumnName="NomMedecinSos" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DateNaissance" msprop:Generator_ColumnVarNameInTable="columnDateNaissance" msprop:Generator_ColumnPropNameInRow="DateNaissance" msprop:Generator_ColumnPropNameInTable="DateNaissanceColumn" msprop:Generator_UserColumnName="DateNaissance" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DAP" msprop:Generator_ColumnVarNameInTable="columnDAP" msprop:Generator_ColumnPropNameInRow="DAP" msprop:Generator_ColumnPropNameInTable="DAPColumn" msprop:Generator_UserColumnName="DAP" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="NomPatient" msprop:Generator_ColumnVarNameInTable="columnNomPatient" msprop:Generator_ColumnPropNameInRow="NomPatient" msprop:Generator_ColumnPropNameInTable="NomPatientColumn" msprop:Generator_UserColumnName="NomPatient" type="xs:string" minOccurs="0" />
+              <xs:element name="PrenomPatient" msprop:Generator_ColumnVarNameInTable="columnPrenomPatient" msprop:Generator_ColumnPropNameInRow="PrenomPatient" msprop:Generator_ColumnPropNameInTable="PrenomPatientColumn" msprop:Generator_UserColumnName="PrenomPatient" type="xs:string" minOccurs="0" />
+              <xs:element name="FactNum_AVS" msprop:Generator_ColumnVarNameInTable="columnFactNum_AVS" msprop:Generator_ColumnPropNameInRow="FactNum_AVS" msprop:Generator_ColumnPropNameInTable="FactNum_AVSColumn" msprop:Generator_UserColumnName="FactNum_AVS" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="facture_etats" msprop:Generator_UserTableName="facture_etats" msprop:Generator_RowEvArgName="facture_etatsRowChangeEvent" msprop:Generator_TableVarName="tablefacture_etats" msprop:Generator_TablePropName="facture_etats" msprop:Generator_RowDeletingName="facture_etatsRowDeleting" msprop:Generator_RowChangingName="facture_etatsRowChanging" msprop:Generator_RowDeletedName="facture_etatsRowDeleted" msprop:Generator_RowEvHandlerName="facture_etatsRowChangeEventHandler" msprop:Generator_RowChangedName="facture_etatsRowChanged" msprop:Generator_TableClassName="facture_etatsDataTable" msprop:Generator_RowClassName="facture_etatsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="NFacture" msprop:Generator_ColumnVarNameInTable="columnNFacture" msprop:Generator_ColumnPropNameInRow="NFacture" msprop:Generator_ColumnPropNameInTable="NFactureColumn" msprop:Generator_UserColumnName="NFacture" type="xs:long" minOccurs="0" />
+              <xs:element name="Etat" msprop:Generator_ColumnVarNameInTable="columnEtat" msprop:Generator_ColumnPropNameInRow="Etat" msprop:Generator_ColumnPropNameInTable="EtatColumn" msprop:Generator_UserColumnName="Etat" type="xs:short" minOccurs="0" />
+              <xs:element name="DateEtat" msprop:Generator_ColumnVarNameInTable="columnDateEtat" msprop:Generator_ColumnPropNameInRow="DateEtat" msprop:Generator_ColumnPropNameInTable="DateEtatColumn" msprop:Generator_UserColumnName="DateEtat" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DateOp" msprop:Generator_ColumnVarNameInTable="columnDateOp" msprop:Generator_ColumnPropNameInRow="DateOp" msprop:Generator_ColumnPropNameInTable="DateOpColumn" msprop:Generator_UserColumnName="DateOp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CommentaireEtat" msprop:Generator_ColumnVarNameInTable="columnCommentaireEtat" msprop:Generator_ColumnPropNameInRow="CommentaireEtat" msprop:Generator_ColumnPropNameInTable="CommentaireEtatColumn" msprop:Generator_UserColumnName="CommentaireEtat" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Param1" msprop:Generator_ColumnVarNameInTable="columnParam1" msprop:Generator_ColumnPropNameInRow="Param1" msprop:Generator_ColumnPropNameInTable="Param1Column" msprop:Generator_UserColumnName="Param1" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Param2" msprop:Generator_ColumnVarNameInTable="columnParam2" msprop:Generator_ColumnPropNameInRow="Param2" msprop:Generator_ColumnPropNameInTable="Param2Column" msprop:Generator_UserColumnName="Param2" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CodeUtilisateur" msprop:Generator_ColumnVarNameInTable="columnCodeUtilisateur" msprop:Generator_ColumnPropNameInRow="CodeUtilisateur" msprop:Generator_ColumnPropNameInTable="CodeUtilisateurColumn" msprop:Generator_UserColumnName="CodeUtilisateur" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Montant" msprop:Generator_ColumnVarNameInTable="columnMontant" msprop:Generator_ColumnPropNameInRow="Montant" msprop:Generator_ColumnPropNameInTable="MontantColumn" msprop:Generator_UserColumnName="Montant" type="xs:double" minOccurs="0" />
+              <xs:element name="DatePaye" msprop:Generator_ColumnVarNameInTable="columnDatePaye" msprop:Generator_ColumnPropNameInRow="DatePaye" msprop:Generator_ColumnPropNameInTable="DatePayeColumn" msprop:Generator_UserColumnName="DatePaye" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Moyen" msprop:Generator_ColumnVarNameInTable="columnMoyen" msprop:Generator_ColumnPropNameInRow="Moyen" msprop:Generator_ColumnPropNameInTable="MoyenColumn" msprop:Generator_UserColumnName="Moyen" type="xs:short" minOccurs="0" />
+              <xs:element name="Compteur" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnCompteur" msprop:Generator_ColumnPropNameInRow="Compteur" msprop:Generator_ColumnPropNameInTable="CompteurColumn" msprop:Generator_UserColumnName="Compteur" type="xs:long" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="facture_moyen" msprop:Generator_UserTableName="facture_moyen" msprop:Generator_RowEvArgName="facture_moyenRowChangeEvent" msprop:Generator_TableVarName="tablefacture_moyen" msprop:Generator_TablePropName="facture_moyen" msprop:Generator_RowDeletingName="facture_moyenRowDeleting" msprop:Generator_RowChangingName="facture_moyenRowChanging" msprop:Generator_RowDeletedName="facture_moyenRowDeleted" msprop:Generator_RowEvHandlerName="facture_moyenRowChangeEventHandler" msprop:Generator_RowChangedName="facture_moyenRowChanged" msprop:Generator_TableClassName="facture_moyenDataTable" msprop:Generator_RowClassName="facture_moyenRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Code" msprop:Generator_ColumnVarNameInTable="columnCode" msprop:Generator_ColumnPropNameInRow="Code" msprop:Generator_ColumnPropNameInTable="CodeColumn" msprop:Generator_UserColumnName="Code" type="xs:short" />
+              <xs:element name="Libelle" msprop:Generator_ColumnVarNameInTable="columnLibelle" msprop:Generator_ColumnPropNameInRow="Libelle" msprop:Generator_ColumnPropNameInTable="LibelleColumn" msprop:Generator_UserColumnName="Libelle">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Ordre" msprop:Generator_ColumnVarNameInTable="columnOrdre" msprop:Generator_ColumnPropNameInRow="Ordre" msprop:Generator_ColumnPropNameInTable="OrdreColumn" msprop:Generator_UserColumnName="Ordre" type="xs:short" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="facture_type" msprop:Generator_UserTableName="facture_type" msprop:Generator_RowEvArgName="facture_typeRowChangeEvent" msprop:Generator_TableVarName="tablefacture_type" msprop:Generator_TablePropName="facture_type" msprop:Generator_RowDeletingName="facture_typeRowDeleting" msprop:Generator_RowChangingName="facture_typeRowChanging" msprop:Generator_RowDeletedName="facture_typeRowDeleted" msprop:Generator_RowEvHandlerName="facture_typeRowChangeEventHandler" msprop:Generator_RowChangedName="facture_typeRowChanged" msprop:Generator_TableClassName="facture_typeDataTable" msprop:Generator_RowClassName="facture_typeRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Etat" msprop:Generator_ColumnVarNameInTable="columnEtat" msprop:Generator_ColumnPropNameInRow="Etat" msprop:Generator_ColumnPropNameInTable="EtatColumn" msprop:Generator_UserColumnName="Etat" type="xs:short" />
+              <xs:element name="Libelle" msprop:Generator_ColumnVarNameInTable="columnLibelle" msprop:Generator_ColumnPropNameInRow="Libelle" msprop:Generator_ColumnPropNameInTable="LibelleColumn" msprop:Generator_UserColumnName="Libelle" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Ordre" msprop:Generator_ColumnVarNameInTable="columnOrdre" msprop:Generator_ColumnPropNameInRow="Ordre" msprop:Generator_ColumnPropNameInTable="OrdreColumn" msprop:Generator_UserColumnName="Ordre" type="xs:short" />
+              <xs:element name="Paiement" msprop:Generator_ColumnVarNameInTable="columnPaiement" msprop:Generator_ColumnPropNameInRow="Paiement" msprop:Generator_ColumnPropNameInTable="PaiementColumn" msprop:Generator_UserColumnName="Paiement" type="xs:boolean" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tableutilisateur" msprop:Generator_UserTableName="tableutilisateur" msprop:Generator_RowEvArgName="tableutilisateurRowChangeEvent" msprop:Generator_TableVarName="tabletableutilisateur" msprop:Generator_TablePropName="tableutilisateur" msprop:Generator_RowDeletingName="tableutilisateurRowDeleting" msprop:Generator_RowChangingName="tableutilisateurRowChanging" msprop:Generator_RowDeletedName="tableutilisateurRowDeleted" msprop:Generator_RowEvHandlerName="tableutilisateurRowChangeEventHandler" msprop:Generator_RowChangedName="tableutilisateurRowChanged" msprop:Generator_TableClassName="tableutilisateurDataTable" msprop:Generator_RowClassName="tableutilisateurRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CodeUtilisateur" msprop:Generator_ColumnVarNameInTable="columnCodeUtilisateur" msprop:Generator_ColumnPropNameInRow="CodeUtilisateur" msprop:Generator_ColumnPropNameInTable="CodeUtilisateurColumn" msprop:Generator_UserColumnName="CodeUtilisateur">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Pass" msprop:Generator_ColumnVarNameInTable="columnPass" msprop:Generator_ColumnPropNameInRow="Pass" msprop:Generator_ColumnPropNameInTable="PassColumn" msprop:Generator_UserColumnName="Pass" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Nom" msprop:Generator_ColumnVarNameInTable="columnNom" msprop:Generator_ColumnPropNameInRow="Nom" msprop:Generator_ColumnPropNameInTable="NomColumn" msprop:Generator_UserColumnName="Nom" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="droits" msprop:Generator_ColumnVarNameInTable="columndroits" msprop:Generator_ColumnPropNameInRow="droits" msprop:Generator_ColumnPropNameInTable="droitsColumn" msprop:Generator_UserColumnName="droits" type="xs:short" minOccurs="0" />
+              <xs:element name="Initiale" msprop:Generator_ColumnVarNameInTable="columnInitiale" msprop:Generator_ColumnPropNameInRow="Initiale" msprop:Generator_ColumnPropNameInTable="InitialeColumn" msprop:Generator_UserColumnName="Initiale" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Mail" msprop:Generator_ColumnVarNameInTable="columnMail" msprop:Generator_ColumnPropNameInRow="Mail" msprop:Generator_ColumnPropNameInTable="MailColumn" msprop:Generator_UserColumnName="Mail" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DateDerConnexion" msprop:Generator_ColumnVarNameInTable="columnDateDerConnexion" msprop:Generator_ColumnPropNameInRow="DateDerConnexion" msprop:Generator_ColumnPropNameInTable="DateDerConnexionColumn" msprop:Generator_UserColumnName="DateDerConnexion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Archive" msprop:Generator_ColumnVarNameInTable="columnArchive" msprop:Generator_ColumnPropNameInRow="Archive" msprop:Generator_ColumnPropNameInTable="ArchiveColumn" msprop:Generator_UserColumnName="Archive" type="xs:int" minOccurs="0" />
+              <xs:element name="NomGeneve" msprop:Generator_ColumnVarNameInTable="columnNomGeneve" msprop:Generator_ColumnPropNameInRow="NomGeneve" msprop:Generator_ColumnPropNameInTable="NomGeneveColumn" msprop:Generator_UserColumnName="NomGeneve" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PrenomGeneve" msprop:Generator_ColumnVarNameInTable="columnPrenomGeneve" msprop:Generator_ColumnPropNameInRow="PrenomGeneve" msprop:Generator_ColumnPropNameInTable="PrenomGeneveColumn" msprop:Generator_UserColumnName="PrenomGeneve" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Concordat" msprop:Generator_ColumnVarNameInTable="columnConcordat" msprop:Generator_ColumnPropNameInRow="Concordat" msprop:Generator_ColumnPropNameInTable="ConcordatColumn" msprop:Generator_UserColumnName="Concordat" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EAN" msprop:Generator_ColumnVarNameInTable="columnEAN" msprop:Generator_ColumnPropNameInRow="EAN" msprop:Generator_ColumnPropNameInTable="EANColumn" msprop:Generator_UserColumnName="EAN" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Commentaire" msprop:Generator_ColumnVarNameInTable="columnCommentaire" msprop:Generator_ColumnPropNameInRow="Commentaire" msprop:Generator_ColumnPropNameInTable="CommentaireColumn" msprop:Generator_UserColumnName="Commentaire" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:facture" />
+      <xs:field xpath="mstns:NFacture" />
+    </xs:unique>
+    <xs:unique name="facture_etats_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:facture_etats" />
+      <xs:field xpath="mstns:Compteur" />
+    </xs:unique>
+    <xs:unique name="facture_moyen_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:facture_moyen" />
+      <xs:field xpath="mstns:Code" />
+    </xs:unique>
+    <xs:unique name="facture_type_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:facture_type" />
+      <xs:field xpath="mstns:Etat" />
+    </xs:unique>
+    <xs:unique name="tableutilisateur_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:tableutilisateur" />
+      <xs:field xpath="mstns:CodeUtilisateur" />
+    </xs:unique>
+  </xs:element>
+  <xs:annotation>
+    <xs:appinfo>
+      <msdata:Relationship name="facture_facture_etats" msdata:parent="facture" msdata:child="facture_etats" msdata:parentkey="NFacture" msdata:childkey="NFacture" msprop:Generator_UserChildTable="facture_etats" msprop:Generator_ChildPropName="Getfacture_etatsRows" msprop:Generator_ParentPropName="factureRow" msprop:Generator_UserRelationName="facture_facture_etats" msprop:Generator_RelationVarName="relationfacture_facture_etats" msprop:Generator_UserParentTable="facture" />
+      <msdata:Relationship name="facture_etats_facture_type" msdata:parent="facture_etats" msdata:child="facture_type" msdata:parentkey="Etat" msdata:childkey="Etat" msprop:Generator_UserChildTable="facture_type" msprop:Generator_ChildPropName="Getfacture_typeRows" msprop:Generator_ParentPropName="facture_etatsRow" msprop:Generator_UserRelationName="facture_etats_facture_type" msprop:Generator_RelationVarName="relationfacture_etats_facture_type" msprop:Generator_UserParentTable="facture_etats" />
+      <msdata:Relationship name="facture_etats_facture_moyen" msdata:parent="facture_etats" msdata:child="facture_moyen" msdata:parentkey="Moyen" msdata:childkey="Code" msprop:Generator_UserChildTable="facture_moyen" msprop:Generator_ChildPropName="Getfacture_moyenRows" msprop:Generator_ParentPropName="facture_etatsRow" msprop:Generator_UserRelationName="facture_etats_facture_moyen" msprop:Generator_RelationVarName="relationfacture_etats_facture_moyen" msprop:Generator_UserParentTable="facture_etats" />
+      <msdata:Relationship name="facture_etats_tableutilisateur" msdata:parent="facture_etats" msdata:child="tableutilisateur" msdata:parentkey="CodeUtilisateur" msdata:childkey="CodeUtilisateur" msprop:Generator_UserChildTable="tableutilisateur" msprop:Generator_ChildPropName="GettableutilisateurRows" msprop:Generator_ParentPropName="facture_etatsRow" msprop:Generator_UserRelationName="facture_etats_tableutilisateur" msprop:Generator_RelationVarName="relationfacture_etats_tableutilisateur" msprop:Generator_UserParentTable="facture_etats" />
+    </xs:appinfo>
+  </xs:annotation>
+</xs:schema>

@@ -1,0 +1,158 @@
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.csproj.AssemblyReference.cache
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\Interop.Microsoft.Office.Core.dll
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.csproj.ResolveComReference.cache
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Assutances.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.AjoutElements.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.AjoutMedecin.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.ctrlConsultationEtat.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.CtrlDest.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.ctrlJointDoc.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.CtrlPersonne.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.FicheConsult.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.FImpFicheConsult.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.FIP.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.FormRapport.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.FRechFicheConsult.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.FRechMedecin.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmApropos.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.frmJointDoc.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmListeEffecteur.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmMedecins.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmNouveauPatient.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmParametrages.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmPrintersParam.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.ctrlFichePatient.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.ViewerDecompte.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.viewerStats144.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.FArrangementPaiement.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.CtrlNavigation.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.Decompt.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.FacturePatient.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.FAjoutDocumentsFacture.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.FImpFacture.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.FormSalaireMedecins.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.FPoliceVersTarmed.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmAssurance.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.frmDetails.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmEncaissement.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmEnvoi.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\SosMedecins.SmartRapport.Facturation.frmFacAnnuler.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmFacDuplicata.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmFacPaiement.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmFacturation.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmHotel.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmImpressionDecompte.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmImpressionFacture.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.frmModificationSolde.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.frmPaiement.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmRelances.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmSelectionDate.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmTiers.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.ImpressionDebiteurs.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.UserControl1.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.FAjoutDocuments.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmFacturesEncMed.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.FInfoAssure.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.ListeMedecinscs.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Rapport.FCarteAVS.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\RecupDataEpos1.FImportEpos.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Statistics.FMaterielsStats.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.TA.Fattestation.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmEtiquetteTA.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmFactures_TA.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmPrestations.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmGestionTA.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.TA.frmMateriel.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.TA.frmStopRappelsTA.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmTA_Fac.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Properties.Resources.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.CtrlCategorie.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.CtrlServeur.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmAjoutDestinataire.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmListeRapportAViser.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmModifRapport.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmRapport_Objet.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmRecherchePersonne.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmTa.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.TA.InterfGestionTA.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.TA.TA_Facturation.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.csproj.GenerateResource.cache
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.csproj.AssemblyReference.cache
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\Interop.Microsoft.Office.Core.dll
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.csproj.ResolveComReference.cache
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Assutances.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.AjoutElements.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.AjoutMedecin.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.ctrlConsultationEtat.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.CtrlDest.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.ctrlJointDoc.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.CtrlPersonne.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.FicheConsult.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.FImpFicheConsult.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.FIP.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.FormRapport.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.FRechFicheConsult.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.FRechMedecin.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmApropos.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.frmJointDoc.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmListeEffecteur.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmMedecins.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmNouveauPatient.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmParametrages.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmPrintersParam.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.ctrlFichePatient.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.ViewerDecompte.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Commun.viewerStats144.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.FArrangementPaiement.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.CtrlNavigation.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.Decompt.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.FacturePatient.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.FAjoutDocumentsFacture.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.FImpFacture.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.FormSalaireMedecins.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.FPoliceVersTarmed.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmAssurance.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.frmDetails.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmEncaissement.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmEnvoi.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\SosMedecins.SmartRapport.Facturation.frmFacAnnuler.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmFacDuplicata.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmFacPaiement.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmFacturation.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmHotel.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmImpressionDecompte.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmImpressionFacture.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.frmModificationSolde.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.frmPaiement.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmRelances.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmSelectionDate.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmTiers.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.ImpressionDebiteurs.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Facture.UserControl1.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.FAjoutDocuments.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmFacturesEncMed.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.FInfoAssure.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.ListeMedecinscs.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Rapport.FCarteAVS.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\RecupDataEpos1.FImportEpos.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Statistics.FMaterielsStats.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.TA.Fattestation.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmEtiquetteTA.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmFactures_TA.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmPrestations.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmGestionTA.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.TA.frmMateriel.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.TA.frmStopRappelsTA.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmTA_Fac.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.Properties.Resources.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.CtrlCategorie.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.CtrlServeur.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmAjoutDestinataire.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmListeRapportAViser.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmModifRapport.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmRapport_Objet.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmRecherchePersonne.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.frmTa.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.TA.InterfGestionTA.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.TA.TA_Facturation.resources
+D:\Visual Studio 19\SmartRapport\ImportSosGeneve\obj\Debug\ImportSosGeneve.csproj.GenerateResource.cache

@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://www.w3.org/2001/XMLSchema" />
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="Authentification">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="login" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthentificationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AuthentificationResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAppelsTermines">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Num" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodeService" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="AvecFacture" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAppelsTerminesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAppelsTerminesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultationsLibresTerminees">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Num" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodeService" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultationsLibresTermineesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConsultationsLibresTermineesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAppelsTerminesBetweenTwoIndex">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Num1" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="Num2" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodeService" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="AvecFacture" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAppelsTerminesBetweenTwoIndexResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAppelsTerminesBetweenTwoIndexResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultationsTermineesBetweenTwoIndex">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Num1" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="Num2" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="CodeService" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConsultationsTermineesBetweenTwoIndexResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConsultationsTermineesBetweenTwoIndexResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPatientByTel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Service" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tel" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPatientByTelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPatientByTelResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTotaliteIndexAppels">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CodeService" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTotaliteIndexAppelsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTotaliteIndexAppelsResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetListeMedecins">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CodeService" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetListeMedecinsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetListeMedecinsResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAppelByNumero">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="NumeroIndex" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="AvecFacture" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAppelByNumeroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAppelByNumeroResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAppelEnConsultationLibreByNumero">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="NumeroIndex" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAppelEnConsultationLibreByNumeroResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAppelEnConsultationLibreByNumeroResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEcg">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="NConsultation" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEcgResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEcgResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreatePatient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Nom" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Prenom" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Telephone" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DateNaissance" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="Sexe" type="s1:char" />
+            <s:element minOccurs="0" maxOccurs="1" name="Departement" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Commune" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NumeroPostal" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Rue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NumeroDansLaRue" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Longitude" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="Latitude" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="Batiment" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Escalier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Digicode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Etage" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Interphone" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="InterNom" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Porte" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CommentairePatient" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreatePatientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreatePatientResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePatient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IndicePatient" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="Nom" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Prenom" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Telephone" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="DateNaissance" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Departement" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Commune" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NumeroPostal" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Rue" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NumeroDansLaRue" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Longitude" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="Latitude" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="Batiment" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Escalier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Digicode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Etage" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Interphone" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="InterNom" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Porte" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CommentairePatient" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePatientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdatePatientResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddRemToPatient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IndicePatient" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="TypeRemarque" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TexteRemarque" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Departement" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddRemToPatientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddRemToPatientResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveRemToPatient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IndicePatient" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="TypeRemarque" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveRemToPatientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RemoveRemToPatientResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HistoriqueStatutMedecin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IndexDepart" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HistoriqueStatutMedecinResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HistoriqueStatutMedecinResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="char">
+        <s:restriction base="s:unsignedShort" />
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AuthentificationSoapIn">
+    <wsdl:part name="parameters" element="tns:Authentification" />
+  </wsdl:message>
+  <wsdl:message name="AuthentificationSoapOut">
+    <wsdl:part name="parameters" element="tns:AuthentificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAppelsTerminesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAppelsTermines" />
+  </wsdl:message>
+  <wsdl:message name="GetAppelsTerminesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAppelsTerminesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultationsLibresTermineesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsultationsLibresTerminees" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultationsLibresTermineesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsultationsLibresTermineesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAppelsTerminesBetweenTwoIndexSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAppelsTerminesBetweenTwoIndex" />
+  </wsdl:message>
+  <wsdl:message name="GetAppelsTerminesBetweenTwoIndexSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAppelsTerminesBetweenTwoIndexResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultationsTermineesBetweenTwoIndexSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConsultationsTermineesBetweenTwoIndex" />
+  </wsdl:message>
+  <wsdl:message name="GetConsultationsTermineesBetweenTwoIndexSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConsultationsTermineesBetweenTwoIndexResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPatientByTelSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPatientByTel" />
+  </wsdl:message>
+  <wsdl:message name="GetPatientByTelSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPatientByTelResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTotaliteIndexAppelsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTotaliteIndexAppels" />
+  </wsdl:message>
+  <wsdl:message name="GetTotaliteIndexAppelsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTotaliteIndexAppelsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetListeMedecinsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetListeMedecins" />
+  </wsdl:message>
+  <wsdl:message name="GetListeMedecinsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetListeMedecinsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAppelByNumeroSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAppelByNumero" />
+  </wsdl:message>
+  <wsdl:message name="GetAppelByNumeroSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAppelByNumeroResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAppelEnConsultationLibreByNumeroSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAppelEnConsultationLibreByNumero" />
+  </wsdl:message>
+  <wsdl:message name="GetAppelEnConsultationLibreByNumeroSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAppelEnConsultationLibreByNumeroResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEcgSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEcg" />
+  </wsdl:message>
+  <wsdl:message name="GetEcgSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEcgResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreatePatientSoapIn">
+    <wsdl:part name="parameters" element="tns:CreatePatient" />
+  </wsdl:message>
+  <wsdl:message name="CreatePatientSoapOut">
+    <wsdl:part name="parameters" element="tns:CreatePatientResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePatientSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdatePatient" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePatientSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePatientResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddRemToPatientSoapIn">
+    <wsdl:part name="parameters" element="tns:AddRemToPatient" />
+  </wsdl:message>
+  <wsdl:message name="AddRemToPatientSoapOut">
+    <wsdl:part name="parameters" element="tns:AddRemToPatientResponse" />
+  </wsdl:message>
+  <wsdl:message name="RemoveRemToPatientSoapIn">
+    <wsdl:part name="parameters" element="tns:RemoveRemToPatient" />
+  </wsdl:message>
+  <wsdl:message name="RemoveRemToPatientSoapOut">
+    <wsdl:part name="parameters" element="tns:RemoveRemToPatientResponse" />
+  </wsdl:message>
+  <wsdl:message name="HistoriqueStatutMedecinSoapIn">
+    <wsdl:part name="parameters" element="tns:HistoriqueStatutMedecin" />
+  </wsdl:message>
+  <wsdl:message name="HistoriqueStatutMedecinSoapOut">
+    <wsdl:part name="parameters" element="tns:HistoriqueStatutMedecinResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WSRecup_040Soap">
+    <wsdl:operation name="Authentification">
+      <wsdl:input message="tns:AuthentificationSoapIn" />
+      <wsdl:output message="tns:AuthentificationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAppelsTermines">
+      <wsdl:input message="tns:GetAppelsTerminesSoapIn" />
+      <wsdl:output message="tns:GetAppelsTerminesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultationsLibresTerminees">
+      <wsdl:input message="tns:GetConsultationsLibresTermineesSoapIn" />
+      <wsdl:output message="tns:GetConsultationsLibresTermineesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAppelsTerminesBetweenTwoIndex">
+      <wsdl:input message="tns:GetAppelsTerminesBetweenTwoIndexSoapIn" />
+      <wsdl:output message="tns:GetAppelsTerminesBetweenTwoIndexSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultationsTermineesBetweenTwoIndex">
+      <wsdl:input message="tns:GetConsultationsTermineesBetweenTwoIndexSoapIn" />
+      <wsdl:output message="tns:GetConsultationsTermineesBetweenTwoIndexSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPatientByTel">
+      <wsdl:input message="tns:GetPatientByTelSoapIn" />
+      <wsdl:output message="tns:GetPatientByTelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTotaliteIndexAppels">
+      <wsdl:input message="tns:GetTotaliteIndexAppelsSoapIn" />
+      <wsdl:output message="tns:GetTotaliteIndexAppelsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListeMedecins">
+      <wsdl:input message="tns:GetListeMedecinsSoapIn" />
+      <wsdl:output message="tns:GetListeMedecinsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAppelByNumero">
+      <wsdl:input message="tns:GetAppelByNumeroSoapIn" />
+      <wsdl:output message="tns:GetAppelByNumeroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAppelEnConsultationLibreByNumero">
+      <wsdl:input message="tns:GetAppelEnConsultationLibreByNumeroSoapIn" />
+      <wsdl:output message="tns:GetAppelEnConsultationLibreByNumeroSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEcg">
+      <wsdl:input message="tns:GetEcgSoapIn" />
+      <wsdl:output message="tns:GetEcgSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreatePatient">
+      <wsdl:input message="tns:CreatePatientSoapIn" />
+      <wsdl:output message="tns:CreatePatientSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePatient">
+      <wsdl:input message="tns:UpdatePatientSoapIn" />
+      <wsdl:output message="tns:UpdatePatientSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddRemToPatient">
+      <wsdl:input message="tns:AddRemToPatientSoapIn" />
+      <wsdl:output message="tns:AddRemToPatientSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveRemToPatient">
+      <wsdl:input message="tns:RemoveRemToPatientSoapIn" />
+      <wsdl:output message="tns:RemoveRemToPatientSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="HistoriqueStatutMedecin">
+      <wsdl:input message="tns:HistoriqueStatutMedecinSoapIn" />
+      <wsdl:output message="tns:HistoriqueStatutMedecinSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSRecup_040Soap" type="tns:WSRecup_040Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Authentification">
+      <soap:operation soapAction="http://tempuri.org/Authentification" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAppelsTermines">
+      <soap:operation soapAction="http://tempuri.org/GetAppelsTermines" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultationsLibresTerminees">
+      <soap:operation soapAction="http://tempuri.org/GetConsultationsLibresTerminees" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAppelsTerminesBetweenTwoIndex">
+      <soap:operation soapAction="http://tempuri.org/GetAppelsTerminesBetweenTwoIndex" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultationsTermineesBetweenTwoIndex">
+      <soap:operation soapAction="http://tempuri.org/GetConsultationsTermineesBetweenTwoIndex" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPatientByTel">
+      <soap:operation soapAction="http://tempuri.org/GetPatientByTel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTotaliteIndexAppels">
+      <soap:operation soapAction="http://tempuri.org/GetTotaliteIndexAppels" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListeMedecins">
+      <soap:operation soapAction="http://tempuri.org/GetListeMedecins" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAppelByNumero">
+      <soap:operation soapAction="http://tempuri.org/GetAppelByNumero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAppelEnConsultationLibreByNumero">
+      <soap:operation soapAction="http://tempuri.org/GetAppelEnConsultationLibreByNumero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEcg">
+      <soap:operation soapAction="http://tempuri.org/GetEcg" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreatePatient">
+      <soap:operation soapAction="http://tempuri.org/CreatePatient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePatient">
+      <soap:operation soapAction="http://tempuri.org/UpdatePatient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddRemToPatient">
+      <soap:operation soapAction="http://tempuri.org/AddRemToPatient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveRemToPatient">
+      <soap:operation soapAction="http://tempuri.org/RemoveRemToPatient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HistoriqueStatutMedecin">
+      <soap:operation soapAction="http://tempuri.org/HistoriqueStatutMedecin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSRecup_040">
+    <wsdl:port name="WSRecup_040Soap" binding="tns:WSRecup_040Soap">
+      <soap:address location="https://62.212.121.238/WsGeneve/WsRecup_040.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

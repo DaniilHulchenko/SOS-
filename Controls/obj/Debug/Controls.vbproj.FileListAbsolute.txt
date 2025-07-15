@@ -1,0 +1,10 @@
+C:\Users\lvovd\Source\Repos\SmartRapport\Controls\bin\Debug\SosMedecins.Controls.dll
+C:\Users\lvovd\Source\Repos\SmartRapport\Controls\bin\Debug\SosMedecins.Controls.pdb
+C:\Users\lvovd\Source\Repos\SmartRapport\Controls\bin\Debug\SosMedecins.xml
+C:\Users\lvovd\Source\Repos\SmartRapport\Controls\obj\Debug\Controls.vbproj.AssemblyReference.cache
+C:\Users\lvovd\Source\Repos\SmartRapport\Controls\obj\Debug\SosMedecins.Controls.Resources.resources
+C:\Users\lvovd\Source\Repos\SmartRapport\Controls\obj\Debug\Controls.vbproj.GenerateResource.cache
+C:\Users\lvovd\Source\Repos\SmartRapport\Controls\obj\Debug\Controls.vbproj.CoreCompileInputs.cache
+C:\Users\lvovd\Source\Repos\SmartRapport\Controls\obj\Debug\SosMedecins.Controls.dll
+C:\Users\lvovd\Source\Repos\SmartRapport\Controls\obj\Debug\SosMedecins.xml
+C:\Users\lvovd\Source\Repos\SmartRapport\Controls\obj\Debug\SosMedecins.Controls.pdb

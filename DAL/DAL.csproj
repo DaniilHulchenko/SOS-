@@ -1,0 +1,512 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AFE01266-C4DF-4EFA-8751-D66CF4CABDC5}</ProjectGuid>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>SosMedecins.SmartRapport.DAL</AssemblyName>
+    <AssemblyOriginatorKeyFile>cleForte.pfx</AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SosMedecins.SmartRapport.DAL</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Data.Odbc, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ImportSosGeneve\obj\Release\Microsoft.Data.Odbc.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsEtiquettes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsEtiquettes.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstAssurances.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstAssurances.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstBulletinLibre.cs">
+      <DependentUpon>dstBulletinLibre.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstBulletinLibre.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstBulletinLibre.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstCorps.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstCorps.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstDestination.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstDestination.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstElementsFacture.cs">
+      <DependentUpon>dstElementsFacture.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstElementsFacture.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>dstElementsFacture.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstFactureImpr.cs">
+      <DependentUpon>dstFactureImpr.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstFactureImpr.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstFactureImpr.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstFacturesEncMed.cs">
+      <DependentUpon>dstFacturesEncMed.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstFacturesEncMed.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstFacturesEncMed.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstFicheConsult.cs">
+      <DependentUpon>dstFicheConsult.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstFicheConsult.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstFicheConsult.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstNbJourTravaillees.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstNbJourTravaillees.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstPatients.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstPatients.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstPrestations.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstPrestations.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstRapport.cs">
+      <DependentUpon>dstRapport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstRapport.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstRapport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstRelances.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstRelances.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstStopRappels.cs" />
+    <Compile Include="dstStopRappels.designer.cs">
+      <DependentUpon>dstStopRappels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dstTaFacture.cs">
+      <DependentUpon>dstTaFacture.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstTaFacture.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstTaFacture.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Fonction.cs" />
+    <Compile Include="GestionTA.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GestionTA.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MedecinsVille.cs" />
+    <Compile Include="Patient_Remarque.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="dstSalaireMedecin.cs">
+      <DependentUpon>dstSalaireMedecin.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dstSalaireMedecin.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstSalaireMedecin.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="TableConsultations.cs" />
+    <Compile Include="TableFacture.cs" />
+    <Compile Include="TableFactureEtat.cs" />
+    <Compile Include="TablePatient.cs" />
+    <Compile Include="TablePersonne.cs" />
+    <Compile Include="RequetesDelete.cs" />
+    <Compile Include="RequetesInsert.cs" />
+    <Compile Include="RequetesSelect.cs" />
+    <Compile Include="RequetesUpdate.cs" />
+    <Compile Include="Variables.cs" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="cleForte.pfx" />
+    <None Include="DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet1.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="dsEtiquettes.xsc">
+      <DependentUpon>dsEtiquettes.xsd</DependentUpon>
+    </None>
+    <None Include="dsEtiquettes.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsEtiquettes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="dsEtiquettes.xss">
+      <DependentUpon>dsEtiquettes.xsd</DependentUpon>
+    </None>
+    <None Include="dstAssurances.xsc">
+      <DependentUpon>dstAssurances.xsd</DependentUpon>
+    </None>
+    <None Include="dstAssurances.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstAssurances.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dstAssurances.xss">
+      <DependentUpon>dstAssurances.xsd</DependentUpon>
+    </None>
+    <None Include="dstBulletinLibre.xsc">
+      <DependentUpon>dstBulletinLibre.xsd</DependentUpon>
+    </None>
+    <None Include="dstBulletinLibre.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstBulletinLibre.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dstBulletinLibre.xss">
+      <DependentUpon>dstBulletinLibre.xsd</DependentUpon>
+    </None>
+    <None Include="dstCorps.xsc">
+      <DependentUpon>dstCorps.xsd</DependentUpon>
+    </None>
+    <None Include="dstCorps.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstCorps.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dstCorps.xss">
+      <DependentUpon>dstCorps.xsd</DependentUpon>
+    </None>
+    <None Include="dstDestination.xsc">
+      <DependentUpon>dstDestination.xsd</DependentUpon>
+    </None>
+    <None Include="dstDestination.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstDestination.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dstDestination.xss">
+      <DependentUpon>dstDestination.xsd</DependentUpon>
+    </None>
+    <None Include="dstElementsFacture.xsc">
+      <DependentUpon>dstElementsFacture.xsd</DependentUpon>
+    </None>
+    <None Include="dstElementsFacture.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstElementsFacture.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dstElementsFacture.xss">
+      <DependentUpon>dstElementsFacture.xsd</DependentUpon>
+    </None>
+    <None Include="dstFactureImpr.xsc">
+      <DependentUpon>dstFactureImpr.xsd</DependentUpon>
+    </None>
+    <None Include="dstFactureImpr.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstFactureImpr.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dstFactureImpr.xss">
+      <DependentUpon>dstFactureImpr.xsd</DependentUpon>
+    </None>
+    <None Include="dstFacturesEncMed.xsc">
+      <DependentUpon>dstFacturesEncMed.xsd</DependentUpon>
+    </None>
+    <None Include="dstFacturesEncMed.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstFacturesEncMed.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dstFacturesEncMed.xss">
+      <DependentUpon>dstFacturesEncMed.xsd</DependentUpon>
+    </None>
+    <None Include="dstFicheConsult.xsc">
+      <DependentUpon>dstFicheConsult.xsd</DependentUpon>
+    </None>
+    <None Include="dstFicheConsult.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstFicheConsult.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dstFicheConsult.xss">
+      <DependentUpon>dstFicheConsult.xsd</DependentUpon>
+    </None>
+    <None Include="dstNbJourTravaillees.xsc">
+      <DependentUpon>dstNbJourTravaillees.xsd</DependentUpon>
+    </None>
+    <EmbeddedResource Include="dstNbJourTravaillees.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstNbJourTravaillees.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="dstNbJourTravaillees.xss">
+      <DependentUpon>dstNbJourTravaillees.xsd</DependentUpon>
+    </None>
+    <None Include="dstPatients.xsc">
+      <DependentUpon>dstPatients.xsd</DependentUpon>
+    </None>
+    <None Include="dstPatients.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstPatients.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dstPatients.xss">
+      <DependentUpon>dstPatients.xsd</DependentUpon>
+    </None>
+    <None Include="dstPrestations.xsc">
+      <DependentUpon>dstPrestations.xsd</DependentUpon>
+    </None>
+    <None Include="dstPrestations.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstPrestations.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dstPrestations.xss">
+      <DependentUpon>dstPrestations.xsd</DependentUpon>
+    </None>
+    <None Include="dstRapport.xsc">
+      <DependentUpon>dstRapport.xsd</DependentUpon>
+    </None>
+    <None Include="dstRapport.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstRapport.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dstRapport.xss">
+      <DependentUpon>dstRapport.xsd</DependentUpon>
+    </None>
+    <None Include="dstRelances.xsc">
+      <DependentUpon>dstRelances.xsd</DependentUpon>
+    </None>
+    <None Include="dstRelances.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstRelances.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dstRelances.xss">
+      <DependentUpon>dstRelances.xsd</DependentUpon>
+    </None>
+    <None Include="dstTaFacture.xsc">
+      <DependentUpon>dstTaFacture.xsd</DependentUpon>
+    </None>
+    <None Include="dstTaFacture.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstTaFacture.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dstTaFacture.xss">
+      <DependentUpon>dstTaFacture.xsd</DependentUpon>
+    </None>
+    <None Include="GestionTA.xsc">
+      <DependentUpon>GestionTA.xsd</DependentUpon>
+    </None>
+    <None Include="GestionTA.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GestionTA.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="GestionTA.xss">
+      <DependentUpon>GestionTA.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="dstSalaireMedecin.xsc">
+      <DependentUpon>dstSalaireMedecin.xsd</DependentUpon>
+    </None>
+    <None Include="dstSalaireMedecin.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstSalaireMedecin.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dstSalaireMedecin.xss">
+      <DependentUpon>dstSalaireMedecin.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Connexion\Connexion.vbproj">
+      <Project>{dd48525a-80e8-4799-afc1-4758f7fa6201}</Project>
+      <Name>Connexion</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Controls\Controls.vbproj">
+      <Project>{9bb13b5b-101e-480f-b887-bd3d212d365b}</Project>
+      <Name>Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Systeme\Systeme.csproj">
+      <Project>{c4b678cd-5354-4914-8fa6-860800cb5306}</Project>
+      <Name>Systeme</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

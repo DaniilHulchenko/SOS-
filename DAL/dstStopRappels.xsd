@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dstStopRappels" targetNamespace="http://tempuri.org/dstStopRappels.xsd" xmlns:mstns="http://tempuri.org/dstStopRappels.xsd" xmlns="http://tempuri.org/dstStopRappels.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+        </Connections>
+        <Tables>
+        </Tables>
+        <Sources>
+        </Sources>
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dstStopRappels" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dstStopRappels" msprop:Generator_DataSetName="dstStopRappels">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dtStopRappelsTA" msprop:Generator_UserTableName="dtStopRappelsTA" msprop:Generator_RowDeletedName="dtStopRappelsTARowDeleted" msprop:Generator_TableClassName="dtStopRappelsTADataTable" msprop:Generator_RowChangedName="dtStopRappelsTARowChanged" msprop:Generator_RowClassName="dtStopRappelsTARow" msprop:Generator_RowChangingName="dtStopRappelsTARowChanging" msprop:Generator_RowEvArgName="dtStopRappelsTARowChangeEvent" msprop:Generator_RowEvHandlerName="dtStopRappelsTARowChangeEventHandler" msprop:Generator_TablePropName="dtStopRappelsTA" msprop:Generator_TableVarName="tabledtStopRappelsTA" msprop:Generator_RowDeletingName="dtStopRappelsTARowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Prenom" msprop:Generator_UserColumnName="Prenom" msprop:Generator_ColumnPropNameInRow="Prenom" msprop:Generator_ColumnVarNameInTable="columnPrenom" msprop:Generator_ColumnPropNameInTable="PrenomColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Nom" msprop:Generator_UserColumnName="Nom" msprop:Generator_ColumnPropNameInRow="Nom" msprop:Generator_ColumnVarNameInTable="columnNom" msprop:Generator_ColumnPropNameInTable="NomColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="N_Cle" msprop:Generator_UserColumnName="N_Cle" msprop:Generator_ColumnPropNameInRow="N_Cle" msprop:Generator_ColumnVarNameInTable="columnN_Cle" msprop:Generator_ColumnPropNameInTable="N_CleColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Sexe" msprop:Generator_UserColumnName="Sexe" msprop:Generator_ColumnPropNameInRow="Sexe" msprop:Generator_ColumnVarNameInTable="columnSexe" msprop:Generator_ColumnPropNameInTable="SexeColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="IdAbonnement" msprop:Generator_UserColumnName="IdAbonnement" msprop:Generator_ColumnPropNameInRow="IdAbonnement" msprop:Generator_ColumnVarNameInTable="columnIdAbonnement" msprop:Generator_ColumnPropNameInTable="IdAbonnementColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="StopRappelTA" msprop:Generator_UserColumnName="StopRappelTA" msprop:Generator_ColumnPropNameInRow="StopRappelTA" msprop:Generator_ColumnVarNameInTable="columnStopRappelTA" msprop:Generator_ColumnPropNameInTable="StopRappelTAColumn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

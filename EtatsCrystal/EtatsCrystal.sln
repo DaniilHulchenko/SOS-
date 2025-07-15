@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EtatsCrystal", "EtatsCrystal.vbproj", "{7FB7E7FA-E1A2-495C-9BD0-1D3234BFD493}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 1
+		SccProjectUniqueName0 = EtatsCrystal.vbproj
+		SccProjectName0 = \u0022$/SmartRapport/EtatsCrystal\u0022,\u0020GDIAAAAA
+		SccLocalPath0 = .
+		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+		CanCheckoutShared = false
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FB7E7FA-E1A2-495C-9BD0-1D3234BFD493}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FB7E7FA-E1A2-495C-9BD0-1D3234BFD493}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FB7E7FA-E1A2-495C-9BD0-1D3234BFD493}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FB7E7FA-E1A2-495C-9BD0-1D3234BFD493}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

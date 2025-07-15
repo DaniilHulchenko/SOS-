@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL.csproj", "{AFE01266-C4DF-4EFA-8751-D66CF4CABDC5}"
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 1
+		SccProjectUniqueName0 = DAL.csproj
+		SccProjectName0 = \u0022$/SmartRapport/DAL\u0022,\u0020BEHAAAAA
+		SccLocalPath0 = .
+		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+		CanCheckoutShared = false
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFE01266-C4DF-4EFA-8751-D66CF4CABDC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFE01266-C4DF-4EFA-8751-D66CF4CABDC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFE01266-C4DF-4EFA-8751-D66CF4CABDC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFE01266-C4DF-4EFA-8751-D66CF4CABDC5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

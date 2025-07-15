@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dstBulletinLibre" targetNamespace="http://tempuri.org/dstBulletinLibre.xsd" xmlns:mstns="http://tempuri.org/dstBulletinLibre.xsd" xmlns="http://tempuri.org/dstBulletinLibre.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dstBulletinLibre" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dstBulletinLibre" msprop:Generator_UserDSName="dstBulletinLibre">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DtFacture" msprop:Generator_TableClassName="DtFactureDataTable" msprop:Generator_TableVarName="tableDtFacture" msprop:Generator_RowChangedName="DtFactureRowChanged" msprop:Generator_TablePropName="DtFacture" msprop:Generator_RowDeletingName="DtFactureRowDeleting" msprop:Generator_RowChangingName="DtFactureRowChanging" msprop:Generator_RowEvHandlerName="DtFactureRowChangeEventHandler" msprop:Generator_RowDeletedName="DtFactureRowDeleted" msprop:Generator_RowClassName="DtFactureRow" msprop:Generator_UserTableName="DtFacture" msprop:Generator_RowEvArgName="DtFactureRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Nb" msprop:Generator_ColumnVarNameInTable="columnNb" msprop:Generator_ColumnPropNameInRow="Nb" msprop:Generator_ColumnPropNameInTable="NbColumn" msprop:Generator_UserColumnName="Nb" type="xs:int" minOccurs="0" />
+              <xs:element name="NFacture" msprop:Generator_ColumnVarNameInTable="columnNFacture" msprop:Generator_ColumnPropNameInRow="NFacture" msprop:Generator_ColumnPropNameInTable="NFactureColumn" msprop:Generator_UserColumnName="NFacture" type="xs:int" minOccurs="0" />
+              <xs:element name="NomDestinataire" msprop:Generator_ColumnVarNameInTable="columnNomDestinataire" msprop:Generator_ColumnPropNameInRow="NomDestinataire" msprop:Generator_ColumnPropNameInTable="NomDestinataireColumn" msprop:Generator_UserColumnName="NomDestinataire" type="xs:string" minOccurs="0" />
+              <xs:element name="AdresseDestinataire" msprop:Generator_ColumnVarNameInTable="columnAdresseDestinataire" msprop:Generator_ColumnPropNameInRow="AdresseDestinataire" msprop:Generator_ColumnPropNameInTable="AdresseDestinataireColumn" msprop:Generator_UserColumnName="AdresseDestinataire" type="xs:string" minOccurs="0" />
+              <xs:element name="DateFacture" msprop:Generator_ColumnVarNameInTable="columnDateFacture" msprop:Generator_ColumnPropNameInRow="DateFacture" msprop:Generator_ColumnPropNameInTable="DateFactureColumn" msprop:Generator_UserColumnName="DateFacture" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Montant" msprop:Generator_ColumnVarNameInTable="columnMontant" msprop:Generator_ColumnPropNameInRow="Montant" msprop:Generator_ColumnPropNameInTable="MontantColumn" msprop:Generator_UserColumnName="Montant" type="xs:decimal" minOccurs="0" />
+              <xs:element name="reference_number" msprop:Generator_ColumnVarNameInTable="columnreference_number" msprop:Generator_ColumnPropNameInRow="reference_number" msprop:Generator_ColumnPropNameInTable="reference_numberColumn" msprop:Generator_UserColumnName="reference_number" type="xs:string" minOccurs="0" />
+              <xs:element name="QRCode" msprop:Generator_ColumnVarNameInTable="columnQRCode" msprop:Generator_ColumnPropNameInRow="QRCode" msprop:Generator_ColumnPropNameInTable="QRCodeColumn" msprop:Generator_UserColumnName="QRCode" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="AvecLogo" msprop:Generator_ColumnVarNameInTable="columnAvecLogo" msprop:Generator_ColumnPropNameInRow="AvecLogo" msprop:Generator_ColumnPropNameInTable="AvecLogoColumn" msprop:Generator_UserColumnName="AvecLogo" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Codecrete.SwissQRBill.Generator</name>
+    </assembly>
+    <members>
+        <member name="T:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas">
+            <summary>
+            Canvas for generating PNG files.
+            </summary>
+            <remarks>
+            PNGs are not an optimal file format for QR bills. Vector formats such a SVG
+            or PDF are of better quality and use far less processing power to generate
+            </remarks>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas.#ctor(System.Double,System.Double,System.Int32,System.String)">
+            <summary>
+            Initializes a new instance of a PNG canvas with the given size, resolution and font family.
+            <para>
+            The QR bill will be drawn in the bottom left corner of the image.
+            </para>
+            <para>
+            It is recommended to use at least 144 dpi for a readable result.
+            </para>
+            </summary>
+            <param name="width">The image width, in mm.</param>
+            <param name="height">The image height, in mm.</param>
+            <param name="resolution">The resolution of the image to generate (in pixels per inch).</param>
+            <param name="fontFamilyList">A list font family names, separated by comma (same syntax as for CSS). The first font family will be used.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas.FindInstalledFontFamily(System.String)">
+            <summary>
+            Finds the first font family from the specified list that is installed and not replaced with an alternative font.
+            </summary>
+            <param name="fontFamilyList">A list font family names, separated by comma (same syntax as for CSS). The first font family will be used.</param>
+            <returns>font family name (if font is installed), or unchanged font family list (if none of the fonts is found)</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas.SplitCommaSeparated(System.String)">
+            <summary>
+            Splits the comma separated list into its components.
+            <para>
+            A component may use double quotes (similar to CSV formats).
+            </para>
+            </summary>
+            <param name="input">comma separated list</param>
+            <returns>list of components</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas.ToByteArray">
+            <summary>
+            Gets the resulting graphics encoded as a PNG image in a byte array.
+            <para>
+            The canvas can no longer be used for drawing after calling this method.</para>
+            </summary>
+            <returns>The byte array containing the PNG image</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas.WriteTo(System.IO.Stream)">
+            <summary>
+            Writes the resulting graphics as a PNG image to the specified stream.
+            <para>
+            The canvas can no longer be used for drawing after calling this method.</para>
+            </summary>
+            <param name="stream">The stream to write to.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas.SaveAs(System.String)">
+            <summary>
+            Writes the resulting graphics as a PNG image to the specified file path.
+            <para>
+            The canvas can no longer be used for drawing after calling this method.</para>
+            </summary>
+            <param name="path">The path (file name) to write to.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas.Close">
+            <summary>
+            Closes this instance and frees resources.
+            <para>
+            After a call to this method, the canvas can no longer be used for drawing.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas.SetTransformation(System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas.StartPath">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas.CloseSubpath">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas.MoveTo(System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas.LineTo(System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas.AddRectangle(System.Double,System.Double,System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas.CubicCurveTo(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas.FillPath(System.Int32,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas.StrokePath(System.Double,System.Int32,Codecrete.SwissQRBill.Generator.Canvas.LineStyle,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PNGCanvas.PutText(System.String,System.Double,System.Double,System.Int32,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="T:Codecrete.SwissQRBill.PixelCanvas.PNGCanvasFactory">
+            <summary>
+            Factory for creating <c>SVGCanvas</c> instances
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.PixelCanvas.PngProcessor">
+            <summary>
+            Processes PNG imagate data.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PngProcessor.InsertDpi(System.IO.Stream,System.IO.Stream,System.Int32)">
+            <summary>
+            Modifies the PNG image data by inserting a "pHYs" chunk indicating the resolution.
+            </summary>
+            <param name="source">image data, in PNG format</param>
+            <param name="target">stream to write modified image data</param>
+            <param name="dpi">resolution, in pixels per inch</param>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.PixelCanvas.PngProcessor._crcTable">
+            <summary>
+            Table of CRCs of all 8-bit messages
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PngProcessor.CreateCrcTable">
+            <summary>
+            Make the table for a fast CRC.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PngProcessor.UpdateCrc(System.UInt32,System.Collections.Generic.IReadOnlyList{System.Byte},System.Int32,System.Int32)">
+            <summary>
+            Update a running CRC.
+            </summary>
+            <param name="crc">current CRC value</param>
+            <param name="buf">buffer containing the bytes</param>
+            <param name="offset">offset into the buffer</param>
+            <param name="count">number of bytes to process</param>
+            <returns>updated CRC value</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.PixelCanvas.PngProcessor.CalculateCrc(System.Collections.Generic.IReadOnlyList{System.Byte},System.Int32,System.Int32)">
+            <summary>
+            Calculates the CRC value for the specified buffer
+            </summary>
+            <param name="buf">buffer containing the bytes</param>
+            <param name="offset">offset into the buffer</param>
+            <param name="count">number of bytes to process</param>
+            <returns>calculated CRC value</returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,3145 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Codecrete.SwissQRBill.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Codecrete.SwissQRBill.Generator.Address">
+            <summary>
+            Address of creditor or debtor.
+            <para>
+            You can either set street, house number, postal code and town (type <i>structured address</i>)
+            or address line 1 and 2 (type <i>combined address elements</i>). The type is automatically set
+            once any of these fields is set. Before setting the fields, the address type is <i>undetermined</i>.
+            If fields of both types are set, the address type becomes <i>conflicting</i>.
+            Name and country code must always be set unless all fields are empty.
+            </para>
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Address.AddressType">
+            <summary>
+            Address type
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Address.AddressType.Undetermined">
+            <summary>
+            Undetermined
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Address.AddressType.Structured">
+            <summary>
+            Structured address
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Address.AddressType.CombinedElements">
+            <summary>
+            Combined address elements
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Address.AddressType.Conflicting">
+            <summary>
+            Conflicting
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Address.Type">
+            <summary>
+            Gets the address type.
+            <para>
+            The address type is automatically set by either setting street / house number
+            or address line 1 and 2. Before setting the fields, the address type is <i>Undetermined</i>.
+            If fields of both types are set, the address type becomes <i>Conflicting</i>.
+            </para>
+            </summary>
+            <value>The address type.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Address.Name">
+            <summary>
+            Gets or sets the name, either the first and last name of a natural person or the
+            company name of a legal person.
+            </summary>
+            <value>The name.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Address.AddressLine1">
+            <summary>
+            Gets or sets the address line 1.
+            <para>
+            Address line 1 contains street name, house number or P.O. box.
+            </para>
+            <para>
+            Setting this field sets the address type to <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.CombinedElements"/> unless it's already
+            <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.Structured"/>, in which case it becomes <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.Conflicting"/>.
+            </para>
+            <para>
+            This field is only used for combined elements addresses and is optional.
+            </para>
+            </summary>
+            <value>The address line 1.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Address.AddressLine2">
+            <summary>
+            Gets or sets the address line 2.
+            <para>
+            Address line 2 contains postal code and town.
+            </para>
+            <para>
+            Setting this field sets the address type to <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.CombinedElements"/> unless it's already
+            <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.Structured"/>, in which case it becomes <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.Conflicting"/>.
+            </para>
+            <para>
+            This field is only used for combined elements addresses. For this type, it's mandatory.
+            </para>
+            </summary>
+            <value>The address line 2.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Address.Street">
+            <summary>
+            Gets or sets the street.
+            <para>
+            The street must be specified without house number.
+            </para>
+            <para>
+            Setting this field sets the address type to <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.Structured"/> unless it's already
+            <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.CombinedElements"/>, in which case it becomes <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.Conflicting"/>.
+            </para>
+            <para>
+            This field is only used for structured addresses and is optional.
+            </para>
+            </summary>
+            <value>The street.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Address.HouseNo">
+            <summary>
+            Gets or sets the house number.
+            <para>
+            Setting this field sets the address type to <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.Structured"/> unless it's already
+            <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.CombinedElements"/>, in which case it becomes <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.Conflicting"/>.
+            </para>
+            <para>
+            This field is only used for structured addresses and is optional.
+            </para>
+            </summary>
+            <value>The house number.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Address.PostalCode">
+            <summary>
+            Gets or sets the postal code.
+            <para>
+            Setting this field sets the address type to <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.Structured"/> unless it's already
+            <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.CombinedElements"/>, in which case it becomes <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.Conflicting"/>.
+            </para>
+            <para>
+            This field is only used for structured addresses. For this type, it's mandatory.
+            </para>
+            </summary>
+            <value>The postal code.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Address.Town">
+            <summary>
+            Gets or sets the town or city.
+            <para>
+            Setting this field sets the address type to <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.Structured"/> unless it's already
+            <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.CombinedElements"/>, in which case it becomes <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.Conflicting"/>.
+            </para>
+            <para>
+            This field is only used for structured addresses. For this type, it's mandatory.
+            </para>
+            </summary>
+            <value>The town or city.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Address.CountryCode">
+            <summary>
+            Gets or sets the two-letter ISO country code.
+             <para>
+            The country code is mandatory unless the entire address contains <c>null</c> or empty values.
+            </para>
+            </summary>
+            <value>The ISO country code.</value>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Address.Clear">
+            <summary>
+            Clears all fields and sets the type to <see cref="F:Codecrete.SwissQRBill.Generator.Address.AddressType.Undetermined"/>.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Address.Equals(System.Object)">
+            <summary>Determines whether the specified object is equal to the current object.</summary>
+            <param name="obj">The object to compare with the current object.</param>
+            <returns><c>true</c> if the specified object is equal to the current object; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Address.Equals(Codecrete.SwissQRBill.Generator.Address)">
+            <summary>Determines whether the specified address is equal to the current address.</summary>
+            <param name="other">The address to compare with the current address.</param>
+            <returns><c>true</c> if the specified object is equal to the current object; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Address.GetHashCode">
+            <summary>Gets the hash code for this instance.</summary>
+            <returns>A hash code for the current object.</returns>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.AlternativeScheme">
+            <summary>
+            Alternative payment scheme instructions
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.AlternativeScheme.Name">
+            <summary>
+            Gets or sets the payment scheme name.
+            </summary>
+            <value>The payment scheme name.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.AlternativeScheme.Instruction">
+            <summary>
+            Gets the payment instruction for a given bill.
+            <para>
+            The instruction consists of a two letter abbreviation for the scheme, a separator characters
+            and a sequence of parameters(separated by the character at index 2).
+            </para>
+            </summary>
+            <value>The payment instruction.</value>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.AlternativeScheme.Equals(System.Object)">
+            <summary>Determines whether the specified object is equal to the current object.</summary>
+            <param name="obj">The object to compare with the current object.</param>
+            <returns><c>true</c> if the specified object is equal to the current object; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.AlternativeScheme.Equals(Codecrete.SwissQRBill.Generator.AlternativeScheme)">
+            <summary>Determines whether the specified alternative scheme is equal to the current alternative scheme.</summary>
+            <param name="other">The alternative scheme to compare with the current alternative scheme.</param>
+            <returns><c>true</c> if the specified object is equal to the current object; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.AlternativeScheme.GetHashCode">
+            <summary>Gets the hash code for this instance.</summary>
+            <returns>A hash code for the current object.</returns>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Bill">
+            <summary>
+            QR bill data
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Bill.ReferenceTypeNoRef">
+            <summary>
+            Reference type: without reference.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Bill.ReferenceTypeQrRef">
+            <summary>
+            Reference type: QR reference.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Bill.ReferenceTypeCredRef">
+            <summary>
+            Reference type: creditor reference (ISO 11649)
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Bill.QrBillStandardVersion">
+            <summary>
+            QR bill standard version
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Bill.QrBillStandardVersion.V2_0">
+            <summary>
+            Version 2.0
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Bill.Version">
+            <summary>
+            Gets or sets the version of the QR bill standard.
+            </summary>
+            <value>The QR bill standard version.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Bill.Amount">
+            <summary>
+            Gets or sets the payment amount.
+            <para>
+            Valid values are between 0.01 and 999,999,999.99.
+            </para>
+            </summary>
+            <value>The payment amount.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Bill.Currency">
+            <summary>
+            Gets or sets the payment currency.
+            <para>
+            Valid values are "CHF" and "EUR".
+            </para>
+            </summary>
+            <value>The payment currency.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Bill.Account">
+            <summary>
+            Gets or sets the creditor's account number.
+            <para>
+            Account numbers must be valid IBANs of a bank of Switzerland or
+            Liechtenstein. Spaces are allowed in the account number.
+            </para>
+            </summary>
+            <value>The creditor account number.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Bill.Creditor">
+            <summary>
+            Gets or sets the creditor address.
+            </summary>
+            <value>The creditor address.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Bill.ReferenceType">
+            <summary>
+            Gets or sets the ype of payment reference
+            </summary>
+            <para>
+            The reference type is automatically set when the reference is set
+            (derived from the reference). So there is usually no need to set
+            it explicitly.
+            </para>
+            <value>One of the constant values <c>ReferenceTypeXxxRef</c></value>
+            <see cref="F:Codecrete.SwissQRBill.Generator.Bill.ReferenceTypeQrRef"/>
+            <see cref="F:Codecrete.SwissQRBill.Generator.Bill.ReferenceTypeCredRef"/>
+            <see cref="F:Codecrete.SwissQRBill.Generator.Bill.ReferenceTypeNoRef"/>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Bill.UpdateReferenceType">
+            <summary>
+            Updates the reference type by deriving it from the payment reference.
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Bill.Reference">
+            <summary>
+            Gets or sets the creditor payment reference.
+            <para>
+            The reference is mandatory for QR IBANs, i.e. IBANs in the range
+            CHxx30000xxxxxx through CHxx31999xxxxx. QR IBANs require a valid QR
+            reference (numeric reference corresponding to the ISR reference format).
+            </para>
+            <para>
+            For non-QR IBANs, the reference is optional. If it is provided,
+            it must be valid creditor reference according to ISO 11649 ("RFxxxx").
+            </para>
+            <para>
+            Both types of references may contain spaces for formatting.
+            </para>
+            </summary>
+            <value>The creditor payment reference.</value>
+            <seealso cref="M:Codecrete.SwissQRBill.Generator.Bill.CreateAndSetCreditorReference(System.String)"/>
+            <seealso cref="M:Codecrete.SwissQRBill.Generator.Bill.CreateAndSetQRReference(System.String)"/>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Bill.CreateAndSetCreditorReference(System.String)">
+            <summary>
+            Creates and sets a ISO11649 creditor reference from a raw string by prefixing
+            the string with "RF" and the modulo 97 checksum.
+            <para>
+            Whitespace is removed from the reference
+            </para>
+            </summary>
+            <param name="rawReference">The raw reference.</param>
+            <exception cref="T:System.ArgumentException"><c>rawReference</c> contains invalid characters.</exception>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Bill.CreateAndSetQRReference(System.String)">
+            <summary>
+            Creates and sets a QR reference from a raw string by appending the checksum digit
+            and prepending zeros to make it the correct length.
+            <para>
+            As the QR reference is numeric, the raw string must consist of digits and
+            whitespace only. Whitespace is removed from the reference.
+            </para>
+            </summary>
+            <param name="rawReference">The raw reference.</param>
+            <exception cref="T:System.ArgumentException"><c>rawReference</c> contains non-numeric characters or is too long.</exception>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Bill.Debtor">
+            <summary>
+            Gets or sets the debtor address.
+            <para>
+            The debtor is optional. If it is omitted, both setting this field to
+            <c>null</c> or setting an address with all <c>null</c> or empty values is ok.
+            </para>
+            </summary>
+            <value>The debtor address.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Bill.UnstructuredMessage">
+            <summary>
+            Gets or sets the additional unstructured message.
+            </summary>
+            <value>The unstructured message.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Bill.BillInformation">
+            <summary>
+            Gets or sets the additional structured bill information.
+            </summary>
+            <value>The structured bill information.</value>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Bill.SetSwicoBillInformation(Codecrete.SwissQRBill.Generator.SwicoBillInformation)">
+            <summary>
+            Sets the bill information according to Swico S1 syntax from the specified structured bill information.
+            <para>
+            Sets the <see cref="P:Codecrete.SwissQRBill.Generator.Bill.BillInformation"/> property to a value similar to <c>//S1/10/...</c>.
+            </para>
+            </summary>
+            <param name="billInformation">structured bill information</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Bill.RetrieveSwicoBillInformation">
+            <summary>
+            Retrieves the Swico structured bill information from the text in bill information property.
+            <para>
+            If <see cref="P:Codecrete.SwissQRBill.Generator.Bill.BillInformation"/> contains Swico S1 bill information, the
+            result is returned in a <see cref="T:Codecrete.SwissQRBill.Generator.SwicoBillInformation"/> instance.
+            Minor errors in the text are silently ignored. If <see cref="P:Codecrete.SwissQRBill.Generator.Bill.BillInformation"/> does not
+            contain Swico bill information or the text has major errors, <c>null</c> is returned.
+            </para>
+            </summary>
+            <returns>structured bill information (or <c>null</c> if no Swico bill information is found)</returns>
+            <remarks>
+            The bill information property likely contains structured bill information if it starts with <c>//S1/</c>.
+            </remarks>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Bill.AlternativeSchemes">
+            <summary>
+            Gets ors sets the alternative payment schemes.
+            <para>
+            A maximum of two schemes with parameters are allowed.
+            </para>
+            </summary>
+            <value>The alternative payment schemes.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Bill.Format">
+            <summary>
+            Gets or sets the bill formatting information.
+            </summary>
+            <value>The bill formatting information.</value>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Bill.Equals(System.Object)">
+            <summary>Determines whether the specified object is equal to the current object.</summary>
+            <param name="obj">The object to compare with the current object.</param>
+            <returns><c>true</c> if the specified object is equal to the current object; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Bill.Equals(Codecrete.SwissQRBill.Generator.Bill)">
+            <summary>Determines whether the specified bill is equal to the current bill.</summary>
+            <param name="other">The bill to compare with the current bill.</param>
+            <returns><c>true</c> if the specified object is equal to the current object; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Bill.GetHashCode">
+            <summary>Gets the hash code for this instance.</summary>
+            <returns>A hash code for the current object.</returns>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.BillFormat">
+            <summary>
+            Formatting properties for QR bill.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.BillFormat.DefaultMarginWidth">
+            Default width for left and right margin, in mm. 
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.BillFormat.#ctor">
+            <summary>
+            Initializes a new instance with default values.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.BillFormat.#ctor(Codecrete.SwissQRBill.Generator.BillFormat)">
+            <summary>
+            Initializes a new instance with the same values as the specified instance.
+            </summary>
+            <param name="format">The instance with values to copy.</param>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillFormat.OutputSize">
+            <summary>
+            Gets or sets the output size for the generated QR bill.
+            <para>
+            Defaults to <see cref="F:Codecrete.SwissQRBill.Generator.OutputSize.QrBillOnly"/>, i.e. the QR bill only (105 by 210 mm).
+            </para>
+            </summary>
+            <value>The output size.</value>
+            <seealso href="https://github.com/manuelbl/SwissQRBill/wiki/Output-Sizes">Output Sizes (in Wiki)</seealso>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillFormat.Language">
+            <summary>
+            Gets or sets the bill language.
+            <para>
+            Defaults to <see cref="F:Codecrete.SwissQRBill.Generator.Language.EN"/> (English).
+            </para>
+            </summary>
+            <value>The bill language.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillFormat.SeparatorType">
+            <summary>
+            Gets or sets the type of separator drawn above and between the payment part and the receipt.
+            <para>
+            Defaults to <see cref="F:Codecrete.SwissQRBill.Generator.SeparatorType.DashedLineWithScissors"/>.
+            </para>
+            </summary>
+            <value>The separator type.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillFormat.FontFamily">
+            <summary>
+            Gets or sets the font family to be used for text.
+            <para>
+            According to the implementation guidelines Arial, Frutiger, Helvetica and Liberation Sans
+            are the only permitted fonts.
+            </para>
+            <para>
+            Two styles of the font are used: normal/regular and bold.
+            </para>
+            <para>
+            Defaults to <c>Helvetica,Arial,"Liberation Sans"</c>.
+            </para>
+            </summary>
+            <value>The font family.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillFormat.Resolution">
+            <summary>
+            Gets or sets the resolution for pixel image graphics formats.
+            <para>
+            It is recommended to use at least 144 dpi for a readable result.
+            </para>
+            <para>
+            Defaults to 144 dpi.
+            </para>
+            </summary>
+            <value>The graphics resolution, in dpi (pixels per inch).</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillFormat.GraphicsFormat">
+            <summary>
+            Gets or sets the graphics format to be generated.
+            <para>
+            Defaults to <see cref="F:Codecrete.SwissQRBill.Generator.GraphicsFormat.SVG"/>.
+            </para>
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillFormat.MarginLeft">
+            <summary>
+            Gets or sets the left margin width (from edge of paper to start of text).
+            <para>
+            Valid values are between 5mm and 12mm. The default is 5mm.
+            </para>
+            <para>
+            Values other than 5mm are not fully standard compliant as the fields in the receipt on the left-hand side
+            become narrower. It is especially obvious if <i>Payable by</i> or <i>Amount</i> are not pre-filled
+            so that the black corners are printed instead of text. Yet values higher than 5mm are more compatible
+            with typical office and home printers, which are not capable of printing up to the edge of the paper and
+            require a margin wider than 5mm.
+            </para>
+            </summary>
+            <value>margin width, in mm</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillFormat.MarginRight">
+            <summary>
+            Gets or sets the the right margin width (from the end of the text to the edge of the paper).
+            <para>
+            Valid values are between 5mm and 12mm. The default is 5mm.
+            </para>
+            <para>
+            Values other than 5mm are not fully standard compliant but are more compatible with typical office and home
+            printers, which are not capable of printing up to the edge of the paper and require a margin wider than 5mm.
+            </para>
+            </summary>
+            <value>width width, in mm</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillFormat.LocalCountryCode">
+            <summary>
+            Gets or sets the local country code.
+            <para>
+            For postal addresses of the local country, the country code is omitted. For all other
+            countries, the country is prepended to the postal code and town.
+            </para>
+            <para>
+            Defaults to "CH".
+            </para>
+            </summary>
+            <value>country code (ISO 3166, two uppercase letters)</value>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.BillFormat.Equals(System.Object)">
+            <summary>Determines whether the specified object is equal to the current object.</summary>
+            <param name="obj">The object to compare with the current object.</param>
+            <returns><c>true</c> if the specified object is equal to the current object; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.BillFormat.Equals(Codecrete.SwissQRBill.Generator.BillFormat)">
+            <summary>Determines whether the specified bill format is equal to the current bill format.</summary>
+            <param name="other">The bill format to compare with the current bill format.</param>
+            <returns><c>true</c> if the specified object is equal to the current object; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.BillFormat.GetHashCode">
+            <summary>Gets the hash code for this instance.</summary>
+            <returns>A hash code for the current object.</returns>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.BillLayout">
+            <summary>
+            Layouting and drawing of QR bill payment slip
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.BillTextFormatter">
+            <summary>
+            Formats text on a QR bill.
+            <para>
+            The resulting text often contains multiple lines, e.g. for addresses.These line breaks a represented
+            by a line feed character(U+000A). Long lines might require additional line breaks to fit into the
+            given text boxes.These additional line breaks are not included in the resulting text.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.BillTextFormatter.#ctor(Codecrete.SwissQRBill.Generator.Bill)">
+            <summary>
+            Creates a new instance for the specified bill.
+            </summary>
+            <param name="bill">QR bill data</param>
+            <exception cref="T:Codecrete.SwissQRBill.Generator.QRBillValidationException">thrown if the bill cannot be validated without errors</exception>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.BillTextFormatter.#ctor(Codecrete.SwissQRBill.Generator.Bill,System.Boolean)">
+            <summary>
+            Creates a new instance for the specified bill.
+            </summary>
+            <param name="bill">QR bill data</param>
+            <param name="isValidated">indicates if the bill has already been validated and cleaned</param>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillTextFormatter.PayableTo">
+            <summary>
+            Gets the "payable to" text (account number and creditor address).
+            </summary>
+            <value>"payable to" text</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillTextFormatter.PayableToReduced">
+            <summary>
+            Gets the "payable to" text (account number and creditor address) with a reduced address.
+            <para>
+            If space is very tight, an address without street and house number can be used.
+            </para>
+            <value>"payable to" text</value>
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillTextFormatter.Account">
+            <summary>
+            Gets the formatted account number.
+            </summary>
+            <value>account number</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillTextFormatter.CreditorAddress">
+            <summary>
+            Gets the formatted creditor address.
+            </summary>
+            <value>creditor address</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillTextFormatter.CreditorAddressReduced">
+            <summary>
+            Gets the reduced formatted creditor address.
+            <para>
+            If space is very tight, a reduced address without street and house number can be used.
+            </para>
+            </summary>
+            <value>formatted address</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillTextFormatter.Reference">
+            <summary>
+            Gets the formatted reference number.
+            </summary>
+            <value>reference number</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillTextFormatter.Amount">
+            <summary>
+            Gets the formatted amount.
+            <para>
+            Returns <c>null</c> if no amount has been set.
+            </para>
+            </summary>
+            <value>formatted amount</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillTextFormatter.PayableBy">
+            <summary>
+            Gets the "payable by" text (debtor address).
+            <para>Returns <c>null</c> if no debtor has been set.</para>
+            </summary>
+            <value>formatted address</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillTextFormatter.PayableByReduced">
+            <summary>
+            Gets the "payable by" text with a reduced address.
+            <para>
+            If space is very tight, a reduced address without street and house number can be used.
+            </para>
+            <para>
+            Returns <c>null</c> if no debtor has been set.
+            </para>
+            </summary>
+            <value>formatted address</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.BillTextFormatter.AdditionalInformation">
+            <summary>
+            Returns the additional information.
+            <para>
+            It consists of the unstructured message, the bill information, both or none,
+            depending on what has been specified. If neither has been specified, <c>null</c> is returned.
+            </para>
+            </summary>
+            <value>additional information</value>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas">
+            <summary>
+            Abstract base class for simplified implementation of classes implementing <see cref="T:Codecrete.SwissQRBill.Generator.Canvas.ICanvas"/>.
+            <para>
+            The class mainly implements text measurement and a helper for multi-line text.
+            </para>
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.MmToPt">
+            <summary>
+            Conversion factor from mm to point
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.FontMetrics">
+            <summary>
+            Font metrics used by this canvas.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.SetupFontMetrics(System.String)">
+            <summary>
+            Sets up the font metrics using the first font family in the specified list.
+            </summary>
+            <param name="fontFamilyList">The font family list.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.PutTextLines(System.String[],System.Double,System.Double,System.Int32,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.Ascender(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.Descender(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.LineHeight(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.TextWidth(System.String,System.Int32,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.SplitLines(System.String,System.Double,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.SetTransformation(System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.PutText(System.String,System.Double,System.Double,System.Int32,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.StartPath">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.MoveTo(System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.LineTo(System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.CubicCurveTo(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.AddRectangle(System.Double,System.Double,System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.CloseSubpath">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.FillPath(System.Int32,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.StrokePath(System.Double,System.Int32,Codecrete.SwissQRBill.Generator.Canvas.LineStyle,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.ToByteArray">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.AbstractCanvas.Dispose(System.Boolean)">
+            <summary>
+            Frees and releases resources.
+            </summary>
+            <param name="disposing">indicates whether the method is called from a <c>Dispose</c> method (<c>true</c>) or from a finalizer (<c>false</c>).</param>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Canvas.CanvasCreator">
+            <summary>
+            Creates <c>ICanvas</c> instances using the registered <c>ICanvasFactory</c> instances.
+            </summary>
+            <seealso cref="T:Codecrete.SwissQRBill.Generator.Canvas.ICanvas"/>
+            <seealso cref="T:Codecrete.SwissQRBill.Generator.Canvas.ICanvasFactory"/>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.CanvasCreator.Register(Codecrete.SwissQRBill.Generator.Canvas.ICanvasFactory)">
+            <summary>
+            Register an additional canvas factory.
+            <para>
+            Factories added later take precedence over earlier added factories.</para>
+            </summary>
+            <param name="factory">factory to add</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.CanvasCreator.Create(Codecrete.SwissQRBill.Generator.BillFormat,System.Double,System.Double)">
+            <summary>
+            Creates a new <c>ICanvas</c> instance for the specified bill format.
+            </summary>
+            <param name="format">bill format</param>
+            <param name="width">canvas width, in mm</param>
+            <param name="height">canvas height, in mm</param>
+            <returns></returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.CanvasCreator.RegisterPixelCanvasFactory">
+            <summary>
+            Registers the canvas factory for PNG output.
+            <para>
+            The method checks if the Codecrete.SwissQRBill.Generator assembly is present.
+            </para>
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData">
+            <summary>
+            Character width data for Helvetica, Arial, Frutiger and Liberation Sans.
+            <para>
+            Character widths are given in 1/1000 pt for font size 1. Only the character
+            range allowed for QR bill text is covered.
+            </para>
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.HelveticaNormalDefaultWidth">
+            <summary>
+            Default character width for Helvetica Normal.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.HelveticaNormalNDashWidth">
+            <summary>
+            Width of n-dash for Helvetica Normal.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.HelveticaNormal_20_7F">
+            <summary>
+            Character widths for Helvetica Normal (range 0x20 to 0x7f).
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.HelveticaNormal_A0_FF">
+            <summary>
+            Character widths for Helvetica Normal (range 0xa0 to 0xff).
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.HelveticaBoldDefaultWidth">
+            <summary>
+            Default character width for Helvetica Bold.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.HelveticaBoldNDashWidth">
+            <summary>
+            Width of n-dash for Helvetica Bold.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.HelveticaBold_20_7F">
+            <summary>
+            Character widths for Helvetica Bold (range 0x20 to 0x7f).
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.HelveticaBold_A0_FF">
+            <summary>
+            Character widths for Helvetica Bold (range 0xa0 to 0xff).
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.ArialNormalDefaultWidth">
+            <summary>
+            Default character width for Arial Normal.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.ArialNormalNDashWidth">
+            <summary>
+            Width of n-dash for Arial Normal.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.ArialNormal_20_7F">
+            <summary>
+            Character widths for Arial Normal (range 0x20 to 0x7f).
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.ArialNormal_A0_FF">
+            <summary>
+            Character widths for Arial Normal (range 0xa0 to 0xff).
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.ArialBoldDefaultWidth">
+            <summary>
+            Default character width for Arial Bold.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.ArialBoldNDashWidth">
+            <summary>
+            Width of n-dash for Arial Bold.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.ArialBold_20_7F">
+            <summary>
+            Character widths for Arial Bold (range 0x20 to 0x7f).
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.ArialBold_A0_FF">
+            <summary>
+            Character widths for Arial Bold (range 0xa0 to 0xff).
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.LiberationSansNormalDefaultWidth">
+            <summary>
+            Default character width for Liberation Sans Normal.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.LiberationSansNormalNDashWidth">
+            <summary>
+            Width of n-dash for Liberation Sans Normal.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.LiberationSansNormal_20_7F">
+            <summary>
+            Character widths for Liberation Sans Normal (range 0x20 to 0x7f).
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.LiberationSansNormal_A0_FF">
+            <summary>
+            Character widths for Liberation Sans Normal (range 0xa0 to 0xff).
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.LiberationSansBoldDefaultWidth">
+            <summary>
+            Default character width for Liberation Sans Bold.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.LiberationSansBoldNDashWidth">
+            <summary>
+            Width of n-dash for Liberation Sans Bold.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.LiberationSansBold_20_7F">
+            <summary>
+            Character widths for Liberation Sans Bold (range 0x20 to 0x7f).
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.LiberationSansBold_A0_FF">
+            <summary>
+            Character widths for Liberation Sans Bold (range 0xa0 to 0xff).
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.FrutigerNormalDefaultWidth">
+            <summary>
+            Default character width for Frutiger Normal.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.FrutigerNormalNDashWidth">
+            <summary>
+            Width of n-dash for Frutiger Normal.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.FrutigerNormal_20_7F">
+            <summary>
+            Character widths for Frutiger Normal (range 0x20 to 0x7f).
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.FrutigerNormal_A0_FF">
+            <summary>
+            Character widths for Frutiger Normal (range 0xa0 to 0xff).
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.FrutigerBoldDefaultWidth">
+            <summary>
+            Default character width for Frutiger Bold.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.FrutigerBoldNDashWidth">
+            <summary>
+            Width of n-dash for Frutiger Bold.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.FrutigerBold_20_7F">
+            <summary>
+            Character widths for Frutiger Bold (range 0x20 to 0x7f).
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.CharWidthData.FrutigerBold_A0_FF">
+            <summary>
+            Character widths for Frutiger Bold (range 0xa0 to 0xff).
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Canvas.FontMetrics">
+            <summary>
+            Simple font metrics class, independent of graphics subsystems and installed fonts.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.FontMetrics.#ctor(System.String)">
+            <summary>
+            Initializes a new instance for the given list of font families.
+            <para>
+            If more than one family is specified, the first family is used for metrics.
+            </para>
+            </summary>
+            <param name="fontFamilyList">The font families, separated by comma (syntax as in CSS).</param>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Canvas.FontMetrics.FontFamilyList">
+            <summary>
+            Gets the font family list (comma separated, same syntax as for CSS).
+            </summary>
+            <value>The font family list, comma separated.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Canvas.FontMetrics.FirstFontFamily">
+            <summary>
+            Gets the first font family (from the font family list).
+            </summary>
+            <value>The first font family name.</value>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.FontMetrics.Ascender(System.Int32)">
+            <summary>
+            Gets the distance between the baseline and the top of tallest letter.
+            </summary>
+            <param name="fontSize">The font size (in pt).</param>
+            <returns>The distance (in mm).</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.FontMetrics.Descender(System.Int32)">
+            <summary>
+            Gets the distance between the baseline and the bottom of letter extending the farthest below the baseline.
+            </summary>
+            <param name="fontSize">The font size (in pt).</param>
+            <returns>The distance (in mm).</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.FontMetrics.LineHeight(System.Int32)">
+            <summary>
+            Gets the distance between the baselines of two consecutive text lines.
+            </summary>
+            <param name="fontSize">The font size (in pt).</param>
+            <returns>The distance (in mm).</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.FontMetrics.SplitLines(System.String,System.Double,System.Int32)">
+            <summary>
+            Splits the text into lines.
+            <para>
+            The text is split such that no line is wider the specified maximum width.
+            If possible, the text is split at whitespace characters. If a word is wider than
+            the specified maximum width, the word is split and put onto two or more lines.
+            The text is always split at newlines.
+            </para>
+            </summary>
+            <param name="text">The text to split into lines.</param>
+            <param name="maxLength">The maximum line length (in pt).</param>
+            <param name="fontSize">The font size (in pt).</param>
+            <returns>The resulting array of text lines.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.FontMetrics.AddResultLine(System.Collections.Generic.ICollection{System.String},System.String,System.Int32,System.Int32)">
+            <summary>
+            Adds the specified text range to the resulting line array.
+            <para>
+            Trailing white space is trimmed.
+            </para>
+            </summary>
+            <param name="lines">The line array to add to.</param>
+            <param name="text">The text serving as a source for the line.</param>
+            <param name="start">The start position of the line within the text.</param>
+            <param name="end">The end position (excluding) of the line within the text.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.FontMetrics.TextWidth(System.String,System.Int32,System.Boolean)">
+            <summary>
+            Returns the width of the specified text for the specified font size.
+            </summary>
+            <param name="text">The text to measure.</param>
+            <param name="fontSize">The font size (in pt).</param>
+            <param name="isBold">The flag indicating if the text is in bold or regular weight.</param>
+            <returns>The text's width (in mm).</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.FontMetrics.CharWidth(System.Char)">
+            <summary>
+            Returns the width of the specified character.
+            <para>
+            The width is given in 0.001 pt for a font size of 1 pt. So to get the
+            effective width in pt(1/72 in), it must be multiplied with the font size and
+            divided by 1000.
+            </para>
+            <para>
+            The method only supports characters as defined in "Swiss Implementation
+            Guidelines for Credit Transfer Initiation". For all other characters, a
+            default width is returned.
+            </para>
+            </summary>
+            <param name="ch">The character to measure.</param>
+            <returns>The width of the character.</returns>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Canvas.ICanvas">
+            <summary>
+            Common interface for all output formats to draw the QR bill.
+            <para>
+            The coordinate system has its origin in the bottom left corner.
+            The y-axis extends from the bottom to the top.
+            </para>
+            <para>
+            The graphics model is similar to the one used by PDF, in particular with
+            regards to the orientation of the y axis, the concept of a current path,
+            and using the baseline for positioning text.
+            </para>
+            <para>
+            Instance of this class are expected to use a single font family for
+            the QR bill (regular and bold font weight).
+            </para>
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvas.ToByteArray">
+            <summary>
+            Returns the result as a byte array.
+            </summary>
+            <returns>The result.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvas.SetTransformation(System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Sets a translation, rotation and scaling for the subsequent operations.
+            <para>
+            Before a new translation is applied, the coordinate system is reset to it's
+            original state.
+            </para>
+            <para>
+            The transformations are applied in the order translation, rotation, scaling.
+            </para>
+            </summary>
+            <param name="translateX">The translation in x direction (in mm).</param>
+            <param name="translateY">The translation in y direction (in mm).</param>
+            <param name="rotate">The rotation angle, in radians.</param>
+            <param name="scaleX">The scale factor in x direction (1.0 = no scaling).</param>
+            <param name="scaleY">The scale factor in y direction (1.0 = no scaling).</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvas.PutText(System.String,System.Double,System.Double,System.Int32,System.Boolean)">
+            <summary>
+            Draws text to the canvas.
+            <para>
+            The text position refers to the left most point on the text's baseline.
+            </para>
+            </summary>
+            <param name="text">The text to draw.</param>
+            <param name="x">The x position of the text's start (in mm).</param>
+            <param name="y">The y position of the text's top (in mm).</param>
+            <param name="fontSize">The font size (in pt).</param>
+            <param name="isBold">Flag indicating if the text is in bold or regular weight.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvas.PutTextLines(System.String[],System.Double,System.Double,System.Int32,System.Double)">
+            <summary>
+            Adds several lines of text to the graphics.
+            <para>
+            The text position refers to the left most point on the baseline of the first
+            text line. Additional lines then follow below.
+            </para>
+            </summary>
+            <param name="lines">The text lines to draw.</param>
+            <param name="x">The x position of the text's start (in mm).</param>
+            <param name="y">The y position of the text's top (in mm).</param>
+            <param name="fontSize">The font size (in pt).</param>
+            <param name="leading">The amount of additional vertical space between text lines (in mm).</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvas.StartPath">
+             <summary>
+             Starts a path that can be filled or stroked.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvas.MoveTo(System.Double,System.Double)">
+            <summary>
+            Moves the current point of the open path to the specified position.
+            </summary>
+            <param name="x">The x-coordinate of position.</param>
+            <param name="y">The y-coordinate of position.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvas.LineTo(System.Double,System.Double)">
+            <summary>
+            Adds a line segment to the open path from the previous point to the specified
+            position.
+            </summary>
+            <param name="x">The x-coordinate of position.</param>
+            <param name="y">The y-coordinate of position.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvas.CubicCurveTo(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Adds a cubic Beziér curve to the open path going from the previous point to the specified
+            position. Two control points determine the curve.
+            </summary>
+            <param name="x1">The x-coordinate of first control point.</param>
+            <param name="y1">The y-coordinate of first control point.</param>
+            <param name="x2">The x-coordinate of second control point.</param>
+            <param name="y2">The y-coordinate of second control point.</param>
+            <param name="x">The x-coordinate of position.</param>
+            <param name="y">The y-coordinate of position.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvas.AddRectangle(System.Double,System.Double,System.Double,System.Double)">
+             <summary>
+             Adds a rectangle to the open path.
+            </summary>
+             <param name="x">The rectangle's left position (in mm).</param>
+             <param name="y">The rectangle's top position (in mm).</param>
+             <param name="width">The rectangle's width (in mm).</param>
+             <param name="height">The rectangle's height (in mm).</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvas.CloseSubpath">
+            <summary>
+            Closes the current subpath. The next path operation will implicitly
+            open a new subpath.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvas.FillPath(System.Int32,System.Boolean)">
+            <summary>
+            Fills the current path and discards it.
+            </summary>
+            <param name="color">The fill color (expressed similar to HTML, e.g. 0xffffff for white).</param>
+            <param name="smoothing"><c>true</c> for using smoothing techniques such as antialiasing, <c>false</c> otherwise</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvas.StrokePath(System.Double,System.Int32,Codecrete.SwissQRBill.Generator.Canvas.LineStyle,System.Boolean)">
+            <summary>
+            Strokes the current path and discards it.
+            </summary>
+            <param name="strokeWidth">The stroke width (in pt).</param>
+            <param name="color">The stroke color (expressed similar to HTML, e.g. 0xffffff for white).</param>
+            <param name="lineStyle">The line style</param>
+            <param name="smoothing"><c>true</c> for using smoothing techniques such as antialiasing, <c>false</c> otherwise</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvas.Ascender(System.Int32)">
+            <summary>
+            Gets the distance between the baseline and the top of the tallest letter.
+            </summary>
+            <param name="fontSize">The font size (in pt).</param>
+            <returns>The distance (in mm).</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvas.Descender(System.Int32)">
+            <summary>
+            Gets the distance between the baseline and the bottom of the letter extending the farthest below the
+            baseline.
+            </summary>
+            <param name="fontSize">The font size (in pt).</param>
+            <returns>The distance (in mm).</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvas.LineHeight(System.Int32)">
+            <summary>
+            Gets the distance between the baselines of two consecutive text lines.
+            </summary>
+            <param name="fontSize">The font size (in pt).</param>
+            <returns>The distance (in mm).</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvas.TextWidth(System.String,System.Int32,System.Boolean)">
+            <summary>
+            Measures the width of the specified text for the specified font size.
+            </summary>
+            <param name="text">The text to measure.</param>
+            <param name="fontSize">The  text's font size (in pt).</param>
+            <param name="isBold">Flag indicating if the text is in bold or regular weight.</param>
+            <returns>The measured width (in mm).</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvas.SplitLines(System.String,System.Double,System.Int32)">
+            <summary>
+            Splits the text into lines.
+            <para>
+            The text is split such that no line is wider the specified maximum width.
+            If possible, the text is split at whitespace characters. If a word is wider than
+            the specified maximum width, the word is split and put onto two or more lines.
+            The text is always split at newlines.
+            </para>
+            </summary>
+            <param name="text">The text to split into lines.</param>
+            <param name="maxLength">The maximum line length (in pt).</param>
+            <param name="fontSize">The font size (in pt).</param>
+            <returns>The resulting array of text lines.</returns>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Canvas.ICanvasFactory">
+            <summary>
+            Factory for creating <c>ICanvas</c> instances
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvasFactory.CanCreate(Codecrete.SwissQRBill.Generator.BillFormat)">
+            <summary>
+            Indicates if this factory can create a canvas for the specified bill format.
+            <para>
+            Factories must register themselves with the global <c>CanvasCreator</c> instance.
+            </para>
+            </summary>
+            <param name="format">bill format</param>
+            <returns><c>true</c> if it is able to create, <c>false</c> otherwise</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.ICanvasFactory.Create(Codecrete.SwissQRBill.Generator.BillFormat,System.Double,System.Double)">
+            <summary>
+            Creates a canvas for the specified bill format.
+            </summary>
+            <param name="format">bill format</param>
+            <param name="width">canvas width, in mm</param>
+            <param name="height">canvas height, in mm</param>
+            <returns>new <c>ICanvas</c> instance</returns>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Canvas.LineStyle">
+            <summary>
+            Line style
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.LineStyle.Solid">
+            <summary>
+            Solid line
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.LineStyle.Dashed">
+            <summary>
+            Dashed line (dashes are about 4 times the line width long and apart)
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Canvas.LineStyle.Dotted">
+            <summary>
+            Dotted line (dots are spaced 3 times the line width apart)
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvas">
+            <summary>
+            Canvas for generating PDF files.
+            <para>
+            The PDF generator currently only supports the Helvetica font.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvas.#ctor(System.Double,System.Double)">
+            <summary>
+            Initializes a new instance of the PDF canvas with the specified page size.
+            <para>
+            A PDF with a single page of the specified size will be created. The QR bill
+            will be drawn in the bottom left corner of the page.
+            </para>
+            </summary>
+            <param name="width">The page width, in mm.</param>
+            <param name="height">The page height, in mm.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvas.SetTransformation(System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvas.PutText(System.String,System.Double,System.Double,System.Int32,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvas.PutTextLines(System.String[],System.Double,System.Double,System.Int32,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvas.StartPath">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvas.MoveTo(System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvas.LineTo(System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvas.CubicCurveTo(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvas.AddRectangle(System.Double,System.Double,System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvas.CloseSubpath">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvas.FillPath(System.Int32,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvas.StrokePath(System.Double,System.Int32,Codecrete.SwissQRBill.Generator.Canvas.LineStyle,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvas.ToByteArray">
+            <summary>
+            Gets the resulting graphics as a PDF document in a byte array.
+            <para>
+            The canvas can no longer be used for drawing after calling this method.</para>
+            </summary>
+            <returns>The byte array containing the PDF document</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvas.WriteTo(System.IO.Stream)">
+            <summary>
+            Writes the resulting graphics as a PDF document to the specified stream.
+            <para>
+            The canvas can no longer be used for drawing after calling this method.</para>
+            </summary>
+            <param name="stream">The stream to write to.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvas.SaveAs(System.String)">
+            <summary>
+            Writes the resulting graphics as a PDF document to the specified file path.
+            <para>
+            The canvas can no longer be used for drawing after calling this method.</para>
+            </summary>
+            <param name="path">The path (file name) to write to.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvas.Close">
+            <summary>
+            Closes this instance and frees resources.
+            <para>
+            After a call to this method, the canvas can no longer be used for drawing.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvas.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Canvas.PDFCanvasFactory">
+            <summary>
+            Factory for creating <c>PDFCanvas</c> instances
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Canvas.SVGCanvas">
+            <summary>
+            Canvas for generating SVG files.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.SVGCanvas.#ctor(System.Double,System.Double,System.String)">
+            <summary>
+            Initializes a new SVG canvas with the specified size and font family.
+            <para>
+            The QR bill will be drawn in the bottom left corner of the SVG image.
+            </para>
+            </summary>
+            <param name="width">The image width, in mm.</param>
+            <param name="height">The image height, in mm.</param>
+            <param name="fontFamilyList">A list font family names, separated by comma (same syntax as for CSS).</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.SVGCanvas.Close">
+            <summary>
+            Closes this instance and frees resources.
+            <para>
+            After a call to this method, the canvas can no longer be used for drawing.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.SVGCanvas.ToByteArray">
+            <summary>
+            Gets the resulting graphics as an SVG document in a byte array.
+            <para>
+            The canvas can no longer be used for drawing after calling this method.</para>
+            </summary>
+            <returns>The byte array containing the SVG document</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.SVGCanvas.WriteTo(System.IO.Stream)">
+            <summary>
+            Writes the resulting graphics as an SVG image to the specified stream.
+            <para>
+            The canvas can no longer be used for drawing after calling this method.</para>
+            </summary>
+            <param name="stream">The stream to write to.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.SVGCanvas.SaveAs(System.String)">
+            <summary>
+            Writes the resulting graphics as an SVG image to the specified file path.
+            <para>
+            The canvas can no longer be used for drawing after calling this method.</para>
+            </summary>
+            <param name="path">The path (file name) to write to.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.SVGCanvas.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.SVGCanvas.StartPath">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.SVGCanvas.MoveTo(System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.SVGCanvas.LineTo(System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.SVGCanvas.CubicCurveTo(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.SVGCanvas.AddRectangle(System.Double,System.Double,System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.SVGCanvas.CloseSubpath">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.SVGCanvas.FillPath(System.Int32,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.SVGCanvas.StrokePath(System.Double,System.Int32,Codecrete.SwissQRBill.Generator.Canvas.LineStyle,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.SVGCanvas.PutText(System.String,System.Double,System.Double,System.Int32,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.SVGCanvas.SetTransformation(System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Canvas.SVGCanvasFactory">
+            <summary>
+            Factory for creating <c>SVGCanvas</c> instances
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Canvas.TransformationMatrix">
+            <summary>
+            3-by-3 matrix for affine geometric transformation.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.TransformationMatrix.#ctor">
+            <summary>
+            Creates a new identity matrix instance.
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Canvas.TransformationMatrix.Elements">
+            <summary>
+            Matrix elements in row-major order.
+            <para>
+            As the elements of the third column are always [ 0, 0, 1 ],
+            only the first two columns are returned, i.e. 6 elements.
+            </para>
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Canvas.TransformationMatrix.TranslationX">
+            <summary>
+            Gets the horizontal translation.
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Canvas.TransformationMatrix.TranslationY">
+            <summary>
+            Gets the vertical translation.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.TransformationMatrix.Translate(System.Double,System.Double)">
+            <summary>
+            Applies a translation to the matrix (prepend).
+            </summary>
+            <param name="dx">horizontal translation</param>
+            <param name="dy">vertical translation</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.TransformationMatrix.Scale(System.Double,System.Double)">
+            <summary>
+            Applies a scaling relative to the origin (prepend).
+            </summary>
+            <param name="sx">horizontal scaling</param>
+            <param name="sy">vertical scaling</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Canvas.TransformationMatrix.Rotate(System.Double)">
+            <summary>
+            Applies a rotation about the origin (prepend).
+            </summary>
+            <param name="angle">Rotation angle (in radians)</param>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.GraphicsFormat">
+            <summary>
+            Graphics format of generated QR bill.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.GraphicsFormat.SVG">
+            <summary>
+            SVG graphics format.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.GraphicsFormat.PNG">
+            <summary>
+            PNG graphics format.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.GraphicsFormat.PDF">
+            <summary>
+            PDF graphics format.
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Language">
+            <summary>
+            QR bill language
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Language.DE">
+            <summary>
+            German language.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Language.FR">
+            <summary>
+            French language.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Language.IT">
+            <summary>
+            Italian language.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Language.RM">
+            <summary>
+            Romansh language.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.Language.EN">
+            <summary>
+            English language.
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.MultilingualText">
+            <summary>
+            Helper class providing multilingual texts printed on QR bills.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.MultilingualText.KeyPaymentPart">
+            <summary>
+            Text key for "Payment part"
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.MultilingualText.KeyAccountPayableTo">
+            <summary>
+            Text key for "Account / payable to"
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.MultilingualText.KeyReference">
+            <summary>
+            Text key for "Reference"
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.MultilingualText.KeyAdditionalInformation">
+            <summary>
+            Text key for "Additional information"
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.MultilingualText.KeyCurrency">
+            <summary>
+            Text key for "Currency"
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.MultilingualText.KeyAmount">
+            <summary>
+            Text key for "Amount"
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.MultilingualText.KeyReceipt">
+            <summary>
+            Text key for "Receipt"
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.MultilingualText.KeyAcceptancePoint">
+            <summary>
+            Text key for "Acceptance point"
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.MultilingualText.KeyPayableBy">
+            <summary>
+            Text key for "Payable by"
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.MultilingualText.KeyPayableByNameAddr">
+            <summary>
+            Text key for "Payable by (name / address)"
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.MultilingualText.KeyDoNotUseForPayment">
+            <summary>
+            Text key for "DO NOT USE FOR PAYMENT"
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.MultilingualText.GetResourceSet(Codecrete.SwissQRBill.Generator.Language)">
+            <summary>
+            Gets the resource set for the specified language.
+            </summary>
+            <param name="language">The language.</param>
+            <returns>The resource set for the specified language.</returns>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.OutputSize">
+            <summary>
+            The output size of the QR bill or QR code.
+            </summary>
+            <seealso href="https://github.com/manuelbl/SwissQRBill/wiki/Output-Sizes">Output Sizes (in Wiki)</seealso>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.OutputSize.QrBillOnly">
+            <summary>
+            QR bill only (105 by 210 mm).
+            <para>
+            This size is suitable if the QR bill has no horizontal line.
+            If the horizontal line is needed and the A4 sheet size is not
+            suitable, use <see cref="F:Codecrete.SwissQRBill.Generator.OutputSize.QrBillExtraSpace"/> instead.
+            </para>
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.OutputSize.A4PortraitSheet">
+            <summary>
+            A4 sheet in portrait orientation. The QR bill is at the bottom.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.OutputSize.QrCodeOnly">
+            <summary>
+            QR code only (46 by 46 mm).
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.OutputSize.QrBillExtraSpace">
+            <summary>
+            QR bill only with additional space at the top for the horizontal line (about 110 by 210 mm).
+            <para>
+            The extra 5 mm at the top create space for the horizontal line and
+            optionally for the scissors.
+            </para>
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.OutputSize.QrCodeWithQuietZone">
+            <summary>
+            QR code only with 5mm of white space on all sides (56 by 56 mm).
+            <para>
+            This format applies a white background (as opposed to a transparent one).
+            </para>
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Payments">
+            <summary>
+            Field validations related to Swiss Payment standards.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Payments.CleanValue(System.String,Codecrete.SwissQRBill.Generator.Payments.CleaningResult@)">
+            <summary>
+            Cleans a string value to make it viable for the Swiss Payment Standards 2018.
+            <para>
+            Unsupported characters(according to Swiss Payment Standards 2018, ch. 2.4.1
+            and appendix D) are replaced with spaces(unsupported whitespace) or dots
+            (all other unsupported characters). Leading and trailing whitespace is
+            removed.
+            </para>
+            <para>
+            If characters beyond 0xff are detected, the string is first normalized such
+            that letters with umlauts or accents expressed with two code points are
+            merged into a single code point(if possible), some of which might become
+            valid.
+            </para>
+            <para>
+            If the resulting strings is all white space, <c>null</c> is returned.
+            </para>
+            </summary>
+            <param name="value">The string value to clean.</param>
+            <param name="result">The result to be filled with cleaned string and flag.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Payments.IsValidIban(System.String)">
+            <summary>
+            Validates if the string is a valid IBAN number
+            <para>
+            The string is checked for valid characters, valid length and for a valid
+            check digit. White space is ignored.
+            </para>
+            </summary>
+            <param name="iban">The IBAN to validate.</param>
+            <returns><c>true</c> if the IBAN is valid, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Payments.IsQrIban(System.String)">
+            <summary>
+            Indicates if the string is a valid QR-IBAN.
+            <para>
+            QR-IBANs are IBANs with an institution ID in the range 30000 to 31999
+            and a country code for Switzerland or Liechtenstein.
+            Thus, they must have the format "CH..30...", "CH..31...", "LI..30..." or "LI..31...".
+            </para>
+            </summary>
+            <param name="iban">account number to check</param>
+            <returns><c>true</c> for valid QR-IBANs, <c>false</c> otherwise</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Payments.FormatIban(System.String)">
+            <summary>
+            Formats an IBAN or creditor reference by inserting spaces
+            <para>
+            Spaces are inserted to form groups of 4 letters/digits. If a group of less
+            than 4 letters/digits is needed, it appears at the end.
+            </para>
+            </summary>
+            <param name="iban">The IBAN or creditor reference without spaces.</param>
+            <returns>The formatted IBAN or creditor reference.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Payments.IsValidIso11649Reference(System.String)">
+            <summary>
+            Validates if the string is a valid ISO 11649 reference number
+            <para>
+            The string is checked for valid characters, valid length and a valid check
+            digit. White space is ignored.
+            </para>
+            </summary>
+            <param name="reference">The ISO 11649 creditor reference to validate.</param>
+            <returns><c>true</c> if the creditor reference is valid, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Payments.CreateIso11649Reference(System.String)">
+            <summary>
+            Creates a ISO11649 creditor reference from a raw string by prefixing the
+            string with "RF" and the modulo 97 checksum
+            <para>
+            Whitespace is removed from the reference.
+            </para>
+            </summary>
+            <param name="rawReference">The raw reference.</param>
+            <returns>The created creditor reference.</returns>
+            <exception cref="T:System.ArgumentException"><c>reference</c> contains invalid characters.</exception>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Payments.CalculateMod97(System.String)">
+            <summary>
+            Calculates the reference's modulo 97 checksum according to ISO11649 and IBAN standard.
+            <para>
+            The string may only contains digits, letters ('A' to 'Z' and 'a' to 'z', no
+            accents). It must not contain white space.
+            </para>
+            </summary>
+            <param name="reference">The reference.</param>
+            <returns>The calculated checksum (0 to 96).</returns>
+            <exception cref="T:System.ArgumentException">The reference contains an invalid character.</exception>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Payments.IsValidQrReference(System.String)">
+            <summary>
+            Validates if the string is a valid QR reference.
+            <para>
+            A valid QR reference is a valid ISR reference.
+            </para>
+            <para>
+            The string is checked for valid characters, valid length and a valid check
+            digit. White space is ignored.
+            </para>
+            </summary>
+            <param name="reference">The QR reference number to validate.</param>
+            <returns><c>true</c> if the reference number is valid, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Payments.CreateQRReference(System.String)">
+            <summary>
+            Creates a QR reference from a raw string by appending the checksum digit
+            and prepending zeros to make it the correct length.
+            <para>
+            Whitespace is removed from the reference.
+            </para>
+            </summary>
+            <param name="rawReference">The raw string (digits and whitespace only).</param>
+            <returns>The QR reference.</returns>
+            <exception cref="T:System.ArgumentException">The reference contains non-numeric characters or is too long</exception>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Payments.FormatQrReferenceNumber(System.String)">
+            <summary>
+            Formats a QR reference number by inserting spaces.
+            <para>
+            Spaces are inserted to create groups of 5 digits. If a group of less than 5
+            digits is needed, it appears at the start of the formatted reference number.
+            </para>
+            </summary>
+            <param name="refNo">The reference number without white space.</param>
+            <returns>the formatted reference number.</returns>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Payments.CleaningResult">
+            <summary>
+            Result of cleaning a string
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Payments.CleaningResult.CleanedString">
+            <summary>
+            Gets/sets the cleaned string.
+            </summary>
+            <value>The cleaned string.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.Payments.CleaningResult.ReplacedUnsupportedChars">
+            <summary>
+            Gets/sets the flag indicating if unsupported characters have been replaced.
+            </summary>
+            <value>Flag indicating if unsupported characters have been replaced.</value>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.PDF.ContentStream">
+            <summary>
+            Stream of PDF commands (contents of a page).
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.SaveGraphicsState">
+            <summary>
+            Saves the graphics state.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.RestoreGraphicsState">
+            <summary>
+            Restores the graphics state.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.Transform(Codecrete.SwissQRBill.Generator.Canvas.TransformationMatrix)">
+            <summary>
+            Sets the transformation matrix.
+            </summary>
+            <param name="matrix">The transformation matrix.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.SetStrokingColor(System.Single,System.Single,System.Single)">
+            <summary>
+            Sets the stroking color.
+            </summary>
+            <param name="red">Red color component (between 0.0 and 1.0)</param>
+            <param name="green">Green color component (between 0.0 and 1.0)</param>
+            <param name="blue">Blue Color component (between 0.0 and 1.0)</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.SetNonStrokingColor(System.Single,System.Single,System.Single)">
+            <summary>
+            Sets the non-stroking color.
+            </summary>
+            <param name="red">Red color component (between 0.0 and 1.0)</param>
+            <param name="green">Green color component (between 0.0 and 1.0)</param>
+            <param name="blue">Blue Color component (between 0.0 and 1.0)</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.SetLineWidth(System.Single)">
+            <summary>
+            Sets the line width.
+            </summary>
+            <param name="width">Line width, in point.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.SetLineCapStyle(System.Int32)">
+            <summary>
+            Sets the line cap style.
+            </summary>
+            <param name="style">Line cap style (see PDF reference).</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.SetLineDashPattern(System.Single[],System.Single)">
+            <summary>
+            Sets the line dash pattern.
+            </summary>
+            <param name="pattern">Array of on and off length.</param>
+            <param name="offset">Offset to first on element.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.MoveTo(System.Single,System.Single)">
+            <summary>
+            Moves the current point of the current path.
+            </summary>
+            <param name="x">x-coordinate</param>
+            <param name="y">y-coordinate</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.LineTo(System.Single,System.Single)">
+            <summary>
+            Adds a straight line to the current path.
+            </summary>
+            <param name="x">x-coordinate</param>
+            <param name="y">y-coordinate</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.CurveTo(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Adds a bezier curve to the current path.
+            </summary>
+            <param name="x1">x-coordinate of control point 1</param>
+            <param name="y1">y-coordinate of control point 1</param>
+            <param name="x2">x-coordinate of control point 2</param>
+            <param name="y2">y-coordinate of control point 2</param>
+            <param name="x">x-coordinate</param>
+            <param name="y">y-coordinate</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.AddRect(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Adds a closed rectangle to the current path.
+            </summary>
+            <param name="x">x-coordinate</param>
+            <param name="y">y-coordinate</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.ClosePath">
+            <summary>
+            Closes the current path.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.Stroke">
+            <summary>
+            Stores the current path.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.CloseAndStroke">
+            <summary>
+            Closes and strokes the current path.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.Fill">
+            <summary>
+            Fills the current path using the non-zero winding rule.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.FillEvenOdd">
+            <summary>
+            Closes the current path using the even-odd rule.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.FillAndStroke">
+            <summary>
+            Fills and strokes the current path using the non-zero winding rule.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.FillEvenOddAndStroke">
+            <summary>
+            Closes and strokes the current path using the even-odd rule.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.CloseAndFillAndStroke">
+            <summary>
+            Closes, fills and strokes the current path using the non-zero winding rule.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.CloseAndFillEvenOddAndStroke">
+            <summary>
+            Closes, fills and strokes the current path using the even-odd rule.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.SetFont(Codecrete.SwissQRBill.Generator.PDF.Font,System.Single)">
+            <summary>
+            Sets the current font.
+            </summary>
+            <param name="font">the font.</param>
+            <param name="fontSize">The font size.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.BeginText">
+            <summary>
+            Begins a text object.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.EndText">
+            <summary>
+            Ends a text object.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.NewLineAtOffset(System.Single,System.Single)">
+            <summary>
+            Moves to the next line, offset by the specified distance from the current one.
+            </summary>
+            <param name="tx">x-distance</param>
+            <param name="ty">y-distance</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.ContentStream.ShowText(System.String)">
+            <summary>
+            Add the specified text to the curren text object.
+            </summary>
+            <param name="text">The text.</param>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.PDF.Document">
+            <summary>
+            PDF document.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.Document.#ctor(System.String)">
+            <summary>
+            Create a new instance with the specified title.
+            </summary>
+            <param name="title">The title of the document.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.Document.CreatePage(System.Single,System.Single)">
+            <summary>
+            Creates a new page with the specified dimensions.
+            </summary>
+            <param name="width">The width, in point.</param>
+            <param name="height">The height, in point.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.Document.Save(System.IO.Stream)">
+            <summary>
+            Saves the document to the specified stream.
+            </summary>
+            <param name="stream">The stream.</param>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.PDF.Font">
+            <summary>
+            Font for PDF document.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.PDF.Font.Helvetica">
+            <summary>
+            Helvetica regular base font.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.PDF.Font.HelveticaBold">
+            <summary>
+            Helvetica bold base font.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.PDF.Font.HelveticaOblique">
+            <summary>
+            Helvetica oblique base font.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.PDF.Font.HelveticaBoldOblique">
+            <summary>
+            Helvetica bold oblique base font.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.PDF.Font.TimesRoman">
+            <summary>
+            Times Roman base font.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.PDF.Font.TimesBold">
+            <summary>
+            Times bold base font.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.PDF.Font.TimesItalic">
+            <summary>
+            Times italic base font.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.PDF.Font.TimesBoldItalic">
+            <summary>
+            Times bold italic base font.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.PDF.Font.Courier">
+            <summary>
+            Courier regular base font.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.PDF.Font.CourierBold">
+            <summary>
+            Courier bold base font.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.PDF.Font.CourierOblique">
+            <summary>
+            Courier oblique base font.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.PDF.Font.CourierBoldOblique">
+            <summary>
+            Courier bold oblique base font.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.PDF.Font.Symbol">
+            <summary>
+            Symbol base font.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.PDF.Font.ZapfDingbats">
+            <summary>
+            Zapf Dingbats base font.
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.PDF.Font.Subtype">
+            <summary>
+            Gets the font subtype.
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.PDF.Font.Name">
+            <summary>
+            Gets the font name.
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.PDF.Font.Encoding">
+            <summary>
+            Gets the font encoding.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.PDF.Font.CreateBaseFont(System.String)">
+            <summary>
+            Creates a base font for the specified font name.
+            <para>
+            Font subtype "Type1" and WinAnsi encoding is assumed.
+            </para>
+            </summary>
+            <param name="fontname">The font name.</param>
+            <returns>Font instance.</returns>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.PDF.IWritable">
+            <summary>
+            Object that can write itself to output
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.PDF.Name">
+            <summary>
+            Name object
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.PDF.Page">
+            <summary>
+            Page in PDF document.
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.PDF.Page.Contents">
+            <summary>
+            Gets the content stream for the page contents.
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.PDF.Reference">
+            <summary>
+            Reference to an object
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.PDF.ResourceDict">
+            <summary>
+            Dictionary for resources
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.PDF.WriterHelper">
+            <summary>
+            Helper class for writing content.
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.QRBill">
+            <summary>
+            Generates Swiss QR bill payment part.
+            <para>
+            Can also validate the bill data and encode and decode the text embedded in the QR code.
+            </para>
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.QRBill.A4PortraitWidth">
+            <summary>
+            The width of an A4 sheet in portrait orientation.
+            <seealso cref="F:Codecrete.SwissQRBill.Generator.OutputSize.A4PortraitSheet"/>
+            </summary>
+            <value>The width, in mm.</value>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.QRBill.A4PortraitHeight">
+            <summary>
+            The height of an A4 sheet in portrait orientation.
+            <seealso cref="F:Codecrete.SwissQRBill.Generator.OutputSize.A4PortraitSheet"/>
+            </summary>
+            <value>The height, in mm.</value>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.QRBill.QrBillWidth">
+            <summary>
+            The width of a QR bill (payment part and receipt).
+            <seealso cref="F:Codecrete.SwissQRBill.Generator.OutputSize.QrBillOnly"/>
+            </summary>
+            <value>The width, in mm.</value>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.QRBill.QrBillHeight">
+            <summary>
+            The height of a QR bill (payment part and receipt).
+            <seealso cref="F:Codecrete.SwissQRBill.Generator.OutputSize.QrBillOnly"/>
+            </summary>
+            <value>The height, in mm.</value>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.QRBill.QrBillWithHoriLineWidth">
+            <summary>
+            The width of the output format with extra space for horizontal separator line (payment part and receipt plus space for line and scissors).
+            <seealso cref="F:Codecrete.SwissQRBill.Generator.OutputSize.QrBillExtraSpace"/>
+            </summary>
+            <value>The width, in mm.</value>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.QRBill.QrBillWithHoriLineHeight">
+            <summary>
+            The height of a the output format with extra space for horizontal separator line (payment part and receipt plus space for line and scissors).
+            <seealso cref="F:Codecrete.SwissQRBill.Generator.OutputSize.QrBillExtraSpace"/>
+            </summary>
+            <value>The height, in mm.</value>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.QRBill.QrCodeWidth">
+            <summary>
+            The width of the QR code.
+            <seealso cref="F:Codecrete.SwissQRBill.Generator.OutputSize.QrCodeOnly"/>
+            </summary>
+            <value>The width, in mm.</value>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.QRBill.QrCodeHeight">
+            <summary>
+            The height of the QR code.
+            <seealso cref="F:Codecrete.SwissQRBill.Generator.OutputSize.QrCodeOnly"/>
+            </summary>
+            <value>The height, in mm.</value>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.QRBill.QrCodeWithQuietZoneWidth">
+            <summary>
+            The width of the QR code with quiet zone, in mm.
+            <seealso cref="F:Codecrete.SwissQRBill.Generator.OutputSize.QrCodeWithQuietZone"/>
+            </summary>
+            <value>The width, in mm.</value>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.QRBill.QrCodeWithQuietZoneHeight">
+            <summary>
+            The height of the QR code with quiet zone, in mm.
+            <seealso cref="F:Codecrete.SwissQRBill.Generator.OutputSize.QrCodeWithQuietZone"/>
+            </summary>
+            <value>The height, in mm.</value>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.QRBill.Validate(Codecrete.SwissQRBill.Generator.Bill)">
+            <summary>
+            Validates and cleans the bill data.
+            <para>
+            The validation result contains the error and warning messages (if any) and the cleaned bill data.
+            </para>
+            <para>
+            For details about the validation result, see <a href=
+            "https://github.com/manuelbl/SwissQRBill/wiki/Bill-data-validation">Bill data validation</a>
+            </para>
+            </summary>
+            <param name="bill">The bill data to validate.</param>
+            <returns>The validation result.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.QRBill.Generate(Codecrete.SwissQRBill.Generator.Bill)">
+            <summary>
+            Generates a QR bill (payment part and receipt) or QR code as an SVG image or PDF document.
+            <para>
+            If the bill is not valid, a <see cref="T:Codecrete.SwissQRBill.Generator.QRBillValidationException"/> is
+            thrown, containing the validation result. For details about the
+            validation result, see <a href=
+            "https://github.com/manuelbl/SwissQRBill/wiki/Bill-data-validation">Bill data
+            validation</a>
+            </para>
+            <para>
+            The graphics format is specified in <c>bill.Format.GraphicsFormat</c>.
+            </para>
+            </summary>
+            <param name="bill">The data for the bill.</param>
+            <returns>The generated QR bill (as a byte array in the specified graphics format).</returns>
+            <exception cref="T:Codecrete.SwissQRBill.Generator.QRBillValidationException">The bill data is invalid.</exception>
+            <seealso cref="M:Codecrete.SwissQRBill.Generator.QRBill.Draw(Codecrete.SwissQRBill.Generator.Bill,Codecrete.SwissQRBill.Generator.Canvas.ICanvas)"/>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.QRBill.Draw(Codecrete.SwissQRBill.Generator.Bill,Codecrete.SwissQRBill.Generator.Canvas.ICanvas)">
+            <summary>
+            Draws the QR bill (payment part and receipt) or QR code for the specified bill data onto the specified canvas.
+            <para>
+            The QR bill or code are drawn at position (0, 0) extending to the top and to the right.
+            Typically, the position (0, 0) is the bottom left corner of the canvas.
+            </para>
+            <para>
+            This methods ignores the formatting properties <c>bill.Format.FontFamily</c> and <c>bill.Format.GraphicsFormat</c>.
+            They can be set when the canvas instance passed to this method is created.
+            </para>
+            <para>
+            If the bill data is not valid, a <see cref="T:Codecrete.SwissQRBill.Generator.QRBillValidationException"/> is thrown,
+            containing the validation result. For details about the validation result, see
+            <a href="https://github.com/manuelbl/SwissQRBill/wiki/Bill-data-validation">Bill data validation</a>.
+            </para>
+            </summary>
+            <param name="bill">The data for the bill.</param>
+            <param name="canvas">The canvas to draw to.</param>
+            <exception cref="T:Codecrete.SwissQRBill.Generator.QRBillValidationException">The bill data is invalid.</exception>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.QRBill.DrawSeparators(Codecrete.SwissQRBill.Generator.SeparatorType,System.Boolean,Codecrete.SwissQRBill.Generator.Canvas.ICanvas)">
+            <summary>
+            Draws the separator line(s) to the specified canvas.
+            <para>
+            The separator lines are drawn assuming that the QR bill starts at position (0, 0)
+            and extends the top and right.So position (0, 0) should be in the bottom left corner.
+            </para>
+            <para>
+            This method allows to add separator lines to an existing QR bill,
+            e.g. on to an archived QR bill document.
+            </para>
+            </summary>
+            <param name="separatorType">The separator type.</param>
+            <param name="withHorizontalLine"><code>true</code> if both the horizontal and vertical line should be drawn,
+            <code>false</code> for the vertical line only</param>
+            <param name="canvas">The canvas to draw to.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.QRBill.EncodeQrCodeText(Codecrete.SwissQRBill.Generator.Bill)">
+            <summary>
+            Encodes the QR bill data as a text to be embedded in a QR code.
+            <para>
+            The specified bill data is first validated and cleaned.
+            </para>
+            <para>
+            If the bill data is invalid, a <see cref="T:Codecrete.SwissQRBill.Generator.QRBillValidationException"/> is
+            thrown, containing the validation result. For details about the
+            validation result, see
+            <a href="https://github.com/manuelbl/SwissQRBill/wiki/Bill-data-validation">Bill data
+            validation</a>
+            </para>
+            </summary>
+            <param name="bill">The bill data to encode.</param>
+            <returns>The text to embed in a QR code.</returns>
+            <exception cref="T:Codecrete.SwissQRBill.Generator.QRBillValidationException">The bill data is invalid.</exception>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.QRBill.DecodeQrCodeText(System.String)">
+            <summary>
+            Decodes the text from a QR code and fills it into a <see cref="T:Codecrete.SwissQRBill.Generator.Bill"/> data structure
+            <para>
+            A subset of the validations related to embedded QR code text is run. It the
+            validation fails, a <see cref="T:Codecrete.SwissQRBill.Generator.QRBillValidationException"/> is thrown containing
+            the validation result. See the error messages marked with a dagger in
+            <a href="https://github.com/manuelbl/SwissQRBill/wiki/Bill-data-validation">Bill data
+            validation</a>.
+            </para>
+            </summary>
+            <param name="text">The text to decode.</param>
+            <returns>The decoded bill data.</returns>
+            <exception cref="T:Codecrete.SwissQRBill.Generator.QRBillValidationException">If he text could not be decoded or the decoded bill data is invalid.</exception>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.QRBill.LibraryVersion">
+            <summary>
+            Gets the library's version number.
+            </summary>
+            <value>version number in semantic versioning format (major.minor.patch)</value>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.QRBillGenerationException">
+            <summary>
+            Exception thrown if the bill could not be generated.
+            <para>
+            If the bill data is not valid, a <see cref="T:Codecrete.SwissQRBill.Generator.QRBillValidationException"/> exception is thrown instead.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.QRBillGenerationException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance with the specified error message.
+            </summary>
+            <param name="message">The error message.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.QRBillGenerationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance with the specified error message and a reference to the exception that caused the error.
+            </summary>
+            <param name="message">The error message.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.QRBillGenerationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc />
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.QRBillValidationException">
+            <summary>
+            Exception thrown if the bill data is not valid.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.QRBillValidationException.#ctor(Codecrete.SwissQRBill.Generator.ValidationResult)">
+            <summary>
+            Initializes a new instance with the specified validation result.
+            </summary>
+            <param name="result">The validation result.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.QRBillValidationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc />
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.QRBillValidationException.Result">
+            <summary>
+            Gets the validation result with the error messages.
+            </summary>
+            <value>The validation result.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.QRBillValidationException.Message">
+            <inheritdoc />
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.QRCode">
+            <summary>
+            Generates the QR code for the Swiss QR bill.
+            <para>
+            Also provides functions to generate and decode the string embedded in the QR code.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.QRCode.#ctor(Codecrete.SwissQRBill.Generator.Bill)">
+            <summary>
+            Creates an instance of the QR code for the specified bill data.
+            <para>
+            The bill data must have been validated and cleaned.
+            </para>
+            </summary>
+            <param name="bill">The bill data.</param>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.QRCode.Draw(Codecrete.SwissQRBill.Generator.Canvas.ICanvas,System.Double,System.Double)">
+            <summary>
+            Draws the QR code to the specified graphics context (canvas). The QR code will
+            always be 46 mm by 46 mm.
+            </summary>
+            <param name="graphics">The graphics context.</param>
+            <param name="offsetX">The x offset.</param>
+            <param name="offsetY">The y offset.</param>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.QRCodeText">
+            <summary>
+            Internal class for encoding and decoding the text embedded in the QR code.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.QRCodeText.Create(Codecrete.SwissQRBill.Generator.Bill)">
+            <summary>
+            Gets the text embedded in the QR code (according to the data structure defined by SIX).
+            </summary>
+            <param name="bill">The bill data.</param>
+            <returns>The QR code text.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.QRCodeText.Decode(System.String)">
+            <summary>
+            Decodes the specified text and returns the bill data.
+            <para>
+            The text is assumed to be in the data structured for the QR code defined by SIX.
+            </para>
+            <para>
+            The returned data is only minimally validated. The format and the header are
+            checked. Amount and date must be parsable.
+            </para>
+            </summary>
+            <param name="text">The text to decode.</param>
+            <returns>The decoded bill data.</returns>
+            <exception cref="T:Codecrete.SwissQRBill.Generator.QRBillValidationException">The text is in an invalid format.</exception>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.QRCodeText.DecodeAddress(System.Collections.Generic.IReadOnlyList{System.String},System.Int32,System.Boolean)">
+            <summary>
+            Process seven lines and extract and address.
+            </summary>
+            <param name="lines">The line array.</param>
+            <param name="startLine">The index of first line to process.</param>
+            <param name="isOptional">The flag indicating if the address is optional.</param>
+            <returns>The decoded address or <c>null</c> if the address is optional and empty.</returns>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.SeparatorType">
+            <summary>
+            Separator type above and between payment part and receipt.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.SeparatorType.None">
+            <summary>
+            No separators are drawn (for paper with perforation).
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.SeparatorType.SolidLine">
+            <summary>
+            Solid lines are drawn.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.SeparatorType.SolidLineWithScissors">
+            <summary>
+            Solid lines with a scissor symbol are drawn.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.SeparatorType.DashedLine">
+            <summary>
+            Dashed lines are drawn.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.SeparatorType.DashedLineWithScissors">
+            <summary>
+            Dashed lines with a scissor symbol are drawn.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.SeparatorType.DottedLine">
+            <summary>
+            Dotted lines are drawn.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.SeparatorType.DottedLineWithScissors">
+            <summary>
+            Dotted lines with a scissor symbol are drawn.
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.StringExtensions">
+            <summary>
+            Extension methods for <see cref="T:System.String"/>.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.StringExtensions.Trimmed(System.String)">
+            <summary>
+            Returns a new string with leading and trailing whitespace removed.
+            <para>
+            For empty strings or <c>null</c>, <c>null</c> is returned.
+            </para>
+            </summary>
+            <param name="value">The string instance that this method extends or <c>null</c>.</param>
+            <returns>The trimmed string or <c>null</c>.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.StringExtensions.WhiteSpaceRemoved(System.String)">
+            <summary>
+            Returns a new string without white space.
+            </summary>
+            <param name="value">The string instance that this method extends</param>
+            <returns>The resulting string with all whitespace removed.</returns>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.SwicoBillInformation">
+            <summary>
+            Bill information (according to Swico S1) for automated processing of invoices.
+            <para>
+            Swico S1 (see http://swiss-qr-invoice.org/downloads/qr-bill-s1-syntax-de.pdf) is one of the
+            supported standards for adding structured billing information to a QR bill
+            (in the field StrdBkgInf).
+            </para>
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.InvoiceNumber">
+            <summary>
+            Gets or sets the invoice number.
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.InvoiceDate">
+            <summary>
+            Gets or sets the invoice date.
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.CustomerReference">
+            <summary>
+            Gets or sets the customer reference.
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.VatNumber">
+            <summary>
+            Gets or sets the invoicing party's VAT number.
+            <para>
+            The number without any prefix, white space, separator or suffix, i.e. "106017086" instead of "CHE-106.017.086 MWST".
+            </para>
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.VatDate">
+            <summary>
+            Gets or sets the date when the goods or service were supplied.
+            </summary>
+            <remarks>
+            If this property is non-null, <see cref="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.VatStartDate"/> and <see cref="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.VatEndDate"/>
+            must not be used.
+            </remarks>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.VatStartDate">
+            <summary>
+            Gets or sets the start date of the period when the service was supplied (e.g. a subscription).
+            </summary>
+            <remarks>
+            If this property is non-null, <see cref="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.VatEndDate"/> must be set as well,
+            and <see cref="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.VatDate"/> must not be used.
+            </remarks>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.VatEndDate">
+            <summary>
+            Gets or sets the end date of the period when the service was supplied (e.g. a subscription).
+            </summary>
+            <remarks>
+            If this property is non-null, <see cref="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.VatStartDate"/> must be set as well,
+            and <see cref="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.VatDate"/> must not be used.
+            </remarks>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.VatRate">
+            <summary>
+            Gets or sets the VAT rate (in percent) in case the same rate applies to the entire invoice.
+            <para>
+            If different rates apply to invoice line items, this property is <c>null</c> and
+            <see cref="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.VatRateDetails"/> is used instead.
+            </para>
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.VatRateDetails">
+            <summary>
+            Gets or sets a list of VAT rates.
+            <para>
+            Each element in the list is a tuple of VAT rate (in percent) and amount (in QR bill currency).
+            It indicates that the specified VAT rate applies to the specified net amount (partial amount) of the invoice.
+            </para>
+            <para>
+            If a single VAT rate applies to the entire invoice, this list is <c>null</c> and
+            <see cref="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.VatRate"/> is used instead.
+            </para>
+            </summary>
+            <example>
+            If the list contained (8, 1000), (2.5, 51.8), (7.7, 250) for an invoice in CHF, a VAT rate of 8% would
+            apply to CHF 1000.00, 2.5% for CHF 51.80 and 7.7% for CHF 250.00.
+            </example>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.VatImportTaxes">
+            <summary>
+            Gets or sets a list of VAT import taxes.
+            <para>
+            Each element in the list is a tuple of VAT rate (in percent) and VAT amount (in QR bill currency).
+            It indicates that the specified VAT rate was applied and resulted in the specified tax amount.
+            </para>
+            </summary>
+            <example>
+            If the list contained (7.7, 48.37), (2.5, 12.4) for an invoice in CHF, a VAT rate of 7.7% has
+            been applied to a part of the items resulting in CHF 48.37 in tax and a rate of 2.5% has been
+            applied to another part of the items resulting in CHF 12.40 in tax.
+            </example>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.PaymentConditions">
+            <summary>
+            Gets or sets the payment conditions.
+            <para>
+            Each element in the list is a tuple of a payment discount (in percent) and a deadline
+            (in days from the invoice date).
+            </para>
+            </summary>
+            <example>
+            If the list contained (2, 10), (0, 60), a discount of 2% applies if the payment is made
+            by 10 days after invoice data. The payment is due 60 days after invoice date.
+            </example>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.SwicoBillInformation.DueDate">
+            <summary>
+            Gets the due date.
+            <para>
+            The due date is calculated from the invoice date and the payment condition with a discount of 0.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.SwicoBillInformation.EncodeAsText">
+            <summary>
+            Encodes this bill information as a single text string suitable
+            to be added to a Swiss QR bill.
+            </summary>
+            <returns>Encoded text</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.SwicoBillInformation.DecodeText(System.String)">
+            <summary>
+            Decodes the text of structured billing information and creates a <see cref="T:Codecrete.SwissQRBill.Generator.SwicoBillInformation"/> instance.
+            </summary>
+            <param name="text">The structured billing information encoded according to Swico S1 syntax.</param>
+            <returns>The decoded billing information.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.SwicoBillInformation.Equals(System.Object)">
+            <summary>Determines whether the specified object is equal to the current object.</summary>
+            <param name="obj">The object to compare with the current object.</param>
+            <returns><c>true</c> if the specified object is equal to the current object; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.SwicoBillInformation.Equals(Codecrete.SwissQRBill.Generator.SwicoBillInformation)">
+            <summary>Determines whether the specified bill information is equal to the current bill information.</summary>
+            <param name="other">The bill information to compare with the current bill information.</param>
+            <returns><c>true</c> if the specified object is equal to the current object; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.SwicoBillInformation.GetHashCode">
+            <summary>Gets the hash code for this instance.</summary>
+            <returns>A hash code for the current object.</returns>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.SwicoS1Decoder">
+            <summary>
+            Decodes structured bill information according to Swico S1 syntax.
+            <para>
+            The encoded bill information can be found in a Swiss QR bill in th field <c>StrdBkgInf</c>.
+            </para>
+            <para>
+            Also see http://swiss-qr-invoice.org/downloads/qr-bill-s1-syntax-de.pdf
+            </para>
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.SwicoS1Decoder.Decode(System.String)">
+            <summary>
+            Decodes the specified text.
+            <para>
+            As much data as possible is decoded. Invalid data is silently ignored.
+            </para>
+            </summary>
+            <param name="billInfoText">Encoded structured bill information.</param>
+            <returns>The decoded bill information (or <c>null</c> if no valid Swico bill information is found).</returns>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.SwicoS1Decoder.Split(System.String)">
+            <summary>
+            Splits the text at slash characters.
+            </summary>
+            <para>
+            Additionally, the escaping with back slashes is undone.
+            </para>
+            <param name="text">The text to split.</param>
+            <returns>An array of substrings</returns>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.SwicoS1Encoder">
+            <summary>
+            Encodes structured bill information according to Swico S1 syntax.
+            <para>
+            The encoded bill information can be used in a Swiss QR bill in the field <c>StrdBkgInf</c>.
+            </para>
+            <para>
+            Also see http://swiss-qr-invoice.org/downloads/qr-bill-s1-syntax-de.pdf
+            </para>
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.SwicoS1Encoder.Encode(Codecrete.SwissQRBill.Generator.SwicoBillInformation)">
+            <summary>
+            Encodes the specified bill information. 
+            </summary>
+            <param name="billInfo">The bill information.</param>
+            <returns>The encoded bill information text.</returns>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.ValidationConstants">
+            <summary>
+            Constants for bill validation messages: message keys and field names.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyCurrencyNotChfOrEur">
+            <summary>
+            Validation message key: currency must be "CHF" or "EUR"
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyAmountOutsideValidRange">
+            <summary>
+            Validation message key: amount must be between 0.01 and 999999999.99
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyAccountIbanNotFromChOrLi">
+            <summary>
+            Validation message key: account number should start with "CH" or "LI"
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyAccountIbanInvalid">
+            <summary>
+            Validation message key: IBAN is not valid (incorrect format or check digit)
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyRefInvalid">
+            <summary>
+            Validation message key: The reference is invalid. It is neither a valid QR reference nor a valid ISO 11649
+            reference.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyQrRefMissing">
+            <summary>
+            Validation message key: QR reference is missing; it is mandatory for payments to a QR-IBAN account.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyCredRefInvalidUseForQrIban">
+            <summary>
+            Validation message key: For payments to a QR-IBAN account, a QR reference is required. An ISO 11649 reference
+            may not be used.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyQrRefInvalidUseForNonQrIban">
+            <summary>
+            Validation message key: A QR reference is only allowed for payments to a QR-IBAN account.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyRefTypeInvalid">
+            <summary>
+            Validation message key: Reference type should be one of "QRR", "SCOR" and "NON" and match the reference.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyFieldValueMissing">
+            <summary>
+            Validation message key: Field must not be empty
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyAddressTypeConflict">
+            <summary>
+            Validation message key: Conflicting fields for both structured and combined elements address type have been used
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyCountryCodeInvalid">
+            <summary>
+            Validation message key: Country code must consist of two letters
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyFieldValueClipped">
+            <summary>
+            Validation message key: Field has been clipped to not exceed the maximum length
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyFieldValueTooLong">
+            <summary>
+            Validation message key: Field value exceed the maximum length
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyAdditionalInfoTooLong">
+            <summary>
+            Validation message key: Unstructured message and bill information combined exceed the maximum length
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyReplacedUnsupportedCharacters">
+            <summary>
+            Validation message key: Unsupported characters have been replaced
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyDataStructureInvalid">
+            <summary>
+            Validation message key: Invalid data structure; it must start with "SPC" and consists
+            of 32 to 34 lines of text (with exceptions)
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyVersionUnsupported">
+            <summary>
+            Validation message key: Version 02.00 is supported only
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyCodingTypeUnsupported">
+            <summary>
+            Validation message key: Coding type 1 is supported only
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyNumberInvalid">
+            <summary>
+            Validation message key: Valid number required (nnnnn.nn)
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyAltSchemeMaxExceeded">
+            <summary>
+            Validation message key: The maximum of 2 alternative schemes has been exceeded
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.KeyBillInfoInvalid">
+            <summary>
+            Validation message key: The bill information is invalid (does not start with // or is too short)
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.SubFieldName">
+            <summary>
+            Relative field name of an address' name.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.SubFieldAddressLine1">
+            <summary>
+            Relative field of an address' line 1.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.SubFieldAddressLine2">
+            <summary>
+            Relative field of an address' line 2.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.SubFieldStreet">
+            <summary>
+            Relative field of an address' street.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.SubFieldHouseNo">
+            <summary>
+            Relative field of an address' house number.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.SubFieldPostalCode">
+            <summary>
+            Relative field of an address' postal code.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.SubFieldTown">
+            <summary>
+            Relative field of an address' town.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.SubFieldCountryCode">
+            <summary>
+            Relative field of an address' country code.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldQrType">
+            <summary>
+            Field name of the QR code type.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldVersion">
+            <summary>
+            Field name of the QR bill version.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldCodingType">
+            <summary>
+            Field name of the QR bill's coding type.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldTrailer">
+            <summary>
+            Field name of the QR bill's trailer ("EPD").
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldCurrency">
+            <summary>
+            Field name of the currency.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldAmount">
+            <summary>
+            Field name of the amount.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldAccount">
+            <summary>
+            Field name of the account number.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldReferenceType">
+            <summary>
+            Field name of the reference type.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldReference">
+            <summary>
+            Field name of the reference.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldRootCreditor">
+            <summary>
+            Start of field name of the creditor address.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldCreditorName">
+            <summary>
+            Field name of the creditor's name.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldCreditorStreet">
+            <summary>
+            Field name of the creditor's street.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldCreditorHouseNo">
+            <summary>
+            Field name of the creditor's house number.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldCreditorPostalCode">
+            <summary>
+            Field name of the creditor's postal code.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldCreditorTown">
+            <summary>
+            Field name of the creditor's town.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldCreditorCountryCode">
+            <summary>
+            Field name of the creditor's country code.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldUnstructuredMessage">
+            <summary>
+            Field name of the unstructured message.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldBillInformation">
+            <summary>
+            Field name of the bill information.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldAlternativeSchemes">
+            <summary>
+            Field name of the alternative schemes.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldRootDebtor">
+            <summary>
+            Start of field name of the debtor's address.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldDebtorName">
+            <summary>
+            Field name of the debtor's name.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldDebtorStreet">
+            <summary>
+            Field name of the debtor's street.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldDebtorHouseNo">
+            <summary>
+            Field name of the debtor's house number.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldDebtorPostalCode">
+            <summary>
+            Field name of the debtor's postal code.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldDebtorTown">
+            <summary>
+            Field name of the debtor's town.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationConstants.FieldDebtorCountryCode">
+            <summary>
+            Field name of the debtor's country code.
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.ValidationMessage">
+            <summary>
+            QR bill validation message.
+            </summary>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.ValidationMessage.MessageType">
+            <summary>
+            The type of validation message.
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationMessage.MessageType.Warning">
+            <summary>
+            Warning.
+            <para>
+            A warning does not prevent the QR bill from being generated. Warnings usually
+            indicate that data was truncated or otherwise modified.
+            </para>
+            </summary>
+        </member>
+        <member name="F:Codecrete.SwissQRBill.Generator.ValidationMessage.MessageType.Error">
+            <summary>
+            Error.
+            <para>
+            Errors prevent the QR bill from being generated.
+            </para>
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.ValidationMessage.Type">
+            <summary>
+            Gets or sets the type of message.
+            </summary>
+            <value>The message type.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.ValidationMessage.Field">
+            <summary>
+            Gets or sets the name of the affected field.
+            <para>
+            All field names are available as constants of the <see cref="T:Codecrete.SwissQRBill.Generator.ValidationConstants"/> class.
+            Fields nested in data structures are given like a path using the dot as a separator,
+            e.g. <c>creditor.name</c> for the creditor name.
+            </para>
+            </summary>
+            <value>The name of the affected field.</value>
+            <seealso cref="T:Codecrete.SwissQRBill.Generator.ValidationConstants"/>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.ValidationMessage.MessageKey">
+            <summary>
+            Gets or sets the language neutral key of the message.
+            <para>
+            All message keys are available as constants of the <see cref="T:Codecrete.SwissQRBill.Generator.ValidationConstants"/> class.
+            </para>
+            </summary>
+            <value>The message key.</value>
+            <seealso cref="T:Codecrete.SwissQRBill.Generator.ValidationConstants"/>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.ValidationMessage.MessageParameters">
+            <summary>
+            Gets additional message parameters (text) that are inserted into the localized message.
+            </summary>
+            <value>The message parameters (if any) or <c>null</c>.</value>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.ValidationMessage.#ctor">
+            <summary>
+            Initializes a new instance with <c>null</c> values.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.ValidationMessage.#ctor(Codecrete.SwissQRBill.Generator.ValidationMessage.MessageType,System.String,System.String,System.String[])">
+            <summary>
+            Initializes a new instance with the given values.
+            <para>
+            For valid field names and message keys, see the constants in the <see cref="T:Codecrete.SwissQRBill.Generator.ValidationConstants"/> class.
+            </para>
+            </summary>
+            <param name="type">The message type.</param>
+            <param name="field">The name of the affected field.</param>
+            <param name="messageKey">The language-neutral message key.</param>
+            <param name="messageParameters">The optional variable text parts to be inserted into localized message.</param>
+            <seealso cref="T:Codecrete.SwissQRBill.Generator.ValidationConstants"/>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.ValidationResult">
+            <summary>
+            The validation result, consisting of a list of validation messages
+            and flags indicating the validation state.
+            </summary>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.ValidationResult.ValidationMessages">
+            <summary>
+            Gets the list of validation messages.
+            <para>
+            The result is never <c>null</c>.
+            </para>
+            </summary>
+            <value>The validation message list.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.ValidationResult.HasMessages">
+            <summary>
+            Gets if this validation result contains any messages.
+            </summary>
+            <value><c>true</c> if the result contains any messages, <c>false</c> otherwise.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.ValidationResult.HasWarnings">
+            <summary>
+            Gets if this validation result contains any warning messages.
+            </summary>
+            <value><c>true</c> if the result contains any warning messages, <c>false</c> otherwise.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.ValidationResult.HasErrors">
+            <summary>
+            Gets if this validation result contains any error messages.
+            </summary>
+            <value><c>true</c> if the result contains any error messages, <c>false</c> otherwise.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.ValidationResult.IsValid">
+            <summary>
+            Gets if the bill data is valid and the validation therefore has succeeded.
+            <para>
+            A successful validation may still produce warning messages.
+            </para>
+            </summary>
+            <value><c>true</c> if the validation has succeeded, <c>false</c> otherwise.</value>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.ValidationResult.AddMessage(Codecrete.SwissQRBill.Generator.ValidationMessage.MessageType,System.String,System.String,System.String[])">
+            <summary>
+            Adds a new validation message to this validation result.
+            </summary>
+            <param name="type">The message type.</param>
+            <param name="field">The name of the affected field.</param>
+            <param name="messageKey">The language-neutral message key.</param>
+            <param name="messageParameters">The optional message parameters (text) to be inserted into the localized message.</param>
+            <seealso cref="T:Codecrete.SwissQRBill.Generator.ValidationMessage"/>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.ValidationResult.CleanedBill">
+            <summary>
+            Gets or sets the cleaned bill data.
+            <para>
+            As part of the validation, the bill data is cleaned, i.e. leading and trailing whitespace is trimmed,
+            empty values are replaced with <c>null</c>, invalid characters are replaced and too long data is truncated.
+            The result is the cleaned bill data. 
+            </para>
+            </summary>
+            <value>The cleaned bill data.</value>
+        </member>
+        <member name="P:Codecrete.SwissQRBill.Generator.ValidationResult.Description">
+            <summary>
+            Gets a human-readable description of the validation problems.
+            <para>
+            The description includes errors only.
+            </para>
+            </summary>
+            <value>The description.</value>
+        </member>
+        <member name="T:Codecrete.SwissQRBill.Generator.Validator">
+            <summary>
+            Internal class for validating and cleaning QR bill data.
+            </summary>
+        </member>
+        <member name="M:Codecrete.SwissQRBill.Generator.Validator.Validate(Codecrete.SwissQRBill.Generator.Bill)">
+            <summary>
+            Validates the QR bill data and returns the validation messages (if any) and
+            the cleaned bill data.
+            </summary>
+            <param name="bill">The bill data to validate.</param>
+            <returns>The validation result.</returns>
+        </member>
+    </members>
+</doc>

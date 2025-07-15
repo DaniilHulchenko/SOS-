@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dstAssurances" targetNamespace="http://tempuri.org/dstAssurances.xsd" xmlns:mstns="http://tempuri.org/dstAssurances.xsd" xmlns="http://tempuri.org/dstAssurances.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+        </Connections>
+        <Tables>
+        </Tables>
+        <Sources>
+        </Sources>
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dstAssurances" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dstAssurances" msprop:Generator_DataSetName="dstAssurances">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="assurances" msprop:Generator_UserTableName="assurances" msprop:Generator_RowDeletedName="assurancesRowDeleted" msprop:Generator_TableClassName="assurancesDataTable" msprop:Generator_RowChangedName="assurancesRowChanged" msprop:Generator_RowClassName="assurancesRow" msprop:Generator_RowChangingName="assurancesRowChanging" msprop:Generator_RowEvArgName="assurancesRowChangeEvent" msprop:Generator_RowEvHandlerName="assurancesRowChangeEventHandler" msprop:Generator_TablePropName="assurances" msprop:Generator_TableVarName="tableassurances" msprop:Generator_RowDeletingName="assurancesRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="NAssurance" msprop:Generator_UserColumnName="NAssurance" msprop:Generator_ColumnPropNameInRow="NAssurance" msprop:Generator_ColumnVarNameInTable="columnNAssurance" msprop:Generator_ColumnPropNameInTable="NAssuranceColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="NAdresse" msprop:Generator_UserColumnName="NAdresse" msprop:Generator_ColumnPropNameInRow="NAdresse" msprop:Generator_ColumnVarNameInTable="columnNAdresse" msprop:Generator_ColumnPropNameInTable="NAdresseColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="AssAdresseTexte" msprop:Generator_UserColumnName="AssAdresseTexte" msprop:Generator_ColumnPropNameInRow="AssAdresseTexte" msprop:Generator_ColumnVarNameInTable="columnAssAdresseTexte" msprop:Generator_ColumnPropNameInTable="AssAdresseTexteColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="AssNom" msprop:Generator_UserColumnName="AssNom" msprop:Generator_ColumnPropNameInRow="AssNom" msprop:Generator_ColumnVarNameInTable="columnAssNom" msprop:Generator_ColumnPropNameInTable="AssNomColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="AssService" msprop:Generator_UserColumnName="AssService" msprop:Generator_ColumnPropNameInRow="AssService" msprop:Generator_ColumnVarNameInTable="columnAssService" msprop:Generator_ColumnPropNameInTable="AssServiceColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="AssTelephone" msprop:Generator_UserColumnName="AssTelephone" msprop:Generator_ColumnPropNameInRow="AssTelephone" msprop:Generator_ColumnVarNameInTable="columnAssTelephone" msprop:Generator_ColumnPropNameInTable="AssTelephoneColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="AssFax" msprop:Generator_UserColumnName="AssFax" msprop:Generator_ColumnPropNameInRow="AssFax" msprop:Generator_ColumnVarNameInTable="columnAssFax" msprop:Generator_ColumnPropNameInTable="AssFaxColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="AssCpostale" msprop:Generator_UserColumnName="AssCpostale" msprop:Generator_ColumnPropNameInRow="AssCpostale" msprop:Generator_ColumnVarNameInTable="columnAssCpostale" msprop:Generator_ColumnPropNameInTable="AssCpostaleColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="AssExtLocalite" msprop:Generator_UserColumnName="AssExtLocalite" msprop:Generator_ColumnPropNameInRow="AssExtLocalite" msprop:Generator_ColumnVarNameInTable="columnAssExtLocalite" msprop:Generator_ColumnPropNameInTable="AssExtLocaliteColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="AssContact" msprop:Generator_UserColumnName="AssContact" msprop:Generator_ColumnPropNameInRow="AssContact" msprop:Generator_ColumnVarNameInTable="columnAssContact" msprop:Generator_ColumnPropNameInTable="AssContactColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="AssApprouve" msprop:Generator_UserColumnName="AssApprouve" msprop:Generator_ColumnPropNameInRow="AssApprouve" msprop:Generator_ColumnVarNameInTable="columnAssApprouve" msprop:Generator_ColumnPropNameInTable="AssApprouveColumn" type="xs:double" minOccurs="0" />
+              <xs:element name="AssCommentaire" msprop:Generator_UserColumnName="AssCommentaire" msprop:Generator_ColumnPropNameInRow="AssCommentaire" msprop:Generator_ColumnVarNameInTable="columnAssCommentaire" msprop:Generator_ColumnPropNameInTable="AssCommentaireColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="NCaisse" msprop:Generator_UserColumnName="NCaisse" msprop:Generator_ColumnPropNameInRow="NCaisse" msprop:Generator_ColumnVarNameInTable="columnNCaisse" msprop:Generator_ColumnPropNameInTable="NCaisseColumn" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

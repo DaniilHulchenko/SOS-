@@ -1,0 +1,66 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+SosMedecins.Controls
+</name>
+</assembly>
+<members>
+<member name="T:SosMedecins.Controls.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:SosMedecins.Controls.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:SosMedecins.Controls.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="T:SosMedecins.Controls.sosTextBox.TypeSaisie">
+ <summary>
+ Type de la donnйe saisie
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:SosMedecins.Controls.sosTextBox.Saisie">
+ <summary>
+ Indique le type de la donnйe saisie
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:SosMedecins.Controls.sosTextBox.PartieEntiere">
+ <summary>
+ Nombre maximum de chiffres de la partie entiиre
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:SosMedecins.Controls.sosTextBox.PartieDecimale">
+ <summary>
+ Nombre maximum de chiffres de la partie dйcimale
+ </summary>
+ <value></value>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="P:SosMedecins.Controls.sosTextBox.Espace">
+ <summary>
+ Indique si la saisie de l'espace est autorisйe
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:SosMedecins.Controls.sosTextBox.Negatif">
+ <summary>
+ Indique si la saisie de l'espace est autorisйe
+ </summary>
+ <remarks></remarks>
+</member>
+</members>
+</doc>

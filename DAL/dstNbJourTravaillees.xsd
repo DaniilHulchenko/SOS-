@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dstNbJourTravaillees" targetNamespace="http://tempuri.org/dstNbJourTravaillees.xsd" xmlns:mstns="http://tempuri.org/dstNbJourTravaillees.xsd" xmlns="http://tempuri.org/dstNbJourTravaillees.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" GeneratorFunctionsComponentClassName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" UserFunctionsComponentName="QueriesTableAdapter" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="SmartRapportConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="SmartRapportConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.SosMedecins.SmartRapport.DAL.Properties.Settings.GlobalReference.Default.SmartRapportConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dstNbJourTravaillees" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dstNbJourTravaillees" msprop:Generator_UserDSName="dstNbJourTravaillees">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="TableNbJoursTvl" msprop:Generator_TableClassName="TableNbJoursTvlDataTable" msprop:Generator_TableVarName="tableTableNbJoursTvl" msprop:Generator_RowChangedName="TableNbJoursTvlRowChanged" msprop:Generator_TablePropName="TableNbJoursTvl" msprop:Generator_RowDeletingName="TableNbJoursTvlRowDeleting" msprop:Generator_RowChangingName="TableNbJoursTvlRowChanging" msprop:Generator_RowEvHandlerName="TableNbJoursTvlRowChangeEventHandler" msprop:Generator_RowDeletedName="TableNbJoursTvlRowDeleted" msprop:Generator_RowClassName="TableNbJoursTvlRow" msprop:Generator_UserTableName="TableNbJoursTvl" msprop:Generator_RowEvArgName="TableNbJoursTvlRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Nom" msprop:Generator_ColumnVarNameInTable="columnNom" msprop:Generator_ColumnPropNameInRow="Nom" msprop:Generator_ColumnPropNameInTable="NomColumn" msprop:Generator_UserColumnName="Nom" type="xs:string" minOccurs="0" />
+              <xs:element name="NbJours" msprop:Generator_ColumnVarNameInTable="columnNbJours" msprop:Generator_ColumnPropNameInRow="NbJours" msprop:Generator_ColumnPropNameInTable="NbJoursColumn" msprop:Generator_UserColumnName="NbJours" type="xs:short" minOccurs="0" />
+              <xs:element name="Colonne1" msprop:Generator_ColumnVarNameInTable="columnColonne1" msprop:Generator_ColumnPropNameInRow="Colonne1" msprop:Generator_ColumnPropNameInTable="Colonne1Column" msprop:Generator_UserColumnName="Colonne1" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

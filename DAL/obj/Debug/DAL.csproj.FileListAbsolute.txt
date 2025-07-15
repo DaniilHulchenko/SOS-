@@ -1,0 +1,4 @@
+C:\Users\lvovd\Source\Repos\SmartRapport\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
+C:\Users\lvovd\Source\Repos\SmartRapport\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+D:\Visual Studio 19\SmartRapport\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
+D:\Visual Studio 19\SmartRapport\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache

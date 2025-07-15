@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetMessages">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sSIM" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMessagesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMessagesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AcqMessages">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AcqMessagesResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetRapportNonTransmis">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetRapportNonTransmisResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRapportNonTransmisResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AcquittementReceptionRapport">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="iNumeroAppel" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdPatient" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AcquittementReceptionRapportResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetInfoAppel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="iNumeroAppel" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInfoAppelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInfoAppelResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetMessagesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMessages" />
+  </wsdl:message>
+  <wsdl:message name="GetMessagesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMessagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="AcqMessagesSoapIn">
+    <wsdl:part name="parameters" element="tns:AcqMessages" />
+  </wsdl:message>
+  <wsdl:message name="AcqMessagesSoapOut">
+    <wsdl:part name="parameters" element="tns:AcqMessagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRapportNonTransmisSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRapportNonTransmis" />
+  </wsdl:message>
+  <wsdl:message name="GetRapportNonTransmisSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRapportNonTransmisResponse" />
+  </wsdl:message>
+  <wsdl:message name="AcquittementReceptionRapportSoapIn">
+    <wsdl:part name="parameters" element="tns:AcquittementReceptionRapport" />
+  </wsdl:message>
+  <wsdl:message name="AcquittementReceptionRapportSoapOut">
+    <wsdl:part name="parameters" element="tns:AcquittementReceptionRapportResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInfoAppelSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInfoAppel" />
+  </wsdl:message>
+  <wsdl:message name="GetInfoAppelSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInfoAppelResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceSoap">
+    <wsdl:operation name="GetMessages">
+      <wsdl:input message="tns:GetMessagesSoapIn" />
+      <wsdl:output message="tns:GetMessagesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AcqMessages">
+      <wsdl:input message="tns:AcqMessagesSoapIn" />
+      <wsdl:output message="tns:AcqMessagesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRapportNonTransmis">
+      <wsdl:input message="tns:GetRapportNonTransmisSoapIn" />
+      <wsdl:output message="tns:GetRapportNonTransmisSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AcquittementReceptionRapport">
+      <wsdl:input message="tns:AcquittementReceptionRapportSoapIn" />
+      <wsdl:output message="tns:AcquittementReceptionRapportSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoAppel">
+      <wsdl:input message="tns:GetInfoAppelSoapIn" />
+      <wsdl:output message="tns:GetInfoAppelSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetMessages">
+      <soap:operation soapAction="http://tempuri.org/GetMessages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AcqMessages">
+      <soap:operation soapAction="http://tempuri.org/AcqMessages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRapportNonTransmis">
+      <soap:operation soapAction="http://tempuri.org/GetRapportNonTransmis" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AcquittementReceptionRapport">
+      <soap:operation soapAction="http://tempuri.org/AcquittementReceptionRapport" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoAppel">
+      <soap:operation soapAction="http://tempuri.org/GetInfoAppel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetMessages">
+      <soap12:operation soapAction="http://tempuri.org/GetMessages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AcqMessages">
+      <soap12:operation soapAction="http://tempuri.org/AcqMessages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRapportNonTransmis">
+      <soap12:operation soapAction="http://tempuri.org/GetRapportNonTransmis" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AcquittementReceptionRapport">
+      <soap12:operation soapAction="http://tempuri.org/AcquittementReceptionRapport" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInfoAppel">
+      <soap12:operation soapAction="http://tempuri.org/GetInfoAppel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
+      <soap:address location="http://192.168.0.166/wsepos/wsepos.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
+      <soap12:address location="http://192.168.0.166/wsepos/wsepos.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

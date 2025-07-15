@@ -1,0 +1,42 @@
+ / if (chrSexe == "F")
+                        {
+                            Destrow.RapBonjour = "Madame et chère Consoeur,";
+
+
+                            if ((DateTime.Now.ToString("MM") == "12") && (int.Parse(DateTime.Now.ToString("dd")) > 15))
+                            {
+                                //Fête de Noël
+                                Destrow.RapSalutation = "Je reste à votre entière disposition pour tout renseignement que vous jugeriez utile de me demander notamment à travers mon courriel " + Donnees.MonDtRapport.Rapport[0].Mail + ", et vous souhaite, Madame et chère Consoeur, de bonnes Fêtes de fin d'année.";
+                            }
+                            else if ((DateTime.Now.ToString("MM") == "01") && (int.Parse(DateTime.Now.ToString("dd")) < 15))
+                            {
+                                //Jour de l'an
+                                Destrow.RapSalutation = "Je reste à votre entière disposition pour tout renseignement que vous jugeriez utile de me demander notamment à travers mon courriel " + Donnees.MonDtRapport.Rapport[0].Mail + ", et vous souhaite, Madame et chère Consoeur, une très bonne année " + DateTime.Now.ToString("yyyy") + ".";
+                            }
+                            else
+                            {
+                                //Normal
+                                Destrow.RapSalutation = "Je reste à votre entière disposition pour tout renseignement que vous jugeriez utile de me demander notamment à travers mon courriel " + Donnees.MonDtRapport.Rapport[0].Mail + ", et je vous prie de recevoir, Madame et chère Consoeur, mes salutations confraternelles.";
+                            }
+                        }
+                        else
+                        {
+                            Destrow.RapBonjour = "Monsieur et cher Confrère,";
+
+                            if ((DateTime.Now.ToString("MM") == "12") && (int.Parse(DateTime.Now.ToString("dd")) > 15))
+                            {
+                                //Fête de Noël
+                                Destrow.RapSalutation = "Je reste à votre entière disposition pour tout renseignement que vous jugeriez utile de me demander notamment à travers mon courriel " + Donnees.MonDtRapport.Rapport[0].Mail + ", et vous souhaite, Monsieur et cher Confrère, de bonnes Fêtes de fin d'année.";
+                            }
+                            else if ((DateTime.Now.ToString("MM") == "01") && (int.Parse(DateTime.Now.ToString("dd")) < 15))
+                            {
+                                //Jour de l'an
+                                Destrow.RapSalutation = "Je reste à votre entière disposition pour tout renseignement que vous jugeriez utile de me demander notamment à travers mon courriel " + Donnees.MonDtRapport.Rapport[0].Mail + ", et vous souhaite, Monsieur et cher Confrère, une très bonne année " + DateTime.Now.ToString("yyyy") + ".";
+                            }
+                            else
+                            {
+                                //Normal
+                                Destrow.RapSalutation = "Je reste à votre entière disposition pour tout renseignement que vous jugeriez utile de me demander notamment à travers mon courriel " + Donnees.MonDtRapport.Rapport[0].Mail + ", et je vous prie de recevoir, Monsieur et cher Confrère, mes salutations confraternelles.";
+                            }
+
+                        }                     

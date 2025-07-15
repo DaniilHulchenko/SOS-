@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dstDestination" targetNamespace="http://tempuri.org/dstDestination.xsd" xmlns:mstns="http://tempuri.org/dstDestination.xsd" xmlns="http://tempuri.org/dstDestination.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+        </Connections>
+        <Tables>
+        </Tables>
+        <Sources>
+        </Sources>
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dstDestination" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dstDestination" msprop:Generator_DataSetName="dstDestination">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Destination" msprop:Generator_UserTableName="Destination" msprop:Generator_RowDeletedName="DestinationRowDeleted" msprop:Generator_TableClassName="DestinationDataTable" msprop:Generator_RowChangedName="DestinationRowChanged" msprop:Generator_RowClassName="DestinationRow" msprop:Generator_RowChangingName="DestinationRowChanging" msprop:Generator_RowEvArgName="DestinationRowChangeEvent" msprop:Generator_RowEvHandlerName="DestinationRowChangeEventHandler" msprop:Generator_TablePropName="Destination" msprop:Generator_TableVarName="tableDestination" msprop:Generator_RowDeletingName="DestinationRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="NRapport" msprop:Generator_UserColumnName="NRapport" msprop:Generator_ColumnPropNameInRow="NRapport" msprop:Generator_ColumnVarNameInTable="columnNRapport" msprop:Generator_ColumnPropNameInTable="NRapportColumn" type="xs:long" />
+              <xs:element name="TypeDestinataire" msprop:Generator_UserColumnName="TypeDestinataire" msprop:Generator_ColumnPropNameInRow="TypeDestinataire" msprop:Generator_ColumnVarNameInTable="columnTypeDestinataire" msprop:Generator_ColumnPropNameInTable="TypeDestinataireColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="CodeDestinataire" msprop:Generator_UserColumnName="CodeDestinataire" msprop:Generator_ColumnPropNameInRow="CodeDestinataire" msprop:Generator_ColumnVarNameInTable="columnCodeDestinataire" msprop:Generator_ColumnPropNameInTable="CodeDestinataireColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="RapDestinataire" msprop:Generator_UserColumnName="RapDestinataire" msprop:Generator_ColumnPropNameInRow="RapDestinataire" msprop:Generator_ColumnVarNameInTable="columnRapDestinataire" msprop:Generator_ColumnPropNameInTable="RapDestinataireColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="RapBonjour" msprop:Generator_UserColumnName="RapBonjour" msprop:Generator_ColumnPropNameInRow="RapBonjour" msprop:Generator_ColumnVarNameInTable="columnRapBonjour" msprop:Generator_ColumnPropNameInTable="RapBonjourColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="RapIntroduction" msprop:Generator_UserColumnName="RapIntroduction" msprop:Generator_ColumnPropNameInRow="RapIntroduction" msprop:Generator_ColumnVarNameInTable="columnRapIntroduction" msprop:Generator_ColumnPropNameInTable="RapIntroductionColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="RapSalutation" msprop:Generator_UserColumnName="RapSalutation" msprop:Generator_ColumnPropNameInRow="RapSalutation" msprop:Generator_ColumnVarNameInTable="columnRapSalutation" msprop:Generator_ColumnPropNameInTable="RapSalutationColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Nom" msprop:Generator_UserColumnName="Nom" msprop:Generator_ColumnPropNameInRow="Nom" msprop:Generator_ColumnVarNameInTable="columnNom" msprop:Generator_ColumnPropNameInTable="NomColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="RapModeEnvoi" msprop:Generator_UserColumnName="RapModeEnvoi" msprop:Generator_ColumnPropNameInRow="RapModeEnvoi" msprop:Generator_ColumnVarNameInTable="columnRapModeEnvoi" msprop:Generator_ColumnPropNameInTable="RapModeEnvoiColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Intime" msprop:Generator_UserColumnName="Intime" msprop:Generator_ColumnPropNameInRow="Intime" msprop:Generator_ColumnVarNameInTable="columnIntime" msprop:Generator_ColumnPropNameInTable="IntimeColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="Logo" msprop:Generator_UserColumnName="Logo" msprop:Generator_ColumnPropNameInRow="Logo" msprop:Generator_ColumnVarNameInTable="columnLogo" msprop:Generator_ColumnPropNameInTable="LogoColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="mail" msprop:Generator_UserColumnName="mail" msprop:Generator_ColumnPropNameInRow="mail" msprop:Generator_ColumnVarNameInTable="columnmail" msprop:Generator_ColumnPropNameInTable="mailColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Copie" msprop:Generator_UserColumnName="Copie" msprop:Generator_ColumnPropNameInRow="Copie" msprop:Generator_ColumnVarNameInTable="columnCopie" msprop:Generator_ColumnPropNameInTable="CopieColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="RapEnvoye" msprop:Generator_UserColumnName="RapEnvoye" msprop:Generator_ColumnPropNameInRow="RapEnvoye" msprop:Generator_ColumnVarNameInTable="columnRapEnvoye" msprop:Generator_ColumnPropNameInTable="RapEnvoyeColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="DateEnvoi" msprop:Generator_UserColumnName="DateEnvoi" msprop:Generator_ColumnPropNameInRow="DateEnvoi" msprop:Generator_ColumnVarNameInTable="columnDateEnvoi" msprop:Generator_ColumnPropNameInTable="DateEnvoiColumn" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
