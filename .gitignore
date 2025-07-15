@@ -1,0 +1,53 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# IDEs and editors
+.vs/
+#.vscode/
+.idea/
+/aspnet-core/src/PQBI.Web.Mvc/Properties/PublishProfiles/FolderProfile.pubxml
+aspnet-core/test/JMeter/AspNetZeroDotNetCoreSimpleTest.jmx
+/aspnet-core/build/outputs
+
+# User-specific files
+*.suo
+*.user
+*.sln.docstates
+aspnet-core/DeleteBinsAndObjs.bat
+
+*.pubxml
+aspnet-core/src/PQBI.Web.Host/healthchecksdb
+aspnet-core/src/PQBI.Web.Public/healthchecksdb
+aspnet-core/src/PQBI.Web.Mvc/healthchecksdb
+*.pfx
+aspnet-core/src/PQBI.Web.Host/PQBI_Db*
+
+# Ingore excel backup of audit logs
+aspnet-core/src/PQBI.Web.Mvc/App_Data/AuditLogsBackups/*
+aspnet-core/src/PQBI.Web.Host/App_Data/AuditLogsBackups/*
+
+host_docker_logs/
+angular/yarn.lock
+
+# Ignore Playwright screenshots
+ui-tests-playwright/**/*.png
+/aspnet-core/src/PQBI.EntityFrameworkCore/PQBI_Db.db
+
+angular/src/devextreme-license.ts
+/PQBI_Db.db
+/PQBI_Db.db-shm
+/PQBI_Db.db-wal
+/aspnet-core/build/deployment/docker_logs
+/aspnet-core/build/deployment/PQBI_Db.db
+/Setup/PQBI_Docker-SetupFiles/PQBI_Docker.exe
+/Setup/images
+/New
+/Setup/nginx-1.28.0.zip
+/Setup_without_Docker/Setup-cache
+/Setup_without_Docker/Setup-SetupFiles
+/Setup/PQBI_Docker-cache
+/AdvancedInstaller/Setup/images
+/AdvancedInstaller/Setup/PQBI_Docker-cache
+/AdvancedInstaller/Setup/PQBI_Docker-SetupFiles
+/AdvancedInstaller/Setup/nginx-1.28.0.zip
+/AdvancedInstaller/Setup_without_Docker/Setup-cache
+/AdvancedInstaller/Setup_without_Docker/Setup-SetupFiles
