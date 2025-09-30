@@ -19,7 +19,8 @@ namespace ImportSosGeneve
 		//private OdbcConnection Cn=null;
 		private SqlConnection Cn = null;
 		private string m_strLogFile="";
-		private int premierRappelAss = 45;   //Pour les Assurances (TP, Type_envoi = 3) 1er rappel à 45 jours (changé de 45 à 60 jour le 21.12.2021 reppassé à 45 le 13.07.2022)
+        private readonly int commandTimeout = 120;
+        private int premierRappelAss = 45;   //Pour les Assurances (TP, Type_envoi = 3) 1er rappel à 45 jours (changé de 45 à 60 jour le 21.12.2021 reppassé à 45 le 13.07.2022)
 		private int premierRappelTG = 60;   //1er rappel à 60 jours (TG, Type envoi = 1 ou 2)
 		private int deuxiemeRappel = 30;    //2eme à 30 jours 
 		private int troixiemeRappel = 30;   //3eme à 30 jours (seulement pour les ass TP, Type_envoi = 3)
@@ -30,14 +31,14 @@ namespace ImportSosGeneve
 		{	
 			this.Cn = new SqlConnection();
 
-			//Si on est en Debug on se connect sur la base test
-//#if DEBUG
-//			SosMedecins.SmartRapport.DAL.Variables.InfoConnexion.NomServeur = @"192.168.0.8";
+            //Si on est en Debug on se connect sur la base test
+#if DEBUG
+            SosMedecins.SmartRapport.DAL.Variables.InfoConnexion.NomServeur = @"192.168.0.8";
 
-//			//Origine			
-//			this.Cn.ConnectionString = "Data Source=" + SosMedecins.SmartRapport.DAL.Variables.InfoConnexion.NomServeur + ";Initial Catalog=" + SosMedecins.SmartRapport.DAL.Variables.InfoConnexion.BaseDonnees + ";Persist Security Info=true; User ID=" + SosMedecins.SmartRapport.DAL.Variables.InfoConnexion.Utilisateur + ";Password=" + SosMedecins.SmartRapport.DAL.Variables.InfoConnexion.MotDePasse + ";";
-//#else
-//			this.Cn.ConnectionString = "Data Source=" + SosMedecins.SmartRapport.DAL.Variables.InfoConnexion.NomServeur + ";Initial Catalog=" + SosMedecins.SmartRapport.DAL.Variables.InfoConnexion.BaseDonnees + ";Persist Security Info=true; User ID=" + SosMedecins.SmartRapport.DAL.Variables.InfoConnexion.Utilisateur + ";Password=" + SosMedecins.SmartRapport.DAL.Variables.InfoConnexion.MotDePasse + ";";
+			//Origine			
+			this.Cn.ConnectionString = "Data Source=" + SosMedecins.SmartRapport.DAL.Variables.InfoConnexion.NomServeur + ";Initial Catalog=" + SosMedecins.SmartRapport.DAL.Variables.InfoConnexion.BaseDonnees + ";Persist Security Info=true; User ID=" + SosMedecins.SmartRapport.DAL.Variables.InfoConnexion.Utilisateur + ";Password=" + SosMedecins.SmartRapport.DAL.Variables.InfoConnexion.MotDePasse + ";";			
+#else
+			this.Cn.ConnectionString = "Data Source=" + SosMedecins.SmartRapport.DAL.Variables.InfoConnexion.NomServeur + ";Initial Catalog=" + SosMedecins.SmartRapport.DAL.Variables.InfoConnexion.BaseDonnees + ";Persist Security Info=true; User ID=" + SosMedecins.SmartRapport.DAL.Variables.InfoConnexion.Utilisateur + ";Password=" + SosMedecins.SmartRapport.DAL.Variables.InfoConnexion.MotDePasse + ";";
            
 			this.m_strLogFile = LogFile;
 			try
@@ -50,9 +51,9 @@ namespace ImportSosGeneve
 			  MessageBox.Show("Erreur :" + Erreur.Message);
             }
 
-//#endif
+#endif
 
-		}
+        }
 
 		public void Dispose()
 		{
@@ -62,7 +63,7 @@ namespace ImportSosGeneve
 			this.Cn=null;
 		}
 
-//#endregion
+#endregion
 
 #region Ouverture / Fermeture de la base de données
 
@@ -121,7 +122,9 @@ namespace ImportSosGeneve
 			VerificationStateSql();
 			
 			SqlCommand commande = new SqlCommand(Requete, Cn);
-			commande.ExecuteNonQuery();
+            commande.CommandTimeout = commandTimeout;
+
+            commande.ExecuteNonQuery();
 			return true;				
 		}
 
@@ -130,7 +133,9 @@ namespace ImportSosGeneve
             object z_strValeurRetour  = null;
            
 			SqlCommand commande = new SqlCommand(p_strSql, Cn);
-			z_strValeurRetour = commande.ExecuteScalar();
+            commande.CommandTimeout = commandTimeout;
+
+            z_strValeurRetour = commande.ExecuteScalar();
 
             return z_strValeurRetour;
         }
@@ -141,7 +146,9 @@ namespace ImportSosGeneve
 			VerificationStateSql();
 			
 			SqlCommand commande = new SqlCommand(Requete, Cn);
-			DataTable dt = m_DataSet.Tables.Add();
+            commande.CommandTimeout = commandTimeout;
+
+            DataTable dt = m_DataSet.Tables.Add();
 			
 			SqlDataReader reader = commande.ExecuteReader();
 
@@ -188,8 +195,10 @@ namespace ImportSosGeneve
 		{
 			VerificationStateSql();			
 			SqlCommand commande = new SqlCommand(Requete, Cn);
+            commande.CommandTimeout = commandTimeout;
 
-			DataTable dt = new DataTable();		
+
+            DataTable dt = new DataTable();		
 			SqlDataReader reader = commande.ExecuteReader();
 
 			for (int i=0;i<reader.FieldCount;i++)
@@ -232,7 +241,9 @@ namespace ImportSosGeneve
 			VerificationStateSql();			
 
 			SqlCommand commande = new SqlCommand(Requete, Cn);
-			SqlDataReader reader = commande.ExecuteReader();
+            commande.CommandTimeout = commandTimeout;
+
+            SqlDataReader reader = commande.ExecuteReader();
 
 			while (reader.Read())
 			{
@@ -353,7 +364,9 @@ namespace ImportSosGeneve
 			string Requete = "SELECT * from " + TableName + " Where " + Champs + " = '" + Valeur.Replace("'","''") + "'" ;
 			
 			SqlCommand commande = new SqlCommand(Requete, Cn);
-			SqlDataReader reader = commande.ExecuteReader();
+            commande.CommandTimeout = commandTimeout;
+
+            SqlDataReader reader = commande.ExecuteReader();
 
 			retour = false;
 			if(reader.Read())
@@ -787,7 +800,9 @@ namespace ImportSosGeneve
 			string Requete = "SELECT IdPersonne from tablepersonne Where IdPersonne = " + IdPersonne ;
 			
 			SqlCommand commande = new SqlCommand(Requete, Cn);
-			SqlDataReader reader = commande.ExecuteReader();
+            commande.CommandTimeout = commandTimeout;
+
+            SqlDataReader reader = commande.ExecuteReader();
 
 			bool Existe = false;
 			if(reader.Read())
@@ -807,7 +822,9 @@ namespace ImportSosGeneve
 			string Requete = "SELECT IdPatient from tablepatient Where IdPatient = " + IdPatient ;
 			
 			SqlCommand commande = new SqlCommand(Requete, Cn);
-			SqlDataReader reader = commande.ExecuteReader();
+            commande.CommandTimeout = commandTimeout;
+
+            SqlDataReader reader = commande.ExecuteReader();
 
 			bool Existe = false;
 			if(reader.Read())
@@ -976,7 +993,7 @@ namespace ImportSosGeneve
 		}
 
         //Accord du visa
-        public void VisaSurRapport(SosMedecins.SmartRapport.DAL.dstRapport.RapportRow row, bool Valeur)
+        public void VisaSurRapport(SosMedecins.SmartRapport.DAL.dstRapport.RapportRow row, bool Valeur, string signatureOverride = null)
 		{
 			int val = 0;
 			row["RapSignature"]="";
@@ -987,22 +1004,25 @@ namespace ImportSosGeneve
 				val = 1;
 				if(row["NomMedecinSos"].ToString().Split(' ').Length == 1)
 				{
-					row["RapSignature"] = "Docteur " + row["NomMedecinSos"].ToString().ToUpper();
+					row["RapSignature"] =  row["NomMedecinSos"].ToString().ToUpper();
 				}
 				else if(row["NomMedecinSos"].ToString().Split(' ').Length == 2)
 				{
-					row["RapSignature"] = "Docteur " + row["NomMedecinSos"].ToString().Split(' ')[1].Substring(0,1).ToUpper() + row["NomMedecinSos"].ToString().Split(' ')[1].Remove(0,1).ToLower() + " " + row["NomMedecinSos"].ToString().Split(' ')[0].ToUpper();
+					row["RapSignature"] =  row["NomMedecinSos"].ToString().Split(' ')[1].Substring(0,1).ToUpper() + row["NomMedecinSos"].ToString().Split(' ')[1].Remove(0,1).ToLower() + " " + row["NomMedecinSos"].ToString().Split(' ')[0].ToUpper();
 				}
 				else
-					row["RapSignature"] = "Docteur " + row["NomMedecinSos"].ToString().ToUpper();
+					row["RapSignature"] =  row["NomMedecinSos"].ToString().ToUpper();
 			}
-			            
-            //on vise le rapport
-            ExecuteCommandeSansRetour("update tablerapports set  Vise = " + val + ",AViser = 0,BonPourReprise = 0,RapSignature = '" + row["RapSignature"].ToString().Replace("'", "''") + "', Medecin_viseur = '" + VariablesApplicatives.Utilisateurs.Identifiant.ToString() + "'  WHERE Nrapport = " + row["NRapport"].ToString());
 
-            //Puis on met à jour la tablerapportdestine avec une date d'envoi pour ne plus les envoyer******A activer en octobre 2014*******  Domi le 24.06.2014
-            //ExecuteCommandeSansRetour("update tablerapportdestine set RapEnvoye = 1, DateEnvoi =  '" + DateTime.Now + "'  WHERE Nrapport = " + row["NRapport"].ToString());
-		}
+            //on vise le rapport
+            else if (!string.IsNullOrEmpty(signatureOverride))
+            {
+                row["RapSignature"] = signatureOverride;
+            }
+
+            ExecuteCommandeSansRetour("update tablerapports set Vise = " + val + ",AViser = 0,BonPourReprise = 0,RapSignature = '" + row["RapSignature"].ToString().Replace("'", "''") + "', Medecin_viseur = '" + VariablesApplicatives.Utilisateurs.Identifiant.ToString() + "'  WHERE Nrapport = " + row["NRapport"].ToString());
+
+        }
 		public void BonPourReprise(long NRapport,bool Valeur)
 		{
 			int val = 0;

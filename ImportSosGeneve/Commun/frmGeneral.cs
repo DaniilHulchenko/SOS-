@@ -17,6 +17,7 @@ using ImportSosGeneve.Rapport;
 using ImportSosGeneve.TA;
 using System.Net;
 using ImportSosGeneve.Commun;
+using System.Net.Sockets;
 using ImportSosGeneve.Facture;
 using MySql.Data.MySqlClient;
 using System.Configuration;
@@ -146,9 +147,9 @@ namespace ImportSosGeneve
 		// ************************************************************************************
 		public GradientCellType Gradient1 = new GradientCellType();
 		public GradientCellType Gradient2 = new GradientCellType();
-		
-				
-		private TextBox TxtEnCours = null;
+        private const string TexteRefusVisa = "Le rapport a t lu par le mdecin responsable, le visa na pas t accord.";
+
+        private TextBox TxtEnCours = null;
 		private bool TxtChoixMultiple = false;
 		private string TxtValDefaut = "";
 
@@ -333,7 +334,7 @@ namespace ImportSosGeneve
 		private System.Windows.Forms.Button cmdRapport_Corps;
 		private System.Windows.Forms.RichTextBox rtfConvert;
         private System.Windows.Forms.MenuItem mnuTA;
-		private System.Windows.Forms.Button button8;
+		private System.Windows.Forms.Button BtnRapport_RefusVisa;
 		private System.Windows.Forms.MenuItem menuItem2;
 		private System.Windows.Forms.MenuItem mnuRapports;
 		private System.Windows.Forms.MenuItem menuItem3;
@@ -766,7 +767,7 @@ namespace ImportSosGeneve
             this.btnEnlevCorrection = new System.Windows.Forms.Button();
             this.label52 = new System.Windows.Forms.Label();
             this.TxtRapport_CommentaireVisa = new System.Windows.Forms.TextBox();
-            this.button8 = new System.Windows.Forms.Button();
+            this.BtnRapport_RefusVisa = new System.Windows.Forms.Button();
             this.BtnRapport_Visa = new System.Windows.Forms.Button();
             this.tbCommunication = new System.Windows.Forms.TabPage();
             this.fpRapport_Destinataires = new FarPoint.Win.Spread.FpSpread();
@@ -2383,7 +2384,7 @@ namespace ImportSosGeneve
             this.tbVisa.Controls.Add(this.btnEnlevCorrection);
             this.tbVisa.Controls.Add(this.label52);
             this.tbVisa.Controls.Add(this.TxtRapport_CommentaireVisa);
-            this.tbVisa.Controls.Add(this.button8);
+            this.tbVisa.Controls.Add(this.BtnRapport_RefusVisa);
             this.tbVisa.Controls.Add(this.BtnRapport_Visa);
             this.tbVisa.Location = new System.Drawing.Point(4, 22);
             this.tbVisa.Name = "tbVisa";
@@ -2417,16 +2418,21 @@ namespace ImportSosGeneve
             this.TxtRapport_CommentaireVisa.Size = new System.Drawing.Size(256, 88);
             this.TxtRapport_CommentaireVisa.TabIndex = 2;
             // 
-            // button8
+            // BtnRapport_RefusVisa
             // 
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8.Image = ((System.Drawing.Image)(resources.GetObject("button8.Image")));
-            this.button8.Location = new System.Drawing.Point(16, 160);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(112, 72);
-            this.button8.TabIndex = 4;
-            this.button8.Click += new System.EventHandler(this.Button8_Click);
+            this.BtnRapport_RefusVisa.BackColor = System.Drawing.Color.Transparent;
+            this.BtnRapport_RefusVisa.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnRapport_RefusVisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnRapport_RefusVisa.ForeColor = System.Drawing.Color.Black;
+            this.BtnRapport_RefusVisa.Image = ((System.Drawing.Image)(resources.GetObject("BtnRapport_RefusVisa.Image")));
+            this.BtnRapport_RefusVisa.Location = new System.Drawing.Point(16, 160);
+            this.BtnRapport_RefusVisa.Name = "BtnRapport_RefusVisa";
+            this.BtnRapport_RefusVisa.Size = new System.Drawing.Size(112, 72);
+            this.BtnRapport_RefusVisa.TabIndex = 4;
+            this.BtnRapport_RefusVisa.Text = "Refuser le visa";
+            this.BtnRapport_RefusVisa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.BtnRapport_RefusVisa.UseVisualStyleBackColor = false;
+            this.BtnRapport_RefusVisa.Click += new System.EventHandler(this.BtnRapport_RefusVisa_Click);
             // 
             // BtnRapport_Visa
             // 
@@ -4695,18 +4701,19 @@ namespace ImportSosGeneve
 				if(e.KeyCode==Keys.F10)
 					tabTravail.SelectedIndex = 0;
 				if(e.KeyCode==Keys.F11)
-					//Button8_Click(null,null);
-					lnkRapport_AjoutDestinataire_LinkClicked(null,null);
+                    //BtnRapport_RefusVisa_Click(null,null);
+                    lnkRapport_AjoutDestinataire_LinkClicked(null,null);
 				if(e.KeyCode==Keys.F12)					
 					PicRapport_Actualiser_Click(null,null);
                 if(e.Control && e.KeyCode == Keys.P)        //CTRL + P pour valider le rapport
                     BtnRapport_Visa_Click(null, null);
                 if (e.Control && e.KeyCode == Keys.O)        //CTRL + O pour renvoyer en correction 
-                    Button8_Click(null, null);
-					
-			}
-				// si l'on est dans l'onglet de fiche d'appel
-			else if(tabTravail.SelectedIndex==0)
+                     BtnRapport_RefusVisa_Click(null,null);
+
+
+            }
+            // si l'on est dans l'onglet de fiche d'appel
+            else if(tabTravail.SelectedIndex==0)
 			{
 				if(e.KeyCode==Keys.F1)
 				{
@@ -6885,7 +6892,7 @@ namespace ImportSosGeneve
 				    Donnees.MonDtRapport.Rapport[0].RapCorps = rtfConvert.SelectedRtf;	
     				
 				    if(TypeRapport==2) Donnees.MonDtRapport.Rapport[0].RapBonjour="";
-				    if(Donnees.MonDtRapport.Rapport[0].RapSignature=="") Donnees.MonDtRapport.Rapport[0].RapSignature = "Docteur " + Donnees.MonDtRapport.Rapport[0].NomMedecinSos;	
+				    if(Donnees.MonDtRapport.Rapport[0].RapSignature=="") Donnees.MonDtRapport.Rapport[0].RapSignature = Donnees.MonDtRapport.Rapport[0].NomMedecinSos;	
 
 				    // Travail sur les données formatées :
 				    Donnees.MonDtRapport.Rapport[0].NomPatient = Donnees.MonDtRapport.Rapport[0].NomPatient.ToUpper();
@@ -7020,8 +7027,11 @@ namespace ImportSosGeneve
                             case "2908":      //Pelet François
                                 CrystalUtility.SetVisibleImage(Donnees.MonEtatRapport, "Picture6", !bVise);
                                 break;
-                            default:         //FDX
-                                CrystalUtility.SetVisibleImage(Donnees.MonEtatRapport, "Picture1", !bVise);
+                            case "D614":      //MBAYO Paul
+                                CrystalUtility.SetVisibleImage(Donnees.MonEtatRapport, "Picture7", !bVise);
+                                break;
+                            default:         //MBAYO Paul
+                                CrystalUtility.SetVisibleImage(Donnees.MonEtatRapport, "Picture7", !bVise);
                                 break;
                         }
                     }
@@ -7228,14 +7238,14 @@ namespace ImportSosGeneve
 			// signature en fin de rapport : 
 			if(tb.NomMedecinSos.Split(' ').Length == 1)
 			{
-				tb.RapSignature = "Docteur " + tb.NomMedecinSos.ToUpper();
+				tb.RapSignature = tb.NomMedecinSos.ToUpper();
 			}
 			else if(tb.NomMedecinSos.Split(' ').Length == 2)
 			{
-				tb.RapSignature = "Docteur " +  WorkedString.FirstLetterUpper(tb.NomMedecinSos.Split(' ')[1]) + " " + tb.NomMedecinSos.Split(' ')[0].ToUpper();
+				tb.RapSignature = WorkedString.FirstLetterUpper(tb.NomMedecinSos.Split(' ')[1]) + " " + tb.NomMedecinSos.Split(' ')[0].ToUpper();
 			}
 			else
-				tb.RapSignature = "Docteur " + tb.NomMedecinSos.ToUpper();
+				tb.RapSignature = tb.NomMedecinSos.ToUpper();
 
 			// Libelles statiques différents selon rapport médical ou constat 
 			CrystalUtility.UpdateObject(Donnees.MonEtatRapport,"RapC","Concerne :");			
@@ -7340,14 +7350,14 @@ namespace ImportSosGeneve
 			// signature en fin de rapport : 
 			if(tb.NomMedecinSos.Split(' ').Length == 1)
 			{
-				tb.RapSignature = "Docteur " + tb.NomMedecinSos.ToUpper();
+				tb.RapSignature =  tb.NomMedecinSos.ToUpper();
 			}
 			else if(tb.NomMedecinSos.Split(' ').Length == 2)
 			{
-				tb.RapSignature = "Docteur " +  WorkedString.FirstLetterUpper(tb.NomMedecinSos.Split(' ')[1]) + " " + tb.NomMedecinSos.Split(' ')[0].ToUpper();
+				tb.RapSignature =   WorkedString.FirstLetterUpper(tb.NomMedecinSos.Split(' ')[1]) + " " + tb.NomMedecinSos.Split(' ')[0].ToUpper();
 			}
 			else
-				tb.RapSignature = "Docteur " + tb.NomMedecinSos.ToUpper();
+				tb.RapSignature =  tb.NomMedecinSos.ToUpper();
 
 
             Donnees.MonEtatRapport.SetDataSource(Donnees.MonDtRapport);
@@ -8253,39 +8263,122 @@ namespace ImportSosGeneve
             {
                 MessageBox.Show(ex.Message.ToString());
             }
-		}
-		
-		//Refus du visa => retour en correction
-		private void Button8_Click(object sender, System.EventArgs e)
-		{
-			if(Donnees.MonDtRapport==null || Donnees.MonEtatRapport==null || crystalReportViewer1.ActiveViewIndex==-1) return;
 
-			SetDestinataireDuRapport();
+        }//Refus du visa => retour en correction
+        private bool RapportDejaRefuse(dstRapport.RapportRow rapportRow)
+        {
+            if (rapportRow == null) return false;
+            return (!rapportRow.IsRapSalutationNull() && rapportRow.RapSalutation == TexteRefusVisa);
+        }
 
-            OutilsExt.OutilsSql.SauvegardeRapport(Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex], Donnees.MonDtCorps, Donnees.MonDtDestination, VariablesApplicatives.Utilisateurs.Identifiant, "", txtRapport_CommentaireSauvegarde.Text);
+        
+        private void BtnRapport_RefusVisa_Click(object sender, System.EventArgs e)
+        {
+            if (Donnees.MonDtRapport==null || Donnees.MonEtatRapport==null || crystalReportViewer1.ActiveViewIndex==-1) return;
 
-            Fonction z_objFonctionDal = new Fonction();
-            z_objFonctionDal.EnregistreModification(Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].NConsultation.ToString(), VariablesApplicatives.Utilisateurs.Identifiant, DateTime.Now, Constantes.REFUSE_VISA, TxtRapport_CommentaireVisa.Text);
-			
-			OutilsExt.OutilsSql.VisaSurRapport(Donnees.MonDtRapport.Rapport[0],false);
-			OutilsExt.OutilsSql.BonPourReprise(Donnees.MonDtRapport.Rapport[0].NRapport,true);
+            try
+            {
+                dstRapport.RapportRow rapportRow = Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex];
+                if (rapportRow.Vise == 1)
+                {
+                    MessageBox.Show("Ce rapport est vis, vous ne pouvez pas refuser le visa.");
+                    return;
+                }
+                bool dejaRefuse = RapportDejaRefuse(rapportRow);
+                if (dejaRefuse)
+                {
+                    if (MessageBox.Show("Ce rapport est dj marqu comme refus. Voulez-vous craser la dcision prcdente ?", "Visa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                        return;
+                }
 
-			TxtRapport_CommentaireVisa.Text ="";
+                if (MessageBox.Show("Confirmez-vous le refus du visa pour ce rapport ?", "Visa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+                    return;
 
-            MessageBox.Show("Visa refusé !", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                SetDestinataireDuRapport();
 
-			ChargementHistoriqueFiche(Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].NConsultation);
-			Donnees.SaveRapport = true;
+                string commentaireVisa = TexteRefusVisa;
+                TxtRapport_CommentaireVisa.Text = commentaireVisa;
 
-            AffichageEtatRapport();
-                                    
-            TxtRapport_CommentaireVisa.Text = Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].Commentaire;
-            TxtRapport_Commentaire.Text = Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].Commentaire.ToString();
-              
-                
-			this.menuItem2_Click_1(null,null);
-			m_frmLstRapportToSend.listView1_DoubleClick(null,null);
-			BtnRapport_Visa.Focus();
+                if (Donnees.MonDtDestination != null)
+                {
+                    foreach (dstDestination.DestinationRow destRow in Donnees.MonDtDestination.Destination.Rows)
+                    {
+                        destRow.RapSalutation = commentaireVisa;
+                    }
+                }
+
+
+                string nomMedecin = rapportRow.IsNomMedecinSosNull() ? string.Empty : rapportRow.NomMedecinSos;
+                if (!string.IsNullOrWhiteSpace(nomMedecin))
+                    rapportRow.RapSignature = nomMedecin.Trim();
+                rapportRow.RapSalutation = commentaireVisa;
+
+				OutilsExt.OutilsSql.SauvegardeRapport(rapportRow, Donnees.MonDtCorps, Donnees.MonDtDestination, VariablesApplicatives.Utilisateurs.Identifiant, "", txtRapport_CommentaireSauvegarde.Text);
+
+                Fonction z_objFonctionDal = new Fonction();
+                z_objFonctionDal.EnregistreModification(rapportRow.NConsultation.ToString(), VariablesApplicatives.Utilisateurs.Identifiant, DateTime.Now, Constantes.REFUSE_VISA, commentaireVisa);
+
+                OutilsExt.OutilsSql.VisaSurRapport(Donnees.MonDtRapport.Rapport[0], false, rapportRow.RapSignature);
+                OutilsExt.OutilsSql.BonPourReprise(Donnees.MonDtRapport.Rapport[0].NRapport, true);
+
+                Donnees.MonDtRapport.Rapport[0].RapSignature = rapportRow.RapSignature;
+                Donnees.MonDtRapport.Rapport[0].RapSalutation = rapportRow.RapSalutation;
+                Donnees.MonDtRapport.Rapport[0].Medecin_viseur = VariablesApplicatives.Utilisateurs.Identifiant;
+                Donnees.MonDtRapport.Rapport[0].Vise = 0;
+
+                ChargementHistoriqueFiche(rapportRow.NConsultation);
+                Donnees.SaveRapport = true;
+
+                AffichageEtatRapport();
+
+                if (Donnees.MonEtatRapport != null)
+                {
+                    Donnees.MonEtatRapport.SetDataSource(Donnees.MonDtRapport);
+                    crystalReportViewer1.RefreshReport();
+                }
+
+                TxtRapport_Commentaire.Text = rapportRow.IsCommentaireNull() ? "" : rapportRow.Commentaire.ToString();
+
+                string userHost = string.Empty;
+                string userIPV4 = string.Empty;
+                try
+                {
+                    userHost = Dns.GetHostName();
+                    IPHostEntry entry = Dns.GetHostEntry(userHost);
+                    foreach (System.Net.IPAddress address in entry.AddressList)
+                    {
+                        if (address.AddressFamily == AddressFamily.InterNetwork)
+                        {
+                            userIPV4 = address.ToString();
+                            break;
+                        }
+                    }
+                    if (string.IsNullOrEmpty(userIPV4) && entry.AddressList.Length > 0)
+                        userIPV4 = entry.AddressList[0].ToString();
+                }
+                catch
+                {
+                    if (string.IsNullOrEmpty(userHost))
+                        userHost = Environment.MachineName;
+                    if (string.IsNullOrEmpty(userIPV4))
+                        userIPV4 = "N/A";
+                }
+
+                mouchard.evenement("Rapport n " + Donnees.MonDtRapport.Rapport[0].NRapport.ToString() + " refus sur le poste " + userHost + " ayant pour adresse ip: " + userIPV4, VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());
+
+                MessageBox.Show("Le visa a t refus.", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                this.menuItem2_Click_1(null, null);
+                if (m_frmLstRapportToSend != null)
+                    m_frmLstRapportToSend.listView1_DoubleClick(null, null);
+
+                BtnRapport_Visa.Focus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
 		}
 
 		// Liste des rapports à viser
