@@ -8379,7 +8379,6 @@ namespace ImportSosGeneve
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-		}
 
 		// Liste des rapports à viser
 		private void menuItem2_Click_1(object sender, System.EventArgs e)

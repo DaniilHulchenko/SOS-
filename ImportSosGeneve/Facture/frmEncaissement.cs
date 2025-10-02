@@ -424,7 +424,7 @@ namespace ImportSosGeneve
                                                 //On met à jour le montant de l'enregistrement                                                                                   
                                                 Decimal decMontant = Decimal.Parse(Montant);
 
-                                                DataSet ds = OutilsExt.OutilsSql.ExecuteCommandeAvecDataSet("select * from facture where NFacture =" + long.Parse(NFacture.ToString()));
+                                                DataSet ds = OutilsExt.OutilsSql.ExecuteCommandeAvecDataSet("SELECT * FROM facture WITH (NOLOCK) WHERE NFacture =" + long.Parse(NFacture.ToString()));
 
                                                 //Vérification du solde de la facture
                                                 Decimal NvxSolde = Decimal.Parse(ds.Tables[0].Rows[0][13].ToString()) - decMontant;
@@ -636,12 +636,12 @@ namespace ImportSosGeneve
 
                                         if (TypeFacture == "TA Abonnement")
                                         {
-                                            ds = OutilsExt.OutilsSql.ExecuteCommandeAvecDataSet("select * from ta_factures where NFacture='" + NFacture + "'");
+                                            ds = OutilsExt.OutilsSql.ExecuteCommandeAvecDataSet("SELECT * FROM ta_factures WITH (NOLOCK) WHERE NFacture='" + NFacture + "'");
                                         }
                                         else
                                         {
                                             //On recherche la facture Materiel dans la base
-                                            ds = OutilsExt.OutilsSql.ExecuteCommandeAvecDataSet("select * from TA_FactMat where NumFacture='" + NFacture + "'");
+                                            ds = OutilsExt.OutilsSql.ExecuteCommandeAvecDataSet("SELECT * FROM TA_FactMat WITH (NOLOCK) WHERE NumFacture='" + NFacture + "'");
                                         }
 
                                         //On met à jour le montant de l'enregistrement                                    
@@ -1056,12 +1056,12 @@ namespace ImportSosGeneve
 
                                         if (TypeFacture == "TA Abonnement")
                                         {
-                                            ds = OutilsExt.OutilsSql.ExecuteCommandeAvecDataSet("select * from ta_factures where NFacture='" + NFacture + "'");
+                                            ds = OutilsExt.OutilsSql.ExecuteCommandeAvecDataSet("SELECT * FROM ta_factures WITH (NOLOCK) WHERE NFacture='" + NFacture + "'");
                                         }
                                         else
                                         {
                                             //On recherche la facture Materiel dans la base
-                                            ds = OutilsExt.OutilsSql.ExecuteCommandeAvecDataSet("select * from TA_FactMat where NumFacture='" + NFacture + "'");
+                                            ds = OutilsExt.OutilsSql.ExecuteCommandeAvecDataSet("SELECT * FROM TA_FactMat WITH (NOLOCK) WHERE NumFacture='" + NFacture + "'");
                                         }
 
                                         //On met à jour le montant de l'enregistrement                                    
@@ -1481,7 +1481,7 @@ namespace ImportSosGeneve
                                                 //On met à jour le montant de l'enregistrement                                               
                                                 decimal decMontant = decimal.Parse(Montant);
 
-                                                DataSet ds = OutilsExt.OutilsSql.ExecuteCommandeAvecDataSet("select * from facture where NFacture =" + long.Parse(NFacture.ToString()));
+                                                DataSet ds = OutilsExt.OutilsSql.ExecuteCommandeAvecDataSet("SELECT * FROM facture WITH (NOLOCK) WHERE NFacture =" + long.Parse(NFacture.ToString()));
 
                                                 //Vérification du solde de la facture
                                                 Decimal NvxSolde = Decimal.Parse(ds.Tables[0].Rows[0][13].ToString()) - decMontant;

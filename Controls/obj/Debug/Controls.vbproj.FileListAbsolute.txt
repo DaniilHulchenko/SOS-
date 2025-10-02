@@ -8,3 +8,13 @@ C:\Users\lvovd\Source\Repos\SmartRapport\Controls\obj\Debug\Controls.vbproj.Core
 C:\Users\lvovd\Source\Repos\SmartRapport\Controls\obj\Debug\SosMedecins.Controls.dll
 C:\Users\lvovd\Source\Repos\SmartRapport\Controls\obj\Debug\SosMedecins.xml
 C:\Users\lvovd\Source\Repos\SmartRapport\Controls\obj\Debug\SosMedecins.Controls.pdb
+D:\Visual Studio 19\SmartRapport\Controls\bin\Debug\SosMedecins.Controls.dll
+D:\Visual Studio 19\SmartRapport\Controls\bin\Debug\SosMedecins.Controls.pdb
+D:\Visual Studio 19\SmartRapport\Controls\bin\Debug\SosMedecins.xml
+D:\Visual Studio 19\SmartRapport\Controls\obj\Debug\Controls.vbproj.AssemblyReference.cache
+D:\Visual Studio 19\SmartRapport\Controls\obj\Debug\SosMedecins.Controls.Resources.resources
+D:\Visual Studio 19\SmartRapport\Controls\obj\Debug\Controls.vbproj.GenerateResource.cache
+D:\Visual Studio 19\SmartRapport\Controls\obj\Debug\Controls.vbproj.CoreCompileInputs.cache
+D:\Visual Studio 19\SmartRapport\Controls\obj\Debug\SosMedecins.Controls.dll
+D:\Visual Studio 19\SmartRapport\Controls\obj\Debug\SosMedecins.xml
+D:\Visual Studio 19\SmartRapport\Controls\obj\Debug\SosMedecins.Controls.pdb

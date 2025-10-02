@@ -53,7 +53,6 @@ namespace RecupDataEpos1
                     //Chaine de connection
                     //SqlConnection dbConnection = new SqlConnection("Data Source=192.168.0.32;Initial Catalog=SmartRapport;User Id=sa; Password=prazine");
                     SqlConnection dbConnection = new SqlConnection("Data Source=INFO-DOMI1\\SQLEXPRESS;Initial Catalog=BaseTest;User Id=sa; Password=prazine");
-
                     
                     //on ouvre la connexion
                     dbConnection.Open();
@@ -129,31 +128,11 @@ namespace RecupDataEpos1
                                 sqlstr2 += " Internom = '" + dt.Rows[i]["Inter_Nom"].ToString() + "',";
                                 sqlstr2 += " Porte = '" + dt.Rows[i]["Porte"].ToString() + "',";
                                 
-
-
-                                MessageBox.Show("Date_Naissance brut: " + dt.Rows[i]["Date_Naissance"].ToString());
-
-                                string rawDate = dt.Rows[i]["Date_Naissance"].ToString();
-                                DateTime dateNaissance;
-
-                                if (DateTime.TryParseExact(rawDate, "ddMMyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateNaissance))
-                                {
-                                    sqlstr2 += " DateNaissance = '" + dateNaissance.ToString("yyyy-MM-dd") + "',";
-                                }
-                                else if (DateTime.TryParse(rawDate, out dateNaissance))
-                                {
-                                    sqlstr2 += " DateNaissance = '" + dateNaissance.ToString("yyyy-MM-dd") + "',";
-                                }
-                                else
-                                {
-                                    sqlstr2 += " DateNaissance = Default,";
-                                }
-
                                 //Test pour la date
-                               //if (dt.Rows[i]["Date_Naissance"].ToString() != "")
-                                //{
-                                  // sqlstr2 += " DateNaissance = '" + dt.Rows[i]["Date_Naissance"].ToString() + "',";
-                                //}
+                               if (dt.Rows[i]["Date_Naissance"].ToString() != "")
+                                {
+                                   sqlstr2 += " DateNaissance = '" + dt.Rows[i]["Date_Naissance"].ToString() + "',";
+                                }
 
                                 //sqlstr2 += " DateNaissance = '" + dt.Rows[i]["Date_Naissance"]. + "',";
 

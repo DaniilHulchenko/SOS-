@@ -17,10 +17,12 @@ namespace ImportSosGeneve
 	{
 		private OdbcConnection Cn=null;
 		private string m_strLogFile="";
+        private readonly int commandTimeout = 120;
 
-#region Construction / Destruction de la classe
 
-		public MySql(Parametrage param,string LogFile)
+        #region Construction / Destruction de la classe
+
+        public MySql(Parametrage param,string LogFile)
 		{
 			this.Cn =new OdbcConnection();
 
@@ -116,7 +118,9 @@ namespace ImportSosGeneve
 			VerificationStateSql();
 
 			OdbcCommand commande = new OdbcCommand(Requete,Cn);
-			commande.ExecuteNonQuery();
+            commande.CommandTimeout = commandTimeout;
+
+            commande.ExecuteNonQuery();
 			return true;				
 		}
 
@@ -125,6 +129,8 @@ namespace ImportSosGeneve
             object z_strValeurRetour  = null;
 
             OdbcCommand commande = new OdbcCommand(p_strSql, Cn);
+            commande.CommandTimeout = commandTimeout;
+
             z_strValeurRetour = commande.ExecuteScalar();
 
             return z_strValeurRetour;
@@ -135,8 +141,10 @@ namespace ImportSosGeneve
 			DataSet m_DataSet = new DataSet();
 			VerificationStateSql();
 			OdbcCommand commande = new OdbcCommand(Requete,Cn);
-			
-			DataTable dt = m_DataSet.Tables.Add();
+            commande.CommandTimeout = commandTimeout;
+
+
+            DataTable dt = m_DataSet.Tables.Add();
 			OdbcDataReader reader = commande.ExecuteReader();
 
 			for(int i=0;i<reader.FieldCount;i++)
@@ -180,8 +188,10 @@ namespace ImportSosGeneve
 		{
 			VerificationStateSql();
 			OdbcCommand commande = new OdbcCommand(Requete,Cn);
-			
-			DataTable dt = new DataTable();
+            commande.CommandTimeout = commandTimeout;
+
+
+            DataTable dt = new DataTable();
 			OdbcDataReader reader = commande.ExecuteReader();
 
 			for(int i=0;i<reader.FieldCount;i++)
@@ -221,7 +231,9 @@ namespace ImportSosGeneve
 			ArrayList tab = new ArrayList();
 			VerificationStateSql();
 			OdbcCommand commande = new OdbcCommand(Requete,Cn);
-			OdbcDataReader reader = commande.ExecuteReader();
+            commande.CommandTimeout = commandTimeout;
+
+            OdbcDataReader reader = commande.ExecuteReader();
 			
 			while(reader.Read())
 			{
@@ -300,7 +312,9 @@ namespace ImportSosGeneve
 
 			string Requete = "SELECT * from " + TableName + " Where " + Champs + " = '" + Valeur.Replace("'","''") + "'" ;
 			OdbcCommand commande = new OdbcCommand(Requete,Cn);
-			OdbcDataReader reader = commande.ExecuteReader();
+            commande.CommandTimeout = commandTimeout;
+
+            OdbcDataReader reader = commande.ExecuteReader();
 			retour = false;
 			if(reader.Read())
 				retour = true;
@@ -708,7 +722,9 @@ namespace ImportSosGeneve
 		{
 			string Requete = "SELECT IdPersonne from tablepersonne Where IdPersonne = " + IdPersonne ;
 			OdbcCommand commande = new OdbcCommand(Requete,Cn);
-			OdbcDataReader reader = commande.ExecuteReader();
+            commande.CommandTimeout = commandTimeout;
+
+            OdbcDataReader reader = commande.ExecuteReader();
 			bool Existe = false;
 			if(reader.Read())
 				Existe = true;
@@ -726,7 +742,9 @@ namespace ImportSosGeneve
 		{
 			string Requete = "SELECT IdPatient from tablepatient Where IdPatient = " + IdPatient ;
 			OdbcCommand commande = new OdbcCommand(Requete,Cn);
-			OdbcDataReader reader = commande.ExecuteReader();
+            commande.CommandTimeout = commandTimeout;
+
+            OdbcDataReader reader = commande.ExecuteReader();
 			bool Existe = false;
 			if(reader.Read())
 				Existe = true;
@@ -895,7 +913,7 @@ namespace ImportSosGeneve
 			ExecuteCommandeSansRetour("update tablerapports set ACorriger= " + val +  " WHERE Nrapport = " + NRapport);
 		}
 
-        public void VisaSurRapport(SosMedecins.SmartRapport.DAL.dstRapport.RapportRow row, bool Valeur)
+        public void VisaSurRapport(SosMedecins.SmartRapport.DAL.dstRapport.RapportRow row, bool Valeur, string signatureOverride = null)
 		{
 			int val = 0;
 			row["RapSignature"]="";
@@ -914,10 +932,15 @@ namespace ImportSosGeneve
 				}
 				else
 					row["RapSignature"] = "Docteur " + row["NomMedecinSos"].ToString().ToUpper();
-			}
 
-			//ExecuteCommandeSansRetour("update tablerapports set Vise = " + val + ",AViser = 0,BonPourReprise = 0,RapSignature = '" + row["RapSignature"].ToString().Replace("'","''") + "'  WHERE Nrapport = " + row["NRapport"].ToString());
+			}
+            else if (!string.IsNullOrEmpty(signatureOverride))
+            {
+                row["RapSignature"] = signatureOverride;
+            }
+
             ExecuteCommandeSansRetour("update tablerapports set Vise = " + val + ",AViser = 0,BonPourReprise = 0,RapSignature = '" + row["RapSignature"].ToString().Replace("'", "''") + "', Medecin_viseur = '" + VariablesApplicatives.Utilisateurs.Identifiant.ToString() + "'  WHERE Nrapport = " + row["NRapport"].ToString());
+        
 		}
 		public void BonPourReprise(long NRapport,bool Valeur)
 		{

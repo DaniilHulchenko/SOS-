@@ -8,3 +8,13 @@ C:\Users\lvovd\Source\Repos\SmartRapport\Commun\Utilitaires\obj\Debug\Utilitaire
 C:\Users\lvovd\Source\Repos\SmartRapport\Commun\Utilitaires\obj\Debug\Utilitaires.vbproj.CoreCompileInputs.cache
 C:\Users\lvovd\Source\Repos\SmartRapport\Commun\Utilitaires\obj\Debug\SosMedecins.Utilitaires.dll
 C:\Users\lvovd\Source\Repos\SmartRapport\Commun\Utilitaires\obj\Debug\SosMedecins.Utilitaires.pdb
+D:\Visual Studio 19\SmartRapport\Commun\Utilitaires\bin\Debug\SosMedecins.Utilitaires.dll
+D:\Visual Studio 19\SmartRapport\Commun\Utilitaires\bin\Debug\SosMedecins.Utilitaires.pdb
+D:\Visual Studio 19\SmartRapport\Commun\Utilitaires\obj\Debug\Utilitaires.vbproj.AssemblyReference.cache
+D:\Visual Studio 19\SmartRapport\Commun\Utilitaires\obj\Debug\SosMedecins.Utilitaires.frmErreur.resources
+D:\Visual Studio 19\SmartRapport\Commun\Utilitaires\obj\Debug\SosMedecins.Utilitaires.frmMail.resources
+D:\Visual Studio 19\SmartRapport\Commun\Utilitaires\obj\Debug\SosMedecins.Utilitaires.Resources.resources
+D:\Visual Studio 19\SmartRapport\Commun\Utilitaires\obj\Debug\Utilitaires.vbproj.GenerateResource.cache
+D:\Visual Studio 19\SmartRapport\Commun\Utilitaires\obj\Debug\Utilitaires.vbproj.CoreCompileInputs.cache
+D:\Visual Studio 19\SmartRapport\Commun\Utilitaires\obj\Debug\SosMedecins.Utilitaires.dll
+D:\Visual Studio 19\SmartRapport\Commun\Utilitaires\obj\Debug\SosMedecins.Utilitaires.pdb
