@@ -993,7 +993,7 @@ namespace ImportSosGeneve
 		}
 
         //Accord du visa
-        public void VisaSurRapport(SosMedecins.SmartRapport.DAL.dstRapport.RapportRow row, bool Valeur, string signatureOverride = null)
+        public void VisaSurRapport(SosMedecins.SmartRapport.DAL.dstRapport.RapportRow row, bool Valeur)
 		{
 			int val = 0;
 			row["RapSignature"]="";
@@ -1013,16 +1013,13 @@ namespace ImportSosGeneve
 				else
 					row["RapSignature"] =  row["NomMedecinSos"].ToString().ToUpper();
 			}
-
+			            
             //on vise le rapport
-            else if (!string.IsNullOrEmpty(signatureOverride))
-            {
-                row["RapSignature"] = signatureOverride;
-            }
+            ExecuteCommandeSansRetour("update tablerapports set  Vise = " + val + ",AViser = 0,BonPourReprise = 0,RapSignature = '" + row["RapSignature"].ToString().Replace("'", "''") + "', Medecin_viseur = '" + VariablesApplicatives.Utilisateurs.Identifiant.ToString() + "'  WHERE Nrapport = " + row["NRapport"].ToString());
 
-            ExecuteCommandeSansRetour("update tablerapports set Vise = " + val + ",AViser = 0,BonPourReprise = 0,RapSignature = '" + row["RapSignature"].ToString().Replace("'", "''") + "', Medecin_viseur = '" + VariablesApplicatives.Utilisateurs.Identifiant.ToString() + "'  WHERE Nrapport = " + row["NRapport"].ToString());
-
-        }
+            //Puis on met à jour la tablerapportdestine avec une date d'envoi pour ne plus les envoyer******A activer en octobre 2014*******  Domi le 24.06.2014
+            //ExecuteCommandeSansRetour("update tablerapportdestine set RapEnvoye = 1, DateEnvoi =  '" + DateTime.Now + "'  WHERE Nrapport = " + row["NRapport"].ToString());
+		}
 		public void BonPourReprise(long NRapport,bool Valeur)
 		{
 			int val = 0;

@@ -17,7 +17,6 @@ using ImportSosGeneve.Rapport;
 using ImportSosGeneve.TA;
 using System.Net;
 using ImportSosGeneve.Commun;
-using System.Net.Sockets;
 using ImportSosGeneve.Facture;
 using MySql.Data.MySqlClient;
 using System.Configuration;
@@ -27,13 +26,13 @@ namespace ImportSosGeneve
 {
 
 	/// <summary>
-	/// Description r√©sum√©e de Form1.
+	/// Description rÈsumÈe de Form1.
 	/// </summary>
 	public class frmGeneral : Form
 	{
         static Thread _oThread = null;
         /// <summary>
-		/// Point d'entr√©e principal de l'application.
+		/// Point d'entrÈe principal de l'application.
 		
 		/// </summary>
 		[STAThread]
@@ -47,7 +46,7 @@ namespace ImportSosGeneve
             // Runs the application.
 
             VariablesApplicatives.Chargement();
-            // Ouverture du param√©trage
+            // Ouverture du paramÈtrage
             if (System.IO.File.Exists(Application.StartupPath + "\\" + "Config.xml"))
             {
                 SosMedecins.SmartRapport.Systeme.OutilsExt.ParamAppli = Parametrage.ChargeParametrage(Application.StartupPath + "\\" + "Config.xml");
@@ -91,7 +90,7 @@ namespace ImportSosGeneve
                 _oThread.IsBackground = true;
                 _oThread.Start();*/
 
-                // recuperation de l'identifaint connect√©
+                // recuperation de l'identifaint connectÈ
                 VariablesApplicatives.Utilisateurs.Identifiant = z_frmLogIn.DonneesRetour["CodeUtilisateur"].ToString();
                 VariablesApplicatives.Utilisateurs.NomUtilisateur = z_frmLogIn.DonneesRetour["Nom"].ToString();
                 VariablesApplicatives.Utilisateurs.Droits = (VariablesApplicatives.Utilisateurs.CodeDroits)Convert.ToUInt32(z_frmLogIn.DonneesRetour["droits"]);
@@ -140,17 +139,16 @@ namespace ImportSosGeneve
             Application.Run(_frmSplash);
         }
 
-        private const string TexteRefusVisa = "Le rapport a t lu par le mdecin responsable, le visa n'a pas t accord.";
+        #region DÈclaration des variables globales
 
-		private bool m_rapportOuvertDepuisListe = false;
 		// ************************************************************************************
 		// Variables Perso
 		// ************************************************************************************
 		public GradientCellType Gradient1 = new GradientCellType();
 		public GradientCellType Gradient2 = new GradientCellType();
-        private const string TexteRefusVisa = "Le rapport a t lu par le mdecin responsable, le visa n`a pas t accord.";
-
-        private TextBox TxtEnCours = null;
+		
+				
+		private TextBox TxtEnCours = null;
 		private bool TxtChoixMultiple = false;
 		private string TxtValDefaut = "";
 
@@ -160,12 +158,10 @@ namespace ImportSosGeneve
 		private Hashtable tblOfForm=new Hashtable();
 
 		private frmListeRapportAViser m_frmLstRapportToSend=null;
-        private bool m_rapportOuvertDepuisListe = false;
-
 
 
         //*************************************************************************************
-        //   Variables pour le lecteur de dict√©e
+        //   Variables pour le lecteur de dictÈe
         //*************************************************************************************
         String FichierEncours = null;
         public string media = null;   
@@ -297,8 +293,7 @@ namespace ImportSosGeneve
 		private System.Windows.Forms.Label label49;
 		private System.Windows.Forms.GroupBox groupBox8;
 		private System.Windows.Forms.TextBox TxtRapport_Commentaire;
-        private System.Windows.Forms.Button BtnRapport_Copier;
-        private System.Windows.Forms.Button BtnRapport_Visa;
+		private System.Windows.Forms.Button BtnRapport_Visa;
 		private System.Windows.Forms.PictureBox btnOnglet1;
 		private System.Windows.Forms.PictureBox btnOnglet2;
 		private System.Windows.Forms.PictureBox btnOnglet3;
@@ -338,7 +333,7 @@ namespace ImportSosGeneve
 		private System.Windows.Forms.Button cmdRapport_Corps;
 		private System.Windows.Forms.RichTextBox rtfConvert;
         private System.Windows.Forms.MenuItem mnuTA;
-		private System.Windows.Forms.Button BtnRapport_RefusVisa;
+		private System.Windows.Forms.Button button8;
 		private System.Windows.Forms.MenuItem menuItem2;
 		private System.Windows.Forms.MenuItem mnuRapports;
 		private System.Windows.Forms.MenuItem menuItem3;
@@ -511,9 +506,9 @@ namespace ImportSosGeneve
 
 			this.Location = new Point(0,0);
 			this.Size =new Size(1612,990);
-			// R√©pertoire de sauvegarde des erreurs
+			// RÈpertoire de sauvegarde des erreurs
 			if(!System.IO.Directory.Exists(Application.StartupPath + "\\" + "Sauvegardes")) System.IO.Directory.CreateDirectory(Application.StartupPath + "\\" + "Sauvegardes");
-			// R√©pertoire de sauvegarde des exports
+			// RÈpertoire de sauvegarde des exports
 			if(!System.IO.Directory.Exists(Application.StartupPath + "\\" + "Export")) System.IO.Directory.CreateDirectory(Application.StartupPath + "\\" + "Export");
 			if(!System.IO.Directory.Exists(Application.StartupPath + "\\" + "Export\\doc")) System.IO.Directory.CreateDirectory(Application.StartupPath + "\\" + "Export\\doc");
 			if(!System.IO.Directory.Exists(Application.StartupPath + "\\" + "Export\\rtf")) System.IO.Directory.CreateDirectory(Application.StartupPath + "\\" + "Export\\rtf");
@@ -529,13 +524,13 @@ namespace ImportSosGeneve
 			MiseEnPlaceControles();
 			MiseEnPlaceMenus();
 
-			// S√©lection de l'onglet d'identification et l'onglet fiche d'appel par d√©faut
+			// SÈlection de l'onglet d'identification et l'onglet fiche d'appel par dÈfaut
 			tab.SelectedIndex = 3;
 			tabTravail.SelectedIndex  = 0;
 
             lblRaisonSociale.Text = "Bienvenue " + SosMedecins.SmartRapport.Systeme.OutilsExt.ParamAppli.RaisonSociale;
 
-            // Chargement des imprimantes dans la liste des Imprimantes : S√©lection de l'imprimante par d√©faut :
+            // Chargement des imprimantes dans la liste des Imprimantes : SÈlection de l'imprimante par dÈfaut :
             System.Drawing.Printing.PrintDocument prtdoc = new System.Drawing.Printing.PrintDocument();
             string strDefaultPrinter = prtdoc.PrinterSettings.PrinterName;
             foreach (String strPrinter in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
@@ -584,7 +579,7 @@ namespace ImportSosGeneve
 
         private void MiseEnPlaceControles()
         {
-            // Effet d√©grad√© des cellules
+            // Effet dÈgradÈ des cellules
             Gradient1 = new GradientCellType();
             Gradient2 = new GradientCellType();
             //Gradient1.BottomColor = Color.WhiteSmoke;
@@ -630,7 +625,7 @@ namespace ImportSosGeneve
         }
 
 		/// <summary>
-		/// Nettoyage des ressources utilis√©es.
+		/// Nettoyage des ressources utilisÈes.
 		/// </summary>
 		protected override void Dispose( bool disposing )
 		{
@@ -646,10 +641,10 @@ namespace ImportSosGeneve
 
         #endregion
 
-        #region Code g√©n√©r√© par le Concepteur Windows Form
+        #region Code gÈnÈrÈ par le Concepteur Windows Form
 		/// <summary>
-		/// M√©thode requise pour la prise en charge du concepteur - ne modifiez pas
-		/// le contenu de cette m√©thode avec l'√©diteur de code.
+		/// MÈthode requise pour la prise en charge du concepteur - ne modifiez pas
+		/// le contenu de cette mÈthode avec l'Èditeur de code.
 		/// </summary>
 		private void InitializeComponent()
 		{
@@ -771,8 +766,7 @@ namespace ImportSosGeneve
             this.btnEnlevCorrection = new System.Windows.Forms.Button();
             this.label52 = new System.Windows.Forms.Label();
             this.TxtRapport_CommentaireVisa = new System.Windows.Forms.TextBox();
-            this.BtnRapport_RefusVisa = new System.Windows.Forms.Button();
-            this.BtnRapport_Copier = new System.Windows.Forms.Button()
+            this.button8 = new System.Windows.Forms.Button();
             this.BtnRapport_Visa = new System.Windows.Forms.Button();
             this.tbCommunication = new System.Windows.Forms.TabPage();
             this.fpRapport_Destinataires = new FarPoint.Win.Spread.FpSpread();
@@ -1314,7 +1308,7 @@ namespace ImportSosGeneve
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(75, 13);
             this.label4.TabIndex = 75;
-            this.label4.Text = "Compl√©ment";
+            this.label4.Text = "ComplÈment";
             // 
             // label3
             // 
@@ -1323,7 +1317,7 @@ namespace ImportSosGeneve
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(21, 13);
             this.label3.TabIndex = 74;
-            this.label3.Text = "N¬∞";
+            this.label3.Text = "N∞";
             // 
             // label2
             // 
@@ -1360,8 +1354,8 @@ namespace ImportSosGeneve
             "Sentier",
             "Square",
             "Chemin",
-            "All√©e",
-            "Cit√©",
+            "AllÈe",
+            "CitÈ",
             "Cours",
             "Impasse",
             "Quai"});
@@ -1402,7 +1396,7 @@ namespace ImportSosGeneve
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(75, 13);
             this.label20.TabIndex = 93;
-            this.label20.Text = "Compl√©ment";
+            this.label20.Text = "ComplÈment";
             // 
             // label15
             // 
@@ -1430,8 +1424,8 @@ namespace ImportSosGeneve
             "Sentier",
             "Square",
             "Chemin",
-            "All√©e",
-            "Cit√©",
+            "AllÈe",
+            "CitÈ",
             "Cours",
             "Impasse",
             "Quai"});
@@ -1457,7 +1451,7 @@ namespace ImportSosGeneve
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(21, 13);
             this.label5.TabIndex = 89;
-            this.label5.Text = "N¬∞";
+            this.label5.Text = "N∞";
             // 
             // txtPatient_AdmBatiment
             // 
@@ -1530,7 +1524,7 @@ namespace ImportSosGeneve
             this.label66.Name = "label66";
             this.label66.Size = new System.Drawing.Size(66, 19);
             this.label66.TabIndex = 83;
-            this.label66.Text = "Localit√© :";
+            this.label66.Text = "LocalitÈ :";
             // 
             // txtPatient_AdmAdresse1
             // 
@@ -1779,7 +1773,7 @@ namespace ImportSosGeneve
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(66, 19);
             this.label11.TabIndex = 11;
-            this.label11.Text = "Localit√© :";
+            this.label11.Text = "LocalitÈ :";
             // 
             // txtPatient_Adresse1
             // 
@@ -1879,7 +1873,7 @@ namespace ImportSosGeneve
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 19);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Pr√©nom :";
+            this.label1.Text = "PrÈnom :";
             // 
             // txtPatient_Nom
             // 
@@ -2045,7 +2039,7 @@ namespace ImportSosGeneve
             this.Lpasdictee.Name = "Lpasdictee";
             this.Lpasdictee.Size = new System.Drawing.Size(87, 13);
             this.Lpasdictee.TabIndex = 8;
-            this.Lpasdictee.Text = "Pas de dict√©e";
+            this.Lpasdictee.Text = "Pas de dictÈe";
             // 
             // vlcControl1
             // 
@@ -2245,7 +2239,7 @@ namespace ImportSosGeneve
             this.btnRapport_Onglet1.Name = "btnRapport_Onglet1";
             this.btnRapport_Onglet1.Size = new System.Drawing.Size(104, 32);
             this.btnRapport_Onglet1.TabIndex = 90;
-            this.btnRapport_Onglet1.Text = "Cr√©ation/Reprise";
+            this.btnRapport_Onglet1.Text = "CrÈation/Reprise";
             this.btnRapport_Onglet1.UseVisualStyleBackColor = false;
             this.btnRapport_Onglet1.Click += new System.EventHandler(this.OngletRapport_Click);
             // 
@@ -2276,7 +2270,7 @@ namespace ImportSosGeneve
             this.tbCreation.Name = "tbCreation";
             this.tbCreation.Size = new System.Drawing.Size(272, 302);
             this.tbCreation.TabIndex = 0;
-            this.tbCreation.Text = "Cr√©ation / Reprise";
+            this.tbCreation.Text = "CrÈation / Reprise";
             // 
             // btModif
             // 
@@ -2294,7 +2288,7 @@ namespace ImportSosGeneve
             this.btnCorriger.Name = "btnCorriger";
             this.btnCorriger.Size = new System.Drawing.Size(120, 56);
             this.btnCorriger.TabIndex = 7;
-            this.btnCorriger.Text = "Demande correction du m√©decin chef";
+            this.btnCorriger.Text = "Demande correction du mÈdecin chef";
             this.btnCorriger.UseVisualStyleBackColor = false;
             this.btnCorriger.Click += new System.EventHandler(this.btnCorriger_Click);
             // 
@@ -2389,8 +2383,7 @@ namespace ImportSosGeneve
             this.tbVisa.Controls.Add(this.btnEnlevCorrection);
             this.tbVisa.Controls.Add(this.label52);
             this.tbVisa.Controls.Add(this.TxtRapport_CommentaireVisa);
-            this.tbVisa.Controls.Add(this.BtnRapport_Copier)
-            this.tbVisa.Controls.Add(this.BtnRapport_RefusVisa);
+            this.tbVisa.Controls.Add(this.button8);
             this.tbVisa.Controls.Add(this.BtnRapport_Visa);
             this.tbVisa.Location = new System.Drawing.Point(4, 22);
             this.tbVisa.Name = "tbVisa";
@@ -2405,26 +2398,11 @@ namespace ImportSosGeneve
             this.btnEnlevCorrection.Name = "btnEnlevCorrection";
             this.btnEnlevCorrection.Size = new System.Drawing.Size(232, 40);
             this.btnEnlevCorrection.TabIndex = 5;
-            // BtnRapport_Copier
+            this.btnEnlevCorrection.Text = "Enlever la demande de correction du secrÈtariat";
+            this.btnEnlevCorrection.Click += new System.EventHandler(this.btnEnlevCorrection_Click);
             // 
-            this.BtnRapport_Copier.BackColor = System.Drawing.Color.Transparent;
-            this.BtnRapport_Copier.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BtnRapport_Copier.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnRapport_Copier.ForeColor = System.Drawing.Color.Black;
-            this.BtnRapport_Copier.Location = new System.Drawing.Point(16, 160);
-            this.BtnRapport_Copier.Name = "BtnRapport_Copier";
-            this.BtnRapport_Copier.Size = new System.Drawing.Size(80, 72);
-            this.BtnRapport_Copier.TabIndex = 3;
-            this.BtnRapport_Copier.Text = "Copier";
-            this.BtnRapport_Copier.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.BtnRapport_Copier.UseVisualStyleBackColor = false;
-            this.BtnRapport_Copier.Click += new System.EventHandler(this.BtnRapport_Copier_Click);
-
-            this.BtnRapport_RefusVisa.Location = new System.Drawing.Point(104, 160);
-            this.BtnRapport_RefusVisa.Size = new System.Drawing.Size(80, 72);
+            // label52
             // 
-            this.BtnRapport_Visa.Location = new System.Drawing.Point(192, 160);
-            this.BtnRapport_Visa.Size = new System.Drawing.Size(80, 72);
             this.label52.Location = new System.Drawing.Point(8, 8);
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(256, 24);
@@ -2439,36 +2417,16 @@ namespace ImportSosGeneve
             this.TxtRapport_CommentaireVisa.Size = new System.Drawing.Size(256, 88);
             this.TxtRapport_CommentaireVisa.TabIndex = 2;
             // 
-            // BtnRapport_Copier
+            // button8
             // 
-            this.BtnRapport_Copier.BackColor = System.Drawing.Color.Transparent;
-            this.BtnRapport_Copier.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BtnRapport_Copier.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnRapport_Copier.ForeColor = System.Drawing.Color.Black;
-            this.BtnRapport_Copier.Location = new System.Drawing.Point(16, 160);
-            this.BtnRapport_Copier.Name = "BtnRapport_Copier";
-            this.BtnRapport_Copier.Size = new System.Drawing.Size(80, 72);
-            this.BtnRapport_Copier.TabIndex = 3;
-            this.BtnRapport_Copier.Text = "Copier";
-            this.BtnRapport_Copier.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.BtnRapport_Copier.UseVisualStyleBackColor = false;
-            this.BtnRapport_Copier.Click += new System.EventHandler(this.BtnRapport_Copier_Click);
-            // 
-            // BtnRapport_RefusVisa
-            // 
-            this.BtnRapport_RefusVisa.BackColor = System.Drawing.Color.Transparent;
-            this.BtnRapport_RefusVisa.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BtnRapport_RefusVisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnRapport_RefusVisa.ForeColor = System.Drawing.Color.Black;
-            this.BtnRapport_RefusVisa.Image = ((System.Drawing.Image)(resources.GetObject("BtnRapport_RefusVisa.Image")));
-            this.BtnRapport_RefusVisa.Location = new System.Drawing.Point(104, 160);
-            this.BtnRapport_RefusVisa.Name = "BtnRapport_RefusVisa";
-            this.BtnRapport_RefusVisa.Size = new System.Drawing.Size(80, 72);
-            this.BtnRapport_RefusVisa.TabIndex = 4;
-            this.BtnRapport_RefusVisa.Text = "Refuser le visa";
-            this.BtnRapport_RefusVisa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.BtnRapport_RefusVisa.UseVisualStyleBackColor = false;
-            this.BtnRapport_RefusVisa.Click += new System.EventHandler(this.BtnRapport_RefusVisa_Click);
+            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button8.Image = ((System.Drawing.Image)(resources.GetObject("button8.Image")));
+            this.button8.Location = new System.Drawing.Point(16, 160);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(112, 72);
+            this.button8.TabIndex = 4;
+            this.button8.Click += new System.EventHandler(this.Button8_Click);
             // 
             // BtnRapport_Visa
             // 
@@ -2479,7 +2437,7 @@ namespace ImportSosGeneve
             this.BtnRapport_Visa.Image = ((System.Drawing.Image)(resources.GetObject("BtnRapport_Visa.Image")));
             this.BtnRapport_Visa.Location = new System.Drawing.Point(144, 160);
             this.BtnRapport_Visa.Name = "BtnRapport_Visa";
-            this.BtnRapport_Visa.Size = new System.Drawing.Size(80, 72);
+            this.BtnRapport_Visa.Size = new System.Drawing.Size(104, 72);
             this.BtnRapport_Visa.TabIndex = 1;
             this.BtnRapport_Visa.UseVisualStyleBackColor = false;
             this.BtnRapport_Visa.Click += new System.EventHandler(this.BtnRapport_Visa_Click);
@@ -3091,7 +3049,7 @@ namespace ImportSosGeneve
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(130, 20);
             this.button3.TabIndex = 9;
-            this.button3.Text = "M√©decin";
+            this.button3.Text = "MÈdecin";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -3158,7 +3116,7 @@ namespace ImportSosGeneve
             this.bRotationImage.Size = new System.Drawing.Size(62, 59);
             this.bRotationImage.TabIndex = 74;
             this.bRotationImage.Tag = "";
-            this.bRotationImage.Text = "90¬∞";
+            this.bRotationImage.Text = "90∞";
             this.toolTip1.SetToolTip(this.bRotationImage, "Rotation de l\'image");
             this.bRotationImage.UseVisualStyleBackColor = true;
             this.bRotationImage.Visible = false;
@@ -3303,7 +3261,7 @@ namespace ImportSosGeneve
             this.label72.Name = "label72";
             this.label72.Size = new System.Drawing.Size(64, 16);
             this.label72.TabIndex = 17;
-            this.label72.Text = "Dur√©e :";
+            this.label72.Text = "DurÈe :";
             this.label72.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label73
@@ -3315,7 +3273,7 @@ namespace ImportSosGeneve
             this.label73.Name = "label73";
             this.label73.Size = new System.Drawing.Size(64, 16);
             this.label73.TabIndex = 16;
-            this.label73.Text = "D√©lai :";
+            this.label73.Text = "DÈlai :";
             this.label73.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbFIN
@@ -3415,7 +3373,7 @@ namespace ImportSosGeneve
             this.groupBox1.Size = new System.Drawing.Size(294, 158);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "G√©n√©ral";
+            this.groupBox1.Text = "GÈnÈral";
             // 
             // pictureBox1
             // 
@@ -3629,7 +3587,7 @@ namespace ImportSosGeneve
             this.lblConnecte.Name = "lblConnecte";
             this.lblConnecte.Size = new System.Drawing.Size(261, 20);
             this.lblConnecte.TabIndex = 13;
-            this.lblConnecte.Text = "Non connect√©(e)";
+            this.lblConnecte.Text = "Non connectÈ(e)";
             this.lblConnecte.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tab
@@ -3755,7 +3713,7 @@ namespace ImportSosGeneve
             this.ChkMedecin.Name = "ChkMedecin";
             this.ChkMedecin.Size = new System.Drawing.Size(75, 15);
             this.ChkMedecin.TabIndex = 15;
-            this.ChkMedecin.Text = "M√©decin";
+            this.ChkMedecin.Text = "MÈdecin";
             // 
             // dateTimePicker2
             // 
@@ -3797,7 +3755,7 @@ namespace ImportSosGeneve
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(159, 18);
             this.label6.TabIndex = 10;
-            this.label6.Text = "Appels sur crit√®re :";
+            this.label6.Text = "Appels sur critËre :";
             // 
             // tbRecherche
             // 
@@ -3819,7 +3777,7 @@ namespace ImportSosGeneve
             this.tbRecherche.Name = "tbRecherche";
             this.tbRecherche.Size = new System.Drawing.Size(400, 164);
             this.tbRecherche.TabIndex = 4;
-            this.tbRecherche.Text = "Avanc√©";
+            this.tbRecherche.Text = "AvancÈ";
             // 
             // btnRechercher
             // 
@@ -3908,7 +3866,7 @@ namespace ImportSosGeneve
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(83, 17);
             this.label47.TabIndex = 1;
-            this.label47.Text = "T√©l√©phone :";
+            this.label47.Text = "TÈlÈphone :";
             // 
             // label46
             // 
@@ -3960,7 +3918,7 @@ namespace ImportSosGeneve
             this.lblRaisonSociale.Name = "lblRaisonSociale";
             this.lblRaisonSociale.Size = new System.Drawing.Size(264, 20);
             this.lblRaisonSociale.TabIndex = 1;
-            this.lblRaisonSociale.Text = "Bienvenue SOS M√©decins Gen√®ve";
+            this.lblRaisonSociale.Text = "Bienvenue SOS MÈdecins GenËve";
             this.lblRaisonSociale.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // mainMenu1
@@ -3988,7 +3946,7 @@ namespace ImportSosGeneve
             // mnuParametres
             // 
             this.mnuParametres.Index = 0;
-            this.mnuParametres.Text = "Param√®tres";
+            this.mnuParametres.Text = "ParamËtres";
             this.mnuParametres.Click += new System.EventHandler(this.mnuParametres_Click);
             // 
             // mnuQuitter
@@ -4002,12 +3960,12 @@ namespace ImportSosGeneve
             this.mnuDonnees.Index = 1;
             this.mnuDonnees.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuImportEpos});
-            this.mnuDonnees.Text = "Donn√©es";
+            this.mnuDonnees.Text = "DonnÈes";
             // 
             // menuImportEpos
             // 
             this.menuImportEpos.Index = 0;
-            this.menuImportEpos.Text = "Import donn√©es de la r√©gulation";
+            this.menuImportEpos.Text = "Import donnÈes de la rÈgulation";
             this.menuImportEpos.Click += new System.EventHandler(this.menuImportEpos_Click);
             // 
             // mnuFiches
@@ -4031,13 +3989,13 @@ namespace ImportSosGeneve
             // mnuMedTT
             // 
             this.mnuMedTT.Index = 1;
-            this.mnuMedTT.Text = "M√©decins et permanances/Groupes M√©dicaux";
+            this.mnuMedTT.Text = "MÈdecins et permanances/Groupes MÈdicaux";
             this.mnuMedTT.Click += new System.EventHandler(this.mnuMedTT_Click);
             // 
             // mnuCollabo
             // 
             this.mnuCollabo.Index = 2;
-            this.mnuCollabo.Text = "M√©decins SOS";
+            this.mnuCollabo.Text = "MÈdecins SOS";
             this.mnuCollabo.Click += new System.EventHandler(this.mnuCollabo_Click);
             // 
             // menuItem8
@@ -4055,7 +4013,7 @@ namespace ImportSosGeneve
             // menuItem17
             // 
             this.menuItem17.Index = 5;
-            this.menuItem17.Text = "Ajout m√©decin";
+            this.menuItem17.Text = "Ajout mÈdecin";
             this.menuItem17.Click += new System.EventHandler(this.menuItem17_Click);
             // 
             // mnuTA
@@ -4065,7 +4023,7 @@ namespace ImportSosGeneve
             this.menuItem9,
             this.menuItem10,
             this.menuItem12});
-            this.mnuTA.Text = "T√©l√©-Alarme";
+            this.mnuTA.Text = "TÈlÈ-Alarme";
             // 
             // menuItem9
             // 
@@ -4085,7 +4043,7 @@ namespace ImportSosGeneve
             // menuItem13
             // 
             this.menuItem13.Index = 0;
-            this.menuItem13.Text = "Op√©rations diverses sur les factures";
+            this.menuItem13.Text = "OpÈrations diverses sur les factures";
             this.menuItem13.Click += new System.EventHandler(this.menuItem13_Click);
             // 
             // menuAttestationTA
@@ -4097,7 +4055,7 @@ namespace ImportSosGeneve
             // menuItem14
             // 
             this.menuItem14.Index = 2;
-            this.menuItem14.Text = "Gestion du mat√©riel";
+            this.menuItem14.Text = "Gestion du matÈriel";
             this.menuItem14.Click += new System.EventHandler(this.menuItem14_Click);
             // 
             // menuItem12
@@ -4200,7 +4158,7 @@ namespace ImportSosGeneve
             // menuSalairesMed
             // 
             this.menuSalairesMed.Index = 1;
-            this.menuSalairesMed.Text = "Salaires M√©decins";
+            this.menuSalairesMed.Text = "Salaires MÈdecins";
             this.menuSalairesMed.Click += new System.EventHandler(this.menuSalairesMed_Click);
             // 
             // mnuFacturation
@@ -4281,7 +4239,7 @@ namespace ImportSosGeneve
             // mnuFacturation_Etats_VerificationSolde
             // 
             this.mnuFacturation_Etats_VerificationSolde.Index = 2;
-            this.mnuFacturation_Etats_VerificationSolde.Text = "V√©rification des soldes en fonction des encaissements";
+            this.mnuFacturation_Etats_VerificationSolde.Text = "VÈrification des soldes en fonction des encaissements";
             this.mnuFacturation_Etats_VerificationSolde.Click += new System.EventHandler(this.mnuFacturation_Etats_VerificationSolde_Click);
             // 
             // mnuFacturation_Etats_Arrangement
@@ -4302,12 +4260,12 @@ namespace ImportSosGeneve
             this.menuFacturesImpayees.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuListe2emeRappel,
             this.menuPoursuite});
-            this.menuFacturesImpayees.Text = "Factures impay√©es";
+            this.menuFacturesImpayees.Text = "Factures impayÈes";
             // 
             // menuListe2emeRappel
             // 
             this.menuListe2emeRappel.Index = 0;
-            this.menuListe2emeRappel.Text = "Liste 2√®me rappel";
+            this.menuListe2emeRappel.Text = "Liste 2Ëme rappel";
             this.menuListe2emeRappel.Click += new System.EventHandler(this.menuListe2emeRappel_Click);
             // 
             // menuPoursuite
@@ -4442,7 +4400,7 @@ namespace ImportSosGeneve
 
         #region Recuperation des consultations
 
-		// on r√©cupere les consultations par rapport √† l'index d'appel  (Domi 13.10.2017 ajout Email ci dessous x5)
+		// on rÈcupere les consultations par rapport ‡ l'index d'appel  (Domi 13.10.2017 ajout Email ci dessous x5)
         private DataSet RecuperationConsultationByAppel(long Num)
         {
             DataSet ds = OutilsExt.OutilsSql.ExecuteCommandeAvecDataSet("SELECT c.CodeAppel,m.Nom as 'NomMedecinSos',c.Modifie,c.RapportGenere,c.FactureGeneree,c.Deces, c.Esp," +
@@ -4463,7 +4421,7 @@ namespace ImportSosGeneve
                 " Where a.Num = " + Num);
             return ds;
         }
-		// Consultation par rapport √† son index
+		// Consultation par rapport ‡ son index
         public DataSet RecuperationConsultationByNConsult(long NConsult)
         {
             DataSet ds = OutilsExt.OutilsSql.ExecuteCommandeAvecDataSet("SELECT c.CodeAppel,m.Nom as 'NomMedecinSos',c.Modifie,c.RapportGenere,c.FactureGeneree,c.Deces, c.Esp, " +
@@ -4624,7 +4582,7 @@ namespace ImportSosGeneve
         #region Evenements divers de la form
 
 		// ******************************************************************
-		// D√©roulement de la fenetre d'attente de l'application
+		// DÈroulement de la fenetre d'attente de l'application
 		public void Timer_Tick(object sender,EventArgs e)
 		{
 			if(OutilsExt.AttentActuelle.getValeur()>=100)
@@ -4632,7 +4590,7 @@ namespace ImportSosGeneve
 			else
 				OutilsExt.AttentActuelle.setValeur(OutilsExt.AttentActuelle.getValeur()+10);
 		}
-		// Changement d'onglet dans le controle d√©tail fiche d'appel
+		// Changement d'onglet dans le controle dÈtail fiche d'appel
 		private void tabTravail_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
 			if(tabTravail.SelectedIndex==1)
@@ -4737,19 +4695,18 @@ namespace ImportSosGeneve
 				if(e.KeyCode==Keys.F10)
 					tabTravail.SelectedIndex = 0;
 				if(e.KeyCode==Keys.F11)
-                    //BtnRapport_RefusVisa_Click(null,null);
-                    lnkRapport_AjoutDestinataire_LinkClicked(null,null);
+					//Button8_Click(null,null);
+					lnkRapport_AjoutDestinataire_LinkClicked(null,null);
 				if(e.KeyCode==Keys.F12)					
 					PicRapport_Actualiser_Click(null,null);
                 if(e.Control && e.KeyCode == Keys.P)        //CTRL + P pour valider le rapport
                     BtnRapport_Visa_Click(null, null);
                 if (e.Control && e.KeyCode == Keys.O)        //CTRL + O pour renvoyer en correction 
-                     BtnRapport_RefusVisa_Click(null,null);
-
-
-            }
-            // si l'on est dans l'onglet de fiche d'appel
-            else if(tabTravail.SelectedIndex==0)
+                    Button8_Click(null, null);
+					
+			}
+				// si l'on est dans l'onglet de fiche d'appel
+			else if(tabTravail.SelectedIndex==0)
 			{
 				if(e.KeyCode==Keys.F1)
 				{
@@ -4770,7 +4727,7 @@ namespace ImportSosGeneve
 					}
 				}
 			}
-			// si l'on est dans l'onglet de rapport a vis√©
+			// si l'on est dans l'onglet de rapport a visÈ
 			if(m_frmLstRapportToSend != null)
 			{
 				if(e.KeyCode==Keys.Enter)
@@ -4787,7 +4744,7 @@ namespace ImportSosGeneve
 		// Impression d'une liste de facture autmatique
         private void mnuFac_Impression_Click(object sender, System.EventArgs e)
         {
-            // Quelles sont les factures √† imprimer?
+            // Quelles sont les factures ‡ imprimer?
 
             long NFacDebut = OutilsExt.OutilsSql.RecuperationNFacturesEnvoiDebut();
             long NFacFin = OutilsExt.OutilsSql.RecuperationNFacturesEnvoiFin();
@@ -4902,20 +4859,20 @@ namespace ImportSosGeneve
                    (txtPatient_Adresse1.Text.ToLower().IndexOf("sentier") > -1) ||
                    (txtPatient_Adresse1.Text.ToLower().IndexOf("square") > -1) ||
                    (txtPatient_Adresse1.Text.ToLower().IndexOf("chemin") > -1) ||
-                   (txtPatient_Adresse1.Text.ToLower().IndexOf("all√©e") > -1) ||
-                   (txtPatient_Adresse1.Text.ToLower().IndexOf("cit√©") > -1) ||
+                   (txtPatient_Adresse1.Text.ToLower().IndexOf("allÈe") > -1) ||
+                   (txtPatient_Adresse1.Text.ToLower().IndexOf("citÈ") > -1) ||
                    (txtPatient_Adresse1.Text.ToLower().IndexOf("cours") > -1) ||
                    (txtPatient_Adresse1.Text.ToLower().IndexOf("impasse") > -1) || 
                    (txtPatient_Adresse1.Text.ToLower().IndexOf("quai") > -1))   
                     {
-                        row["Rue"] = txtPatient_Adresse1.Text;     //on ne r√©affecte pas le contenu de CBRoute
+                        row["Rue"] = txtPatient_Adresse1.Text;     //on ne rÈaffecte pas le contenu de CBRoute
                     }
                 else   //Sinon on l'affecte
                     {
                      row["Rue"] = CBRoute1.Text + " " + txtPatient_Adresse1.Text;                     
                     }
 
-                //R√©affectation du champ TexteSup pour l'adresse2
+                //RÈaffectation du champ TexteSup pour l'adresse2
                 row["TexteSup"] = txtPatient_Adresse2.Text;
                 
                 row["Commune"] = txtPatient_Localite.Text;
@@ -4954,13 +4911,13 @@ namespace ImportSosGeneve
                    (txtPatient_AdmAdresse1.Text.ToLower().IndexOf("sentier") > -1) ||
                    (txtPatient_AdmAdresse1.Text.ToLower().IndexOf("square") > -1) ||
                    (txtPatient_AdmAdresse1.Text.ToLower().IndexOf("chemin") > -1) ||
-                   (txtPatient_AdmAdresse1.Text.ToLower().IndexOf("all√©e") > -1) ||
-                   (txtPatient_AdmAdresse1.Text.ToLower().IndexOf("cit√©") > -1) ||
+                   (txtPatient_AdmAdresse1.Text.ToLower().IndexOf("allÈe") > -1) ||
+                   (txtPatient_AdmAdresse1.Text.ToLower().IndexOf("citÈ") > -1) ||
                    (txtPatient_AdmAdresse1.Text.ToLower().IndexOf("cours") > -1) ||
                    (txtPatient_AdmAdresse1.Text.ToLower().IndexOf("impasse") > -1) ||
                    (txtPatient_AdmAdresse1.Text.ToLower().IndexOf("quai") > -1))
                 {
-                    row["Adm_Rue"] = txtPatient_AdmAdresse1.Text.TrimEnd();  //on ne r√©affecte pas le contenu de CBRoute
+                    row["Adm_Rue"] = txtPatient_AdmAdresse1.Text.TrimEnd();  //on ne rÈaffecte pas le contenu de CBRoute
                 }
                 else   //Sinon on l'affecte
                 {
@@ -4970,7 +4927,7 @@ namespace ImportSosGeneve
                 }
                     
                 row["Adm_NumeroDansRue"] = txtPatient_AdmNumRue.Text.TrimEnd();
-                //R√©affectation du champ ListeNoire pour l'Admadresse2
+                //RÈaffectation du champ ListeNoire pour l'Admadresse2
                 row["ListeNoire"] = txtPatient_AdmAdresse2.Text;
                 row["Adm_CodePostal"] = txtPatient_AdmNPA.Text.TrimEnd();
                 row["Adm_Commune"] = txtPatient_AdmLocalite.Text.TrimEnd();
@@ -4980,9 +4937,9 @@ namespace ImportSosGeneve
                 row["Traitements"] = "";
                
                 //Consultation
-                //Affichage la case encaiss√© sur place est coch√©e alors on met 1 
+                //Affichage la case encaissÈ sur place est cochÈe alors on met 1 
                 if (checkBoxESP.Checked == true)
-                    row["Esp"] = 1;  //on coche la case Encaiss√© sur place                
+                    row["Esp"] = 1;  //on coche la case EncaissÈ sur place                
                 else row["Esp"] = 0; 
                
                 //Enregistrement du dataset
@@ -5005,14 +4962,14 @@ namespace ImportSosGeneve
                     z_objFonctionDal.EnregistreModification(row["NConsultation"].ToString(), VariablesApplicatives.Utilisateurs.Identifiant, DateTime.Now, Constantes.MODIF_CONSULT, txtFiche_CommentairSauvegarde.Text);
 
                     Variables.ConnexionBase.Commit();
-                    LblStatusSauvegardeFiche.Text = "Sauvegarde de la fiche avec succ√®s!";
+                    LblStatusSauvegardeFiche.Text = "Sauvegarde de la fiche avec succËs!";
                     // Mise a jour affichage
                     ChargementHistoriqueFiche(long.Parse(row["Num"].ToString()));
                     txtFiche_CommentairSauvegarde.Text = "";
                     pan_Dynamique.Tag = row;
                     fpAppels_Sheet1.Rows[fpAppels_Sheet1.ActiveRowIndex].Tag = row;
 
-                    mouchard.evenement("Modification de la FIP √† partir de la main courante pour " + txtPatient_Nom.Text.ToString() + " " + txtPatient_Prenom.Text.ToString(), VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());  //log
+                    mouchard.evenement("Modification de la FIP ‡ partir de la main courante pour " + txtPatient_Nom.Text.ToString() + " " + txtPatient_Prenom.Text.ToString(), VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());  //log
                 }
                 catch (System.Data.SqlClient.SqlException ex)
                 {
@@ -5022,7 +4979,7 @@ namespace ImportSosGeneve
                 catch (Exception ex)
                 {
                     Variables.ConnexionBase.RollBack();
-                    LblStatusSauvegardeFiche.Text = "Erreur √† la sauvegarde de la fiche!";
+                    LblStatusSauvegardeFiche.Text = "Erreur ‡ la sauvegarde de la fiche!";
 
                     throw new Exception(ex.Message);
                 }
@@ -5038,9 +4995,9 @@ namespace ImportSosGeneve
 
         #endregion
 
-        #region Aide √† la saisie
+        #region Aide ‡ la saisie
 
-		// Aide √† la saisie pour la partie patient:
+		// Aide ‡ la saisie pour la partie patient:
         private void InitialiseAidePatient()
         {
             TextBox txt = TxtEnCours;
@@ -5189,7 +5146,7 @@ namespace ImportSosGeneve
 			}		
 		}
 
-        // Liste d'aide √† la saisie - Commune
+        // Liste d'aide ‡ la saisie - Commune
 		private void RemplirAide(string type,string texte,string Default)
 		{
 			LstAide.Items.Clear();
@@ -5279,7 +5236,7 @@ namespace ImportSosGeneve
 						TxtEnCours.Text = LstAide.SelectedItem.ToString();
 					}
 					else
-						TxtEnCours.Text += "¬§|¬§" + LstAide.SelectedItem.ToString();
+						TxtEnCours.Text += "§|§" + LstAide.SelectedItem.ToString();
 				}
 			}	
 		}		
@@ -5376,19 +5333,19 @@ namespace ImportSosGeneve
                     }
 
 
-                    if ((Etat4 != 0) && (Etat2 != 0))    //Appels annul√©s + Rapport
+                    if ((Etat4 != 0) && (Etat2 != 0))    //Appels annulÈs + Rapport
                     {
                         gen.BackgroundImage = new FarPoint.Win.Picture(Image.FromFile(Application.StartupPath + "\\images\\ledblack_o.gif"));   //Led noire
                     }
-                    else if (Etat4 != 0)                 //Appels annul√©s
+                    else if (Etat4 != 0)                 //Appels annulÈs
                     {
                         gen.BackgroundImage = new FarPoint.Win.Picture(Image.FromFile(Application.StartupPath + "\\images\\ledblack.gif"));     //Led noire
                     }
-                    else if (Etat6 == 1)                 //Encaiss√© sur place...Pas de facture
+                    else if (Etat6 == 1)                 //EncaissÈ sur place...Pas de facture
                     {
                         gen.BackgroundImage = new FarPoint.Win.Picture(Image.FromFile(Application.StartupPath + "\\images\\ledbleu.gif"));         //Led bleu
                     }
-                    else if (Etat3 == 1)                 //Facture g√©n√©r√©e
+                    else if (Etat3 == 1)                 //Facture gÈnÈrÈe
                     {
                         gen.BackgroundImage = new FarPoint.Win.Picture(Image.FromFile(Application.StartupPath + "\\images\\ledv.gif"));         //led Verte
                     }
@@ -5400,15 +5357,15 @@ namespace ImportSosGeneve
                     {
                         gen.BackgroundImage = new FarPoint.Win.Picture(Image.FromFile(Application.StartupPath + "\\images\\ledviolet.gif"));    //Led violet
                     }
-                    else if (Etat2 == 1)            //Rapport g√©n√©r√©
+                    else if (Etat2 == 1)            //Rapport gÈnÈrÈ
                     {
                         gen.BackgroundImage = new FarPoint.Win.Picture(Image.FromFile(Application.StartupPath + "\\images\\ledo.gif"));         //Led jaune
                     }
-                    else if (Etat1 == 1)            //Modifi√©
+                    else if (Etat1 == 1)            //ModifiÈ
                     {
                         gen.BackgroundImage = new FarPoint.Win.Picture(Image.FromFile(Application.StartupPath + "\\images\\ledr.gif"));         //Led rouge
                     }                   
-                    else                         //par d√©faut
+                    else                         //par dÈfaut
                     {
                         gen.BackgroundImage = new FarPoint.Win.Picture(Image.FromFile(Application.StartupPath + "\\images\\ledr.gif"));         //Led rouge
                     }
@@ -5417,7 +5374,7 @@ namespace ImportSosGeneve
 
                 fpAppels_Sheet1.Rows.Add(0, 1);
                 fpAppels_Sheet1.Models.Span.Add(0, 0, 1, fpAppels_Sheet1.ColumnCount);
-                fpAppels_Sheet1.Cells[0, 0].Text = "R√©sultat de la derni√®re requ√™te : " + m_Rows.Length;
+                fpAppels_Sheet1.Cells[0, 0].Text = "RÈsultat de la derniËre requÍte : " + m_Rows.Length;
             }
         }
 
@@ -5474,7 +5431,7 @@ namespace ImportSosGeneve
                     catch (Exception e)
                     {
                         trans.Rollback(); // Rollback the transaction in case of error
-                        MessageBox.Show("Erreur lors de la v√©rification de la consultation. " + e.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Erreur lors de la vÈrification de la consultation. " + e.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -5484,7 +5441,7 @@ namespace ImportSosGeneve
 
         #endregion
 
-        #region Chargement des Donn√©es statiques
+        #region Chargement des DonnÈes statiques
 
         private void ChargementDonneesStatiques()
         {
@@ -5513,7 +5470,7 @@ namespace ImportSosGeneve
                 Statiques_Data.TabPrestations[i] = new Facture_Prestation(tab[0], tab[1], float.Parse(tab[2]), float.Parse(tab[3]), bMajor, bHorsMajor);
             }
 
-            // Chargement du mat√©riel
+            // Chargement du matÈriel
             //OutilsExt.AttentActuelle.setLibelle2("Materiel");
             //OutilsExt.AttentActuelle.setValeur(40);
             retour = OutilsExt.OutilsSql.ExecuteCommandeAvecTabString("SELECT Nt_materiel,MatLibelle,MatPrix, Num_Materiel from fac_tablemateriel order by Nt_materiel");
@@ -5571,7 +5528,7 @@ namespace ImportSosGeneve
         }
 
 		// **************************************************************
-		// Affichage des appels filtr√©s
+		// Affichage des appels filtrÈs
 		// **************************************************************
 		// **************************************************************
 
@@ -5882,13 +5839,13 @@ namespace ImportSosGeneve
                     FileInfo fInfo = new FileInfo(ImageCarteAVS);
                     if (fInfo.Length > 0)       //...et si sa taille est > 0 octet
                     {
-                        zoomImageViewer1.Zoom = .3F;     //On d√©fini la taille de l'image par d√©faut
+                        zoomImageViewer1.Zoom = .3F;     //On dÈfini la taille de l'image par dÈfaut
                         zoomImageViewer1.Image = Image.FromFile(ImageCarteAVS);   //on affiche l'image de la carte AVS                          
                     }
                 }
                 else
                 {
-                    zoomImageViewer1.Zoom = .8F;     //On d√©fini la taille de l'image par d√©faut
+                    zoomImageViewer1.Zoom = .8F;     //On dÈfini la taille de l'image par dÈfaut
                     zoomImageViewer1.Image = ImportSosGeneve.Properties.Resources.nocarte_avs;   //on affiche l'image de la carte AVS        
                 }
             }
@@ -5909,12 +5866,12 @@ namespace ImportSosGeneve
             }
             else
             {
-                if (zoomImageViewer1.Zoom > 0.2)     //On diminue le Zoom jusqu'√† 0.2 max (apr√®s il n'y a plus d'image)     
+                if (zoomImageViewer1.Zoom > 0.2)     //On diminue le Zoom jusqu'‡ 0.2 max (aprËs il n'y a plus d'image)     
                     zoomImageViewer1.Zoom -= (float).1;
             }
         }
 
-        //Penser √† donner le focus √† la fen√®tre
+        //Penser ‡ donner le focus ‡ la fenËtre
         private void zoomImageViewer1_MouseEnter(object sender, EventArgs e)
         {
             if (zoomImageViewer1.Focused == false)
@@ -5939,7 +5896,7 @@ namespace ImportSosGeneve
 			this.Cursor = Cursors.WaitCursor;
 			
 			InitialisationHistoriqueFiche();
-			// Pr√©paration et remplissage des fiches
+			// PrÈparation et remplissage des fiches
 			PrepareFicheStatiqueVierge();
 			RemplitFicheStatique(row);
 			PrepareFicheDynamiqueVierge();
@@ -6031,7 +5988,7 @@ namespace ImportSosGeneve
 
                     if (Donnees.MonDtRapport != null && Donnees.SaveRapport == false)
                     {
-                        DialogResult result = MessageBox.Show("Le rapport en cours n'a pas encore √©t√© sauvegard√©. Le faire maintenant?", "Rapport", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                        DialogResult result = MessageBox.Show("Le rapport en cours n'a pas encore ÈtÈ sauvegardÈ. Le faire maintenant?", "Rapport", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
                         if (result == DialogResult.No)
                         {
                             MethodeSauvegarde(false);
@@ -6092,7 +6049,7 @@ namespace ImportSosGeneve
 
         public void PrepareFicheStatiqueVierge()
         {
-            groupBox1.Text = "G√©n√©ral";
+            groupBox1.Text = "GÈnÈral";
             //pan_Statiques.BackColor = Color.LightCyan;
             groupBox1.BackColor = Color.CadetBlue;
             groupBox2.BackColor = Color.CadetBlue;
@@ -6181,7 +6138,7 @@ namespace ImportSosGeneve
             }
 
 			groupBox1.Text += " : Index " + row["Num"].ToString();
-			lblDateAppel.Text = "Appel du : " + DateTime.Parse(row["DAP"].ToString()).ToLongDateString() + " √† " + DateTime.Parse(row["DAP"].ToString()).ToShortTimeString();
+			lblDateAppel.Text = "Appel du : " + DateTime.Parse(row["DAP"].ToString()).ToLongDateString() + " ‡ " + DateTime.Parse(row["DAP"].ToString()).ToShortTimeString();
 			if(row["Motif1"].ToString()!="")
 				lbMotif1.Text = row["Motif1"].ToString();
 			else
@@ -6194,7 +6151,7 @@ namespace ImportSosGeneve
 			lbUrgence.Text = row["Urgence"].ToString();
 
             //Si c'est un feu bleu sirene, on affiche l'image
-            if (row["CommentaireFichier"].ToString() == "Feux Bleu - Sir√®nes")
+            if (row["CommentaireFichier"].ToString() == "Feux Bleu - SirËnes")
             {
                 pictureBox1.Visible = true;
                 //MessageBox.Show(row["CommentaireFichier"].ToString());
@@ -6203,14 +6160,14 @@ namespace ImportSosGeneve
 
 			if(row["AnnulationAppel"].ToString()!="0")
 			{
-				lblAnnulation.Text =  "Annul√© √†  " + DateTime.Parse(row["DAN"].ToString()).ToShortTimeString();
+				lblAnnulation.Text =  "AnnulÈ ‡  " + DateTime.Parse(row["DAN"].ToString()).ToShortTimeString();
 				lblMotifAnnulation.Text = row["MotifAnnulation"].ToString();
 				lblDevenirAnnulation.Text = row["DevenirAnnulation"].ToString();
 			}		
 			if(row["NomMedecinSos"].ToString()!=System.DBNull.Value.ToString())
 				lblMedecin.Text = row["NomMedecinSos"].ToString();
 			else
-				lblMedecin.Text = "Aucun m√©decin affect√©";
+				lblMedecin.Text = "Aucun mÈdecin affectÈ";
 			if(row["DRC"].ToString()!=System.DBNull.Value.ToString())
 				lbRCP.Text = DateTime.Parse(row["DRC"].ToString()).ToShortTimeString();
 			else
@@ -6262,7 +6219,7 @@ namespace ImportSosGeneve
 			pan_Statiques.Enabled = true;
 		}
 
-        //affectation des champs de la fiche d'apr√®s la selection 
+        //affectation des champs de la fiche d'aprËs la selection 
 		private void RemplitFicheDynamique(DataRow row)
 		{
 			if(row!=null)
@@ -6315,13 +6272,13 @@ namespace ImportSosGeneve
                  {
                      CBRoute1.Text = "Chemin";
                  }
-                 else if ((row["Rue"].ToString().ToLower().IndexOf("all√©e"))> -1)
+                 else if ((row["Rue"].ToString().ToLower().IndexOf("allÈe"))> -1)
                  {
-                     CBRoute1.Text = "All√©e";
+                     CBRoute1.Text = "AllÈe";
                  }
-                 else if ((row["Rue"].ToString().ToLower().IndexOf("cit√©"))> -1)
+                 else if ((row["Rue"].ToString().ToLower().IndexOf("citÈ"))> -1)
                  {
-                     CBRoute1.Text = "Cit√©";
+                     CBRoute1.Text = "CitÈ";
                  }
                  else if ((row["Rue"].ToString().ToLower().IndexOf("cours"))> -1)
                  {
@@ -6337,13 +6294,13 @@ namespace ImportSosGeneve
                  }
                  else
                  {
-                     CBRoute1.Text = "";        //c'est aucun de ces choix, donc on met CBRoute1 √† blanc
+                     CBRoute1.Text = "";        //c'est aucun de ces choix, donc on met CBRoute1 ‡ blanc
                  }
                  
 
                 txtPatient_Adresse1.Text = row["Rue"].ToString();
                 txtPatient_NumRue.Text = row["NumeroDansRue"].ToString();
-                txtPatient_Adresse2.Text = row["TexteSup"].ToString();  //Utilisation du champ TexteSup non utilis√©
+                txtPatient_Adresse2.Text = row["TexteSup"].ToString();  //Utilisation du champ TexteSup non utilisÈ
                                                                         //pour Adr2
                 txtPatient_Localite.Text = row["Commune"].ToString();
                 EMaskTel1.Text = row["TelPatient"].ToString();
@@ -6397,13 +6354,13 @@ namespace ImportSosGeneve
                 {
                     CBRoute_adm1.Text = "Chemin";
                 }
-                else if ((row["Adm_Rue"].ToString().ToLower().IndexOf("all√©e")) > -1)
+                else if ((row["Adm_Rue"].ToString().ToLower().IndexOf("allÈe")) > -1)
                 {
-                    CBRoute_adm1.Text = "All√©e";
+                    CBRoute_adm1.Text = "AllÈe";
                 }
-                else if ((row["Adm_Rue"].ToString().ToLower().IndexOf("cit√©")) > -1)
+                else if ((row["Adm_Rue"].ToString().ToLower().IndexOf("citÈ")) > -1)
                 {
-                    CBRoute_adm1.Text = "Cit√©";
+                    CBRoute_adm1.Text = "CitÈ";
                 }
                 else if ((row["Adm_Rue"].ToString().ToLower().IndexOf("cours")) > -1)
                 {
@@ -6419,13 +6376,13 @@ namespace ImportSosGeneve
                 }
                 else
                 {
-                    CBRoute_adm1.Text = "";        //c'est aucun de ces choix, donc on met CBRoute_adm1 √† blanc
+                    CBRoute_adm1.Text = "";        //c'est aucun de ces choix, donc on met CBRoute_adm1 ‡ blanc
                 }
 
                 //pour le type de voie (route, rue etc...)
 				txtPatient_AdmAdresse1.Text  = row["Adm_Rue"].ToString();
                 txtPatient_AdmNumRue.Text = row["Adm_NumeroDansRue"].ToString();
-                txtPatient_AdmAdresse2.Text = row["ListeNoire"].ToString();   //Utilisation du champ ListeNoire non utilis√©
+                txtPatient_AdmAdresse2.Text = row["ListeNoire"].ToString();   //Utilisation du champ ListeNoire non utilisÈ
                                                                               //pour Adr2_adm 
 				txtPatient_AdmNPA.Text  = row["Adm_CodePostal"].ToString();
 				txtPatient_AdmLocalite.Text  = row["Adm_Commune"].ToString();
@@ -6461,9 +6418,9 @@ namespace ImportSosGeneve
                     PBoxAudio.Visible = false;
                 }
 
-                //Affichage si c'est un encaiss√© sur place
+                //Affichage si c'est un encaissÈ sur place
                 if (row["Esp"].ToString() == "1")
-                    checkBoxESP.Checked = true;  //on coche la case Encaiss√© sur place                
+                    checkBoxESP.Checked = true;  //on coche la case EncaissÈ sur place                
                 else checkBoxESP.Checked = false; 
                 
 
@@ -6490,7 +6447,7 @@ namespace ImportSosGeneve
             fpFiche_Historique_Sheet1.GrayAreaBackColor = Color.PapayaWhip;
         }
 
-		// R√©cup√©ration et chargement de l'historique d'une fiche
+		// RÈcupÈration et chargement de l'historique d'une fiche
         public void ChargementHistoriqueFiche(long NumFiche)
         {
             fpFiche_Historique_Sheet1.RowCount = 0;
@@ -6514,7 +6471,7 @@ namespace ImportSosGeneve
                             type = "Modification de fiche";
                             break;
                         case Constantes.CREATION_RAPPORT:
-                            type = "Cr√©ation de rapport";
+                            type = "CrÈation de rapport";
                             ApparaitHisto = true;
                             break;
                         case Constantes.SUPP_RAPPORT:
@@ -6540,7 +6497,7 @@ namespace ImportSosGeneve
                             break;
                         case Constantes.CREATION_FACTURE:
                             ApparaitHisto = true;
-                            type = "Cr√©ation de facture";
+                            type = "CrÈation de facture";
                             break;
                         case Constantes.MODIFICATION_FACTURE:
                             ApparaitHisto = true;
@@ -6556,7 +6513,7 @@ namespace ImportSosGeneve
             }
         }
 
-        // Ajout d'une op√©ration dans l'historique d'une fiche
+        // Ajout d'une opÈration dans l'historique d'une fiche
         private void AjoutHistoriqueFiche(string NomUtilisateur, string TypeOperation, DateTime DateOperation, string Commentaire)
         {
             int nb = fpFiche_Historique_Sheet1.RowCount++;
@@ -6571,7 +6528,7 @@ namespace ImportSosGeneve
         }
 
 		
-        //Affichage du commentaire d'un √©venement dans la boite commentaire Visa au passage de la souris
+        //Affichage du commentaire d'un Èvenement dans la boite commentaire Visa au passage de la souris
         private void fpFiche_Historique_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             FarPoint.Win.Spread.Model.CellRange range = fpFiche_Historique.GetCellFromPixel(0, 0, e.X, e.Y);
@@ -6593,7 +6550,7 @@ namespace ImportSosGeneve
 
         #region Rubrique Rapports
 
-        #region Affichage des rapports relatifs √† la fiche d'appel s√©lectionn√©e
+        #region Affichage des rapports relatifs ‡ la fiche d'appel sÈlectionnÈe
 
         private void ClearDonneesRapport()
         {
@@ -6614,8 +6571,8 @@ namespace ImportSosGeneve
             lstEnvois.Items.Clear();
         }
 
-        // Affichage des rapports dans la liste avec comme crit√®re de s√©lection
-        // le patient cliqu√© dans la liste des appels
+        // Affichage des rapports dans la liste avec comme critËre de sÈlection
+        // le patient cliquÈ dans la liste des appels
         private void ChargeRapports(DataRow row)
         {
             ClearDonneesRapport();
@@ -6670,11 +6627,11 @@ namespace ImportSosGeneve
                 {
                     // Affichage du rapport courant :
 
-                    // s'il n'a jamais √©t√© g√©n√©r√© :
+                    // s'il n'a jamais ÈtÈ gÈnÈrÈ :
                     if (ligne[1] == null || ligne[1] == System.DBNull.Value.ToString() || ligne[1] == "")
                     {
                         btnRapportCourant.BackColor = Color.MistyRose;
-                        btnRapportCourant.Text = "G√©n√©rer ce rapport\r\n" + ligne[3] + " " + ligne[8] + " par " + ligne[7] + "\r\n du " + DateTime.Parse(ligne[6]).ToString();
+                        btnRapportCourant.Text = "GÈnÈrer ce rapport\r\n" + ligne[3] + " " + ligne[8] + " par " + ligne[7] + "\r\n du " + DateTime.Parse(ligne[6]).ToString();
                         btnRapportCourant.Tag = new long[] { long.Parse(ligne[0]), -1 };
                     }
                     else
@@ -6687,7 +6644,7 @@ namespace ImportSosGeneve
 
                     initialise_Lecteur(int.Parse(row["NConsultation"].ToString()));
 
-                    //initialisation du lecteur de dict√©e int√©gr√© uniquement pour Chef (√©vite le plantage pour les autres)
+                    //initialisation du lecteur de dictÈe intÈgrÈ uniquement pour Chef (Èvite le plantage pour les autres)
                     /* if(VariablesApplicatives.Utilisateurs.Droits == VariablesApplicatives.Utilisateurs.CodeDroits.Chef)                    
                          initialise_Lecteur(int.Parse(row["NConsultation"].ToString()));
                      else
@@ -6706,9 +6663,9 @@ namespace ImportSosGeneve
 
         #endregion
 
-        #region S√©lection d'un rapport de la liste
+        #region SÈlection d'un rapport de la liste
 
-		// Chargement/G√©n√©ration d'un rapport s√©lectionn√© dans la liste
+		// Chargement/GÈnÈration d'un rapport sÈlectionnÈ dans la liste
 		private void fpRapport_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
 		{
 			FarPoint.Win.Spread.Model.CellRange range = fpRapport.GetCellFromPixel(0,0,e.X,e.Y);
@@ -6726,7 +6683,7 @@ namespace ImportSosGeneve
 				{
                     if (VariablesApplicatives.Utilisateurs.Droits == VariablesApplicatives.Utilisateurs.CodeDroits.Medecin)
 					{
-                        MessageBox.Show("Ce rapport n'a pas encore √©t√© cr√©√©.", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Ce rapport n'a pas encore ÈtÈ crÈÈ.", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Error);
 						return;
 					}
 					
@@ -6754,7 +6711,7 @@ namespace ImportSosGeneve
 			}
 		}
 
-		//Affichage du rapport dont la fiche est celle s√©lectionn√©e
+		//Affichage du rapport dont la fiche est celle sÈlectionnÈe
 		private void btnRapportCourant_Click(object sender, System.EventArgs e)
 		{
 			// Si le Tag du bouton est nul, aucune fiche courante :
@@ -6762,14 +6719,12 @@ namespace ImportSosGeneve
 
 			// On extrait les deux valeurs : NConsultation et NRapport
 			long[] Index = (long[])btnRapportCourant.Tag;
-		public void AffichageRapport(object valeur, bool ouvertDepuisListe = false)
-            m_rapportOuvertDepuisListe = ouvertDepuisListe;
-
+			// Si le numÈro de rapport = -1, Il n'est pas encore gÈnÈrÈ, on le gÈnÈre..
 			if(Index[1]==-1)
 			{
                 if (VariablesApplicatives.Utilisateurs.Droits == VariablesApplicatives.Utilisateurs.CodeDroits.Medecin)
 				{
-                    MessageBox.Show("Ce rapport n'a pas encore √©t√© cr√©√©.", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ce rapport n'a pas encore ÈtÈ crÈÈ.", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
 				}
 
@@ -6788,24 +6743,21 @@ namespace ImportSosGeneve
 			}
 		}
 
-		// Affichage d'un rapport g–πn–πr–π
-		public void AffichageRapport(object valeur, bool ouvertDepuisListe = false)
+		// Affichage d'un rapport gÈnÈrÈ
+		public void AffichageRapport(object valeur)
 		{
 			LblSauvegardeRapport.Text = "";
 
 			this.Cursor = Cursors.WaitCursor;
 
-            m_rapportOuvertDepuisListe = ouvertDepuisListe;
-
-
             try
             {
 			    long IdRapport = long.Parse(valeur.ToString());				
 
-			    // On R√©-initialise la liste des destinataires
+			    // On RÈ-initialise la liste des destinataires
 			    InitialiseListeDestinataires(null);
 
-			    // on R√©initialise tous les dataset et Etats CrystalReport
+			    // on RÈinitialise tous les dataset et Etats CrystalReport
                 Donnees.MonDtRapport = new dstRapport();
 			    Donnees.MesDestinataires = new Destinataire[0];
                 Donnees.MonDtDestination = new dstDestination();
@@ -6823,7 +6775,7 @@ namespace ImportSosGeneve
 			    }
 
 
-			    // On r√©cupere les donn√©es li√©es au rapport s√©lectionn√©
+			    // On rÈcupere les donnÈes liÈes au rapport sÈlectionnÈ
                 OutilsExt.OutilsSql.RemplitDataTable(Donnees.MonDtRapport.Rapport, @"SELECT c.Morphine, c.Pethidine, c.Fentanyl, c.Methadone, c.Dormicum,
                                                      c.Autre_stup, c.Autre_stup_qte, c.Auteur, c.Type_long_rapport, AnnulationAppel, c.RegulationCorrecte ,
                                                      c.AdresseCorrecte , r.NRapport,r.NConsultation,c.CodeAppel,c.IndicePatient as 'CodePatient',r.DateRapport,
@@ -6841,7 +6793,7 @@ namespace ImportSosGeneve
 			    int TypeRapport = Donnees.MonDtRapport.Rapport[0].TypeRapport;
 
 			    // ------------------------------------------
-			    // Affichage d'un rapport m√©dical ou d'un constat
+			    // Affichage d'un rapport mÈdical ou d'un constat
 			    if(TypeRapport==1 || TypeRapport==2)
 			    {                    
 				    Donnees.MonEtatRapport = new RapportPatient();
@@ -6892,7 +6844,7 @@ namespace ImportSosGeneve
 				    if(nbLigne>26 && nbLigne <30)
 					    PoliceSize=10;
     				
-				    // on est oblig√©s de recommencer la manip pour attribuer la bonne taille
+				    // on est obligÈs de recommencer la manip pour attribuer la bonne taille
 				    // On fabrique le corps du rapport :
 				    rtfConvert.Text = "";
                     rtfConvert.Font = new Font(SosMedecins.SmartRapport.Systeme.OutilsExt.ParamAppli.PoliceDefault().FontFamily, PoliceSize, SosMedecins.SmartRapport.Systeme.OutilsExt.ParamAppli.PoliceDefault().Style);
@@ -6935,7 +6887,7 @@ namespace ImportSosGeneve
 				    if(TypeRapport==2) Donnees.MonDtRapport.Rapport[0].RapBonjour="";
 				    if(Donnees.MonDtRapport.Rapport[0].RapSignature=="") Donnees.MonDtRapport.Rapport[0].RapSignature = Donnees.MonDtRapport.Rapport[0].NomMedecinSos;	
 
-				    // Travail sur les donn√©es format√©es :
+				    // Travail sur les donnÈes formatÈes :
 				    Donnees.MonDtRapport.Rapport[0].NomPatient = Donnees.MonDtRapport.Rapport[0].NomPatient.ToUpper();
 				    if(Donnees.MonDtRapport.Rapport[0].PrenomPatient!="") 
 					    Donnees.MonDtRapport.Rapport[0].PrenomPatient = Donnees.MonDtRapport.Rapport[0].PrenomPatient.Substring(0,1).ToUpper() + Donnees.MonDtRapport.Rapport[0].PrenomPatient.Substring(1).ToLower();
@@ -7014,7 +6966,7 @@ namespace ImportSosGeneve
                     Donnees.MonEtatRapport.SetDataSource(Donnees.MonDtRapport);////
 				    crystalReportViewer1.ReportSource = Donnees.MonEtatRapport;
                     CrystalUtility.FontInReport(Donnees.MonEtatRapport, "Rap", SosMedecins.SmartRapport.Systeme.OutilsExt.ParamAppli.PoliceDefault());	
-				    // Variantes selon le constat ou le rapport m√©dical 
+				    // Variantes selon le constat ou le rapport mÈdical 
 				    if(Donnees.MonDtRapport.Rapport[0].TypeRapport==1)      //Normal
 				    {
 					    CrystalUtility.UpdateObject(Donnees.MonEtatRapport,"RapC","Concerne :");
@@ -7033,14 +6985,14 @@ namespace ImportSosGeneve
 				    AffichageEnvoisDuRapport();
 
 				    
-                    //on initialise les signatures √† invisible (true)
+                    //on initialise les signatures ‡ invisible (true)
                     CrystalUtility.SetVisibleImage(Donnees.MonEtatRapport, "Picture1", true);
                     CrystalUtility.SetVisibleImage(Donnees.MonEtatRapport, "Picture2", true);
                     CrystalUtility.SetVisibleImage(Donnees.MonEtatRapport, "Picture3", true);
                     //CrystalUtility.SetVisibleImage(Donnees.MonEtatRapport, "Picture4", true);
                     CrystalUtility.SetVisibleImage(Donnees.MonEtatRapport, "Picture5", true);
                     
-                    // Si le rapport est vis√© on fait apparaitre la signature num√©rique :
+                    // Si le rapport est visÈ on fait apparaitre la signature numÈrique :
 				    bool bVise = false;
 				   
                     // if(Donnees.MonDtRapport.Rapport[0].Vise==1) bVise=true;
@@ -7050,7 +7002,7 @@ namespace ImportSosGeneve
                     {
                         bVise = true;
 
-                        //en fonction de la personne qui a sign√©, on affiche sa signature
+                        //en fonction de la personne qui a signÈ, on affiche sa signature
                         switch (Donnees.MonDtRapport.Rapport[0].Medecin_viseur.ToString())
                         {
                             case "340":      //FDX
@@ -7065,7 +7017,7 @@ namespace ImportSosGeneve
                             case "121":      //Korine
                                 CrystalUtility.SetVisibleImage(Donnees.MonEtatRapport, "Picture5", !bVise);
                                 break;
-                            case "2908":      //Pelet Fran√ßois
+                            case "2908":      //Pelet FranÁois
                                 CrystalUtility.SetVisibleImage(Donnees.MonEtatRapport, "Picture6", !bVise);
                                 break;
                             case "D614":      //MBAYO Paul
@@ -7084,15 +7036,15 @@ namespace ImportSosGeneve
 
                     dstRapport.RapportRow tb = Donnees.MonDtRapport.Rapport[0];
 
-				    tb.Sans1 = "M√©decin n¬∞ " + tb.CodeIntervenant + " : " + tb.NomMedecinSos;
-                    tb.Sans2 = "Secr√©taire : " + VariablesApplicatives.Utilisateurs.NomUtilisateur;
-				    tb.Sans3 = "Consultation n¬∞ " + tb.NConsultation + ", Appel " + tb.CodeAppel + " du ";
+				    tb.Sans1 = "MÈdecin n∞ " + tb.CodeIntervenant + " : " + tb.NomMedecinSos;
+                    tb.Sans2 = "SecrÈtaire : " + VariablesApplicatives.Utilisateurs.NomUtilisateur;
+				    tb.Sans3 = "Consultation n∞ " + tb.NConsultation + ", Appel " + tb.CodeAppel + " du ";
 				    if(!tb.IsDSLNull())
-					    tb.Sans3 += tb.DSL.ToLongDateString() + " √† " + tb.DSL.ToShortTimeString();
+					    tb.Sans3 += tb.DSL.ToLongDateString() + " ‡ " + tb.DSL.ToShortTimeString();
 				    else if(!tb.IsDFINull())
 					    tb.Sans3 += tb.DFI;
 				    else if(!tb.IsDAPNull())
-					    tb.Sans3 += tb.DAP.ToLongDateString() + " √† " + tb.DAP.ToShortTimeString();
+					    tb.Sans3 += tb.DAP.ToLongDateString() + " ‡ " + tb.DAP.ToShortTimeString();
 
 				    //tb.Sans4 = WorkedString.FirstLetterUpper(tb.PrenomPatient) + " " + tb.NomPatient.ToUpper();
                     tb.Sans4 = tb.PrenomPatient + " " + tb.NomPatient.ToUpper();
@@ -7104,7 +7056,7 @@ namespace ImportSosGeneve
 					    tb.Sans5="Homme";
 				    tb.Sans5+= "\t	" + tb.Rue + " " + tb.NumRue + ", " + tb.CodePostal + " " + tb.Commune;
 				    tb.Sans5+="\r\n"  + tb.Age + " " + WorkedString.GetAgeFormate(tb.UniteAge) + "\t	" + "Tel : " + tb.Tel;
-				    tb.Sans6 = "Sympt√¥mes : " + tb.Motif1 + "\r\nM√©decin Traitant";
+				    tb.Sans6 = "SymptÙmes : " + tb.Motif1 + "\r\nMÈdecin Traitant";
 
 				    TabActionRapport.Visible = true;
 				    txtSaisieRapport.Visible = true;
@@ -7143,13 +7095,13 @@ namespace ImportSosGeneve
                         this.cmdRapport_Destinataire.Visible = true;
                     }
                 }
-			    // Bouton Fin de Correction non dispo si le rapport n'est pas √† corriger
+			    // Bouton Fin de Correction non dispo si le rapport n'est pas ‡ corriger
 			    if(Donnees.MonDtRapport.Rapport[0].ACorriger==1)
 				    btnEnlevCorrection.Visible = true;
 			    else
 				    btnEnlevCorrection.Visible = false;
 
-			    // Raffrachissement des donn√©es sur l'√©cran			
+			    // Raffrachissement des donnÈes sur l'Ècran			
 			    crystalReportViewer1.RefreshReport();
 			    crystalReportViewer1.Zoom(85);	
             }
@@ -7164,9 +7116,9 @@ namespace ImportSosGeneve
 
         #endregion
 
-        #region Cr√©ation du rapport = Rapport // Constat // Sans Rapport
+        #region CrÈation du rapport = Rapport // Constat // Sans Rapport
 
-		// Cr√©ation d'un rapport normal
+		// CrÈation d'un rapport normal
 		private void picRapport_OptRapport_Click(object sender, System.EventArgs e)
 		{	
 			LblSauvegardeRapport.Text = "";
@@ -7175,7 +7127,7 @@ namespace ImportSosGeneve
 			
 			if(Donnees.MonDtCorps.Corps.Count>0 || Donnees.MonDtDestination.Destination.Count>0)
 			{
-                if (MessageBox.Show("Attention, si vous continuez le corps du rapport et la liste des destinataires vont √™tre r√©-initialis√©s ! \r\n\r\nVoulez vous continuer ?", "Nouvelle cr√©ation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                if (MessageBox.Show("Attention, si vous continuez le corps du rapport et la liste des destinataires vont Ítre rÈ-initialisÈs ! \r\n\r\nVoulez vous continuer ?", "Nouvelle crÈation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 {
                     return;
                 }
@@ -7197,7 +7149,7 @@ namespace ImportSosGeneve
 			string age = "";
 			if(tb.DateNaissance!=System.DBNull.Value.ToString())
 			{
-				age = ", n√©";
+				age = ", nÈ";
 				if(tb.Sexe=="F")
 					age+="e";
 				age+= " le " + DateTime.Parse(tb.DateNaissance).ToShortDateString();
@@ -7235,7 +7187,7 @@ namespace ImportSosGeneve
 			            
 			tb.RapConcerne+=adresse;
 
-            //Ajout du tel √† la suite de l'adresse *****Domi 02.04.2014
+            //Ajout du tel ‡ la suite de l'adresse *****Domi 02.04.2014
             tb.RapConcerne+="\r\n";
             tb.RapConcerne += "Tel: " + tb.Tel;
             //***
@@ -7248,13 +7200,13 @@ namespace ImportSosGeneve
 			tb.RapIntroduction = "";
 			tb.RapSignature = "";
 
-			// S√©lection d'office en interne : 
+			// SÈlection d'office en interne : 
 			frmAjoutDestinataire frm = new frmAjoutDestinataire(this,1);
             dstDestination.DestinationRow DestRow = null;
 
 			// ***
-			// Est-ce qu'il y a des m√©decins traitants assign√©s √† ce patient?
-			// Si oui on les sl√©ectionne par d√©faut,
+			// Est-ce qu'il y a des mÈdecins traitants assignÈs ‡ ce patient?
+			// Si oui on les slÈectionne par dÈfaut,
 			// Si non on met automatiquement interne
 			string[][] medTT = OutilsExt.OutilsSql.ExecuteCommandeAvecTabString("SELECT IdMedecin from tablepatientmedttt where IdPatient = " + tb.CodePatient);
 			if(medTT==null || medTT.Length==0)
@@ -7288,7 +7240,7 @@ namespace ImportSosGeneve
 			else
 				tb.RapSignature = tb.NomMedecinSos.ToUpper();
 
-			// Libelles statiques diff√©rents selon rapport m√©dical ou constat 
+			// Libelles statiques diffÈrents selon rapport mÈdical ou constat 
 			CrystalUtility.UpdateObject(Donnees.MonEtatRapport,"RapC","Concerne :");			
 			//CrystalUtility.ReLocateObject(Donnees.MonEtatRapport,"RapIntroduction",-1,6480);
           //  CrystalUtility.ReLocateObject(Donnees.MonEtatRapport, "RapIntroduction", -1, 5800);
@@ -7310,7 +7262,7 @@ namespace ImportSosGeneve
 			
 			if(Donnees.MonDtCorps.Corps.Count>0 || Donnees.MonDtDestination.Destination.Count>0)
 			{
-                if (MessageBox.Show("Attention, si vous continuez le corps du rapport et la liste des destinataires vont √™tre r√©-initialis√©s ! \r\n\r\nVoulez vous continuer ?", "Nouvelle cr√©ation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                if (MessageBox.Show("Attention, si vous continuez le corps du rapport et la liste des destinataires vont Ítre rÈ-initialisÈs ! \r\n\r\nVoulez vous continuer ?", "Nouvelle crÈation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 {
                     return;
                 }
@@ -7326,14 +7278,14 @@ namespace ImportSosGeneve
 
             tb.RapEnTete = SosMedecins.SmartRapport.Systeme.OutilsExt.ParamAppli.CommuneEditionRapports + ", le " + tb.DateRapport.ToShortDateString();
 			tb.RapDestinataire ="";
-			tb.RapConcerne = "Constat de l√©sions traumatiques concernant ";
+			tb.RapConcerne = "Constat de lÈsions traumatiques concernant ";
 			tb.RapConcerne+=WorkedString.GetSexeFormate(tb.Sexe);
             //tb.RapConcerne+= " " + WorkedString.FirstLetterUpper(tb.PrenomPatient) + " " + tb.NomPatient.ToUpper() + ", ";
             tb.RapConcerne += " " + tb.PrenomPatient + " " + tb.NomPatient.ToUpper() + ", ";
 			string age = "";
 			if(tb.DateNaissance!=System.DBNull.Value.ToString())
 			{
-				age = "n√©";
+				age = "nÈ";
 				if(tb.Sexe=="F")
 					age+="e";
 				age+= " le " + DateTime.Parse(tb.DateNaissance).ToShortDateString();
@@ -7357,7 +7309,7 @@ namespace ImportSosGeneve
 			}*/
             adresse += tb.Rue;
 
-			adresse+= " √† ";
+			adresse+= " ‡ ";
 			if(tb.CodePostal!="")
 				adresse+=tb.CodePostal + " ";
 			
@@ -7370,7 +7322,7 @@ namespace ImportSosGeneve
 
 			string heurefi = "";
 			if(tb.DFI!=System.DBNull.Value.ToString())
-				heurefi = " √† " + DateTime.Parse(tb.DFI).ToShortTimeString();
+				heurefi = " ‡ " + DateTime.Parse(tb.DFI).ToShortTimeString();
 
 			fpRapport_Destinataires_Sheet1.RowCount = 0;
 			tb.RapBonjour = "";
@@ -7380,7 +7332,7 @@ namespace ImportSosGeneve
 			tb.RapCorps="";
 			tb.RapSalutation = "";
 		
-			// S√©lection d'office de l'h√¥tel de police en destinataire : 
+			// SÈlection d'office de l'hÙtel de police en destinataire : 
             frmAjoutDestinataire frm = new frmAjoutDestinataire(this,2);
             dstDestination.DestinationRow DestRow = frm.SelectionAutomatiquePourConstat();
 			AjouteDestinataires(DestRow);
@@ -7441,7 +7393,7 @@ namespace ImportSosGeneve
 			
 			if(Donnees.MonDtCorps.Corps!=null && (Donnees.MonDtCorps.Corps.Count>0 || Donnees.MonDtDestination.Destination.Count>0))
 			{
-                if (MessageBox.Show("Attention, si vous continuez le corps du rapport et la liste des destinataires vont √™tre r√©-initialis√©s ! \r\n\r\nVoulez vous continuer ?", "Nouvelle cr√©ation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                if (MessageBox.Show("Attention, si vous continuez le corps du rapport et la liste des destinataires vont Ítre rÈ-initialisÈs ! \r\n\r\nVoulez vous continuer ?", "Nouvelle crÈation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 {
                     return;
                 }
@@ -7459,12 +7411,12 @@ namespace ImportSosGeneve
 
             dstRapport.RapportRow tb = Donnees.MonDtRapport.Rapport[0];
 
-			tb.Sans1 = "M√©decin n¬∞ " + tb.CodeIntervenant + " : " + tb.NomMedecinSos;
-            tb.Sans2 = "Secr√©taire : " + VariablesApplicatives.Utilisateurs.NomUtilisateur;
-			tb.Sans3 = "Consultation n¬∞ " + tb.NConsultation + ", Appel " + tb.CodeAppel + " du ";
+			tb.Sans1 = "MÈdecin n∞ " + tb.CodeIntervenant + " : " + tb.NomMedecinSos;
+            tb.Sans2 = "SecrÈtaire : " + VariablesApplicatives.Utilisateurs.NomUtilisateur;
+			tb.Sans3 = "Consultation n∞ " + tb.NConsultation + ", Appel " + tb.CodeAppel + " du ";
 			
 			if(!tb.IsDSLNull())
-				tb.Sans3 += tb.DSL.ToLongDateString() + " √† " + tb.DSL.ToShortTimeString();				
+				tb.Sans3 += tb.DSL.ToLongDateString() + " ‡ " + tb.DSL.ToShortTimeString();				
 			else if(!tb.IsDFINull())
 				tb.Sans3+=tb.DFI;
 				
@@ -7481,7 +7433,7 @@ namespace ImportSosGeneve
 				tb.Sans5="Homme";
 			tb.Sans5+="\t	" + tb.Rue + " " + tb.NumRue + ", " + tb.CodePostal + " " + tb.Commune;
 			tb.Sans5+="\r\n"  + tb.Age + " " + WorkedString.GetAgeFormate(tb.UniteAge) + "\t	" + "Tel : " + tb.Tel;
-			tb.Sans6 = "Sympt√¥mes : " + tb.Motif1 + "\r\nM√©decin Traitant";
+			tb.Sans6 = "SymptÙmes : " + tb.Motif1 + "\r\nMÈdecin Traitant";
 
 
 			// Nouveau Sans Rapport
@@ -7542,7 +7494,7 @@ namespace ImportSosGeneve
 				tb.CodePostal = strDonnees[0][8];
 				tb.Commune = strDonnees[0][9];
 
-				// Travail sur les donn√©es format√©es :
+				// Travail sur les donnÈes formatÈes :
 				tb.NomPatient = tb.NomPatient.ToUpper();
 				//if(tb.PrenomPatient!="") 
 				//	tb.PrenomPatient = tb.PrenomPatient.Substring(0,1).ToUpper() + tb.PrenomPatient.Substring(1).ToLower();
@@ -7553,7 +7505,7 @@ namespace ImportSosGeneve
 			string age = "";
 			if(tb.DateNaissance!=System.DBNull.Value.ToString())
 			{
-				age = "n√©";
+				age = "nÈ";
 				if(tb.Sexe=="F")
 					age+="e";
 				age+= " le " + DateTime.Parse(tb.DateNaissance).ToShortDateString();
@@ -7592,14 +7544,14 @@ namespace ImportSosGeneve
 
         #region Traitement Communication des rapports
 
-        #region Traitement imm√©diat
+        #region Traitement immÈdiat
 
 		// Export du rapport
 		private void picRapport_Export1_Click(object sender, System.EventArgs e)
 		{
 			if(Donnees.MonEtatRapport==null)
 			{
-                MessageBox.Show("Aucun rapport n'est s√©lectionn√©.", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Aucun rapport n'est sÈlectionnÈ.", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}			
 			if(cbRapport_Format.Text=="")
@@ -7615,7 +7567,7 @@ namespace ImportSosGeneve
 
 			if(CrystalUtility.ExportReport(Donnees.MonEtatRapport,cbRapport_Format.Text,Application.StartupPath + "\\Export\\" + cbRapport_Format.Text + "\\" , Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].NRapport.ToString()))
 			{
-                MessageBox.Show("Export r√©ussi.", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Export rÈussi.", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 if (System.IO.File.Exists(Application.StartupPath + "\\Export\\" + cbRapport_Format.Text + "\\" + Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].NRapport.ToString() + "." + cbRapport_Format.Text))
                 {
                     System.Diagnostics.Process.Start(Application.StartupPath + "\\Export\\" + cbRapport_Format.Text + "\\" + Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].NRapport.ToString() + "." + cbRapport_Format.Text);
@@ -7644,7 +7596,7 @@ namespace ImportSosGeneve
             
             if (z_rcsEtatEnCours == null)
 			{
-                MessageBox.Show("Vous devez s√©l√©ctionner un rapport !", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Vous devez sÈlÈctionner un rapport !", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}
 			if(txtRapport_NbCopies.Text=="")
@@ -7696,7 +7648,7 @@ namespace ImportSosGeneve
           
 			if(Reussite)
 			{
-                MessageBox.Show("Impression r√©ussie.", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Impression rÈussie.", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 			else
 			{
@@ -7709,13 +7661,13 @@ namespace ImportSosGeneve
 		{
 			if(Donnees.MonEtatRapport==null)
 			{
-                MessageBox.Show("Vous devez s√©l√©ctionner un rapport.", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Vous devez sÈlÈctionner un rapport.", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}	
 		
 			if(fpRapport_Destinataires_Sheet1.ActiveRowIndex==-1)
 			{
-                MessageBox.Show("Vous devez s√©l√©ctionner un destinataire.", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Vous devez sÈlÈctionner un destinataire.", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;
 			}					
 
@@ -7743,9 +7695,9 @@ namespace ImportSosGeneve
 
         #endregion
 
-        #region S√©lection des destinataires
+        #region SÈlection des destinataires
 
-		// S√©lection des destinataires
+		// SÈlection des destinataires
 		private void lnkRapport_AjoutDestinataire_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
 		{
 			frmAjoutDestinataire frm = new frmAjoutDestinataire(this,Donnees.MonDtRapport.Rapport[0].TypeRapport);
@@ -7894,7 +7846,7 @@ namespace ImportSosGeneve
 
         #region Saisie dans le rapport
 
-		// on remet chaque bouton √† son √©tat initial
+		// on remet chaque bouton ‡ son Ètat initial
 		private void InitialiseBoutonsRapport(int type)
 		{
 			txtSaisieRapport.Tag = null;
@@ -7908,7 +7860,7 @@ namespace ImportSosGeneve
 			SelectionBoutonRapport(btn);
 		}		
 
-		// S√©lection d'une rubrique sur le rapport
+		// SÈlection d'une rubrique sur le rapport
 		private void SelectionBoutonRapport(Button btn)
 		{			
 			if(Donnees.MonDtRapport==null || Donnees.MonEtatRapport==null || crystalReportViewer1.ActiveViewIndex==-1) return;
@@ -7956,7 +7908,7 @@ namespace ImportSosGeneve
 					txtSaisieRapport.Text = Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].RapSignature;
 					break;
 				case "cmdRapport_Corps":
-					// Ouvre la fen√™tre de fabrication du corps du rapport
+					// Ouvre la fenÍtre de fabrication du corps du rapport
 					frmRapport_Objet frm = new frmRapport_Objet();
 					frm.Corps = Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].RapCorps;
 					frm.ShowDialog();
@@ -8141,7 +8093,7 @@ namespace ImportSosGeneve
 
         #region Visa, Reprises, Enregistrement...
 
-		// Validation et sauvegarde d'un rapport suite √† modification.
+		// Validation et sauvegarde d'un rapport suite ‡ modification.
 		private void pic_ValideRapport_Click(object sender, System.EventArgs e)
 		{
 			MethodeSauvegarde(true);
@@ -8186,11 +8138,11 @@ namespace ImportSosGeneve
 					    Donnees.MonSansRapport.SetDataSource(Donnees.MonDtRapport);
 
                     Donnees.SaveRapport = true;
-				    LblSauvegardeRapport.Text = "Sauvegarde r√©ussie";
+				    LblSauvegardeRapport.Text = "Sauvegarde rÈussie";
 			    }
 			    else
 			    {
-				    LblSauvegardeRapport.Text = "Sauvegarde √©chou√©e!!!";
+				    LblSauvegardeRapport.Text = "Sauvegarde ÈchouÈe!!!";
 			    }
             }
             catch (Exception ex)
@@ -8229,69 +8181,14 @@ namespace ImportSosGeneve
 			}
 		}
 
-
-        private void BtnRapport_Copier_Click(object sender, System.EventArgs e)
-        {
-            if (Donnees.MonDtRapport == null || Donnees.MonDtRapport.Rapport.Count == 0 || crystalReportViewer1.ActiveViewIndex == -1) return;
-
-            try
-            {
-                dstRapport.RapportRow rapportRow = Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex];
-                string texte = string.Empty;
-
-                if (!rapportRow.IsRapCorpsNull())
-                {
-                    using (RichTextBox temp = new RichTextBox())
-                    {
-                        temp.Rtf = rapportRow.RapCorps;
-                        texte = temp.Text;
-                    }
-                }
-
-                if (string.IsNullOrEmpty(texte) && !rapportRow.IsCommentaireNull())
-                    texte = rapportRow.Commentaire;
-
-                if (!string.IsNullOrEmpty(texte))
-                    Clipboard.SetText(texte);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
-        }
-
-        //Accord d'un visa par un m–πdecin
-        private void BtnRapport_Visa_Click(object sender, System.EventArgs e)
+		//Accord d'un visa par un mÈdecin
+		private void BtnRapport_Visa_Click(object sender, System.EventArgs e)
 		{
 			if(Donnees.MonDtRapport==null || Donnees.MonEtatRapport==null || crystalReportViewer1.ActiveViewIndex==-1) return;
-			//Visa Accord√©
+			//Visa AccordÈ
             try
             {
-
-                dstRapport.RapportRow rapportRow = Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex];
-                if (RapportDejaRefuse(rapportRow))
-                {
-                    if (Donnees.MonDtDestination != null)
-                    {
-                        foreach (dstDestination.DestinationRow destRow in Donnees.MonDtDestination.Destination.Rows)
-                        {
-                            if (!destRow.IsRapSalutationNull() && destRow.RapSalutation == TexteRefusVisa)
-                                destRow.SetRapSalutationNull();
-                        }
-                    }
-
-                    if (!rapportRow.IsRapSalutationNull() && rapportRow.RapSalutation == TexteRefusVisa)
-                        rapportRow.SetRapSalutationNull();
-
-                    if (Donnees.MonDtRapport.Rapport.Count > 0)
-                    {
-                        dstRapport.RapportRow firstRow = Donnees.MonDtRapport.Rapport[0];
-                        if (!firstRow.IsRapSalutationNull() && firstRow.RapSalutation == TexteRefusVisa)
-                            firstRow.SetRapSalutationNull();
-                    }
-                }
-                
-                SetDestinataireDuRapport();
+			    SetDestinataireDuRapport();
 
                 OutilsExt.OutilsSql.SauvegardeRapport(Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex], Donnees.MonDtCorps, Donnees.MonDtDestination, VariablesApplicatives.Utilisateurs.Identifiant, "", txtRapport_CommentaireSauvegarde.Text);
 
@@ -8329,7 +8226,7 @@ namespace ImportSosGeneve
                 z_objMail.Message = "";
                 z_objMail.Sujet = "Rapport patient " + Donnees.MonDtRapport.Rapport[0].NomPatient + " " + Donnees.MonDtRapport.Rapport[0].PrenomPatient + " " + Donnees.MonDtRapport.Rapport[0].DAP.ToShortDateString();
                 
-                //On envoi le mail au m√©decin
+                //On envoi le mail au mÈdecin
                 z_objMail.Envoi ();              
     								
 			    if(m_frmLstRapportToSend != null)
@@ -8352,162 +8249,49 @@ namespace ImportSosGeneve
                // var userIPV6 = Dns.GetHostEntry(userHost).AddressList[0].ToString();    //ip V6
                 var userIPV4 = Dns.GetHostEntry(userHost).AddressList[1].ToString();    //ip V4
 
-            return (!rapportRow.IsRapSalutationNull() && string.Equals(rapportRow.RapSalutation, TexteRefusVisa, StringComparison.Ordinal));
-
-                    MessageBox.Show("Ce rapport est vis, vous ne pouvez pas refuser le visa.");
-                    if (MessageBox.Show("Ce rapport est dj marqu comme refus. Voulez-vous craser la dcision prcdente ?", "Visa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
-                rapportRow.RapSignature = string.Empty;
-
-                OutilsExt.OutilsSql.VisaSurRapport(Donnees.MonDtRapport.Rapport[0], false);
-                MessageBox.Show("Le visa a t refus.", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                mouchard.evenement("Rapport n∞ " + Donnees.MonDtRapport.Rapport[0].NRapport.ToString() + "visÈ sur le poste " + userHost.ToString() + " ayant pour adresse ip: " + userIPV4.ToString(), VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());
 
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
             }
+		}
+		
+		//Refus du visa => retour en correction
+		private void Button8_Click(object sender, System.EventArgs e)
+		{
+			if(Donnees.MonDtRapport==null || Donnees.MonEtatRapport==null || crystalReportViewer1.ActiveViewIndex==-1) return;
 
-        }//Refus du visa => retour en correction
-        private bool RapportDejaRefuse(dstRapport.RapportRow rapportRow)
-        {
-            if (rapportRow == null) return false;
-            return (!rapportRow.IsRapSalutationNull() && string.Equals(rapportRow.RapSalutation, TexteRefusVisa, StringComparison.Ordinal));
-        }
+			SetDestinataireDuRapport();
 
-        
-        private void BtnRapport_RefusVisa_Click(object sender, System.EventArgs e)
-        {
-            if (Donnees.MonDtRapport==null || Donnees.MonEtatRapport==null || crystalReportViewer1.ActiveViewIndex==-1) return;
+            OutilsExt.OutilsSql.SauvegardeRapport(Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex], Donnees.MonDtCorps, Donnees.MonDtDestination, VariablesApplicatives.Utilisateurs.Identifiant, "", txtRapport_CommentaireSauvegarde.Text);
 
-            try
-            {
-                dstRapport.RapportRow rapportRow = Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex];
-                if (rapportRow.Vise == 1)
-                {
-                    MessageBox.Show("Ce rapport est vis, vous ne pouvez pas refuser le visa.");
+            Fonction z_objFonctionDal = new Fonction();
+            z_objFonctionDal.EnregistreModification(Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].NConsultation.ToString(), VariablesApplicatives.Utilisateurs.Identifiant, DateTime.Now, Constantes.REFUSE_VISA, TxtRapport_CommentaireVisa.Text);
+			
+			OutilsExt.OutilsSql.VisaSurRapport(Donnees.MonDtRapport.Rapport[0],false);
+			OutilsExt.OutilsSql.BonPourReprise(Donnees.MonDtRapport.Rapport[0].NRapport,true);
 
-                    return;
-                }
-                bool dejaRefuse = RapportDejaRefuse(rapportRow);
-                if (dejaRefuse)
-                {
-                    if (MessageBox.Show("Ce rapport est dj marqu comme refus. Voulez-vous craser la dcision prcdente ?", "Visa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
-                        return;
-                }
+			TxtRapport_CommentaireVisa.Text ="";
 
-                if (MessageBox.Show("Confirmez-vous le refus du visa pour ce rapport ?", "Visa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
-                    return;
+            MessageBox.Show("Visa refusÈ !", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                SetDestinataireDuRapport();
+			ChargementHistoriqueFiche(Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].NConsultation);
+			Donnees.SaveRapport = true;
 
-                string commentaireVisa = TexteRefusVisa;
-                TxtRapport_CommentaireVisa.Text = commentaireVisa;
+            AffichageEtatRapport();
+                                    
+            TxtRapport_CommentaireVisa.Text = Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].Commentaire;
+            TxtRapport_Commentaire.Text = Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].Commentaire.ToString();
+              
+                
+			this.menuItem2_Click_1(null,null);
+			m_frmLstRapportToSend.listView1_DoubleClick(null,null);
+			BtnRapport_Visa.Focus();
+		}
 
-                if (Donnees.MonDtDestination != null)
-                {
-                    foreach (dstDestination.DestinationRow destRow in Donnees.MonDtDestination.Destination.Rows)
-                    {
-                        destRow.RapSalutation = commentaireVisa;
-                    }
-                }
-
-
-               
-                rapportRow.RapSignature = string.Empty;
-
-                rapportRow.RapSalutation = commentaireVisa;
-
-				OutilsExt.OutilsSql.SauvegardeRapport(rapportRow, Donnees.MonDtCorps, Donnees.MonDtDestination, VariablesApplicatives.Utilisateurs.Identifiant, "", txtRapport_CommentaireSauvegarde.Text);
-
-                Fonction z_objFonctionDal = new Fonction();
-                z_objFonctionDal.EnregistreModification(rapportRow.NConsultation.ToString(), VariablesApplicatives.Utilisateurs.Identifiant, DateTime.Now, Constantes.REFUSE_VISA, commentaireVisa);
-
-                OutilsExt.OutilsSql.VisaSurRapport(Donnees.MonDtRapport.Rapport[0], false);
-
-                OutilsExt.OutilsSql.BonPourReprise(Donnees.MonDtRapport.Rapport[0].NRapport, true);
-
-                Donnees.MonDtRapport.Rapport[0].RapSignature = rapportRow.RapSignature;
-                Donnees.MonDtRapport.Rapport[0].RapSalutation = rapportRow.RapSalutation;
-                Donnees.MonDtRapport.Rapport[0].Medecin_viseur = VariablesApplicatives.Utilisateurs.Identifiant;
-                Donnees.MonDtRapport.Rapport[0].Vise = 0;
-
-                ChargementHistoriqueFiche(rapportRow.NConsultation);
-                Donnees.SaveRapport = true;
-
-                AffichageEtatRapport();
-
-                if (Donnees.MonEtatRapport != null)
-                {
-                    Donnees.MonEtatRapport.SetDataSource(Donnees.MonDtRapport);
-                    crystalReportViewer1.RefreshReport();
-                }
-
-                TxtRapport_Commentaire.Text = rapportRow.IsCommentaireNull() ? "" : rapportRow.Commentaire.ToString();
-
-                string userHost = string.Empty;
-                string userIPV4 = string.Empty;
-                try
-                {
-                    userHost = Dns.GetHostName();
-                    IPHostEntry entry = Dns.GetHostEntry(userHost);
-                    foreach (System.Net.IPAddress address in entry.AddressList)
-                    {
-                        if (address.AddressFamily == AddressFamily.InterNetwork)
-                        {
-                            userIPV4 = address.ToString();
-                            break;
-                        }
-                    }
-                    if (string.IsNullOrEmpty(userIPV4) && entry.AddressList.Length > 0)
-                        userIPV4 = entry.AddressList[0].ToString();
-                }
-                catch
-                {
-                    if (string.IsNullOrEmpty(userHost))
-                        userHost = Environment.MachineName;
-                    if (string.IsNullOrEmpty(userIPV4))
-                        userIPV4 = "N/A";
-                }
-
-                mouchard.evenement("Rapport n " + Donnees.MonDtRapport.Rapport[0].NRapport.ToString() + " refus sur le poste " + userHost + " ayant pour adresse ip: " + userIPV4, VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());
-
-                MessageBox.Show("Le visa a t refus.", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                if (m_rapportOuvertDepuisListe && m_frmLstRapportToSend != null)
-                {
-                    if (m_frmLstRapportToSend.MonTypeDeListe == frmListeRapportAViser.TypeListe.AVISER)
-                        this.menuItem2_Click_1(null, null);
-                    else if (m_frmLstRapportToSend.MonTypeDeListe == frmListeRapportAViser.TypeListe.ACORRIGER)
-                        this.menuItem5_Click(null, null);
-                    else if (m_frmLstRapportToSend.MonTypeDeListe == frmListeRapportAViser.TypeListe.AREPRENDRE)
-                        this.menuItem3_Click(null, null);
-
-                    //this.menuItem2_Click_1(null, null);
-                    if (m_frmLstRapportToSend != null)
-                {
-                    //m_frmLstRapportToSend.listView1_DoubleClick(null, null);
-                    frmListeRapportAViser.TypeListe typeListe = m_frmLstRapportToSend.MonTypeDeListe;
-
-                    if (typeListe == frmListeRapportAViser.TypeListe.AVISER)
-                        this.menuItem2_Click_1(null, null);
-                    else if (typeListe == frmListeRapportAViser.TypeListe.ACORRIGER)
-                        this.menuItem5_Click(null, null);
-                    else if (typeListe == frmListeRapportAViser.TypeListe.AREPRENDRE)
-                        this.menuItem3_Click(null, null);
-
-                    
-                        m_frmLstRapportToSend.listView1_DoubleClick(null, null);
-                }
-
-                BtnRapport_Visa.Focus();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
-        }
-
-		// Liste des rapports √† viser
+		// Liste des rapports ‡ viser
 		private void menuItem2_Click_1(object sender, System.EventArgs e)
 		{
 			if(m_frmLstRapportToSend!=null)
@@ -8518,7 +8302,7 @@ namespace ImportSosGeneve
 			}
 			frmListeRapportAViser frm = new frmListeRapportAViser(this);
 			frm.MonTypeDeListe = frmListeRapportAViser.TypeListe.AVISER;
-			frm.Label = "Liste des rapports √† viser";
+			frm.Label = "Liste des rapports ‡ viser";
 			frm.ListeRapports = OutilsExt.OutilsSql.ListeRapportAViser();
 			this.Controls.Add(frm);
 			frm.Left = pan_Statiques.Left;
@@ -8530,7 +8314,7 @@ namespace ImportSosGeneve
 			m_frmLstRapportToSend = frm;
 		}
 
-		// Liste des rapports √† corriger
+		// Liste des rapports ‡ corriger
 		private void menuItem5_Click(object sender, System.EventArgs e)
 		{
 			if(m_frmLstRapportToSend!=null)
@@ -8541,7 +8325,7 @@ namespace ImportSosGeneve
 			}
 			frmListeRapportAViser frm = new frmListeRapportAViser(this);
 			frm.MonTypeDeListe = frmListeRapportAViser.TypeListe.ACORRIGER;
-			frm.Label = "Liste des rapports √† corriger";
+			frm.Label = "Liste des rapports ‡ corriger";
 			frm.ListeRapports = OutilsExt.OutilsSql.ListeRapportACorriger();
 			this.Controls.Add(frm);
 			frm.Left = pan_Statiques.Left;
@@ -8553,7 +8337,7 @@ namespace ImportSosGeneve
 			m_frmLstRapportToSend = frm;
 		}		
 
-		// Demande de correction sur le rapport au m√©decin chef : 
+		// Demande de correction sur le rapport au mÈdecin chef : 
 		private void btnCorriger_Click(object sender, System.EventArgs e)
 		{
 			if(Donnees.MonDtRapport==null || Donnees.MonEtatRapport==null) return;
@@ -8564,12 +8348,12 @@ namespace ImportSosGeneve
 				OutilsExt.OutilsSql.DemandeCorrection(Donnees.MonDtRapport.Rapport[0].NRapport,true);
 			}
 		}
-		// le m√©decin chef enleve la demande de correction
+		// le mÈdecin chef enleve la demande de correction
 		private void btnEnlevCorrection_Click(object sender, System.EventArgs e)
 		{
 			if(Donnees.MonDtRapport==null || Donnees.MonEtatRapport==null) return;
 
-            if (MessageBox.Show("Ce rapport repartira dans le cycle des rapports √† viser s'il ne l'est pas encore. Continuer ?", "Correction", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+            if (MessageBox.Show("Ce rapport repartira dans le cycle des rapports ‡ viser s'il ne l'est pas encore. Continuer ?", "Correction", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
 			{
 				OutilsExt.OutilsSql.DemandeCorrection(Donnees.MonDtRapport.Rapport[0].NRapport,false);
 			}
@@ -8580,11 +8364,11 @@ namespace ImportSosGeneve
 
 			if(Donnees.MonDtRapport.Rapport[0].Vise==1)
 			{
-				MessageBox.Show("Ce rapport est vis√©, vous ne pouvez pas le supprimer");
+				MessageBox.Show("Ce rapport est visÈ, vous ne pouvez pas le supprimer");
 				return;
 			}
 
-			if(MessageBox.Show("Souhaitez-vous r√©ellement supprimer ce rapport?","Suppression",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button1) ==DialogResult.Yes)
+			if(MessageBox.Show("Souhaitez-vous rÈellement supprimer ce rapport?","Suppression",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button1) ==DialogResult.Yes)
 			{
 				OutilsExt.OutilsSql.SuppressionRapport(Donnees.MonDtRapport.Rapport[0].NConsultation, Donnees.MonDtRapport.Rapport[0].NRapport);
 				tabTravail.SelectedIndex=0;
@@ -8611,7 +8395,7 @@ namespace ImportSosGeneve
 			}
 			frmListeRapportAViser frm = new frmListeRapportAViser(this);
 			frm.MonTypeDeListe = frmListeRapportAViser.TypeListe.AREPRENDRE;
-			frm.Label = "Liste des rapports √† reprendre";
+			frm.Label = "Liste des rapports ‡ reprendre";
 			frm.ListeRapports = OutilsExt.OutilsSql.ListeRapportReprise();
 			this.Controls.Add(frm);
 			frm.Left = pan_Statiques.Left;
@@ -8634,7 +8418,7 @@ namespace ImportSosGeneve
 
 			m_frmLstRapportToSend = new frmListeRapportAViser(this);
 			m_frmLstRapportToSend.MonTypeDeListe = frmListeRapportAViser.TypeListe.POURENVOI;
-			m_frmLstRapportToSend.Label = "Liste des rapports √† envoyer";
+			m_frmLstRapportToSend.Label = "Liste des rapports ‡ envoyer";
 			m_frmLstRapportToSend.ListeRapports = new string[0][];
 			this.Controls.Add(m_frmLstRapportToSend);
 			m_frmLstRapportToSend.Left = pan_Statiques.Left;
@@ -8646,12 +8430,8 @@ namespace ImportSosGeneve
 
         #region A Travailler
 
-				bool rapportVise = Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].Vise == 1;
-				bool rapportRefuse = !rapportVise && RapportDejaRefuse(Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex]);
-				if (rapportVise)
-					LblRapportVise.Text = "VISA ACCORD";
-				else if (rapportRefuse)
-					LblRapportVise.Text = "VISA REFUS";
+		// Affichage de l'Ètat actuel du rapport
+		private void AffichageEtatRapport()
 		{
 			if(Donnees.MonDtRapport==null || Donnees.MonEtatRapport==null || crystalReportViewer1.ActiveViewIndex==-1) return;
 
@@ -8662,8 +8442,8 @@ namespace ImportSosGeneve
 			ArrayList EtatRapport = OutilsExt.OutilsSql.EtatRapport(Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].NRapport);
 			if(EtatRapport!=null)
 			{
-				if(EtatRapport[0]!=null) LblRapportCree.Text = "Rapport cr√©√© par " + ((string[])EtatRapport[0])[0] + " le " + DateTime.Parse(((string[])EtatRapport[0])[1]).Day + "/" + DateTime.Parse(((string[])EtatRapport[0])[1]).Month;
-				if(EtatRapport[1]!=null) LblRapportModifie.Text = "Rapport modifi√© par " + ((string[])EtatRapport[1])[0] + " le " + DateTime.Parse(((string[])EtatRapport[1])[1]).Day + "/" + DateTime.Parse(((string[])EtatRapport[1])[1]).Month;
+				if(EtatRapport[0]!=null) LblRapportCree.Text = "Rapport crÈÈ par " + ((string[])EtatRapport[0])[0] + " le " + DateTime.Parse(((string[])EtatRapport[0])[1]).Day + "/" + DateTime.Parse(((string[])EtatRapport[0])[1]).Month;
+				if(EtatRapport[1]!=null) LblRapportModifie.Text = "Rapport modifiÈ par " + ((string[])EtatRapport[1])[0] + " le " + DateTime.Parse(((string[])EtatRapport[1])[1]).Day + "/" + DateTime.Parse(((string[])EtatRapport[1])[1]).Month;
 				if(EtatRapport[2]!=null) 
 					LblRapportVise.Text = "VISA ACCORDE";
 				else
@@ -8680,13 +8460,13 @@ namespace ImportSosGeneve
 
             for (int i = 0; i < Donnees.MonDtDestination.Destination.Count; i++)
             {
-                // Le rapport est-il envoy√© et √† quelle date?
+                // Le rapport est-il envoyÈ et ‡ quelle date?
                 if (Donnees.MonDtDestination.Destination[i].RapEnvoye == 1)
                 {
                     if (!Donnees.MonDtDestination.Destination[i].IsDateEnvoiNull())
-                        lstEnvois.Items.Add(Donnees.MonDtDestination.Destination[i].Nom + "/" + Donnees.MonDtDestination.Destination[i].RapModeEnvoi + "/Envoy√© le " + Donnees.MonDtDestination.Destination[i].DateEnvoi.ToString("dd/MM/yyyy"));
+                        lstEnvois.Items.Add(Donnees.MonDtDestination.Destination[i].Nom + "/" + Donnees.MonDtDestination.Destination[i].RapModeEnvoi + "/EnvoyÈ le " + Donnees.MonDtDestination.Destination[i].DateEnvoi.ToString("dd/MM/yyyy"));
                     else
-                        lstEnvois.Items.Add(Donnees.MonDtDestination.Destination[i].Nom + "/" + Donnees.MonDtDestination.Destination[i].RapModeEnvoi + "/Envoy√© le ?");
+                        lstEnvois.Items.Add(Donnees.MonDtDestination.Destination[i].Nom + "/" + Donnees.MonDtDestination.Destination[i].RapModeEnvoi + "/EnvoyÈ le ?");
                 }
                 else
                     lstEnvois.Items.Add(Donnees.MonDtDestination.Destination[i].Nom + "/" + Donnees.MonDtDestination.Destination[i].RapModeEnvoi);
@@ -8901,11 +8681,11 @@ namespace ImportSosGeneve
 
         #endregion
 
-        #region Proc√©dure automatique d'envoi des rapports
+        #region ProcÈdure automatique d'envoi des rapports
 
 		private void LancementProcedureAutomatique()
 		{
-			// Chargement de la liste des rapports √† envoyer  :
+			// Chargement de la liste des rapports ‡ envoyer  :
 			menuItem1_Click_1(null,null);
 			
 			Application.DoEvents();
@@ -8952,7 +8732,7 @@ namespace ImportSosGeneve
             }
             else
             {
-                MessageBox.Show("Changement de Rapport interdit, Le Rapport a d√©ja envoy√©");
+                MessageBox.Show("Changement de Rapport interdit, Le Rapport a dÈja envoyÈ");
             }
         }
 
@@ -9031,7 +8811,7 @@ namespace ImportSosGeneve
 
             if (filtres[0] == null && filtres[1] == null && filtres[2] == null)
             {
-                MessageBox.Show("Vous devez saisir au moins un crit√®re.", "Affichage des appels", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Vous devez saisir au moins un critËre.", "Affichage des appels", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -9077,7 +8857,7 @@ namespace ImportSosGeneve
             // Verification de la saisie des criteres
             if (ChkMedecin.Checked && cbMedecin.SelectedIndex > -1 && chkMotif.Checked && chkDate.Checked && chkOrigine.Checked && !chkIndex.Checked && !chkRapport.Checked)
             {
-                MessageBox.Show("Vous devez saisir au moins un crit√®re.", "Affichage des appels", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Vous devez saisir au moins un critËre.", "Affichage des appels", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             // Mise en attente du controle
@@ -9171,17 +8951,17 @@ namespace ImportSosGeneve
             }
         }
 
-        #region Connexion √† l'application --------------------------------------------------------------------------------------------------------------------------
+        #region Connexion ‡ l'application --------------------------------------------------------------------------------------------------------------------------
 
         private void GestionDroits()
         {
-            lblConnecte.Text = "Connect√©(e) : " + VariablesApplicatives.Utilisateurs.NomUtilisateur;
+            lblConnecte.Text = "ConnectÈ(e) : " + VariablesApplicatives.Utilisateurs.NomUtilisateur;
 
             mnuAide.Enabled = true;
             // Selon les droits : 
             switch (VariablesApplicatives.Utilisateurs.Droits)
             {
-                case VariablesApplicatives.Utilisateurs.CodeDroits.Secretaire:      //1    Regul et secr√©taires
+                case VariablesApplicatives.Utilisateurs.CodeDroits.Secretaire:      //1    Regul et secrÈtaires
                     mnuDonnees.Enabled = true;
                     mnuTA.Enabled = true;
                     mnuRapports.Enabled = true;
@@ -9190,8 +8970,8 @@ namespace ImportSosGeneve
                     checkBoxESP.Visible = false;
                     mnuFiches.Enabled = true;
                     menuAttestationTA.Enabled = true;
-                    menuItem13.Enabled = false;  //Op√©rations sur les factures
-                    menuItem14.Enabled = false;  //gestion Mat√©riel TA   
+                    menuItem13.Enabled = false;  //OpÈrations sur les factures
+                    menuItem14.Enabled = false;  //gestion MatÈriel TA   
                     menuFacturesImpayees.Enabled = false;  //poursuites, rappels
                     break;               
                 case VariablesApplicatives.Utilisateurs.CodeDroits.Medecin:     //2
@@ -9207,8 +8987,8 @@ namespace ImportSosGeneve
                     mnuFiches.Enabled = true;
                     TabActionRapport.SelectedIndex = 2;
                     menuAttestationTA.Enabled = false;
-                    menuItem13.Enabled = false;  //Op√©rations sur les factures
-                    menuItem14.Enabled = false;  //gestion Mat√©riel TA   
+                    menuItem13.Enabled = false;  //OpÈrations sur les factures
+                    menuItem14.Enabled = false;  //gestion MatÈriel TA   
                     menuFacturesImpayees.Enabled = false;  //poursuites, rappels
                     break;                
                 case VariablesApplicatives.Utilisateurs.CodeDroits.Chef:        //4 pour l'admin de tout ou 5 pour comptable
@@ -9222,9 +9002,9 @@ namespace ImportSosGeneve
                     checkBoxESP.Visible = true;
                     mnuFacturation.Enabled = true;
                     menuAttestationTA.Enabled = true;
-                    menuItem13.Enabled = true;  //Op√©rations sur les factures
-                    menuItem14.Enabled = true;  //gestion Mat√©riel TA
-                    menuItem19.Enabled = true;  //Salaires M√©decins
+                    menuItem13.Enabled = true;  //OpÈrations sur les factures
+                    menuItem14.Enabled = true;  //gestion MatÈriel TA
+                    menuItem19.Enabled = true;  //Salaires MÈdecins
                     menuFacturesImpayees.Enabled = true;  //poursuites, rappels
                     break;
                 case VariablesApplicatives.Utilisateurs.CodeDroits.Admin:       //10 Mais n'apporte rien
@@ -9237,9 +9017,9 @@ namespace ImportSosGeneve
                     checkBoxESP.Visible = true;                    
                     mnuFacturation.Enabled = true;
                     menuAttestationTA.Enabled = true;
-                    menuItem19.Enabled = true;  //Salaires M√©decins
-                    menuItem13.Enabled = true;  //Op√©rations sur les factures
-                    menuItem14.Enabled = true;  //gestion Mat√©riel TA   
+                    menuItem19.Enabled = true;  //Salaires MÈdecins
+                    menuItem13.Enabled = true;  //OpÈrations sur les factures
+                    menuItem14.Enabled = true;  //gestion MatÈriel TA   
                     menuFacturesImpayees.Enabled = true;  //poursuites, rappels
                     break;
 
@@ -9301,7 +9081,7 @@ namespace ImportSosGeneve
         }
         #endregion
 
-        #region Connexion √† l'application --------------------------------------------------------------------------------------------------------------------------
+        #region Connexion ‡ l'application --------------------------------------------------------------------------------------------------------------------------
 
         // Gestion de la connexion et des parametres imprimanetes
         private void OuvertureParametrages()
@@ -9362,7 +9142,7 @@ namespace ImportSosGeneve
                 }
             #endregion
 
-            #region Donn√©es
+            #region DonnÈes
                
                 private void btnEchangeMedicall_Click(object sender, EventArgs e)
                 {
@@ -9480,7 +9260,7 @@ namespace ImportSosGeneve
 
         private void frmGeneral_FormClosing(object sender, FormClosingEventArgs e)
         {           
-            // Utilisation dans votre boucle pour d√©bloquer les fichiers avant suppression
+            // Utilisation dans votre boucle pour dÈbloquer les fichiers avant suppression
             foreach (string f in Directory.GetFiles(Application.StartupPath + @"\Cache", "*.*", SearchOption.TopDirectoryOnly))
             {
                 try
@@ -9490,7 +9270,7 @@ namespace ImportSosGeneve
                 }
                 catch (Exception ex)
                 {
-                    // G√©rez l'exception de mani√®re appropri√©e
+                    // GÈrez l'exception de maniËre appropriÈe
                     Console.WriteLine("Erreur lors de la suppression du fichier : " + ex.Message);
                 }
             }
@@ -9537,7 +9317,7 @@ namespace ImportSosGeneve
         //************************LECTEUR DE DICTEE INTEGRE***************************Domi 04.01.2013
         public delegate void UpdateControlsDelegate();
        
-        //Pour r√©cup√©rer le chemin des dlls de VLC
+        //Pour rÈcupÈrer le chemin des dlls de VLC
         private void vlcControl1_VlcLibDirectoryNeeded(object sender, VlcLibDirectoryNeededEventArgs e)
         {
             string CheminDll;
@@ -9565,7 +9345,7 @@ namespace ImportSosGeneve
             Bstop.ImageIndex = 4;
 
 
-            //recup√©ration du fichier audio de la consultation                                 
+            //recupÈration du fichier audio de la consultation                                 
             string PathFichierSon = SosMedecins.SmartRapport.Systeme.OutilsExt.ParamAppli.Dest_Path_Dictee;
 
             String FichierEncours = PathFichierSon + Num_visite + ".3gp";           
@@ -9636,12 +9416,12 @@ namespace ImportSosGeneve
             LAvancement.Text = (vlcControl1.Time / 1000).ToString();
             tBarTps.Value = (Int32)(vlcControl1.Time / 1000);       
            
-            //La dur√©e totale
+            //La durÈe totale
             int Max = (int)vlcControl1.Length / 1000;
            
             if (Max == 0)
             {
-                tBarTps.Maximum = 300;   //Il faut mettre quelque chose par d√©faut > 0
+                tBarTps.Maximum = 300;   //Il faut mettre quelque chose par dÈfaut > 0
                 LDuree.Text = "Inconnue";
             }
             else
@@ -9650,18 +9430,18 @@ namespace ImportSosGeneve
                 LDuree.Text = (vlcControl1.Length / 1000).ToString();
             }
 
-            tBarTps.TickFrequency = Convert.ToInt32(tBarTps.Maximum / 15);  //on met 15 unit√©s sur la ligne de temps
+            tBarTps.TickFrequency = Convert.ToInt32(tBarTps.Maximum / 15);  //on met 15 unitÈs sur la ligne de temps
            
             if ((vlcControl1.GetCurrentMedia().Duration.TotalMilliseconds - PositionMilli) < 1000)  //Si on a atteind la fin
             {
                 if (vlcControl1.IsPlaying)
                 {
                     //On Pause le controle, puis on le stop le VlcControle dans une tache de fond. 
-                    //En effet la m√©thode: VlcControl.Stop doit √™tre appel√©e dans un autre thread (sinon plantage)...                  
+                    //En effet la mÈthode: VlcControl.Stop doit Ítre appelÈe dans un autre thread (sinon plantage)...                  
                     vlcControl1.Pause();     
                     ThreadPool.QueueUserWorkItem(_ => vlcControl1.Stop());
                     
-                    //R√©initialise les controles
+                    //RÈinitialise les controles
                     LAvancement.Text = "0";
                     tBarTps.Value = 0;                  
 
@@ -9676,7 +9456,7 @@ namespace ImportSosGeneve
         {
             if (vlcControl1.IsPlaying)
             {
-                //R√©initialise les controles
+                //RÈinitialise les controles
                 LAvancement.Text = "0";
                 tBarTps.Value = 0;
 
@@ -9699,10 +9479,10 @@ namespace ImportSosGeneve
             vlcControl1.Audio.Volume = tBarVol.Value;
         }
 
-        //Quand on bouge la barre de d√©filement
+        //Quand on bouge la barre de dÈfilement
         private void tBarTps_Scroll(object sender, EventArgs e)
         {
-            //Quand on bouge le curseur on met en pause et on met √† jour la dur√©e
+            //Quand on bouge le curseur on met en pause et on met ‡ jour la durÈe
             Bpause_Click(sender, e);
            
             //On se positionne au bont endroit sur le lecteur           
@@ -9712,9 +9492,9 @@ namespace ImportSosGeneve
 
         private void Bplay_Click(object sender, EventArgs e)
         {
-            if ((vlcControl1.State.ToString() == "NothingSpecial") || (vlcControl1.State.ToString() == "Stopped"))          //Si il est stop√©
+            if ((vlcControl1.State.ToString() == "NothingSpecial") || (vlcControl1.State.ToString() == "Stopped"))          //Si il est stopÈ
             {
-                if (media != null)   //securit√© si on arrive au lecteur par on ne sais ou et qu'il n'est pas initialis√©...
+                if (media != null)   //securitÈ si on arrive au lecteur par on ne sais ou et qu'il n'est pas initialisÈ...
                 {
                     vlcControl1.SetMedia(new FileInfo(media));  //Affecte le nouveau media
                  
@@ -9734,7 +9514,7 @@ namespace ImportSosGeneve
             }
             else if (vlcControl1.State.ToString() == "Paused")       //s'il est en pause
             {
-                //on regarde la position du curseur et on l'affecte au media (si on l'a boug√© manuellement...)                                                                 
+                //on regarde la position du curseur et on l'affecte au media (si on l'a bougÈ manuellement...)                                                                 
                 vlcControl1.Time = tBarTps.Value * 1000;
                 
                 vlcControl1.Play();
@@ -9764,7 +9544,7 @@ namespace ImportSosGeneve
             VlcStop();         
         }
       
-        //Quand il arrive √† la fin
+        //Quand il arrive ‡ la fin
         private void vlcControl1_EndReached(object sender, VlcMediaPlayerEndReachedEventArgs e)
         {
             VlcStop();                    
@@ -9782,14 +9562,14 @@ namespace ImportSosGeneve
         private void bCarteAvs_Click(object sender, EventArgs e)
         {
             //Domi 29.07.2014
-            //On affiche la carte AVS dans une fen√™tre s'il y a une photo            
-            //Recherche d'une image carte AVS (fichier image sur le serveur EPOS) √† partir de la consultation                                        
+            //On affiche la carte AVS dans une fenÍtre s'il y a une photo            
+            //Recherche d'une image carte AVS (fichier image sur le serveur EPOS) ‡ partir de la consultation                                        
             string PathCarteAVS = SosMedecins.SmartRapport.Systeme.OutilsExt.ParamAppli.Dest_Path_carteAVS;
 
             //Si le Tag du bouton est nul, aucune fiche courante:
 			if(btnRapportCourant.Tag!=null)
             {
-                //R√©cup du n¬∞ de consult (pour le chemin)
+                //RÈcup du n∞ de consult (pour le chemin)
                 //On extrait les deux valeurs : NConsultation et NRapport
 			    long[] Index = (long[])btnRapportCourant.Tag;
                               
@@ -9819,7 +9599,7 @@ namespace ImportSosGeneve
 
         private void menuItem14_Click(object sender, EventArgs e)
         {
-            //Gestion du mat√©riel TA
+            //Gestion du matÈriel TA
             frmMateriel Materiel = new frmMateriel();
             Materiel.ShowDialog();
             Materiel.Dispose();
@@ -9830,10 +9610,10 @@ namespace ImportSosGeneve
         //On ouvre la boite de recherche des fiches
         private void pBFiches_Click(object sender, EventArgs e)
         {
-            //on regarde si la form fRechFicheConsult n'est pas d√©j√† ouverte
+            //on regarde si la form fRechFicheConsult n'est pas dÈj‡ ouverte
             var fRechFicheConsult = Application.OpenForms["FRechFicheConsult"];
 
-            //Elle n'est pas ouverte, on la cr√©er et on l'ouvre
+            //Elle n'est pas ouverte, on la crÈer et on l'ouvre
             if (fRechFicheConsult == null)
             {
                 fRechFicheConsult = new FRechFicheConsult();
@@ -9845,34 +9625,34 @@ namespace ImportSosGeneve
 
         private void AfficheFicheConsult(int Num_Appel)
         {
-            //on regarde si on a des Fiches consult ouverte et si oui, s'il y en a une avec ce n¬∞ de consult                     
+            //on regarde si on a des Fiches consult ouverte et si oui, s'il y en a une avec ce n∞ de consult                     
             int Existe = 0;
 
             foreach (Form form in Application.OpenForms)      //Liste les formes ouvertes
             {
                 if (form.Name == "FicheConsult")  //S'il y en a une qui s'appelle FicheConsult
                 {
-                    //On regarde si elle a un control nomm√© lblNumVisite
+                    //On regarde si elle a un control nommÈ lblNumVisite
                     Control[] lbl = form.Controls.Find("lblNumVisite", true);
 
                     string NumVisite = "";
                     
                     if (lbl.Length > 0)   //Si on en a un (Et il doit y en avoir un!)
                     {
-                        NumVisite = lbl[0].Text;   //R√©cup du text du label qui a le n¬∞ de visite                    
+                        NumVisite = lbl[0].Text;   //RÈcup du text du label qui a le n∞ de visite                    
                     }
 
-                    //On compare pour voir si √ßa correspond √† une d√©j√† ouverte
+                    //On compare pour voir si Áa correspond ‡ une dÈj‡ ouverte
                     if (NumVisite == Num_Appel.ToString())
                     {
                         Existe = 1;
-                        //Elle est d√©j√† ouverte, on la ram√®re au premier plan et on lui donne le focus
+                        //Elle est dÈj‡ ouverte, on la ramËre au premier plan et on lui donne le focus
                         form.Activate();
                     }
                 }
             }
 
-            //Si la fiche n'existe pas d√©j√†, on la cr√©er
+            //Si la fiche n'existe pas dÈj‡, on la crÈer
             if (Existe == 0)
             {
                 FicheConsult ficheConsult = new FicheConsult();
@@ -9884,34 +9664,34 @@ namespace ImportSosGeneve
 
         private void AfficheRapport(int Num_Appel)
         {
-            //on regarde si on a des fenetres Rapport ouverte et si oui, s'il y en a une avec ce n¬∞ de consult                     
+            //on regarde si on a des fenetres Rapport ouverte et si oui, s'il y en a une avec ce n∞ de consult                     
             int Existe = 0;
 
             foreach (Form form in Application.OpenForms)      //Liste les formes ouvertes
             {
                 if (form.Name == "FormRapport")  //S'il y en a une qui s'appelle FormRapport
                 {
-                    //On regarde si elle a un control nomm√© lblNumVisite
+                    //On regarde si elle a un control nommÈ lblNumVisite
                     Control[] lbl = form.Controls.Find("lblNumVisite", true);
 
                     string NumVisite = "";
 
                     if (lbl.Length > 0)   //Si on en a un (Et il doit y en avoir un!)
                     {
-                        NumVisite = lbl[0].Text;   //R√©cup du text du label qui a le n¬∞ de visite                    
+                        NumVisite = lbl[0].Text;   //RÈcup du text du label qui a le n∞ de visite                    
                     }
 
-                    //On compare pour voir si √ßa correspond √† une d√©j√† ouverte
+                    //On compare pour voir si Áa correspond ‡ une dÈj‡ ouverte
                     if (NumVisite == Num_Appel.ToString())
                     {
                         Existe = 1;
-                        //Elle est d√©j√† ouverte, on la ram√®re au premier plan et on lui donne le focus
+                        //Elle est dÈj‡ ouverte, on la ramËre au premier plan et on lui donne le focus
                         form.Activate();
                     }
                 }
             }
 
-            //Si la fiche n'existe pas d√©j√†, on la cr√©er
+            //Si la fiche n'existe pas dÈj‡, on la crÈer
             if (Existe == 0)
             {
                 FormRapport formRapport = new FormRapport();
@@ -9930,7 +9710,7 @@ namespace ImportSosGeneve
 
         private void menuPoursuite_Click(object sender, EventArgs e)
         {
-            //On g√©n√®re des fichiers avec les factures que l'on d√©sire mettre en poursuite
+            //On gÈnËre des fichiers avec les factures que l'on dÈsire mettre en poursuite
             ImpressionDebiteurs impressionDebiteurs = new ImpressionDebiteurs();
             impressionDebiteurs.ShowDialog();
             impressionDebiteurs.Dispose();           
