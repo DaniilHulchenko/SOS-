@@ -8260,6 +8260,44 @@ namespace ImportSosGeneve
             }
         }
 
+        private void OuvrirRapportSuivantDepuisListe()
+        {
+            if (!m_rapportOuvertDepuisListe || m_frmLstRapportToSend == null)
+                return;
+
+            frmListeRapportAViser.TypeListe typeListe = m_frmLstRapportToSend.MonTypeDeListe;
+            bool listeActualisee = true;
+
+            switch (typeListe)
+            {
+                case frmListeRapportAViser.TypeListe.AVISER:
+                    this.menuItem2_Click_1(null, null);
+                    break;
+                case frmListeRapportAViser.TypeListe.ACORRIGER:
+                    this.menuItem5_Click(null, null);
+                    break;
+                case frmListeRapportAViser.TypeListe.AREPRENDRE:
+                    this.menuItem3_Click(null, null);
+                    break;
+                default:
+                    listeActualisee = false;
+                    break;
+            }
+
+            if (!listeActualisee || m_frmLstRapportToSend == null || m_frmLstRapportToSend.listView1 == null)
+                return;
+
+            if (m_frmLstRapportToSend.listView1.Items.Count > 0)
+            {
+                if (m_frmLstRapportToSend.listView1.SelectedIndices.Count == 0)
+                {
+                    m_frmLstRapportToSend.listView1.Items[0].Selected = true;
+                }
+
+                m_frmLstRapportToSend.listView1_DoubleClick(null, null);
+            }
+        }
+
         //Accord d'un visa par un mйdecin
         private void BtnRapport_Visa_Click(object sender, System.EventArgs e)
 		{
@@ -8332,18 +8370,7 @@ namespace ImportSosGeneve
                 //On envoi le mail au médecin
                 z_objMail.Envoi ();              
     								
-			    if(m_frmLstRapportToSend != null)
-			    {
-				    if (m_frmLstRapportToSend.MonTypeDeListe == frmListeRapportAViser.TypeListe.AVISER)
-					    this.menuItem2_Click_1(null,null);
-				    else if (m_frmLstRapportToSend.MonTypeDeListe == frmListeRapportAViser.TypeListe.ACORRIGER)
-					    this.menuItem5_Click(null,null);
-				    else if (m_frmLstRapportToSend.MonTypeDeListe == frmListeRapportAViser.TypeListe.AREPRENDRE)
-					    this.menuItem3_Click(null,null);
-    			
-
-				    m_frmLstRapportToSend.listView1_DoubleClick(null,null);
-			    }
+			    OuvrirRapportSuivantDepuisListe();
 
                 //recup des infos de la machine
                 //Nom de la machine
@@ -8473,31 +8500,7 @@ namespace ImportSosGeneve
 
                 MessageBox.Show("Le visa a t refus.", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                if (m_rapportOuvertDepuisListe && m_frmLstRapportToSend != null)
-                {
-                    if (m_frmLstRapportToSend.MonTypeDeListe == frmListeRapportAViser.TypeListe.AVISER)
-                        this.menuItem2_Click_1(null, null);
-                    else if (m_frmLstRapportToSend.MonTypeDeListe == frmListeRapportAViser.TypeListe.ACORRIGER)
-                        this.menuItem5_Click(null, null);
-                    else if (m_frmLstRapportToSend.MonTypeDeListe == frmListeRapportAViser.TypeListe.AREPRENDRE)
-                        this.menuItem3_Click(null, null);
-
-                    //this.menuItem2_Click_1(null, null);
-                    if (m_frmLstRapportToSend != null)
-                {
-                    //m_frmLstRapportToSend.listView1_DoubleClick(null, null);
-                    frmListeRapportAViser.TypeListe typeListe = m_frmLstRapportToSend.MonTypeDeListe;
-
-                    if (typeListe == frmListeRapportAViser.TypeListe.AVISER)
-                        this.menuItem2_Click_1(null, null);
-                    else if (typeListe == frmListeRapportAViser.TypeListe.ACORRIGER)
-                        this.menuItem5_Click(null, null);
-                    else if (typeListe == frmListeRapportAViser.TypeListe.AREPRENDRE)
-                        this.menuItem3_Click(null, null);
-
-                    
-                        m_frmLstRapportToSend.listView1_DoubleClick(null, null);
-                }
+                OuvrirRapportSuivantDepuisListe();
 
                 BtnRapport_Visa.Focus();
             }
