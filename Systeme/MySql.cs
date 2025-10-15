@@ -11,7 +11,7 @@ using SosMedecins.Connexion;
 namespace ImportSosGeneve
 {
 	/// <summary>
-	/// Description résumée de MySql.
+	/// Description rÃ©sumÃ©e de MySql.
 	/// </summary>
 	public class MySql
 	{
@@ -61,7 +61,7 @@ namespace ImportSosGeneve
 
 #endregion
 
-#region Ouverture / Fermeture de la base de données
+#region Ouverture / Fermeture de la base de donnÃ©es
 
 		public bool OuvertureBase()
 		{
@@ -111,7 +111,7 @@ namespace ImportSosGeneve
 
 #endregion
 
-#region Méthodes primitives de Requetes Sql
+#region MÃ©thodes primitives de Requetes Sql
 
 		public bool ExecuteCommandeSansRetour(string Requete)
 		{
@@ -208,7 +208,7 @@ namespace ImportSosGeneve
 					{
 						if(!reader[i].ToString().Equals(System.DBNull.Value) && !reader[i].ToString().Equals(""))
 						{
-							row[i] = reader[i].ToString().Replace("\r\n","|¤").Replace("\n","|¤").Replace("|¤","\r\n");
+							row[i] = reader[i].ToString().Replace("\r\n","|Â¤").Replace("\n","|Â¤").Replace("|Â¤","\r\n");
 						}
 						else
 							row[i] = "";
@@ -285,7 +285,7 @@ namespace ImportSosGeneve
             }
             catch (Exception ex)
             {
-                // Erreur ignorée a reprendre
+                // Erreur ignorÃ©e a reprendre
                 Console.WriteLine(ex.Message);
             }
 		}
@@ -326,7 +326,7 @@ namespace ImportSosGeneve
 		}
 #endregion
 
-#region Importation des Données MediCall Concept
+#region Importation des DonnÃ©es MediCall Concept
 
 		public bool InsertFactu(DataSet ds)
 		{
@@ -364,7 +364,7 @@ namespace ImportSosGeneve
 		}
 		#endregion
 
-		#region Extraction des données statiques dans les tables
+		#region Extraction des donnÃ©es statiques dans les tables
         public string [][] CodeIntervenant(string Nom)
         {
             string[][] result = this.ExecuteCommandeAvecTabString("SELECT CodeIntervenant,Mail from tablemedecin WHERE Nom = " +"'"+ Nom +"'" );
@@ -600,7 +600,7 @@ namespace ImportSosGeneve
 
 		#endregion
 
-		#region Opération sur les fiches d'appels
+		#region OpÃ©ration sur les fiches d'appels
 
 		#region Operations sur les patients
 
@@ -667,7 +667,7 @@ namespace ImportSosGeneve
 		{
 			SauvegardePersonne(row);
 			
-			// on met à jour le patient
+			// on met Ã  jour le patient
 			string ReqPat = "UPDATE tablepatient set SuiviPatient = '" + row["SuiviPatient"].ToString().Replace("'","''") + "' WHERE IdPatient = " + row["IdPatient"].ToString();
 			OdbcCommand commande = new OdbcCommand(ReqPat,Cn);
 			commande.ExecuteNonQuery();
@@ -678,7 +678,7 @@ namespace ImportSosGeneve
         {
             SauvegardePersonneComplete(row);
 
-            // on met à jour le patient
+            // on met Ã  jour le patient
             string ReqPat = "UPDATE tablepatient set SuiviPatient = '" + row["SuiviPatient"].ToString().Replace("'", "''") + "' WHERE IdPatient = " + row["IdPatient"].ToString();
             OdbcCommand commande = new OdbcCommand(ReqPat, Cn);
             commande.ExecuteNonQuery();
@@ -695,7 +695,7 @@ namespace ImportSosGeneve
 		{
 			if (New == 0)
 			{
-				// on met à jour lâssurance
+				// on met Ã  jour lÃ¢ssurance
 				string ReqAssurance = "UPDATE assurances SET NAssurance= '" + row["NAssurance"].ToString().Replace("'","''") + "', NAdresse= '" + row["NAdresse"].ToString().Replace("'","''") + "',  AssApprouve= '" + row["AssApprouve"].ToString().Replace("'","''") + "', AssNom= '" + row["AssNom"].ToString().Replace("'","''") + "', AssTelephone= '" + row["AssTelephone"].ToString().Replace("'","''") + "', AssFax= '" + row["AssFax"].ToString().Replace("'","''") + "',AssAdresseTexte= '" + row["AssAdresseTexte"].ToString().Replace("'","''") + "',AssService= '" + row["AssService"].ToString().Replace("'","''") + "', AssCpostale= '" + row["AssCpostale"].ToString().Replace("'","''") + "', AssExtLocalite= '" + row["AssExtLocalite"].ToString().Replace("'","''") + "', AssContact= '" + row["AssContact"].ToString().Replace("'","''") + "',NCaisse= '" + row["NCaisse"].ToString().Replace("'","''") + "', AssCommentaire= '" + row["AssCommentaire"].ToString().Replace("'","''") + "' WHERE NAssurance = " + row["NAssurance"].ToString();
 				//bool reous = ExecuteCommandeSansRetour(ReqAssurance);
 				OdbcCommand commande = new OdbcCommand(ReqAssurance,Cn);
@@ -704,7 +704,7 @@ namespace ImportSosGeneve
 			}
 			else if (New == 1)
 			{
-				// on met à jour lâssurance
+				// on met Ã  jour lÃ¢ssurance
 				
 				string ReqAssurance = "INSERT INTO assurances (NAssurance, NAdresse, AssAdresseTexte, AssNom, AssService, AssTelephone, AssFax, AssCpostale, AssExtLocalite, AssContact, AssApprouve, AssCommentaire, NCaisse) VALUES ('"+ row["NAssurance"].ToString().Replace("'","''")+"','"+row["NAdresse"].ToString().Replace("'","''")+"','"+  row["AssAdresseTexte"].ToString().Replace("'","''")+"','"+  row["AssNom"].ToString().Replace("'","''")+"','"+  row["AssService"].ToString().Replace("'","''")+"','"+  row["AssTelephone"].ToString()+"','"+  row["AssFax"].ToString().Replace("'","''")+"','"+ row["AssCpostale"].ToString().Replace("'","''")+"','"+  row["AssExtLocalite"].ToString().Replace("'","''")+"','"+  row["AssContact"].ToString().Replace("'","''")+"','"+ row["AssApprouve"].ToString().Replace("'","''")+"','"+ row["AssCommentaire"].ToString().Replace("'","''")+"','"+ row["NCaisse"].ToString().Replace("'","''")+"')";
 				OdbcCommand commande = new OdbcCommand(ReqAssurance,Cn);
@@ -759,7 +759,7 @@ namespace ImportSosGeneve
 
 		#endregion		
 				
-		#region Opérations sur les rapports
+		#region OpÃ©rations sur les rapports
 
 		#region Rubrique Destinataire
 
@@ -793,7 +793,7 @@ namespace ImportSosGeneve
 
 		#endregion 
 
-		#region Création / Sauvegarde de rapport
+		#region CrÃ©ation / Sauvegarde de rapport
 
 		public long CreationRapport(string strScribe,long NConsult)
 		{
@@ -844,7 +844,7 @@ namespace ImportSosGeneve
 				{
 					ExecuteCommandeSansRetour("INSERT INTO tablerapportcorps (NRapport,IdCategorie,Valeur) values ('" + tb.NRapport + "','" + Corps.Corps[i].IdCategorie + "','" + Corps.Corps[i].ValeurCategorie.Replace("'","''") + "')");
 				}
-				// on supprime tous les médecins traitants du patient, comme cela on va les mettre à jour : 
+				// on supprime tous les mÃ©decins traitants du patient, comme cela on va les mettre Ã  jour : 
 				ExecuteCommandeSansRetour("DELETE FROM tablepatientmedTTT WHERE IdPatient = " + tb.CodePatient);
 				// Sauvegarde des destinataires
 				for(int i=0;i<Destination.Destination.Count;i++)
@@ -860,7 +860,7 @@ namespace ImportSosGeneve
                         ExecuteCommandeSansRetour("INSERT INTO tablerapportdestine (NRapport,TypeDestinataire,CodeDestinataire,RapDestinataire,RapBonjour,RapIntroduction,RapSalutation,RapModeEnvoi,Nom,Logo,mail,Copie) values ('" + tb.NRapport + "','" + destinatairesauve + "','" + Destination.Destination[i].CodeDestinataire + "','" + Destination.Destination[i].RapDestinataire.Replace("'", "''") + "','" + Destination.Destination[i].RapBonjour.Replace("'", "''") + "','" + Destination.Destination[i].RapIntroduction.Replace("'", "''") + "','" + Destination.Destination[i].RapSalutation.Replace("'", "''") + "','" + Destination.Destination[i].RapModeEnvoi + "','" + Destination.Destination[i].Nom.Replace("'", "''") + "'," + Destination.Destination[i].Logo + ",''," + Destination.Destination[i].Copie + ")");
                     }
 
-					// on réinsere le médecin traitant du patient :
+					// on rÃ©insere le mÃ©decin traitant du patient :
 					if(Destination.Destination[i].TypeDestinataire==Destinataire.TypeDestinataire.MedecinTraitant.ToString() || Destination.Destination[i].TypeDestinataire=="MedecinTra")
 					{
 						ExecuteCommandeSansRetour("insert into tablepatientmedttt (IdPatient,IdMedecin) values (" + tb.CodePatient + "," + Destination.Destination[i].CodeDestinataire + ")");
@@ -1077,7 +1077,26 @@ namespace ImportSosGeneve
 			else 
 				liste.Add(null);
 
-            // rapport visée
+            z_strSql = SosMedecins.SmartRapport.DAL.RequetesSelect.tablemodifications.NRapportType;
+            z_strSql = z_strSql.Replace("%Type%", Constantes.ACCORDE_VISA.ToString());
+            z_strSql = z_strSql.Replace("%NRapport%", IdRapport.ToString());
+
+            val = ExecuteCommandeAvecTabString(z_strSql);
+            if (val.Length > 0)
+                                liste.Add(new string[] {val[0][0],val[0][1]});
+                        else
+                                liste.Add(null);
+
+            z_strSql = SosMedecins.SmartRapport.DAL.RequetesSelect.tablemodifications.NRapportType;
+            z_strSql = z_strSql.Replace("%Type%", Constantes.REFUSE_VISA.ToString());
+            z_strSql = z_strSql.Replace("%NRapport%", IdRapport.ToString());
+
+            val = ExecuteCommandeAvecTabString(z_strSql);
+                        if(val.Length>0)
+                                liste.Add(new string[] {val[0][0],val[0][1]});
+                        else
+                                liste.Add(null);
+            // rapport visÃ©e
             z_strSql = SosMedecins.SmartRapport.DAL.RequetesSelect.tablerapports.Vise;
             z_strSql = z_strSql.Replace("%NRapport%", IdRapport.ToString());
 
@@ -1093,7 +1112,7 @@ namespace ImportSosGeneve
 
 		#endregion	
 	
-		#region Opération Sql sur Télé-Alarme
+		#region OpÃ©ration Sql sur TÃ©lÃ©-Alarme
 
 
 		public DataSet NouveauAbonnement(long IdPersonne, long IdPatient)
@@ -1146,23 +1165,23 @@ namespace ImportSosGeneve
 
 				bool reussite;
 
-				// Soit on crée un nouveau patient sans avoir recherché s'il existait dans la base locale
-				// soit on ne l'a pas trouvé
-				// Dans ce cas on recrée une personne puis un patient
+				// Soit on crÃ©e un nouveau patient sans avoir recherchÃ© s'il existait dans la base locale
+				// soit on ne l'a pas trouvÃ©
+				// Dans ce cas on recrÃ©e une personne puis un patient
 				if(IdPersonne==-1 && IdPatient==-1)
 				{
 					reussite = ExecuteCommandeSansRetour("INSERT INTO ta_abonnement(IdAbonnement,IdPatient,DateCreationAbonnement) values (" + max + "," + Patient + ",'" + DateFormatMySql(DateTime.Now) + "')");
 					reussite = ExecuteCommandeSansRetour("INSERT INTO tablepersonne(IdPersonne) values (" + Personne + ")");
 					reussite = ExecuteCommandeSansRetour("INSERT INTO tablepatient(IdPatient,IdPersonne,IdAbonnement,TypeAbonnement,Approuve) values (" + Patient + "," + Personne + "," + max + ",'TA',0)");
 				}
-				// on n'a pas retrouvé cette personne dans la base locale par contre on souhaite importer un patient référencé dans la base medicall
+				// on n'a pas retrouvÃ© cette personne dans la base locale par contre on souhaite importer un patient rÃ©fÃ©rencÃ© dans la base medicall
 				else if(IdPersonne==-1 && IdPatient>0)
 				{
 					reussite = ExecuteCommandeSansRetour("INSERT INTO tablepersonne(IdPersonne) values (" + Personne + ")");
 					reussite = ExecuteCommandeSansRetour("INSERT INTO tablepatient(IdPatient,IdPersonne,IdAbonnement,TypeAbonnement,Approuve) values (" + IdPatient + "," + Personne + "," + max + ",'TA',0)");
 					reussite = ExecuteCommandeSansRetour("INSERT INTO ta_abonnement(IdAbonnement,IdPatient,DateCreationAbonnement) values (" + max + "," + IdPatient + ",'" + DateFormatMySql(DateTime.Now) + "')");
 				}
-				// on a trouvé le patient dans la base locale, on va donc le transformer en abonné TéléAlarme
+				// on a trouvÃ© le patient dans la base locale, on va donc le transformer en abonnÃ© TÃ©lÃ©Alarme
 				else
 				{
 					reussite = ExecuteCommandeSansRetour("update tablepatient set IdAbonnement = " + max + ",TypeAbonnement='TA',TexteAbonnement='',Approuve=0 WHERE IdPatient = " + IdPatient);
@@ -1190,7 +1209,7 @@ namespace ImportSosGeneve
 			DataTable dt4= ExecuteCommandeAvecDataTable("SELECT * from ta_abonnementdossier  where idabonnement = " + IdAbonnement);
 			DataTable dt5= ExecuteCommandeAvecDataTable("SELECT * from ta_abonnementcle  where idabonnement = " + IdAbonnement);
 			DataTable dt6= ExecuteCommandeAvecDataTable("SELECT * from ta_abonnementjournal  where idabonnement = " + IdAbonnement + " ORDER BY DateOp DESC" );
-			DataTable dt7= ExecuteCommandeAvecDataTable("SELECT ta_factures.NFacture, ta_factures.Date_facture, ta_factures.Montant, ta_factures.Début_période, ta_factures.Fin_période, ta_factures.Payé, ta_factures.Moyen, ta_factures.Acquité, ta_factures.SBVR, ta_factures.Remarque, ta_factures.Idabonnement FROM ta_factures left JOIN ta_abonnement ON ta_abonnement.IdAbonnement = ta_factures.Idabonnement WHERE ta_abonnement.Archive=0 and ta_abonnement.idabonnement= " + IdAbonnement + " ORDER BY ta_factures.Nfacture DESC");
+			DataTable dt7= ExecuteCommandeAvecDataTable("SELECT ta_factures.NFacture, ta_factures.Date_facture, ta_factures.Montant, ta_factures.DÃ©but_pÃ©riode, ta_factures.Fin_pÃ©riode, ta_factures.PayÃ©, ta_factures.Moyen, ta_factures.AcquitÃ©, ta_factures.SBVR, ta_factures.Remarque, ta_factures.Idabonnement FROM ta_factures left JOIN ta_abonnement ON ta_abonnement.IdAbonnement = ta_factures.Idabonnement WHERE ta_abonnement.Archive=0 and ta_abonnement.idabonnement= " + IdAbonnement + " ORDER BY ta_factures.Nfacture DESC");
 			
 			if(dt1!=null && dt2!=null && dt3!=null && dt4!=null && dt5!=null && dt6!=null)
 			{
@@ -1573,8 +1592,8 @@ namespace ImportSosGeneve
 
 		#region Elaboration d'une facture
 		
-		// Factures attachées à une consultation
-		// Renvoie le numéro de facture
+		// Factures attachÃ©es Ã  une consultation
+		// Renvoie le numÃ©ro de facture
 		// ou -1 si pas de facture faite
 		public long NFactureByConsult(long nConsultation)
 		{
@@ -1588,7 +1607,7 @@ namespace ImportSosGeneve
 				return -1;
 		}
 
-		// Vérification si consultation multiple, on renvoie les consultations liées à un numéro de facture
+		// VÃ©rification si consultation multiple, on renvoie les consultations liÃ©es Ã  un numÃ©ro de facture
 		public long[] NConsultationByNFacture(long nFacture)
 		{
             string[][] retour = ExecuteCommandeAvecTabString(RequetesSelect.factureconsultation.NConsultation.Replace("%NFacture", nFacture.ToString()));
@@ -1599,7 +1618,7 @@ namespace ImportSosGeneve
 			return Num;
 		}
 
-		// Création d'une nouvelle facture et récupération de l'enregistrement qui lui correspond
+		// CrÃ©ation d'une nouvelle facture et rÃ©cupÃ©ration de l'enregistrement qui lui correspond
 		public DataRow GetNewFactureWithNConsult(long NConsult)
 		{
 			long Max = 1;
@@ -1849,7 +1868,7 @@ namespace ImportSosGeneve
             string Requete3 = "update tableconsultations set Modifie=1, CommentaireLibre ='" + row["CommentaireLibre"].ToString().Replace("'", "''") + "' ,Deces ='" + row["Deces"].ToString() + "',TraitementLibre='" + row["TraitementLibre"].ToString().Replace("'", "''") + "',Traitements='" + row["Traitements"].ToString().Replace("'", "''") + "'";
             Requete3 += " WHERE CodeAppel = " + row["Num"].ToString() + " AND IndicePatient = " + row["IndicePatient"].ToString();
 
-            // Si décès de la personne, enregistrement de sa date de décès
+            // Si dÃ©cÃ¨s de la personne, enregistrement de sa date de dÃ©cÃ¨s
             if (row["Deces"].ToString() == "1")
             {
                 string Requete4 = "update tablepersonne set DateDeces ='" + DateFormatMySql(DateTime.Parse(row["DAP"].ToString())) + "' WHERE IdPersonne = " + row["IdPersonne"].ToString();
@@ -1967,7 +1986,7 @@ namespace ImportSosGeneve
 			string[][] strcommissariat = OutilsExt.OutilsSql.ExecuteCommandeAvecTabString("select numerorue,rue,np,commune from commissariat");
 			if(strcommissariat!=null && strcommissariat.Length==1)
 			{
-				return "Hôtel de police" + "\r\n" + strcommissariat[0][1] + " " + strcommissariat[0][0] + "\r\n" + strcommissariat[0][2] + " " + strcommissariat[0][3];					
+				return "HÃ´tel de police" + "\r\n" + strcommissariat[0][1] + " " + strcommissariat[0][0] + "\r\n" + strcommissariat[0][2] + " " + strcommissariat[0][3];					
 			}
 			else
 				return "";
@@ -2033,7 +2052,7 @@ namespace ImportSosGeneve
 
 		#region Etats de facture
 
-		// Enregistrement d'un nouvel état sur la facture
+		// Enregistrement d'un nouvel Ã©tat sur la facture
 		public void EnregistreEtatFacture(long NFacture,int Etat,DateTime DateEtat,string Commentaire,string Param1,string Param2,float Montant,DateTime DateSal)
 		{
 			if (Etat == 2)
@@ -2114,7 +2133,7 @@ namespace ImportSosGeneve
 
 		public DataRow[] InfosMedecinsByTableauFactures(long[] NFacture)
 		{
-			// on fabrique un tableau avec tous les médecins
+			// on fabrique un tableau avec tous les mÃ©decins
 			DataTable dt = ExecuteCommandeAvecDataTable(RequetesSelect.tablemedecin.ArchiveFaux);
             
             dt.Columns.Add(new DataColumn("NbFacture",typeof(int)));
