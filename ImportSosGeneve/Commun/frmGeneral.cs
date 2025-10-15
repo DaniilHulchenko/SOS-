@@ -8293,7 +8293,7 @@ namespace ImportSosGeneve
 //Refus du visa => retour en correction
                 z_objMail.Envoi ();              
     								
-			    OuvrirRapportSuivantDepuisListe();
+                            OuvrirRapportSuivantDepuisListe();
 
                 //recup des infos de la machine
                 //Nom de la machine
@@ -8339,14 +8339,57 @@ namespace ImportSosGeneve
             TxtRapport_Commentaire.Text = Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].Commentaire.ToString();
               
                 
-			this.menuItem2_Click_1(null,null);
-			m_frmLstRapportToSend.listView1_DoubleClick(null,null);
-			BtnRapport_Visa.Focus();
-		}
+                        this.menuItem2_Click_1(null,null);
+                        m_frmLstRapportToSend.listView1_DoubleClick(null,null);
+                        BtnRapport_Visa.Focus();
+                }
 
-		// Liste des rapports Ð° viser
-		private void menuItem2_Click_1(object sender, System.EventArgs e)
-		{
+                private void OuvrirRapportSuivantDepuisListe()
+                {
+                        if(m_frmLstRapportToSend==null) return;
+
+                        ListView liste = m_frmLstRapportToSend.listView1;
+                        if(liste==null) return;
+
+                        if(liste.Items.Count==0)
+                        {
+                                this.Controls.Remove(m_frmLstRapportToSend);
+                                m_frmLstRapportToSend.Dispose();
+                                m_frmLstRapportToSend=null;
+                                return;
+                        }
+
+                        int indexSelectionne = 0;
+                        if(liste.SelectedIndices.Count>0)
+                                indexSelectionne = liste.SelectedIndices[0];
+
+                        if(indexSelectionne>=liste.Items.Count)
+                                indexSelectionne = liste.Items.Count-1;
+
+                        liste.Items.RemoveAt(indexSelectionne);
+
+                        if(liste.Items.Count==0)
+                        {
+                                this.Controls.Remove(m_frmLstRapportToSend);
+                                m_frmLstRapportToSend.Dispose();
+                                m_frmLstRapportToSend=null;
+                                return;
+                        }
+
+                        if(indexSelectionne>=liste.Items.Count)
+                                indexSelectionne = liste.Items.Count-1;
+
+                        liste.SelectedIndices.Clear();
+                        liste.Items[indexSelectionne].Selected = true;
+                        liste.Items[indexSelectionne].Focused = true;
+                        liste.Focus();
+
+                        m_frmLstRapportToSend.listView1_DoubleClick(null,null);
+                }
+
+                // Liste des rapports Ð° viser
+                private void menuItem2_Click_1(object sender, System.EventArgs e)
+                {
 			if(m_frmLstRapportToSend!=null)
 			{
 				this.Controls.Remove(m_frmLstRapportToSend);
