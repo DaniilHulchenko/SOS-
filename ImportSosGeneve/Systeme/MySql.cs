@@ -1017,6 +1017,31 @@ namespace ImportSosGeneve
 			{
 				row["RapSignature"] = signatureOverride;
 			}
+            row["Vise"] = val;
+            if (row.Table.Columns.Contains("AViser"))
+            {
+                row["AViser"] = 0;
+            }
+            if (row.Table.Columns.Contains("BonPourReprise"))
+            {
+                row["BonPourReprise"] = 0;
+            }
+            if (row.Table.Columns.Contains("Medecin_viseur"))
+            {
+                if (Valeur)
+                {
+                    row["Medecin_viseur"] = VariablesApplicatives.Utilisateurs.Identifiant.ToString();
+                }
+                else if (row.Table.Columns["Medecin_viseur"].AllowDBNull)
+                {
+                    row["Medecin_viseur"] = DBNull.Value;
+                }
+                else
+                {
+                    row["Medecin_viseur"] = string.Empty;
+                }
+            }
+
             //on vise le rapport
             ExecuteCommandeSansRetour("update tablerapports set  Vise = " + val + ",AViser = 0,BonPourReprise = 0,RapSignature = '" + row["RapSignature"].ToString().Replace("'", "''") + "', Medecin_viseur = '" + VariablesApplicatives.Utilisateurs.Identifiant.ToString() + "'  WHERE Nrapport = " + row["NRapport"].ToString());
 

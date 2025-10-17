@@ -8243,7 +8243,7 @@ namespace ImportSosGeneve
                 z_objMail.Message = "";
                 z_objMail.Sujet = "Rapport patient " + Donnees.MonDtRapport.Rapport[0].NomPatient + " " + Donnees.MonDtRapport.Rapport[0].PrenomPatient + " " + Donnees.MonDtRapport.Rapport[0].DAP.ToShortDateString();
                 
-		                private void BtnRapport_RefusVisa_Click(object sender, System.EventArgs e)
+                private void BtnRapport_RefusVisa_Click(object sender, System.EventArgs e)
                 {
                         if(Donnees.MonDtRapport==null || Donnees.MonEtatRapport==null || crystalReportViewer1.ActiveViewIndex==-1) return;
 
@@ -8253,19 +8253,15 @@ namespace ImportSosGeneve
 
                 OutilsExt.OutilsSql.SauvegardeRapport(Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex], Donnees.MonDtCorps, Donnees.MonDtDestination, VariablesApplicatives.Utilisateurs.Identifiant, "", txtRapport_CommentaireSauvegarde.Text);
 
-                Fonction z_objFonctionDal = new Fonction();
-                string messageRefus = "Le rapport a t lu par le mdecin responsable, le visa n'a pas t accord.";
-                z_objFonctionDal.EnregistreModification(Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].NConsultation.ToString(), VariablesApplicatives.Utilisateurs.Identifiant, DateTime.Now, Constantes.REFUSE_VISA, messageRefus);
+            Fonction z_objFonctionDal = new Fonction();
+            string messageRefus = "Le rapport a t lu par le mdecin responsable, le visa n'a pas t accord.";
+            z_objFonctionDal.EnregistreModification(Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].NConsultation.ToString(), VariablesApplicatives.Utilisateurs.Identifiant, DateTime.Now, Constantes.REFUSE_VISA, messageRefus);
 
-                            string signatureTexte = Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].NomMedecinSos;
-                            if(signatureTexte==null)
-                                    signatureTexte = string.Empty;
-
-                            OutilsExt.OutilsSql.VisaSurRapport(Donnees.MonDtRapport.Rapport[0],false,signatureTexte);
+                            OutilsExt.OutilsSql.VisaSurRapport(Donnees.MonDtRapport.Rapport[0],false);
+                            OutilsExt.OutilsSql.BonPourReprise(Donnees.MonDtRapport.Rapport[0].NRapport,true);
                             ChargementHistoriqueFiche(Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].NConsultation);
                             TxtRapport_CommentaireVisa.Text ="";
 
-                            Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].RapSignature = signatureTexte;
                             Donnees.MonEtatRapport.SetDataSource(Donnees.MonDtRapport);
                             crystalReportViewer1.RefreshReport();
                 crystalReportViewer1.Zoom(85);
@@ -8274,8 +8270,18 @@ namespace ImportSosGeneve
 
                             AffichageEtatRapport();
 
+                            string commentaireCourant = Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].Commentaire;
+                            if(commentaireCourant==null)
+                                    commentaireCourant = string.Empty;
+                            TxtRapport_CommentaireVisa.Text = commentaireCourant;
+                            TxtRapport_Commentaire.Text = commentaireCourant;
+
+            MessageBox.Show("Visa refus\u00e9 !", "Rapport", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                             if(m_frmLstRapportToSend!=null)
                                     OuvrirRapportSuivantDepuisListe();
+
+                            BtnRapport_Visa.Focus();
 
                 var userHost = Dns.GetHostName();
                 var hostEntry = Dns.GetHostEntry(userHost);
@@ -8475,65 +8481,68 @@ namespace ImportSosGeneve
 		{
 			if(Donnees.MonDtRapport==null || Donnees.MonEtatRapport==null || crystalReportViewer1.ActiveViewIndex==-1) return;
 
-	   TxtRapport_Commentaire.Text = Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].Commentaire;
+           string commentaireRapport = Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].Commentaire;
+           if(commentaireRapport==null)
+                   commentaireRapport = string.Empty;
+           TxtRapport_Commentaire.Text = commentaireRapport;
 
-	    TxtRapport_CommentaireVisa.Text = "";
-	    LblRapportCree.Text = "";
-	    LblRapportModifie.Text = "";
-	    LblRapportVise.Text = "";
-	    LblRapportVise.Visible = false;
+            TxtRapport_CommentaireVisa.Text = "";
+            LblRapportCree.Text = "";
+            LblRapportModifie.Text = "";
+            LblRapportVise.Text = "";
+            LblRapportVise.Visible = false;
 
-			ArrayList EtatRapport = OutilsExt.OutilsSql.EtatRapport(Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].NRapport);
-			if(EtatRapport!=null)
-			{
-				if(EtatRapport.Count>0 && EtatRapport[0]!=null) LblRapportCree.Text = "Rapport cr par " + ((string[])EtatRapport[0])[0] + " le " + DateTime.Parse(((string[])EtatRapport[0])[1]).Day + "/" + DateTime.Parse(((string[])EtatRapport[0])[1]).Month;
-				if(EtatRapport.Count>1 && EtatRapport[1]!=null) LblRapportModifie.Text = "Rapport modifi par " + ((string[])EtatRapport[1])[0] + " le " + DateTime.Parse(((string[])EtatRapport[1])[1]).Day + "/" + DateTime.Parse(((string[])EtatRapport[1])[1]).Month;
-				bool visaAccorde = EtatRapport.Count>2 && EtatRapport[2]!=null;
-				if(visaAccorde)
-				{
-					LblRapportVise.Text = "VISA ACCORDE";
-					LblRapportVise.Visible = true;
-				}
-				else
-				{
-					string[] dernierAccord = null;
-					if(EtatRapport.Count>3 && EtatRapport[3]!=null)
-						dernierAccord = (string[])EtatRapport[3];
-					string[] dernierRefus = null;
-					if(EtatRapport.Count>4 && EtatRapport[4]!=null)
-						dernierRefus = (string[])EtatRapport[4];
+                        ArrayList EtatRapport = OutilsExt.OutilsSql.EtatRapport(Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].NRapport);
+                        if(EtatRapport!=null)
+                        {
+                                if(EtatRapport.Count>0 && EtatRapport[0]!=null) LblRapportCree.Text = "Rapport cr par " + ((string[])EtatRapport[0])[0] + " le " + DateTime.Parse(((string[])EtatRapport[0])[1]).Day + "/" + DateTime.Parse(((string[])EtatRapport[0])[1]).Month;
+                                if(EtatRapport.Count>1 && EtatRapport[1]!=null) LblRapportModifie.Text = "Rapport modifi par " + ((string[])EtatRapport[1])[0] + " le " + DateTime.Parse(((string[])EtatRapport[1])[1]).Day + "/" + DateTime.Parse(((string[])EtatRapport[1])[1]).Month;
+                                bool rapportActuellementVise = Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].Vise == 1;
+                                if(rapportActuellementVise)
+                                {
+                                        LblRapportVise.Text = "VISA ACCORDE";
+                                        LblRapportVise.Visible = true;
+                                }
+                                else
+                                {
+                                        string[] dernierAccord = null;
+                                        if(EtatRapport.Count>3 && EtatRapport[3]!=null)
+                                                dernierAccord = (string[])EtatRapport[3];
+                                        string[] dernierRefus = null;
+                                        if(EtatRapport.Count>4 && EtatRapport[4]!=null)
+                                                dernierRefus = (string[])EtatRapport[4];
 
-					bool afficherRefus = false;
-					DateTime dateRefus;
+                                        bool afficherRefus = false;
+                                        DateTime dateRefus;
+                                        bool refusValide = dernierRefus!=null && dernierRefus.Length>1 && DateTime.TryParse(dernierRefus[1], out dateRefus);
 
-					if(dernierRefus!=null && dernierRefus.Length>1 && DateTime.TryParse(dernierRefus[1], out dateRefus))
-					{
-						DateTime dateAccord;
-						if(dernierAccord!=null && dernierAccord.Length>1 && DateTime.TryParse(dernierAccord[1], out dateAccord))
-						{
-							if(dateAccord <= dateRefus)
-								afficherRefus = true;
-						}
-						else
-						{
-							afficherRefus = true;
-						}
-					}
-					else if(dernierRefus!=null)
-					{
-						afficherRefus = true;
-					}
+                                        if(refusValide)
+                                        {
+                                                DateTime dateAccord;
+                                                bool accordValide = dernierAccord!=null && dernierAccord.Length>1 && DateTime.TryParse(dernierAccord[1], out dateAccord);
+                                                if(!accordValide || dateAccord <= dateRefus)
+                                                        afficherRefus = true;
+                                        }
+                                        else if(dernierRefus!=null)
+                                        {
+                                                afficherRefus = true;
+                                        }
 
-					if(afficherRefus)
-					{
-						LblRapportVise.Text = "VISA REFUS : Le rapport a t lu par le mdecin responsable, le visa n'a pas t accord.";
-						LblRapportVise.Visible = true;
-					}
-				}
-			}
+                                        if(afficherRefus)
+                                        {
+                                                LblRapportVise.Text = "VISA REFUS : Le rapport a t lu par le mdecin responsable, le visa n'a pas t accord.";
+                                                LblRapportVise.Visible = true;
+                                        }
+                                        else
+                                        {
+                                                LblRapportVise.Text = string.Empty;
+                                                LblRapportVise.Visible = false;
+                                        }
+                                }
+                        }
             LblRapportVise.Visible = !string.IsNullOrEmpty(LblRapportVise.Text);
 
-		}
+                }
 private void AffichageEnvoisDuRapport()
 			ArrayList EtatRapport = OutilsExt.OutilsSql.EtatRapport(Donnees.MonDtRapport.Rapport[crystalReportViewer1.ActiveViewIndex].NRapport);
 			if(EtatRapport!=null)
