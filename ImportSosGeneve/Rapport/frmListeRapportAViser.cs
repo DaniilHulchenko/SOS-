@@ -8,11 +8,11 @@ using System.Net.Mail;
 namespace ImportSosGeneve
 {
 	/// <summary>
-	/// Description rÃ©sumÃ©e de frmListeRapportAViser.
+	/// Description résumée de frmListeRapportAViser.
 	/// </summary>
 	public class frmListeRapportAViser : System.Windows.Forms.UserControl
 	{
-		#region DÃ©claration des variables
+		#region Déclaration des variables
 
 		private string[][] m_ListeRapports =null;
 		private frmGeneral m_frmgeneral = null;
@@ -48,7 +48,7 @@ namespace ImportSosGeneve
 		private System.Windows.Forms.Label lblMode;
 		private System.Windows.Forms.Label lblIntervalle;
 		/// <summary>
-		/// Variable nÃ©cessaire au concepteur.
+		/// Variable nécessaire au concepteur.
 		/// </summary>
 		private System.ComponentModel.Container components = null;
 
@@ -65,7 +65,7 @@ namespace ImportSosGeneve
 
 			this.m_frmgeneral = frm;
 
-			// Chargement des imprimantes dans la liste des Imprimantes : SÃ©lection de l'imprimante par dÃ©faut :
+			// Chargement des imprimantes dans la liste des Imprimantes : Sélection de l'imprimante par défaut :
 			System.Drawing.Printing.PrintDocument prtdoc = new System.Drawing.Printing.PrintDocument();
 			foreach(String strPrinter in System.Drawing.Printing.PrinterSettings.InstalledPrinters) 
 			{
@@ -81,7 +81,7 @@ namespace ImportSosGeneve
 		}
 
 		/// <summary>
-		/// Nettoyage des ressources utilisÃ©es.
+		/// Nettoyage des ressources utilisées.
 		/// </summary>
 		protected override void Dispose( bool disposing )
 		{
@@ -97,10 +97,10 @@ namespace ImportSosGeneve
 
 		#endregion
 
-		#region Code gÃ©nÃ©rÃ© par le Concepteur Windows Form
+		#region Code généré par le Concepteur Windows Form
 		/// <summary>
-		/// MÃ©thode requise pour la prise en charge du concepteur - ne modifiez pas
-		/// le contenu de cette mÃ©thode avec l'Ã©diteur de code.
+		/// Méthode requise pour la prise en charge du concepteur - ne modifiez pas
+		/// le contenu de cette méthode avec l'éditeur de code.
 		/// </summary>
 		private void InitializeComponent()
 		{
@@ -143,7 +143,7 @@ namespace ImportSosGeneve
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(248, 16);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Liste des rapports Ã  viser";
+            this.label1.Text = "Liste des rapports à viser";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // listView1
@@ -324,7 +324,7 @@ namespace ImportSosGeneve
             this.grpCritere.Size = new System.Drawing.Size(288, 88);
             this.grpCritere.TabIndex = 1;
             this.grpCritere.TabStop = false;
-            this.grpCritere.Text = "CritÃ©re de sÃ©lÃ©ction";
+            this.grpCritere.Text = "Critére de séléction";
             // 
             // lblIntervalle
             // 
@@ -364,7 +364,7 @@ namespace ImportSosGeneve
 		}
 		#endregion
 
-		#region PropriÃ©tÃ©s publiques
+		#region Propriétés publiques
 
 		public string Label
 		{
@@ -412,7 +412,7 @@ namespace ImportSosGeneve
 
 		#endregion
 
-		#region MÃ©thodes privÃ©es
+		#region Méthodes privées
 
 		private void MAJListe()
 		{
@@ -451,7 +451,7 @@ namespace ImportSosGeneve
 		public void listView1_DoubleClick(object sender, System.EventArgs e)
 
 		{
-					this.m_frmgeneral.AffichageRapport(IdRapport, true);
+			// Sélection d'un rapport :
 			if(listView1.SelectedIndices.Count>0)
 			{
 				this.Cursor = Cursors.WaitCursor;
@@ -511,7 +511,7 @@ namespace ImportSosGeneve
 			{
 				for(int i=0;i<listView1.Items.Count;i++)
 					listView1.Items[i].Checked = true;
-				btnTout.Text = "DÃ©sÃ©lectionner";
+				btnTout.Text = "Désélectionner";
 			}
 			else
 			{
@@ -593,7 +593,7 @@ namespace ImportSosGeneve
 			else
 			{
 				
-				MessageBox.Show("Veuillez sÃ©lectionner un mode d'envoi");
+				MessageBox.Show("Veuillez sélectionner un mode d'envoi");
 				return;
 			}
 			
@@ -604,7 +604,7 @@ namespace ImportSosGeneve
 		{
 			if(cbRapport_Imprimante.SelectedIndex==-1)
 			{
-				MessageBox.Show("Veuillez sÃ©lectionner une imprimante");
+				MessageBox.Show("Veuillez sélectionner une imprimante");
 				return;
 			}
 
@@ -669,7 +669,7 @@ namespace ImportSosGeneve
                                         string FileName = "Rapport patient - " + Donnees.MonDtRapport.Rapport[0].NomPatient + "" + Donnees.MonDtRapport.Rapport[0].PrenomPatient + "-" + DateTime.Today.ToString("yyyy.MM.dd");
                                         CrystalUtility.ExportReport(Donnees.MonEtatRapport, "pdf", Application.StartupPath + SosMedecins.SmartRapport.Systeme.OutilsExt.ParamAppli.Cache, FileName);
                                         SosMedecins.Utilitaires.Mail objMail = new SosMedecins.Utilitaires.Mail(SosMedecins.SmartRapport.GestionApplication.VariablesApplicatives.Utilisateurs.EMail);
-                                        objMail.Sujet = "Rapport Patient NÂ° " + IdRapport + "Nom" + Donnees.MonDtRapport.Rapport[0].NomPatient + "" + Donnees.MonDtRapport.Rapport[0].PrenomPatient;
+                                        objMail.Sujet = "Rapport Patient N° " + IdRapport + "Nom" + Donnees.MonDtRapport.Rapport[0].NomPatient + "" + Donnees.MonDtRapport.Rapport[0].PrenomPatient;
 
                                         objMail.Message = "";
                                         objMail.JoindrePiece(Application.StartupPath + SosMedecins.SmartRapport.Systeme.OutilsExt.ParamAppli.Cache + FileName + ".pdf");
@@ -735,7 +735,7 @@ namespace ImportSosGeneve
             }
             catch (Exception ex)
             {
-                // Erreur ignorÃ©e a reprendre
+                // Erreur ignorée a reprendre
                 MessageBox.Show(ex.Message.ToString());
                
             }
