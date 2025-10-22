@@ -12,7 +12,7 @@ using System.Data.SqlClient;
 namespace ImportSosGeneve
 {
 	/// <summary>
-	/// Description rÃ©sumÃ©e de MySql.
+	/// Description résumée de MySql.
 	/// </summary>
 	public class MySql
 	{
@@ -20,10 +20,10 @@ namespace ImportSosGeneve
 		private SqlConnection Cn = null;
 		private string m_strLogFile="";
         private readonly int commandTimeout = 120;
-        private int premierRappelAss = 45;   //Pour les Assurances (TP, Type_envoi = 3) 1er rappel Ã  45 jours (changÃ© de 45 Ã  60 jour le 21.12.2021 reppassÃ© Ã  45 le 13.07.2022)
-		private int premierRappelTG = 60;   //1er rappel Ã  60 jours (TG, Type envoi = 1 ou 2)
-		private int deuxiemeRappel = 30;    //2eme Ã  30 jours 
-		private int troixiemeRappel = 30;   //3eme Ã  30 jours (seulement pour les ass TP, Type_envoi = 3)
+        private int premierRappelAss = 45;   //Pour les Assurances (TP, Type_envoi = 3) 1er rappel à 45 jours (changé de 45 à 60 jour le 21.12.2021 reppassé à 45 le 13.07.2022)
+		private int premierRappelTG = 60;   //1er rappel à 60 jours (TG, Type envoi = 1 ou 2)
+		private int deuxiemeRappel = 30;    //2eme à 30 jours 
+		private int troixiemeRappel = 30;   //3eme à 30 jours (seulement pour les ass TP, Type_envoi = 3)
 
 		#region Construction / Destruction de la classe
 
@@ -65,7 +65,7 @@ namespace ImportSosGeneve
 
 #endregion
 
-#region Ouverture / Fermeture de la base de donnÃ©es
+#region Ouverture / Fermeture de la base de données
 
 		public bool OuvertureBase()
 		{
@@ -115,7 +115,7 @@ namespace ImportSosGeneve
 
 #endregion
 
-#region MÃ©thodes primitives de Requetes Sql
+#region Méthodes primitives de Requetes Sql
 
 		public bool ExecuteCommandeSansRetour(string Requete)
 		{
@@ -215,7 +215,7 @@ namespace ImportSosGeneve
 					{
 						if(!reader[i].ToString().Equals(System.DBNull.Value) && !reader[i].ToString().Equals(""))
 						{
-							row[i] = reader[i].ToString().Replace("\r\n","|Â¤").Replace("\n","|Â¤").Replace("|Â¤","\r\n");
+							row[i] = reader[i].ToString().Replace("\r\n","|¤").Replace("\n","|¤").Replace("|¤","\r\n");
 						}
 						else
                             row[i] = DBNull.Value; 
@@ -300,7 +300,7 @@ namespace ImportSosGeneve
             }
             catch (Exception ex)
             {
-                // Erreur ignorÃ©e a reprendre
+                // Erreur ignorée a reprendre
                 MessageBox.Show("!! Erreur dans un champ de la table patient : " + ex.Message);                
             }
         }
@@ -334,7 +334,7 @@ namespace ImportSosGeneve
 			}
             catch (Exception ex)
             {
-                // Erreur ignorÃ©e a reprendre
+                // Erreur ignorée a reprendre
                // MessageBox.Show("!! Erreur dans un champ de la table: " + ex.Message);
                 Console.WriteLine("Erreur dans un champ de la table: "+ ex.Message);
             }
@@ -379,7 +379,7 @@ namespace ImportSosGeneve
 		}
 #endregion
 
-#region Importation des DonnÃ©es MediCall Concept
+#region Importation des Données MediCall Concept
 
 		public bool InsertFactu(DataSet ds)
 		{
@@ -417,7 +417,7 @@ namespace ImportSosGeneve
 		}
 		#endregion
 
-		#region Extraction des donnÃ©es statiques dans les tables
+		#region Extraction des données statiques dans les tables
         public string [][] CodeIntervenant(string Nom)
         {
             string[][] result = this.ExecuteCommandeAvecTabString("SELECT CodeIntervenant,Mail from tablemedecin WHERE Nom = " +"'"+ Nom +"'" );
@@ -667,7 +667,7 @@ namespace ImportSosGeneve
 
 		#endregion
 
-		#region OpÃ©ration sur les fiches d'appels
+		#region Opération sur les fiches d'appels
 
 		#region Operations sur les patients
 
@@ -740,7 +740,7 @@ namespace ImportSosGeneve
 		{
 			SauvegardePersonne(row);
 			
-			// on met Ã  jour le patient
+			// on met à jour le patient
 			string ReqPat = "UPDATE tablepatient set SuiviPatient = '" + row["SuiviPatient"].ToString().Replace("'","''") + "' WHERE IdPatient = " + row["IdPatient"].ToString();
 			
 			SqlCommand commande = new SqlCommand(ReqPat, Cn);
@@ -752,7 +752,7 @@ namespace ImportSosGeneve
         {
             SauvegardePersonneComplete(row);
 
-            // on met Ã  jour le patient
+            // on met à jour le patient
             string ReqPat = "UPDATE tablepatient set SuiviPatient = '" + row["SuiviPatient"].ToString().Replace("'", "''") + "' WHERE IdPatient = " + row["IdPatient"].ToString();
            
 			SqlCommand commande = new SqlCommand(ReqPat, Cn);
@@ -770,7 +770,7 @@ namespace ImportSosGeneve
 		{
 			if (New == 0)
 			{
-				// on met Ã  jour lÃ¢ssurance
+				// on met à jour lâssurance
 				string ReqAssurance = "UPDATE assurances SET NAssurance= '" + row["NAssurance"].ToString().Replace("'","''") + "', NAdresse= '" + row["NAdresse"].ToString().Replace("'","''") + "',  AssApprouve= '" + row["AssApprouve"].ToString().Replace("'","''") + "', AssNom= '" + row["AssNom"].ToString().Replace("'","''") + "', AssTelephone= '" + row["AssTelephone"].ToString().Replace("'","''") + "', AssFax= '" + row["AssFax"].ToString().Replace("'","''") + "',AssAdresseTexte= '" + row["AssAdresseTexte"].ToString().Replace("'","''") + "',AssService= '" + row["AssService"].ToString().Replace("'","''") + "', AssCpostale= '" + row["AssCpostale"].ToString().Replace("'","''") + "', AssExtLocalite= '" + row["AssExtLocalite"].ToString().Replace("'","''") + "', AssContact= '" + row["AssContact"].ToString().Replace("'","''") + "',NCaisse= '" + row["NCaisse"].ToString().Replace("'","''") + "', AssCommentaire= '" + row["AssCommentaire"].ToString().Replace("'","''") + "' WHERE NAssurance = " + row["NAssurance"].ToString();
 				//bool reous = ExecuteCommandeSansRetour(ReqAssurance);
 				
@@ -780,7 +780,7 @@ namespace ImportSosGeneve
 			}
 			else if (New == 1)
 			{
-				// on met Ã  jour lÃ¢ssurance
+				// on met à jour lâssurance
 				
 				string ReqAssurance = "INSERT INTO assurances (NAssurance, NAdresse, AssAdresseTexte, AssNom, AssService, AssTelephone, AssFax, AssCpostale, AssExtLocalite, AssContact, AssApprouve, AssCommentaire, NCaisse) VALUES ('"+ row["NAssurance"].ToString().Replace("'","''")+"','"+row["NAdresse"].ToString().Replace("'","''")+"','"+  row["AssAdresseTexte"].ToString().Replace("'","''")+"','"+  row["AssNom"].ToString().Replace("'","''")+"','"+  row["AssService"].ToString().Replace("'","''")+"','"+  row["AssTelephone"].ToString()+"','"+  row["AssFax"].ToString().Replace("'","''")+"','"+ row["AssCpostale"].ToString().Replace("'","''")+"','"+  row["AssExtLocalite"].ToString().Replace("'","''")+"','"+  row["AssContact"].ToString().Replace("'","''")+"','"+ row["AssApprouve"].ToString().Replace("'","''")+"','"+ row["AssCommentaire"].ToString().Replace("'","''")+"','"+ row["NCaisse"].ToString().Replace("'","''")+"')";
 				
@@ -840,7 +840,7 @@ namespace ImportSosGeneve
 
 		#endregion		
 				
-		#region OpÃ©rations sur les rapports
+		#region Opérations sur les rapports
 
 		#region Rubrique Destinataire
 
@@ -874,7 +874,7 @@ namespace ImportSosGeneve
 
 		#endregion 
 
-		#region CrÃ©ation / Sauvegarde de rapport
+		#region Création / Sauvegarde de rapport
 
 		public long CreationRapport(string strScribe,long NConsult)
 		{
@@ -925,7 +925,7 @@ namespace ImportSosGeneve
 				{
 					ExecuteCommandeSansRetour("INSERT INTO tablerapportcorps (NRapport,IdCategorie,Valeur) values ('" + tb.NRapport + "','" + Corps.Corps[i].IdCategorie + "','" + Corps.Corps[i].ValeurCategorie.Replace("'","''") + "')");
 				}
-				// on supprime tous les mÃ©decins traitants du patient, comme cela on va les mettre Ã  jour : 
+				// on supprime tous les médecins traitants du patient, comme cela on va les mettre à jour : 
 				ExecuteCommandeSansRetour("DELETE FROM tablepatientmedTTT WHERE IdPatient = " + tb.CodePatient);
 				// Sauvegarde des destinataires
 				for(int i=0;i<Destination.Destination.Count;i++)
@@ -941,7 +941,7 @@ namespace ImportSosGeneve
                         ExecuteCommandeSansRetour("INSERT INTO tablerapportdestine (NRapport,TypeDestinataire,CodeDestinataire,RapDestinataire,RapBonjour,RapIntroduction,RapSalutation,RapModeEnvoi,Nom,Logo,mail,Copie) values ('" + tb.NRapport + "','" + destinatairesauve + "','" + Destination.Destination[i].CodeDestinataire + "','" + Destination.Destination[i].RapDestinataire.Replace("'", "''") + "','" + Destination.Destination[i].RapBonjour.Replace("'", "''") + "','" + Destination.Destination[i].RapIntroduction.Replace("'", "''") + "','" + Destination.Destination[i].RapSalutation.Replace("'", "''") + "','" + Destination.Destination[i].RapModeEnvoi + "','" + Destination.Destination[i].Nom.Replace("'", "''") + "'," + Destination.Destination[i].Logo + ",''," + Destination.Destination[i].Copie + ")");
                     }
 
-					// on rÃ©insere le mÃ©decin traitant du patient :
+					// on réinsere le médecin traitant du patient :
 					if(Destination.Destination[i].TypeDestinataire==Destinataire.TypeDestinataire.MedecinTraitant.ToString() || Destination.Destination[i].TypeDestinataire=="MedecinTra")
 					{
 						ExecuteCommandeSansRetour("insert into tablepatientmedttt (IdPatient,IdMedecin) values (" + tb.CodePatient + "," + Destination.Destination[i].CodeDestinataire + ")");
@@ -993,7 +993,7 @@ namespace ImportSosGeneve
 		}
 
         //Accord du visa
-        public void VisaSurRapport(SosMedecins.SmartRapport.DAL.dstRapport.RapportRow row, bool Valeur, string signatureOverride = null)
+        public void VisaSurRapport(SosMedecins.SmartRapport.DAL.dstRapport.RapportRow row, bool Valeur)
 		{
 			int val = 0;
 			row["RapSignature"]="";
@@ -1013,14 +1013,11 @@ namespace ImportSosGeneve
 				else
 					row["RapSignature"] =  row["NomMedecinSos"].ToString().ToUpper();
 			}
-			else if(!string.IsNullOrEmpty(signatureOverride))
-			{
-				row["RapSignature"] = signatureOverride;
-			}
+			            
             //on vise le rapport
             ExecuteCommandeSansRetour("update tablerapports set  Vise = " + val + ",AViser = 0,BonPourReprise = 0,RapSignature = '" + row["RapSignature"].ToString().Replace("'", "''") + "', Medecin_viseur = '" + VariablesApplicatives.Utilisateurs.Identifiant.ToString() + "'  WHERE Nrapport = " + row["NRapport"].ToString());
 
-            //Puis on met Ã  jour la tablerapportdestine avec une date d'envoi pour ne plus les envoyer******A activer en octobre 2014*******  Domi le 24.06.2014
+            //Puis on met à jour la tablerapportdestine avec une date d'envoi pour ne plus les envoyer******A activer en octobre 2014*******  Domi le 24.06.2014
             //ExecuteCommandeSansRetour("update tablerapportdestine set RapEnvoye = 1, DateEnvoi =  '" + DateTime.Now + "'  WHERE Nrapport = " + row["NRapport"].ToString());
 		}
 		public void BonPourReprise(long NRapport,bool Valeur)
@@ -1158,26 +1155,7 @@ namespace ImportSosGeneve
 			else 
 				liste.Add(null);
 
-            z_strSql = SosMedecins.SmartRapport.DAL.RequetesSelect.tablemodifications.NRapportType;
-            z_strSql = z_strSql.Replace("%Type%", Constantes.ACCORDE_VISA.ToString());
-            z_strSql = z_strSql.Replace("%NRapport%", IdRapport.ToString());
-
-            val = ExecuteCommandeAvecTabString(z_strSql);
-            if (val.Length > 0)
-                                liste.Add(new string[] {val[0][0],val[0][1]});
-                        else
-                                liste.Add(null);
-
-            z_strSql = SosMedecins.SmartRapport.DAL.RequetesSelect.tablemodifications.NRapportType;
-            z_strSql = z_strSql.Replace("%Type%", Constantes.REFUSE_VISA.ToString());
-            z_strSql = z_strSql.Replace("%NRapport%", IdRapport.ToString());
-
-            val = ExecuteCommandeAvecTabString(z_strSql);
-                        if(val.Length>0)
-                                liste.Add(new string[] {val[0][0],val[0][1]});
-                        else
-                                liste.Add(null);
-            // rapport visÃ©e
+            // rapport visée
             z_strSql = SosMedecins.SmartRapport.DAL.RequetesSelect.tablerapports.Vise;
             z_strSql = z_strSql.Replace("%NRapport%", IdRapport.ToString());
 
@@ -1193,7 +1171,7 @@ namespace ImportSosGeneve
 
 		#endregion	
 	
-		#region OpÃ©ration Sql sur TÃ©lÃ©-Alarme
+		#region Opération Sql sur Télé-Alarme
 
 
 		public DataSet NouveauAbonnement(long IdPersonne, long IdPatient)
@@ -1246,23 +1224,23 @@ namespace ImportSosGeneve
 
 				bool reussite;
 
-				// Soit on crÃ©e un nouveau patient sans avoir recherchÃ© s'il existait dans la base locale
-				// soit on ne l'a pas trouvÃ©
-				// Dans ce cas on recrÃ©e une personne puis un patient
+				// Soit on crée un nouveau patient sans avoir recherché s'il existait dans la base locale
+				// soit on ne l'a pas trouvé
+				// Dans ce cas on recrée une personne puis un patient
 				if(IdPersonne==-1 && IdPatient==-1)
 				{
 					reussite = ExecuteCommandeSansRetour("INSERT INTO ta_abonnement(IdAbonnement,IdPatient,DateCreationAbonnement) values (" + max + "," + Patient + ",'" + DateFormatMySql(DateTime.Now) + "')");
 					reussite = ExecuteCommandeSansRetour("INSERT INTO tablepersonne(IdPersonne) values (" + Personne + ")");
 					reussite = ExecuteCommandeSansRetour("INSERT INTO tablepatient(IdPatient,IdPersonne,IdAbonnement,TypeAbonnement,Approuve) values (" + Patient + "," + Personne + "," + max + ",'TA',0)");
 				}
-				// on n'a pas retrouvÃ© cette personne dans la base locale par contre on souhaite importer un patient rÃ©fÃ©rencÃ© dans la base medicall
+				// on n'a pas retrouvé cette personne dans la base locale par contre on souhaite importer un patient référencé dans la base medicall
 				else if(IdPersonne==-1 && IdPatient>0)
 				{
 					reussite = ExecuteCommandeSansRetour("INSERT INTO tablepersonne(IdPersonne) values (" + Personne + ")");
 					reussite = ExecuteCommandeSansRetour("INSERT INTO tablepatient(IdPatient,IdPersonne,IdAbonnement,TypeAbonnement,Approuve) values (" + IdPatient + "," + Personne + "," + max + ",'TA',0)");
 					reussite = ExecuteCommandeSansRetour("INSERT INTO ta_abonnement(IdAbonnement,IdPatient,DateCreationAbonnement) values (" + max + "," + IdPatient + ",'" + DateFormatMySql(DateTime.Now) + "')");
 				}
-				// on a trouvÃ© le patient dans la base locale, on va donc le transformer en abonnÃ© TÃ©lÃ©Alarme
+				// on a trouvé le patient dans la base locale, on va donc le transformer en abonné TéléAlarme
 				else
 				{
 					reussite = ExecuteCommandeSansRetour("update tablepatient set IdAbonnement = " + max + ",TypeAbonnement='TA',TexteAbonnement='',Approuve=0 WHERE IdPatient = " + IdPatient);
@@ -1273,7 +1251,7 @@ namespace ImportSosGeneve
 				reussite = ExecuteCommandeSansRetour("INSERT INTO ta_abonnementcle(IdAbonnement) values (" + max + ")");
 				if(reussite)
 				{
-                    return RecupereAbonnement(max, 0);      //Domi  07.11.2013 (2Ã¨me argument dans la fct)
+                    return RecupereAbonnement(max, 0);      //Domi  07.11.2013 (2ème argument dans la fct)
 				}
 				else
 					return null;
@@ -1307,18 +1285,18 @@ namespace ImportSosGeneve
                      
 
             //Pour les factures:
-            string Requete = @"SELECT f.NFacture as NumFacture, CONVERT(VARCHAR,f.Date_facture,104) as Date_facture, f.Montant, CONVERT(VARCHAR,f.DÃ©but_pÃ©riode,104) as DÃ©but_pÃ©riode,
-                                        CONVERT(VARCHAR,f.Fin_pÃ©riode,104) as Fin_pÃ©riode, CONVERT(VARCHAR,f.PayÃ©,104) as Date_Paiement, 
-                                        CASE f.AcquitÃ© WHEN 0 THEN 'NON' ELSE 'OUI' END AS Acquite, Moyen as MoyenPaiement, TypeFacture = 'Abonnement'
+            string Requete = @"SELECT f.NFacture as NumFacture, CONVERT(VARCHAR,f.Date_facture,104) as Date_facture, f.Montant, CONVERT(VARCHAR,f.Début_période,104) as Début_période,
+                                        CONVERT(VARCHAR,f.Fin_période,104) as Fin_période, CONVERT(VARCHAR,f.Payé,104) as Date_Paiement, 
+                                        CASE f.Acquité WHEN 0 THEN 'NON' ELSE 'OUI' END AS Acquite, Moyen as MoyenPaiement, TypeFacture = 'Abonnement'
                                FROM ta_abonnement ab, 
                                ta_factures f LEFT OUTER JOIN (SELECT NumFacture as NumFactureOp, Montant, MoyenPaiement FROM TA_Factures_Op) AS Operations ON f.NFacture = NumFactureOp
                                WHERE ab.IdAbonnement = f.Idabonnement
                                AND ab.Archive=0 
                                AND ab.Idabonnement = " + IdAbonnement +
                                @"UNION
-                               SELECT fm.NumFacture, CONVERT(VARCHAR,fm.DateFacture,104) as Date_facture, fm.TotalFacture as Montant, DÃ©but_pÃ©riode = null,
-                                      Fin_pÃ©riode = null, CONVERT(VARCHAR,fm.DateAcquitementFact,104) as Date_Paiement,
-                                        CASE WHEN fm.DateAcquitementFact is null THEN 'NON' ELSE 'OUI' END AS Acquite, MoyenPaiement, TypeFacture = 'MatÃ©riel'
+                               SELECT fm.NumFacture, CONVERT(VARCHAR,fm.DateFacture,104) as Date_facture, fm.TotalFacture as Montant, Début_période = null,
+                                      Fin_période = null, CONVERT(VARCHAR,fm.DateAcquitementFact,104) as Date_Paiement,
+                                        CASE WHEN fm.DateAcquitementFact is null THEN 'NON' ELSE 'OUI' END AS Acquite, MoyenPaiement, TypeFacture = 'Matériel'
                                FROM ta_abonnement ab,
                                TA_FactMat fm LEFT OUTER JOIN (SELECT NumFacture as NumFactureOp, Montant, MoyenPaiement FROM TA_FactMat_Op) AS Operations ON fm.NumFacture = NumFactureOp
                                WHERE ab.IdAbonnement = fm.Idabonnement 
@@ -1328,7 +1306,7 @@ namespace ImportSosGeneve
     
              DataTable dt7 = ExecuteCommandeAvecDataTable(Requete);
             
-           /* DataTable dt7 = ExecuteCommandeAvecDataTable(@"SELECT f.NFacture, f.Date_facture, f.Montant, f.DÃ©but_pÃ©riode, f.Fin_pÃ©riode, f.PayÃ©, f.Moyen, f.AcquitÃ©,
+           /* DataTable dt7 = ExecuteCommandeAvecDataTable(@"SELECT f.NFacture, f.Date_facture, f.Montant, f.Début_période, f.Fin_période, f.Payé, f.Moyen, f.Acquité,
                                                          f.SBVR, f.Remarque, f.Idabonnement 
                                                          FROM ta_factures f, ta_abonnement ab 
                                                          WHERE ab.IdAbonnement = f.Idabonnement 
@@ -1793,8 +1771,8 @@ namespace ImportSosGeneve
 
 		#region Elaboration d'une facture
 		
-		// Factures attachÃ©es Ã  une consultation
-		// Renvoie le numÃ©ro de facture
+		// Factures attachées à une consultation
+		// Renvoie le numéro de facture
 		// ou -1 si pas de facture faite
 		public long NFactureByConsult(long nConsultation)
 		{
@@ -1808,7 +1786,7 @@ namespace ImportSosGeneve
 				return -1;
 		}
 
-		// VÃ©rification si consultation multiple, on renvoie les consultations liÃ©es Ã  un numÃ©ro de facture
+		// Vérification si consultation multiple, on renvoie les consultations liées à un numéro de facture
 		public long[] NConsultationByNFacture(long nFacture)
 		{
             string[][] retour = ExecuteCommandeAvecTabString(RequetesSelect.factureconsultation.NConsultation.Replace("%NFacture", nFacture.ToString()));
@@ -1819,7 +1797,7 @@ namespace ImportSosGeneve
 			return Num;
 		}
 
-		// CrÃ©ation d'une nouvelle facture et rÃ©cupÃ©ration de l'enregistrement qui lui correspond
+		// Création d'une nouvelle facture et récupération de l'enregistrement qui lui correspond
 		public DataRow GetNewFactureWithNConsult(long NConsult)
 		{
 			long Max = 1;
@@ -1835,7 +1813,7 @@ namespace ImportSosGeneve
             ExecuteCommandeSansRetour(RequetesInsert.factureconsultation.Complet.Replace("%NFacture", Max.ToString()).Replace("%NConsultation", NConsult.ToString()));
             EnregistreEtatFacture(Max, 2, DateTime.Now, "", "", "", 0, DateTime.Now);
 			
-			//Puis dans tablemodification, on met la crÃ©ation de facture
+			//Puis dans tablemodification, on met la création de facture
 			Fonction z_objFonctionDal = new Fonction();
 			z_objFonctionDal.EnregistreModification(NConsult.ToString(), VariablesApplicatives.Utilisateurs.Identifiant, DateTime.Now, Constantes.CREATION_FACTURE, "");
 
@@ -1927,7 +1905,7 @@ namespace ImportSosGeneve
 			Sql0 += "							   WHEN f.TypeEnvoi = 3 THEN DATEADD(day, -"+ premierRappelAss +", GETDATE())";
  		  	Sql0 += "						  END"; 			
 			Sql0 += " AND fs.FacDate1Rappel is null";
-			Sql0 += " AND (fs.LimiteStopRappel is null OR fs.LimiteStopRappel < GETDATE())";      //rappels stoppÃ© jusqu'au...
+			Sql0 += " AND (fs.LimiteStopRappel is null OR fs.LimiteStopRappel < GETDATE())";      //rappels stoppé jusqu'au...
 			Sql0 += " AND f.Solde > 10"; 
 			Sql0 += " And fs.FacDateAcquittee is null ";
 			Sql0 += " AND fs.FacDateCession is null ";
@@ -1935,13 +1913,13 @@ namespace ImportSosGeneve
 			//Sql0 += " AND f.CodeDestinataire != 239";    //Sauf Assura
 			Sql0 += " AND fe.CommentaireEtat = 'Fichier xml..Medidata' ";   
 			
-			Sql0 += " UNION ";  //2eme rappel Ã  30 jours aprÃ¨s le 1er rappel (pour tout le monde)
+			Sql0 += " UNION ";  //2eme rappel à 30 jours après le 1er rappel (pour tout le monde)
 			Sql0 += " SELECT DISTINCT(f.NFacture) from facture f inner join facture_status fs on fs.NFacture = f.NFacture ";    
 			Sql0 += "                                            Left join facture_etats fe on fe.NFacture = f.NFacture ";
 			Sql0 += " Where f.NFacture >= " + Debut + " And f.NFacture <= " + Fin;
 			Sql0 += " And fs.FacDate1Rappel < DATEADD(day, -" + deuxiemeRappel +", GETDATE())";
 			Sql0 += " AND fs.FacDate2Rappel is null";
-			Sql0 += " AND (fs.LimiteStopRappel is null OR fs.LimiteStopRappel < GETDATE())";     //rappels stoppÃ© jusqu'au...
+			Sql0 += " AND (fs.LimiteStopRappel is null OR fs.LimiteStopRappel < GETDATE())";     //rappels stoppé jusqu'au...
 			Sql0 += " AND f.Solde > 10";
 			Sql0 += " And fs.FacDateAcquittee is null ";
 			Sql0 += " AND fs.FacDateCession is null ";
@@ -1949,13 +1927,13 @@ namespace ImportSosGeneve
 			//Sql0 += " AND f.CodeDestinataire != 239";   //Sauf Assura
 			Sql0 += " AND fe.CommentaireEtat = 'Fichier xml..Medidata'";
 
-			/*Sql0 += " UNION ";     //3eme rappel Ã  30 jours (aprÃ¨s le 2eme) et seulement pour les assurances
+			/*Sql0 += " UNION ";     //3eme rappel à 30 jours (après le 2eme) et seulement pour les assurances
 			Sql0 += " SELECT DISTINCT(f.NFacture) from facture f inner join facture_status fs on fs.NFacture = f.NFacture ";    
 			Sql0 += "                                            Left join facture_etats fe on fe.NFacture = f.NFacture "; 
 			Sql0 += " Where f.NFacture >= " + Debut + " And f.NFacture <= " + Fin;
 			Sql0 += " And fs.FacDate2Rappel < DATEADD(day, -" + troixiemeRappel + ", GETDATE())";
 			Sql0 += " AND fs.FacDate3Rappel is null";
-			Sql0 += " AND (fs.LimiteStopRappel is null OR fs.LimiteStopRappel < GETDATE())";     //rappels stoppÃ© jusqu'au...
+			Sql0 += " AND (fs.LimiteStopRappel is null OR fs.LimiteStopRappel < GETDATE())";     //rappels stoppé jusqu'au...
 			Sql0 += " AND f.Solde > 10";
 			Sql0 += " And fs.FacDateAcquittee is null ";
 			Sql0 += " AND fs.FacDateCession is null ";
@@ -2082,10 +2060,10 @@ namespace ImportSosGeneve
 				return null;
 		}
 
-        //Retourne le facteur scalaire interne en fonction des titre des mÃ©decins
+        //Retourne le facteur scalaire interne en fonction des titre des médecins
         public double Val_Scale_factor_mt(long NConsultation)
         {
-			/*string sql0 = @"select CASE WHEN CHARINDEX( 'MÃ©decin praticien', tm.Commentaire) <> 0 
+			/*string sql0 = @"select CASE WHEN CHARINDEX( 'Médecin praticien', tm.Commentaire) <> 0 
                                         THEN CASE WHEN ta.DAP < '01.01.2018' then '1' else '0.93' END
                                         ELSE '1' END AS Coefficient       
                                         from tableconsultations tc, tableactes ta, tablemedecin tm
@@ -2109,7 +2087,7 @@ namespace ImportSosGeneve
         }
 
 
-        //Retourne le facteur scalaire interne en fonction des titre des mÃ©decins ET du Tarmed (LAMAL ou autre)
+        //Retourne le facteur scalaire interne en fonction des titre des médecins ET du Tarmed (LAMAL ou autre)
         public string[] Val_Scale_factor_mt_Tarmed(long NConsultation)
         {			
 			string sql0 = @"SELECT CASE WHEN MedInterne = 0 
@@ -2150,8 +2128,8 @@ namespace ImportSosGeneve
             }            
         }
 
-        //Retourne le facteur scalaire interne en fonction des titre des mÃ©decins ET du Tarmed (LAMAL ou autre)
-        //Avec le NÂ° de Consult ET Facture
+        //Retourne le facteur scalaire interne en fonction des titre des médecins ET du Tarmed (LAMAL ou autre)
+        //Avec le N° de Consult ET Facture
         public string[] Val_Scale_factor_mt_Tarmed_AvFact(long NConsultation, long NFacture)
         {			
 			string sql0 = @"SELECT CASE WHEN MedInterne = 0 
@@ -2195,7 +2173,7 @@ namespace ImportSosGeneve
         
 
 
-        //Retourne le facteur scalaire interne en fonction des titre des mÃ©decins ET du Tarmed (LAMAL ou autre)
+        //Retourne le facteur scalaire interne en fonction des titre des médecins ET du Tarmed (LAMAL ou autre)
         public string[] Quel_Tarmed_PListe(long NConsultation)
         {
             string sql0 = @"SELECT CASE WHEN ta.DAP > '31.12.2017' 
@@ -2222,7 +2200,7 @@ namespace ImportSosGeneve
             }
         }
 
-        //Retourne l'Email d'une personne Ã  partir de Npersonne
+        //Retourne l'Email d'une personne à partir de Npersonne
         public string EmailPersonne(long NPersonne)
         {
             string sql0 = @"select pe.Email from tablePersonne pe where pe.IdPersonne = ";
@@ -2335,7 +2313,7 @@ namespace ImportSosGeneve
             string Requete3 = "update tableconsultations set Modifie=1, CommentaireLibre ='" + row["CommentaireLibre"].ToString().Replace("'", "''") + "' ,Deces ='" + row["Deces"].ToString() + "',TraitementLibre='" + row["TraitementLibre"].ToString().Replace("'", "''") + "',Traitements='" + row["Traitements"].ToString().Replace("'", "''") + "'";
             Requete3 += " WHERE CodeAppel = " + row["Num"].ToString() + " AND IndicePatient = " + row["IndicePatient"].ToString();
 
-            // Si dÃ©cÃ¨s de la personne, enregistrement de sa date de dÃ©cÃ¨s
+            // Si décès de la personne, enregistrement de sa date de décès
             if (row["Deces"].ToString() == "1")
             {
                 string Requete4 = "update tablepersonne set DateDeces ='" + DateFormatMySql(DateTime.Parse(row["DAP"].ToString())) + "' WHERE IdPersonne = " + row["IdPersonne"].ToString();
@@ -2453,7 +2431,7 @@ namespace ImportSosGeneve
 			string[][] strcommissariat = OutilsExt.OutilsSql.ExecuteCommandeAvecTabString("select numerorue,rue,np,commune from commissariat");
 			if(strcommissariat!=null && strcommissariat.Length==1)
 			{
-				return "HÃ´tel de police" + "\r\n" + strcommissariat[0][1] + " " + strcommissariat[0][0] + "\r\n" + strcommissariat[0][2] + " " + strcommissariat[0][3];					
+				return "Hôtel de police" + "\r\n" + strcommissariat[0][1] + " " + strcommissariat[0][0] + "\r\n" + strcommissariat[0][2] + " " + strcommissariat[0][3];					
 			}
 			else
 				return "";
@@ -2519,11 +2497,11 @@ namespace ImportSosGeneve
 
 		#region Etats de facture
 
-		// Enregistrement d'un nouvel Ã©tat sur la facture 
-		//0: Duplicata, 2: crÃ©ation , 3: Annulation, 4: RÃ©Ã©dition, 5:Envoi, 6:Encaissement auto, 9: 10%
+		// Enregistrement d'un nouvel état sur la facture 
+		//0: Duplicata, 2: création , 3: Annulation, 4: Réédition, 5:Envoi, 6:Encaissement auto, 9: 10%
 		public void EnregistreEtatFacture(long NFacture,int Etat,DateTime DateEtat,string Commentaire,string Param1,string Param2,float Montant,DateTime DateSal)
 		{
-			if (Etat == 2)  //crÃ©ation
+			if (Etat == 2)  //création
                 ExecuteCommandeSansRetour("DELETE FROM facture_etats WHERE NFacture='" + NFacture + "' AND Etat='2'");
             ExecuteCommandeSansRetour("insert into facture_etats (NFacture,Etat,DateEtat,DateOp,CommentaireEtat,Param1,Param2,CodeUtilisateur,Montant,DatePaye) values (" + NFacture + "," + Etat + ",'" + DateFormatMySql(DateEtat) + "','" + DateFormatMySql(DateTime.Now) + "','" + Commentaire.Replace("'", "''") + "','" + Param1.Replace("'", "''") + "','" + Param2.Replace("'", "''") + "','" + VariablesApplicatives.Utilisateurs.Identifiant.Replace("'", "''") + "'," + Montant.ToString().Replace(",", ".") + ",'" + DateFormatMySql(DateSal) + "')");
 
@@ -2578,7 +2556,7 @@ namespace ImportSosGeneve
 			ExecuteCommandeSansRetour("update facture_status set FacDateEnvoyee = '" + DateFormatMySql(DateTime.Now) + "' WHERE NFacture = " + NFacture);
 		}
 
-		//Maj du nb facture indÃ©pendant
+		//Maj du nb facture indépendant
 		public void MajCptFactureIndependant(int CodeMedecin, int nbFactInd)
 		{			
 			ExecuteCommandeSansRetour("update tablemedecin set DateMajCpt = '" + DateFormatMySql(DateTime.Now) + "', CptFactM = " + nbFactInd + 
@@ -2649,7 +2627,7 @@ namespace ImportSosGeneve
 
 		public DataRow[] InfosMedecinsByTableauFactures(long[] NFacture)
 		{
-			// on fabrique un tableau avec tous les mÃ©decins
+			// on fabrique un tableau avec tous les médecins
 			DataTable dt = ExecuteCommandeAvecDataTable(RequetesSelect.tablemedecin.ArchiveFaux);
             
             dt.Columns.Add(new DataColumn("NbFacture",typeof(int)));
