@@ -961,6 +961,12 @@ namespace ImportSosGeneve
 				return ExecuteCommandeSansRetour("update tablerapportdestine set RapEnvoye = " + Val + ",DateEnvoi = '" + DateFormatMySql(DateTime.Now) + "' WHERE NRapport = " + NRapport + " AND CodeDestinataire = " + CodeDestinataire);			
 		}
 
+		public void UpdateRapSignature(long NRapport, string signature)
+		{
+			string value = signature ?? string.Empty;
+			ExecuteCommandeSansRetour("update tablerapports set RapSignature = '" + value.Replace("'", "''") + "' WHERE NRapport = " + NRapport);
+		}
+
 		public string[][] ListeRapportAViser()
 		{			
 			string[][] result = this.ExecuteCommandeAvecTabString("SELECT r.NRapport,a.DAP,m.Nom as 'NomMedecinSos',pe.Nom as 'NomPatient',r.NConsultation from tablerapports r inner join tableconsultations c on c.NConsultation = r.NConsultation inner join tableactes a on a.Num = c.CodeAppel inner join tablepatient pa on pa.IdPatient = c.IndicePatient inner join tablepersonne pe on pe.IdPersonne = pa.IdPErsonne inner join tablemedecin m on m.CodeIntervenant = a.CodeIntervenant WHERE r.TypeRapport <> 3 AND r.AViser = 1 AND r.Vise = 0 AND r.ACorriger=0 AND r.Archive=0 ORDER BY NRapport");
