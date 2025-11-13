@@ -17,11 +17,11 @@ using SosMedecins.SmartRapport.DAL;
 namespace ImportSosGeneve
 {
 	/// <summary>
-	/// Description résumée de CtrlTA.
+	/// Description rÃ©sumÃ©e de CtrlTA.
 	/// </summary>
     public class CtrlTA : System.Windows.Forms.UserControl
     {
-        #region Déclaration des variables
+        #region DÃ©claration des variables
 
         public frmGeneral m_frmgeneral = null;
         public ImportSosGeneve.frmTa m_frmTa = null;
@@ -220,6 +220,13 @@ namespace ImportSosGeneve
         private MaskedTextBox txtOnglet2Tel1ter;
         private MaskedTextBox txtOnglet2Tel1bis;
         private MaskedTextBox txtOnglet2Tel1;
+        private const string TypeTarifDomo4G = "D4G";
+        private readonly DataTable dtDomoBoxes = new DataTable();
+        private bool isLoadingDomoCombo;
+        private string selectedDomoContactId = string.Empty;
+        private string initialDomoContactId = string.Empty;
+        private string initialDomoVid = string.Empty;
+        private string initialDomoPhone = string.Empty;
         private MaskedTextBox txtOnglet2Tel2ter;
         private MaskedTextBox txtOnglet2Tel2bis;
         private MaskedTextBox txtOnglet2Tel2;
@@ -271,7 +278,10 @@ namespace ImportSosGeneve
         private RadioButton rBTypeBoitier3;
         private RadioButton rBTypeBoitier2;
         private RadioButton rBTypeBoitier1;
+        private RadioButton rBTypeBoitier4;
         private ComboBox comboBMateriel;
+        private ComboBox cbNumeroBoitier;
+        private Label labelNumeroBoitier;
         private IContainer components;
         private Button bAjoutMat1;
         private TextBox tBoxSupprMatos;
@@ -284,8 +294,8 @@ namespace ImportSosGeneve
         private ComboBox cBoxMotifChangement;
         private Label label70;
         public DataTable dtNvxMateriel = new DataTable();
-        public DataTable dtNvxTel = new DataTable();    //Pour Ajout de n° de Tel
-        public DataTable dtDelTel = new DataTable();    //Pour suppression de N° de Tel
+        public DataTable dtNvxTel = new DataTable();    //Pour Ajout de nÂ° de Tel
+        public DataTable dtDelTel = new DataTable();    //Pour suppression de NÂ° de Tel
         public string[] Desafection = new string[2];
         private ListView listViewTel;
         private ColumnHeader Telephone;
@@ -317,13 +327,23 @@ namespace ImportSosGeneve
             InitializeComponent();
             m_frmgeneral = frm;
             m_frmTa = frmTA;
-            // TODO : ajoutez les initialisations après l'appel à InitializeComponent
+
+            if (dtDomoBoxes.Columns.Count == 0)
+            {
+                dtDomoBoxes.Columns.Add("ContactID", typeof(string));
+                dtDomoBoxes.Columns.Add("VID", typeof(string));
+                dtDomoBoxes.Columns.Add("Num_tel_Sim", typeof(string));
+                dtDomoBoxes.Columns.Add("Display", typeof(string));
+            }
+
+            HideDomoSelection();
+
             tbContacts.BackgroundImage = tbAbonnement.BackgroundImage;
             tbDossierMedical.BackgroundImage = tbAbonnement.BackgroundImage;
             tbCle.BackgroundImage = tbAbonnement.BackgroundImage;
             tbJournal.BackgroundImage = tbAbonnement.BackgroundImage;
 
-            //On créer les colonnes de DataTable liste de Matos
+            //On crÃ©er les colonnes de DataTable liste de Matos
             dtNvxMateriel.Columns.Add("VID", typeof(string));
             dtNvxMateriel.Columns.Add("Libelle", typeof(string));
             dtNvxMateriel.Columns.Add("IdAbonnement", typeof(string));
@@ -339,7 +359,7 @@ namespace ImportSosGeneve
         }
 
         /// <summary> 
-        /// Nettoyage des ressources utilisées.
+        /// Nettoyage des ressources utilisÃ©es.
         /// </summary>
         protected override void Dispose(bool disposing)
         {
@@ -355,10 +375,10 @@ namespace ImportSosGeneve
 
         #endregion
 
-        #region Code généré par le Concepteur de composants
+        #region Code gÃ©nÃ©rÃ© par le Concepteur de composants
         /// <summary> 
-        /// Méthode requise pour la prise en charge du concepteur - ne modifiez pas 
-        /// le contenu de cette méthode avec l'éditeur de code.
+        /// MÃ©thode requise pour la prise en charge du concepteur - ne modifiez pas 
+        /// le contenu de cette mÃ©thode avec l'Ã©diteur de code.
         /// </summary>
         /// 
         public string MedecinsTraitant = "";        
@@ -473,9 +493,12 @@ namespace ImportSosGeneve
             this.tBoxSupprMatos = new System.Windows.Forms.TextBox();
             this.bAjoutMat1 = new System.Windows.Forms.Button();
             this.comboBMateriel = new System.Windows.Forms.ComboBox();
+            this.cbNumeroBoitier = new System.Windows.Forms.ComboBox();
+            this.labelNumeroBoitier = new System.Windows.Forms.Label();
             this.rBTypeBoitier3 = new System.Windows.Forms.RadioButton();
             this.rBTypeBoitier2 = new System.Windows.Forms.RadioButton();
             this.rBTypeBoitier1 = new System.Windows.Forms.RadioButton();
+            this.rBTypeBoitier4 = new System.Windows.Forms.RadioButton();
             this.tbContacts = new System.Windows.Forms.TabPage();
             this.lwUrgence = new System.Windows.Forms.ListView();
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -742,7 +765,7 @@ namespace ImportSosGeneve
             this.tbAbonnement.Name = "tbAbonnement";
             this.tbAbonnement.Size = new System.Drawing.Size(780, 691);
             this.tbAbonnement.TabIndex = 0;
-            this.tbAbonnement.Text = "Abonné";
+            this.tbAbonnement.Text = "AbonnÃ©";
             // 
             // bVerif
             // 
@@ -757,7 +780,7 @@ namespace ImportSosGeneve
             this.bVerif.Name = "bVerif";
             this.bVerif.Size = new System.Drawing.Size(60, 60);
             this.bVerif.TabIndex = 54;
-            this.toolTip1.SetToolTip(this.bVerif, "Vérifier si le patient existe");
+            this.toolTip1.SetToolTip(this.bVerif, "VÃ©rifier si le patient existe");
             this.bVerif.UseVisualStyleBackColor = false;
             this.bVerif.Click += new System.EventHandler(this.bVerif_Click);
             // 
@@ -805,7 +828,7 @@ namespace ImportSosGeneve
             this.lstCommunes.ItemHeight = 16;
             this.lstCommunes.Items.AddRange(new object[] {
             "Aire-la-Ville",
-            "Anières",
+            "AniÃ¨res",
             "Avully",
             "Avusy",
             "Bardonnex",
@@ -813,10 +836,10 @@ namespace ImportSosGeneve
             "Bernex",
             "Carouge",
             "Cartigny",
-            "Céligny",
+            "CÃ©ligny",
             "Chancy",
-            "Chêne-Bougeries",
-            "Chêne-Bourg",
+            "ChÃªne-Bougeries",
+            "ChÃªne-Bourg",
             "Choulex",
             "Collex-Bossy",
             "Collonge-Bellerive",
@@ -824,7 +847,7 @@ namespace ImportSosGeneve
             "Confignon",
             "Corsier",
             "Dardagny",
-            "Genève",
+            "GenÃ¨ve",
             "Genthod",
             "Le grand-Saconnex",
             "Gy",
@@ -837,13 +860,13 @@ namespace ImportSosGeneve
             "Onex",
             "Perly-Certoux",
             "Plan-Les-Ouates",
-            "Pregny-Chambésy",
+            "Pregny-ChambÃ©sy",
             "Presinge",
             "Puplinge",
             "Russin",
             "Satigny",
             "Soral",
-            "Thônex",
+            "ThÃ´nex",
             "Troinex",
             "Vandoeuvre",
             "Vernier",
@@ -892,7 +915,7 @@ namespace ImportSosGeneve
             this.cbExport.Name = "cbExport";
             this.cbExport.Size = new System.Drawing.Size(56, 24);
             this.cbExport.TabIndex = 13;
-            this.cbExport.Text = "Prêt";
+            this.cbExport.Text = "PrÃªt";
             // 
             // txtTa_Interphone
             // 
@@ -1184,7 +1207,7 @@ namespace ImportSosGeneve
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(75, 20);
             this.label14.TabIndex = 14;
-            this.label14.Text = "N° Postal :";
+            this.label14.Text = "NÂ° Postal :";
             // 
             // label57
             // 
@@ -1204,7 +1227,7 @@ namespace ImportSosGeneve
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(66, 24);
             this.label13.TabIndex = 16;
-            this.label13.Text = "Localité :";
+            this.label13.Text = "LocalitÃ© :";
             // 
             // txtTa_FacNP
             // 
@@ -1222,7 +1245,7 @@ namespace ImportSosGeneve
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(123, 24);
             this.label41.TabIndex = 18;
-            this.label41.Text = "Adresse complète :";
+            this.label41.Text = "Adresse complÃ¨te :";
             // 
             // label11
             // 
@@ -1258,7 +1281,7 @@ namespace ImportSosGeneve
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(64, 24);
             this.label12.TabIndex = 9;
-            this.label12.Text = "Prénom :";
+            this.label12.Text = "PrÃ©nom :";
             // 
             // bsupprTel
             // 
@@ -1294,7 +1317,7 @@ namespace ImportSosGeneve
             this.label74.Name = "label74";
             this.label74.Size = new System.Drawing.Size(199, 24);
             this.label74.TabIndex = 54;
-            this.label74.Text = "Téléphones du patient";
+            this.label74.Text = "TÃ©lÃ©phones du patient";
             // 
             // EmaskAjoutTel
             // 
@@ -1317,7 +1340,7 @@ namespace ImportSosGeneve
             this.label72.Name = "label72";
             this.label72.Size = new System.Drawing.Size(156, 19);
             this.label72.TabIndex = 52;
-            this.label72.Text = "Téléphone à ajouter : +";
+            this.label72.Text = "TÃ©lÃ©phone Ã  ajouter : +";
             // 
             // label71
             // 
@@ -1327,7 +1350,7 @@ namespace ImportSosGeneve
             this.label71.Name = "label71";
             this.label71.Size = new System.Drawing.Size(213, 19);
             this.label71.TabIndex = 51;
-            this.label71.Text = "N°s  de téléphone de ce patient:";
+            this.label71.Text = "NÂ°s  de tÃ©lÃ©phone de ce patient:";
             // 
             // bAjouteTel1
             // 
@@ -1374,7 +1397,7 @@ namespace ImportSosGeneve
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(156, 19);
             this.label10.TabIndex = 2;
-            this.label10.Text = "Téléphone de la box : +";
+            this.label10.Text = "TÃ©lÃ©phone de la box : +";
             // 
             // label9
             // 
@@ -1404,7 +1427,7 @@ namespace ImportSosGeneve
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 24);
             this.label7.TabIndex = 16;
-            this.label7.Text = "Localité :";
+            this.label7.Text = "LocalitÃ© :";
             // 
             // label6
             // 
@@ -1424,7 +1447,7 @@ namespace ImportSosGeneve
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(88, 24);
             this.label5.TabIndex = 14;
-            this.label5.Text = "N° Postal :";
+            this.label5.Text = "NÂ° Postal :";
             // 
             // label4
             // 
@@ -1444,7 +1467,7 @@ namespace ImportSosGeneve
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(80, 24);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Né(e) le :";
+            this.label3.Text = "NÃ©(e) le :";
             // 
             // label2
             // 
@@ -1454,7 +1477,7 @@ namespace ImportSosGeneve
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(80, 24);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Prénom :";
+            this.label2.Text = "PrÃ©nom :";
             // 
             // label1
             // 
@@ -1473,7 +1496,7 @@ namespace ImportSosGeneve
             this.cbExporter.Name = "cbExporter";
             this.cbExporter.Size = new System.Drawing.Size(107, 22);
             this.cbExporter.TabIndex = 18;
-            this.cbExporter.Text = "Déjà Exporté";
+            this.cbExporter.Text = "DÃ©jÃ  ExportÃ©";
             // 
             // tbTypeAbonnement
             // 
@@ -1510,6 +1533,9 @@ namespace ImportSosGeneve
             this.splitContainer3.Panel2.Controls.Add(this.tBoxSupprMatos);
             this.splitContainer3.Panel2.Controls.Add(this.bAjoutMat1);
             this.splitContainer3.Panel2.Controls.Add(this.comboBMateriel);
+            this.splitContainer3.Panel2.Controls.Add(this.labelNumeroBoitier);
+            this.splitContainer3.Panel2.Controls.Add(this.cbNumeroBoitier);
+            this.splitContainer3.Panel2.Controls.Add(this.rBTypeBoitier4);
             this.splitContainer3.Panel2.Controls.Add(this.rBTypeBoitier3);
             this.splitContainer3.Panel2.Controls.Add(this.rBTypeBoitier2);
             this.splitContainer3.Panel2.Controls.Add(this.rBTypeBoitier1);
@@ -1556,7 +1582,7 @@ namespace ImportSosGeneve
             this.gBoxPeriode.Size = new System.Drawing.Size(138, 170);
             this.gBoxPeriode.TabIndex = 33;
             this.gBoxPeriode.TabStop = false;
-            this.gBoxPeriode.Text = "Périodicité";
+            this.gBoxPeriode.Text = "PÃ©riodicitÃ©";
             // 
             // rdPeriodFac4
             // 
@@ -1574,7 +1600,7 @@ namespace ImportSosGeneve
             this.rdPeriodFac3.Name = "rdPeriodFac3";
             this.rdPeriodFac3.Size = new System.Drawing.Size(79, 24);
             this.rdPeriodFac3.TabIndex = 29;
-            this.rdPeriodFac3.Text = "Bloquée";
+            this.rdPeriodFac3.Text = "BloquÃ©e";
             // 
             // rdPeriodFac0
             // 
@@ -1622,7 +1648,7 @@ namespace ImportSosGeneve
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(169, 22);
             this.label45.TabIndex = 24;
-            this.label45.Text = "Date début de facturation :";
+            this.label45.Text = "Date dÃ©but de facturation :";
             // 
             // cbOrdre
             // 
@@ -1691,7 +1717,7 @@ namespace ImportSosGeneve
             this.rdOnglet3Type4.Name = "rdOnglet3Type4";
             this.rdOnglet3Type4.Size = new System.Drawing.Size(144, 24);
             this.rdOnglet3Type4.TabIndex = 3;
-            this.rdOnglet3Type4.Text = "SOS (Médicalerte)";
+            this.rdOnglet3Type4.Text = "SOS (MÃ©dicalerte)";
             this.rdOnglet3Type4.CheckedChanged += new System.EventHandler(this.rdOnglet3Type4_CheckedChanged_1);
             // 
             // rdOnglet3Type3
@@ -1700,7 +1726,7 @@ namespace ImportSosGeneve
             this.rdOnglet3Type3.Name = "rdOnglet3Type3";
             this.rdOnglet3Type3.Size = new System.Drawing.Size(144, 24);
             this.rdOnglet3Type3.TabIndex = 2;
-            this.rdOnglet3Type3.Text = "Aucun équipement";
+            this.rdOnglet3Type3.Text = "Aucun Ã©quipement";
             this.rdOnglet3Type3.CheckedChanged += new System.EventHandler(this.rdOnglet3Type3_CheckedChanged);
             // 
             // rdOnglet3Type2
@@ -1718,7 +1744,7 @@ namespace ImportSosGeneve
             this.rdOnglet3Type1.Name = "rdOnglet3Type1";
             this.rdOnglet3Type1.Size = new System.Drawing.Size(144, 24);
             this.rdOnglet3Type1.TabIndex = 0;
-            this.rdOnglet3Type1.Text = "IMAD (TéléAlarme)";
+            this.rdOnglet3Type1.Text = "IMAD (TÃ©lÃ©Alarme)";
             // 
             // label76
             // 
@@ -1727,7 +1753,7 @@ namespace ImportSosGeneve
             this.label76.Name = "label76";
             this.label76.Size = new System.Drawing.Size(81, 20);
             this.label76.TabIndex = 52;
-            this.label76.Text = "N° de série :";
+            this.label76.Text = "NÂ° de sÃ©rie :";
             // 
             // tBoxNumSerie
             // 
@@ -1745,7 +1771,7 @@ namespace ImportSosGeneve
             this.cBoxMotifChangement.Items.AddRange(new object[] {
             "Boitier HS",
             "Changement de version",
-            "Réaffectation de boitier"});
+            "RÃ©affectation de boitier"});
             this.cBoxMotifChangement.Location = new System.Drawing.Point(12, 117);
             this.cBoxMotifChangement.Name = "cBoxMotifChangement";
             this.cBoxMotifChangement.Size = new System.Drawing.Size(248, 24);
@@ -1843,21 +1869,57 @@ namespace ImportSosGeneve
             this.toolTip1.SetToolTip(this.bAjoutMat1, "Nouvelle personne");
             this.bAjoutMat1.UseVisualStyleBackColor = false;
             this.bAjoutMat1.Click += new System.EventHandler(this.bAjoutMat1_Click);
-            // 
+            //
+            // labelNumeroBoitier
+            //
+            this.labelNumeroBoitier.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNumeroBoitier.Location = new System.Drawing.Point(270, 95);
+            this.labelNumeroBoitier.Name = "labelNumeroBoitier";
+            this.labelNumeroBoitier.Size = new System.Drawing.Size(100, 20);
+            this.labelNumeroBoitier.TabIndex = 53;
+            this.labelNumeroBoitier.Text = "Botier n :";
+            this.labelNumeroBoitier.Visible = false;
+            //
+            // cbNumeroBoitier
+            //
+            this.cbNumeroBoitier.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbNumeroBoitier.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbNumeroBoitier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbNumeroBoitier.Enabled = false;
+            this.cbNumeroBoitier.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbNumeroBoitier.FormattingEnabled = true;
+            this.cbNumeroBoitier.Location = new System.Drawing.Point(270, 117);
+            this.cbNumeroBoitier.Name = "cbNumeroBoitier";
+            this.cbNumeroBoitier.Size = new System.Drawing.Size(183, 24);
+            this.cbNumeroBoitier.TabIndex = 8;
+            this.cbNumeroBoitier.Visible = false;
+            this.cbNumeroBoitier.SelectedIndexChanged += new System.EventHandler(this.cbNumeroBoitier_SelectedIndexChanged);
+            //
             // comboBMateriel
-            // 
+            //
             this.comboBMateriel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBMateriel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBMateriel.Items.AddRange(new object[] {
-            "Médaillon radio M4",
+            this.comboBMateriel.TabIndex = 9;
+            //
+            // rBTypeBoitier4
+            //
+            this.rBTypeBoitier4.Location = new System.Drawing.Point(445, 29);
+            this.rBTypeBoitier4.Name = "rBTypeBoitier4";
+            this.rBTypeBoitier4.Size = new System.Drawing.Size(104, 24);
+            this.rBTypeBoitier4.TabIndex = 7;
+            this.rBTypeBoitier4.Text = "DOMO 4G";
+            this.rBTypeBoitier4.CheckedChanged += new System.EventHandler(this.rBTypeBoitier4_CheckedChanged);
+            this.rBTypeBoitier4.Click += new System.EventHandler(this.rBTypeBoitier4_Click);
+
             "Luna Porte radio",
-            "Luna Présence radio",
+            "Luna PrÃ©sence radio",
             "Detecteur Incendie",
             "Tirette d\'appel",
             "Luna Led",
             "Luna Porte Bluetooth",
-            "Luna Présence Bluetooth",
-            "Luna Média Wifi",
+            "Luna PrÃ©sence Bluetooth",
+            "Luna MÃ©dia Wifi",
             "Luna Audio Wifi",
             "Detecteur chute Vibby"});
             this.comboBMateriel.Location = new System.Drawing.Point(12, 207);
@@ -1989,7 +2051,7 @@ namespace ImportSosGeneve
             this.groupBox3.Size = new System.Drawing.Size(373, 506);
             this.groupBox3.TabIndex = 14;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Personnes à prévenir en cas d\'urgence";
+            this.groupBox3.Text = "Personnes Ã  prÃ©venir en cas d\'urgence";
             // 
             // bSupprimer2
             // 
@@ -2110,7 +2172,7 @@ namespace ImportSosGeneve
             this.label66.Name = "label66";
             this.label66.Size = new System.Drawing.Size(63, 20);
             this.label66.TabIndex = 25;
-            this.label66.Text = "Prénom :";
+            this.label66.Text = "PrÃ©nom :";
             // 
             // label65
             // 
@@ -2119,7 +2181,7 @@ namespace ImportSosGeneve
             this.label65.Name = "label65";
             this.label65.Size = new System.Drawing.Size(33, 20);
             this.label65.TabIndex = 24;
-            this.label65.Text = "N° :";
+            this.label65.Text = "NÂ° :";
             // 
             // label64
             // 
@@ -2156,7 +2218,7 @@ namespace ImportSosGeneve
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(103, 20);
             this.label53.TabIndex = 14;
-            this.label53.Text = "Téléphone 3 :";
+            this.label53.Text = "TÃ©lÃ©phone 3 :";
             // 
             // label54
             // 
@@ -2166,7 +2228,7 @@ namespace ImportSosGeneve
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(103, 21);
             this.label54.TabIndex = 12;
-            this.label54.Text = "Téléphone 2 :";
+            this.label54.Text = "TÃ©lÃ©phone 2 :";
             // 
             // txtOnglet2Localite2
             // 
@@ -2239,7 +2301,7 @@ namespace ImportSosGeneve
             this.cbOnglet2Lien2.Items.AddRange(new object[] {
             "Fils",
             "Fille",
-            "Parenté",
+            "ParentÃ©",
             "Voisin",
             "Ami",
             "Autre"});
@@ -2256,7 +2318,7 @@ namespace ImportSosGeneve
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(103, 21);
             this.label25.TabIndex = 10;
-            this.label25.Text = "Téléphone 1 :";
+            this.label25.Text = "TÃ©lÃ©phone 1 :";
             // 
             // label26
             // 
@@ -2266,7 +2328,7 @@ namespace ImportSosGeneve
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(163, 19);
             this.label26.TabIndex = 5;
-            this.label26.Text = "Adresse complète :";
+            this.label26.Text = "Adresse complÃ¨te :";
             // 
             // label27
             // 
@@ -2323,7 +2385,7 @@ namespace ImportSosGeneve
             this.groupBox2.Size = new System.Drawing.Size(379, 506);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Personnes mémorisées dans l\'appareil:";
+            this.groupBox2.Text = "Personnes mÃ©morisÃ©es dans l\'appareil:";
             // 
             // bNouveau1
             // 
@@ -2409,22 +2471,26 @@ namespace ImportSosGeneve
             // 
             // txtOnglet2Tel1ter
             // 
+            this.txtOnglet2Tel1ter.Enabled = false;
             this.txtOnglet2Tel1ter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOnglet2Tel1ter.Location = new System.Drawing.Point(121, 410);
             this.txtOnglet2Tel1ter.Mask = "+00-00-000-00-00";
             this.txtOnglet2Tel1ter.Name = "txtOnglet2Tel1ter";
             this.txtOnglet2Tel1ter.Size = new System.Drawing.Size(130, 22);
             this.txtOnglet2Tel1ter.TabIndex = 23;
+            this.txtOnglet2Tel1ter.TabStop = false;
             this.txtOnglet2Tel1ter.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
             // txtOnglet2Tel1bis
             // 
+            this.txtOnglet2Tel1bis.Enabled = false;
             this.txtOnglet2Tel1bis.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOnglet2Tel1bis.Location = new System.Drawing.Point(121, 378);
             this.txtOnglet2Tel1bis.Mask = "+00-00-000-00-00";
             this.txtOnglet2Tel1bis.Name = "txtOnglet2Tel1bis";
             this.txtOnglet2Tel1bis.Size = new System.Drawing.Size(131, 22);
             this.txtOnglet2Tel1bis.TabIndex = 22;
+            this.txtOnglet2Tel1bis.TabStop = false;
             this.txtOnglet2Tel1bis.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
             // txtOnglet2Tel1
@@ -2471,7 +2537,7 @@ namespace ImportSosGeneve
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(33, 20);
             this.label24.TabIndex = 17;
-            this.label24.Text = "N° :";
+            this.label24.Text = "NÂ° :";
             // 
             // label16
             // 
@@ -2480,7 +2546,7 @@ namespace ImportSosGeneve
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(66, 20);
             this.label16.TabIndex = 16;
-            this.label16.Text = "Prénom :";
+            this.label16.Text = "PrÃ©nom :";
             // 
             // label52
             // 
@@ -2489,7 +2555,7 @@ namespace ImportSosGeneve
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(102, 20);
             this.label52.TabIndex = 14;
-            this.label52.Text = "Téléphone 3 :";
+            this.label52.Text = "TÃ©lÃ©phone 3 :";
             // 
             // txtOnglet2Localite1
             // 
@@ -2527,7 +2593,7 @@ namespace ImportSosGeneve
             this.label51.Name = "label51";
             this.label51.Size = new System.Drawing.Size(102, 21);
             this.label51.TabIndex = 12;
-            this.label51.Text = "Téléphone 2 :";
+            this.label51.Text = "TÃ©lÃ©phone 2 :";
             // 
             // txtOnglet2PreNom1
             // 
@@ -2564,7 +2630,7 @@ namespace ImportSosGeneve
             this.cbOnglet2Lien1.Items.AddRange(new object[] {
             "Fils",
             "Fille",
-            "Parenté",
+            "ParentÃ©",
             "Voisin",
             "Ami",
             "Autre"});
@@ -2580,7 +2646,7 @@ namespace ImportSosGeneve
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(155, 21);
             this.label22.TabIndex = 5;
-            this.label22.Text = "Adresse complète :";
+            this.label22.Text = "Adresse complÃ¨te :";
             // 
             // label21
             // 
@@ -2607,7 +2673,7 @@ namespace ImportSosGeneve
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(102, 21);
             this.label23.TabIndex = 10;
-            this.label23.Text = "Téléphone 1 :";
+            this.label23.Text = "TÃ©lÃ©phone 1 :";
             // 
             // lwMemoire
             // 
@@ -2647,7 +2713,7 @@ namespace ImportSosGeneve
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(410, 24);
             this.label19.TabIndex = 0;
-            this.label19.Text = "Liste des personnes mémorisées dans l\'appareil :";
+            this.label19.Text = "Liste des personnes mÃ©morisÃ©es dans l\'appareil :";
             // 
             // tbCle
             // 
@@ -2667,7 +2733,7 @@ namespace ImportSosGeneve
             this.tbCle.Name = "tbCle";
             this.tbCle.Size = new System.Drawing.Size(780, 691);
             this.tbCle.TabIndex = 4;
-            this.tbCle.Text = "Attribution Clé";
+            this.tbCle.Text = "Attribution ClÃ©";
             // 
             // label67
             // 
@@ -2685,7 +2751,7 @@ namespace ImportSosGeneve
             this.chkClePresente.Name = "chkClePresente";
             this.chkClePresente.Size = new System.Drawing.Size(261, 20);
             this.chkClePresente.TabIndex = 8;
-            this.chkClePresente.Text = "Clé présente";
+            this.chkClePresente.Text = "ClÃ© prÃ©sente";
             this.chkClePresente.UseVisualStyleBackColor = false;
             // 
             // chkDossierBleu
@@ -2722,7 +2788,7 @@ namespace ImportSosGeneve
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(134, 20);
             this.label42.TabIndex = 4;
-            this.label42.Text = "N° Contrat (PROM) :";
+            this.label42.Text = "NÂ° Contrat (PROM) :";
             // 
             // btnVerifCle
             // 
@@ -2730,7 +2796,7 @@ namespace ImportSosGeneve
             this.btnVerifCle.Name = "btnVerifCle";
             this.btnVerifCle.Size = new System.Drawing.Size(271, 22);
             this.btnVerifCle.TabIndex = 2;
-            this.btnVerifCle.Text = "Vérifier que cette clé n\'est pas attribuée.";
+            this.btnVerifCle.Text = "VÃ©rifier que cette clÃ© n\'est pas attribuÃ©e.";
             this.btnVerifCle.Click += new System.EventHandler(this.btnVerifCle_Click);
             // 
             // txtCommentaireCle
@@ -2756,7 +2822,7 @@ namespace ImportSosGeneve
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(136, 16);
             this.label40.TabIndex = 0;
-            this.label40.Text = "Clé attribuée :";
+            this.label40.Text = "ClÃ© attribuÃ©e :";
             // 
             // tbJournal
             // 
@@ -2982,7 +3048,7 @@ namespace ImportSosGeneve
             this.label48.Name = "label48";
             this.label48.Size = new System.Drawing.Size(185, 19);
             this.label48.TabIndex = 3;
-            this.label48.Text = "Identificateur clé opérateur :";
+            this.label48.Text = "Identificateur clÃ© opÃ©rateur :";
             this.label48.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label47
@@ -3039,7 +3105,7 @@ namespace ImportSosGeneve
             this.rdOnglet5Cle.Name = "rdOnglet5Cle";
             this.rdOnglet5Cle.Size = new System.Drawing.Size(46, 20);
             this.rdOnglet5Cle.TabIndex = 0;
-            this.rdOnglet5Cle.Text = "Clé";
+            this.rdOnglet5Cle.Text = "ClÃ©";
             this.rdOnglet5Cle.UseVisualStyleBackColor = false;
             // 
             // tbFactures
@@ -3139,7 +3205,7 @@ namespace ImportSosGeneve
             this.tbDossierMedical.Name = "tbDossierMedical";
             this.tbDossierMedical.Size = new System.Drawing.Size(780, 691);
             this.tbDossierMedical.TabIndex = 3;
-            this.tbDossierMedical.Text = "Dossier médical";
+            this.tbDossierMedical.Text = "Dossier mÃ©dical";
             // 
             // bSupprMedecin
             // 
@@ -3154,7 +3220,7 @@ namespace ImportSosGeneve
             this.bSupprMedecin.Name = "bSupprMedecin";
             this.bSupprMedecin.Size = new System.Drawing.Size(60, 60);
             this.bSupprMedecin.TabIndex = 54;
-            this.toolTip1.SetToolTip(this.bSupprMedecin, "Supprimer un médecin traitant");
+            this.toolTip1.SetToolTip(this.bSupprMedecin, "Supprimer un mÃ©decin traitant");
             this.bSupprMedecin.UseVisualStyleBackColor = false;
             this.bSupprMedecin.Click += new System.EventHandler(this.bSupprMedecin_Click);
             // 
@@ -3171,7 +3237,7 @@ namespace ImportSosGeneve
             this.bAjoutMedecin.Name = "bAjoutMedecin";
             this.bAjoutMedecin.Size = new System.Drawing.Size(60, 60);
             this.bAjoutMedecin.TabIndex = 53;
-            this.toolTip1.SetToolTip(this.bAjoutMedecin, "Ajouter un médecin traitant");
+            this.toolTip1.SetToolTip(this.bAjoutMedecin, "Ajouter un mÃ©decin traitant");
             this.bAjoutMedecin.UseVisualStyleBackColor = false;
             this.bAjoutMedecin.Click += new System.EventHandler(this.bAjoutMedecin_Click);
             // 
@@ -3200,7 +3266,7 @@ namespace ImportSosGeneve
             this.txtOnglet3Tel.ReadOnly = true;
             this.txtOnglet3Tel.Size = new System.Drawing.Size(188, 22);
             this.txtOnglet3Tel.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.txtOnglet3Tel, "Téléphone du médecin sélectionné");
+            this.toolTip1.SetToolTip(this.txtOnglet3Tel, "TÃ©lÃ©phone du mÃ©decin sÃ©lectionnÃ©");
             // 
             // txtOnglet3Poids
             // 
@@ -3260,7 +3326,7 @@ namespace ImportSosGeneve
             this.groupBox4.Size = new System.Drawing.Size(250, 118);
             this.groupBox4.TabIndex = 18;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Services à domicile";
+            this.groupBox4.Text = "Services Ã  domicile";
             // 
             // chkOnglet3AutreServices
             // 
@@ -3296,7 +3362,7 @@ namespace ImportSosGeneve
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(174, 18);
             this.label33.TabIndex = 10;
-            this.label33.Text = "Attitudes préconisées :";
+            this.label33.Text = "Attitudes prÃ©conisÃ©es :";
             // 
             // label32
             // 
@@ -3306,7 +3372,7 @@ namespace ImportSosGeneve
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(115, 23);
             this.label32.TabIndex = 9;
-            this.label32.Text = "Médicaments :";
+            this.label32.Text = "MÃ©dicaments :";
             // 
             // chkOnglet3Risque
             // 
@@ -3326,7 +3392,7 @@ namespace ImportSosGeneve
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(77, 16);
             this.label31.TabIndex = 6;
-            this.label31.Text = "Téléphone:";
+            this.label31.Text = "TÃ©lÃ©phone:";
             // 
             // label30
             // 
@@ -3336,7 +3402,7 @@ namespace ImportSosGeneve
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(166, 14);
             this.label30.TabIndex = 4;
-            this.label30.Text = "Problèmes médicaux :";
+            this.label30.Text = "ProblÃ¨mes mÃ©dicaux :";
             // 
             // label29
             // 
@@ -3346,7 +3412,7 @@ namespace ImportSosGeneve
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(157, 19);
             this.label29.TabIndex = 0;
-            this.label29.Text = "Médecins traitants :";
+            this.label29.Text = "MÃ©decins traitants :";
             // 
             // tbBoitier
             // 
@@ -3410,7 +3476,7 @@ namespace ImportSosGeneve
             this.lblCle.Name = "lblCle";
             this.lblCle.Size = new System.Drawing.Size(95, 24);
             this.lblCle.TabIndex = 2;
-            this.lblCle.Text = "Clé :";
+            this.lblCle.Text = "ClÃ© :";
             // 
             // lblContrat
             // 
@@ -3456,7 +3522,7 @@ namespace ImportSosGeneve
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(96, 16);
             this.label18.TabIndex = 9;
-            this.label18.Text = "Téléphone : +";
+            this.label18.Text = "TÃ©lÃ©phone : +";
             // 
             // lwAbonne
             // 
@@ -3504,7 +3570,7 @@ namespace ImportSosGeneve
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(36, 16);
             this.label28.TabIndex = 11;
-            this.label28.Text = "Clé :";
+            this.label28.Text = "ClÃ© :";
             // 
             // txtFind_Cle
             // 
@@ -3522,7 +3588,7 @@ namespace ImportSosGeneve
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(85, 19);
             this.label44.TabIndex = 1;
-            this.label44.Text = "Contrat N° :";
+            this.label44.Text = "Contrat NÂ° :";
             // 
             // txtFindContrat
             // 
@@ -3551,7 +3617,7 @@ namespace ImportSosGeneve
             this.rdTriArchive2.Name = "rdTriArchive2";
             this.rdTriArchive2.Size = new System.Drawing.Size(103, 22);
             this.rdTriArchive2.TabIndex = 4;
-            this.rdTriArchive2.Text = "non archivés";
+            this.rdTriArchive2.Text = "non archivÃ©s";
             // 
             // rdTriArchive3
             // 
@@ -3560,7 +3626,7 @@ namespace ImportSosGeneve
             this.rdTriArchive3.Name = "rdTriArchive3";
             this.rdTriArchive3.Size = new System.Drawing.Size(72, 22);
             this.rdTriArchive3.TabIndex = 5;
-            this.rdTriArchive3.Text = "Archivés";
+            this.rdTriArchive3.Text = "ArchivÃ©s";
             // 
             // txtFind_Abonnement
             // 
@@ -3626,7 +3692,7 @@ namespace ImportSosGeneve
             this.labelNFacture.Name = "labelNFacture";
             this.labelNFacture.Size = new System.Drawing.Size(105, 20);
             this.labelNFacture.TabIndex = 45;
-            this.labelNFacture.Text = "N° de Facture :";
+            this.labelNFacture.Text = "NÂ° de Facture :";
             // 
             // splitContainer1
             // 
@@ -3674,7 +3740,7 @@ namespace ImportSosGeneve
             this.cBoxFactBloque.Name = "cBoxFactBloque";
             this.cBoxFactBloque.Size = new System.Drawing.Size(146, 20);
             this.cBoxFactBloque.TabIndex = 54;
-            this.cBoxFactBloque.Text = "Facturation bloquée";
+            this.cBoxFactBloque.Text = "Facturation bloquÃ©e";
             this.cBoxFactBloque.UseVisualStyleBackColor = true;
             // 
             // bRechercher
@@ -3701,7 +3767,7 @@ namespace ImportSosGeneve
             this.LTitre.Name = "LTitre";
             this.LTitre.Size = new System.Drawing.Size(385, 51);
             this.LTitre.TabIndex = 48;
-            this.LTitre.Text = "Gestion des télé-alarme";
+            this.LTitre.Text = "Gestion des tÃ©lÃ©-alarme";
             // 
             // bAnnuler
             // 
@@ -3748,7 +3814,7 @@ namespace ImportSosGeneve
             this.bEnvoiMail.Name = "bEnvoiMail";
             this.bEnvoiMail.Size = new System.Drawing.Size(60, 60);
             this.bEnvoiMail.TabIndex = 51;
-            this.toolTip1.SetToolTip(this.bEnvoiMail, "Envoyer un Email pour les clés");
+            this.toolTip1.SetToolTip(this.bEnvoiMail, "Envoyer un Email pour les clÃ©s");
             this.bEnvoiMail.UseVisualStyleBackColor = false;
             this.bEnvoiMail.Click += new System.EventHandler(this.bEnvoiMail_Click);
             // 
@@ -3832,7 +3898,7 @@ namespace ImportSosGeneve
         }
         #endregion
 
-        #region Méthodes et propriétés sur les onglets
+        #region MÃ©thodes et propriÃ©tÃ©s sur les onglets
 
         public void SetOnglet(int Index)
         {
@@ -3841,11 +3907,11 @@ namespace ImportSosGeneve
 
         #endregion
 
-        #region Opérations sur les abonnement
+        #region OpÃ©rations sur les abonnement
 
         public void NouveauAbonnement()
         {                                   
-            //On réactive les contrôles
+            //On rÃ©active les contrÃ´les
             tbAbonnement.Tag = -1;
 
             foreach (Control c in tbAbonnement.Controls)
@@ -3908,24 +3974,24 @@ namespace ImportSosGeneve
 
             rBSexFactF.Checked = true;
        
-            //Pour contrôles vérouillés (on les réactive pour les décocher puis on les désactive)
+            //Pour contrÃ´les vÃ©rouillÃ©s (on les rÃ©active pour les dÃ©cocher puis on les dÃ©sactive)
             if (checkBoxSansRappelTA.Enabled == false)
             {
-                checkBoxSansRappelTA.Enabled = true;        //On réactive les ctrl
+                checkBoxSansRappelTA.Enabled = true;        //On rÃ©active les ctrl
                 rdPeriodFac3.Enabled = true;
                 cbOrdre.Enabled = true;
 
-                checkBoxSansRappelTA.Checked = false;       //On les décoches
+                checkBoxSansRappelTA.Checked = false;       //On les dÃ©coches
                 rdPeriodFac3.Checked = false;
                 cbOrdre.Checked = false;
 
-                checkBoxSansRappelTA.Enabled = false;       //On les déactives
+                checkBoxSansRappelTA.Enabled = false;       //On les dÃ©actives
                 rdPeriodFac3.Enabled = false;
                 cbOrdre.Enabled = false;
             }
             else
             {
-                checkBoxSansRappelTA.Checked = false;       //On les décoches
+                checkBoxSansRappelTA.Checked = false;       //On les dÃ©coches
                 rdPeriodFac3.Checked = false;
                 cbOrdre.Checked = false;
             }
@@ -3940,7 +4006,7 @@ namespace ImportSosGeneve
             cbExporter.Enabled = false;
             cbModifFiche.Checked = false;
 
-            //Pour l'état des boutons
+            //Pour l'Ã©tat des boutons
             bNouveau1.Visible = true;
             bNouveau1.Enabled = true;
             bNouveau1.ImageIndex = 6;
@@ -4026,13 +4092,14 @@ namespace ImportSosGeneve
             txtOnglet5ICE.Text = "";
             txtOnglet5NbCle.Text = "";
 
-            // Ajout d'un contact forcé = SOS Médecins
-            DataTable dt = OutilsExt.OutilsSql.RecupereStructureContactVierge();
+            row["Tel2"] = DBNull.Value;
+            row["Tel3"] = DBNull.Value;
+            rBTypeBoitier4.Enabled = false;
             DataRow row = dt.NewRow();
             row["IdAbonnement"] = -1;
             row["Lien"] = "Autre";
             row["Nom"] = "SOS";
-            row["Prenom"] = "Médecins";
+            row["Prenom"] = "MÃ©decins";
             row["Telephone"] = "+41227484949";
             row["Tel2"] = "";
             row["Tel3"] = "";
@@ -4043,7 +4110,7 @@ namespace ImportSosGeneve
 
             ListViewItem item = new ListViewItem("Autre");
             item.Tag = row;
-            item.SubItems.Add("SOS Médecins");
+            item.SubItems.Add("SOS MÃ©decins");
             item.SubItems.Add(row["Telephone"].ToString());
             lwMemoire.Items.Add(item);
 
@@ -4051,7 +4118,7 @@ namespace ImportSosGeneve
             dtNvxMateriel.Rows.Clear();
             listViewMat1.Items.Clear();
 
-            //Idem pour les n° de Tel
+            //Idem pour les nÂ° de Tel
             dtNvxTel.Rows.Clear();
             dtDelTel.Rows.Clear();
             listViewTel.Items.Clear();
@@ -4059,7 +4126,7 @@ namespace ImportSosGeneve
             bAjouteTel1.Enabled = false;
             bAjouteTel1.ImageIndex = 7;
 
-            //On désactive les contrôles Materiels
+            //On dÃ©sactive les contrÃ´les Materiels
             rBTypeBoitier1.Enabled = false;
             rBTypeBoitier2.Enabled = false;
             rBTypeBoitier3.Enabled = false;
@@ -4083,59 +4150,59 @@ namespace ImportSosGeneve
         public void SupprimeAbonnement()
         {
             //En fait on l'archive....
-            //On regarde s'il n'est pas déjà archivé                                   
+            //On regarde s'il n'est pas dÃ©jÃ  archivÃ©                                   
             if (tbAbonnement.Tag != null && tbAbonnement.Tag.ToString() != "-1")
             {
-                if (VerifArchive(tbAbonnement.Tag.ToString()) == "Non Archivé")
+                if (VerifArchive(tbAbonnement.Tag.ToString()) == "Non ArchivÃ©")
                 {
 
                     bool reussite = OutilsExt.OutilsSql.SupprimeAbonnement(int.Parse(tbAbonnement.Tag.ToString()));
                     if (reussite)
                     {
-                        //on déaffecte le boitier SOS si c'est un médicalarme
+                        //on dÃ©affecte le boitier SOS si c'est un mÃ©dicalarme
                         string[] Ope = { "Archive" };
 
                         MajMateriel("00000000", tbAbonnement.Tag.ToString(), Ope);
 
                         mouchard.evenement("Modification de la fiche TA pour  " + txtTa_Nom.Text.ToString() + " " + txtTa_Prenom.Text.ToString() + ": Archivage de l'abonnement.", VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());  //log
-                        MessageBox.Show("Abonnement archivé");
+                        MessageBox.Show("Abonnement archivÃ©");
                         AfficheAbonnement(null);
                     }
                     else
                     {
-                        MessageBox.Show("Erreur à l'archivage de l'abonnement");
+                        MessageBox.Show("Erreur Ã  l'archivage de l'abonnement");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Cet abonnement est DEJA archivé!");
+                    MessageBox.Show("Cet abonnement est DEJA archivÃ©!");
                 }
             }
         }
 
         public void DeSupprimeAbonnement()
         {
-            //En fait on le dé-archive...
-            //On regarde s'il est archivé au moins         
+            //En fait on le dÃ©-archive...
+            //On regarde s'il est archivÃ© au moins         
             if (tbAbonnement.Tag != null && tbAbonnement.Tag.ToString() != "-1")
             {
-                if (VerifArchive(tbAbonnement.Tag.ToString()) == "Archivé")
+                if (VerifArchive(tbAbonnement.Tag.ToString()) == "ArchivÃ©")
                 {
                     bool reussite = OutilsExt.OutilsSql.deSupprimeAbonnement(int.Parse(tbAbonnement.Tag.ToString()));
                     if (reussite)
                     {
-                        MessageBox.Show("Abonnement Desarchivé, vérifiez l'attribution d'une box TA");
-                        mouchard.evenement("Modification de la fiche TA pour  " + txtTa_Nom.Text.ToString() + " " + txtTa_Prenom.Text.ToString() + ": Désarchivage de l'abonnement.", VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());  //log
+                        MessageBox.Show("Abonnement DesarchivÃ©, vÃ©rifiez l'attribution d'une box TA");
+                        mouchard.evenement("Modification de la fiche TA pour  " + txtTa_Nom.Text.ToString() + " " + txtTa_Prenom.Text.ToString() + ": DÃ©sarchivage de l'abonnement.", VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());  //log
                         AfficheAbonnement(null);
                     }
                     else
                     {
-                        MessageBox.Show("Erreur à l'archivage de l'abonnement");
+                        MessageBox.Show("Erreur Ã  l'archivage de l'abonnement");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Cet abonnement N'EST PAS archivé...Pas besoin de le dé-archiver!");
+                    MessageBox.Show("Cet abonnement N'EST PAS archivÃ©...Pas besoin de le dÃ©-archiver!");
                 }
             }
         }
@@ -4143,7 +4210,7 @@ namespace ImportSosGeneve
 
         public void ModifieAbonnement()
         {
-            //On réactive les contrôles de fiche 
+            //On rÃ©active les contrÃ´les de fiche 
             foreach (Control c in tbAbonnement.Controls)
             {
                 if (c.GetType() == typeof(TextBox))
@@ -4152,7 +4219,7 @@ namespace ImportSosGeneve
                 }
             }
 
-            //Pour l'état des boutons
+            //Pour l'Ã©tat des boutons
             bNouveau1.Visible = true;
             bNouveau1.Enabled = true;
             bNouveau1.ImageIndex = 6;
@@ -4196,13 +4263,15 @@ namespace ImportSosGeneve
                 rBTypeBoitier1.Enabled = true;
                 rBTypeBoitier2.Enabled = true;
                 rBTypeBoitier3.Enabled = true;
+                rBTypeBoitier4.Enabled = true;
                 comboBMateriel.Enabled = true;
                 listViewMat1.Enabled = true;
                 tBoxSupprMatos.Enabled = true;
                 bAjoutMat1.Enabled = true;
                 bSupprMatos.Enabled = true;               
             }
-            else   //On déactive les contrôles
+                rBTypeBoitier4.Enabled = false;
+            else   //On dÃ©active les contrÃ´les
             {
                 rBTypeBoitier1.Enabled = false;
                 rBTypeBoitier2.Enabled = false;
@@ -4217,7 +4286,7 @@ namespace ImportSosGeneve
             //Pour les Tel du patient
             listViewTel.Enabled = true;
 
-            //en fonction des droits on désactive certains controles
+            //en fonction des droits on dÃ©sactive certains controles
             if (VariablesApplicatives.Utilisateurs.Droits == VariablesApplicatives.Utilisateurs.CodeDroits.Comptable
                 || VariablesApplicatives.Utilisateurs.Droits == VariablesApplicatives.Utilisateurs.CodeDroits.Chef
                 || VariablesApplicatives.Utilisateurs.Droits == VariablesApplicatives.Utilisateurs.CodeDroits.Admin)
@@ -4238,7 +4307,7 @@ namespace ImportSosGeneve
 
         public void AfficheAbonnement(DataSet ds)
         {
-            //Par défaut, les contrôles sont désactivés            
+            //Par dÃ©faut, les contrÃ´les sont dÃ©sactivÃ©s            
             tbAbonnement.Tag = null;
 
             foreach (Control c in tbAbonnement.Controls)
@@ -4289,6 +4358,11 @@ namespace ImportSosGeneve
             txtNumCle.Text = "";
             txtCommentaireCle.Text = "";
             txtIdContrat.Text = "";
+            initialDomoContactId = string.Empty;
+            initialDomoVid = string.Empty;
+            initialDomoPhone = string.Empty;
+            selectedDomoContactId = string.Empty;
+            HideDomoSelection();
             rdPeriodFac0.Checked = false;
             rdPeriodFac1.Checked = false;
             rdPeriodFac2.Checked = false;
@@ -4345,7 +4419,7 @@ namespace ImportSosGeneve
             txtOnglet5NbCle.Text = "";
 
 
-            //Pour l'état des boutons
+            //Pour l'Ã©tat des boutons
             bNouveau1.Visible = true;
             bNouveau1.Enabled = false;
             bNouveau1.ImageIndex = 7;
@@ -4389,7 +4463,7 @@ namespace ImportSosGeneve
             dtNvxMateriel.Rows.Clear();
             listViewMat1.Items.Clear();
 
-            //Pour la liste des n° de Tel
+            //Pour la liste des nÂ° de Tel
             dtNvxTel.Rows.Clear();
             dtDelTel.Rows.Clear();
             listViewTel.Items.Clear();
@@ -4524,7 +4598,7 @@ namespace ImportSosGeneve
                 // Table Contenant les factures 
                 if (ds.Tables.Count == 7)
                 {
-                    //Paramètres du datagridView              
+                    //ParamÃ¨tres du datagridView              
                     dataGridView1.DataSource = ds.Tables[6];
                     dataGridView1.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                     dataGridView1.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -4536,13 +4610,13 @@ namespace ImportSosGeneve
                     dataGridView1.Columns[7].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     dataGridView1.Columns[8].Visible = false;                    
                     
-                    dataGridView1.Columns[0].HeaderText = "N° de facture";
+                    dataGridView1.Columns[0].HeaderText = "NÂ° de facture";
                     dataGridView1.Columns[1].HeaderText = "Date Facture";
                     dataGridView1.Columns[2].HeaderText = "Montant";
-                    dataGridView1.Columns[3].HeaderText = "Début de période";
-                    dataGridView1.Columns[4].HeaderText = "Fin de période";
+                    dataGridView1.Columns[3].HeaderText = "DÃ©but de pÃ©riode";
+                    dataGridView1.Columns[4].HeaderText = "Fin de pÃ©riode";
                     dataGridView1.Columns[5].HeaderText = "Date paiement";
-                    dataGridView1.Columns[6].HeaderText = "Acquité ?";
+                    dataGridView1.Columns[6].HeaderText = "AcquitÃ© ?";
                     dataGridView1.Columns[7].HeaderText = "Moyen de paiement";
 
                     //on centre le titre de toute les colonnes
@@ -4607,7 +4681,7 @@ namespace ImportSosGeneve
                     OrdrePermanent = 0;
                 }
 
-                //Pour Activer les factures (si c'est déjà fait, bouton inactif)
+                //Pour Activer les factures (si c'est dÃ©jÃ  fait, bouton inactif)
                 if (ds.Tables[0].Rows[0]["ActiverFacture"].ToString() == "1")
                     bActiverFacture.Enabled = false;
                 else
@@ -4623,7 +4697,7 @@ namespace ImportSosGeneve
                 //if(ds.Tables[0].Rows[0]["ExportModif"].ToString()== "1")
                 //    cbModifFiche.Checked = true;
 
-                // Table contenant le dossier médical succint
+                // Table contenant le dossier mÃ©dical succint
                 txtOnglet3Pb.Text = ds.Tables[3].Rows[0]["TD_PbMedicaux"].ToString();
                 txtOnglet3Medic.Text = ds.Tables[3].Rows[0]["TD_Traitements"].ToString();
                 txtOnglet3Poids.Text = ds.Tables[3].Rows[0]["TD_Poids"].ToString();
@@ -4637,13 +4711,15 @@ namespace ImportSosGeneve
                 if (ds.Tables[3].Rows[0]["TD_Autres_services"].ToString() == "1")
                     chkOnglet3AutreServices.Checked = true;
 
-                //Utilisation du champ TD_FS_repas (obsolète) pour la gestion des sourds et malentendants
+                    rBTypeBoitier4.Enabled = true;
+                    rBTypeBoitier4.Enabled = false;
+                //Utilisation du champ TD_FS_repas (obsolÃ¨te) pour la gestion des sourds et malentendants
                 if (ds.Tables[3].Rows[0]["TD_FS_repas"].ToString() == "1")
                     CB_Sourd.Checked = true;
 
 
-                //*****Matériel********
-                //Type de boitier 1 = Imad; 2 = Swisscom; 3 = Aucun; 4 = SOS Médecins; 5 = Privé
+                //*****MatÃ©riel********
+                //Type de boitier 1 = Imad; 2 = Swisscom; 3 = Aucun; 4 = SOS MÃ©decins; 5 = PrivÃ©
                 if (ds.Tables[3].Rows[0]["TD_TypeAppareil"].ToString() == "1")
                     rdOnglet3Type1.Checked = true;
                 else if (ds.Tables[3].Rows[0]["TD_TypeAppareil"].ToString() == "2")
@@ -4671,7 +4747,7 @@ namespace ImportSosGeneve
                     //Chargement du materiel
                     ChargeListMateriel(ds.Tables[0].Rows[0]["IdAbonnement"].ToString());  
                 }
-                else   //On déactive les contrôles
+                else   //On dÃ©active les contrÃ´les
                 {
                     rBTypeBoitier1.Enabled = false;
                     rBTypeBoitier2.Enabled = false;
@@ -4688,19 +4764,19 @@ namespace ImportSosGeneve
 
                 cBoxMotifChangement.Enabled = false;
                 
-                //*****************Fin Matériel*********************       
+                //*****************Fin MatÃ©riel*********************       
         
-                //Chargement des autres n° de Tel du patient
+                //Chargement des autres nÂ° de Tel du patient
                 listViewTel.Enabled = true;
                 
-                //Chargement des N° de tel
+                //Chargement des NÂ° de tel
                 ChargeListTel(ds.Tables[0].Rows[0]["IdPersonne"].ToString());  
 
-                //Chargement de la liste des médecins traitant depuis de dossier TA
+                //Chargement de la liste des mÃ©decins traitant depuis de dossier TA
                 string[] TabListe;
                 ArrayList listeMed = new ArrayList();
                 string ListeMedTTT = ds.Tables[3].Rows[0]["TD_ListeMedecinsTTT"].ToString();
-                TabListe = ListeMedTTT.Split('¤');
+                TabListe = ListeMedTTT.Split('Â¤');
                 listeMed = new ArrayList();
 
                 foreach (string s in TabListe)
@@ -4722,7 +4798,7 @@ namespace ImportSosGeneve
                     lwMedTTT.Select();
                 }
 
-                //Puis on en recherche le n° de tel pour l'afficher
+                //Puis on en recherche le nÂ° de tel pour l'afficher
                 if (lwMedTTT.SelectedItems.Count > 0)
                 {
                     if (lwMedTTT.SelectedItems[0].Tag != null)
@@ -4731,12 +4807,12 @@ namespace ImportSosGeneve
                     }
                 }
 
-                // Affichage des données sur la clé attribuée :
+                // Affichage des donnÃ©es sur la clÃ© attribuÃ©e :
                 txtNumCle.Text = ds.Tables[4].Rows[0]["NumeroCle"].ToString();
                 txtCommentaireCle.Text = ds.Tables[4].Rows[0]["Commentaire"].ToString();
 
                 lblNom.Text = "Nom : " + txtTa_Nom.Text + " " + txtTa_Prenom.Text;
-                lblCle.Text = "Clé : " + txtNumCle.Text;
+                lblCle.Text = "ClÃ© : " + txtNumCle.Text;
                 lblContrat.Text = "Contrat : " + txtIdContrat.Text;
                 LIdAbonnement.Text = "ID Abon.: " + ds.Tables[0].Rows[0]["IdAbonnement"].ToString();
 
@@ -4773,7 +4849,7 @@ namespace ImportSosGeneve
                 txtOnglet2Tel1bis.Text = "";
                 txtOnglet2Tel1ter.Text = "";
 
-                //On gère l'état des boutons
+                //On gÃ¨re l'Ã©tat des boutons
                 bNouveau1.Visible = true;
                 bNouveau1.Enabled = true;
                 bNouveau1.ImageIndex = 6;
@@ -4798,7 +4874,7 @@ namespace ImportSosGeneve
                 txtOnglet2Tel1bis.Text = row["Tel2"].ToString();
                 txtOnglet2Tel1ter.Text = row["Tel3"].ToString();
 
-                //On gère l'état des boutons                               
+                //On gÃ¨re l'Ã©tat des boutons                               
                 bNouveau1.Visible = true;
                 bNouveau1.Enabled = true;
                 bNouveau1.ImageIndex = 6;
@@ -4825,7 +4901,7 @@ namespace ImportSosGeneve
                 txtOnglet2Tel2bis.Text = "";
                 txtOnglet2Tel2ter.Text = "";
 
-                //On gère l'état des boutons               
+                //On gÃ¨re l'Ã©tat des boutons               
                 bNouveau2.Visible = true;
                 bNouveau2.Enabled = true;
                 bNouveau2.ImageIndex = 6;
@@ -4876,7 +4952,7 @@ namespace ImportSosGeneve
 
             if (tbAbonnement.Tag != null)
             {
-                // Vérification des champs vide
+                // VÃ©rification des champs vide
                 if (txtTa_Nom.Text == "")
                 {
                     flag = false;
@@ -4886,7 +4962,7 @@ namespace ImportSosGeneve
                 if (txtTa_Prenom.Text == "")
                 {
                     flag = false;
-                    MessageBox.Show("Champs Prénom Obligatoire");
+                    MessageBox.Show("Champs PrÃ©nom Obligatoire");
                     return;
                 }
                 if (txtTa_Naissance.Text == "")
@@ -4898,7 +4974,7 @@ namespace ImportSosGeneve
                 if (EMaskTel1.Text.Replace("-", "").Replace("+", "") == "")
                 {
                     flag = false;
-                    MessageBox.Show("Champs Téléphone Obligatoire");
+                    MessageBox.Show("Champs TÃ©lÃ©phone Obligatoire");
                     return;
                 }
                 if (!rdTa_Homme.Checked && !rdTa_Femme.Checked)
@@ -4927,7 +5003,7 @@ namespace ImportSosGeneve
                 {
                     flag = false;
                     //Message d'erreur
-                    MessageBox.Show("Champs Numéro Postal obligatoire ET SANS LETTRE");
+                    MessageBox.Show("Champs NumÃ©ro Postal obligatoire ET SANS LETTRE");
                     return;
                 }
 
@@ -4936,32 +5012,54 @@ namespace ImportSosGeneve
                 {
                     flag = false;
                     //Message d'erreur
-                    MessageBox.Show("Champs Numéro Postal Facturation obligatoire ET SANS LETTRE");
+                    MessageBox.Show("Champs NumÃ©ro Postal Facturation obligatoire ET SANS LETTRE");
                     return;
                 }
 
                 if (txtTa_Localite.Text == "")
                 {
                     flag = false;
-                    MessageBox.Show("Champs Localité obligatoire");
+                    MessageBox.Show("Champs LocalitÃ© obligatoire");
                     return;
                 }
 
                 if (txtNumCle.Text == "")
                 {
                     flag = false;
-                    MessageBox.Show("Champs Numéro Clé obligatoire");
+                    MessageBox.Show("Champs NumÃ©ro ClÃ© obligatoire");
                     return;
                 }
                 else
-                {   //On verifie que la cle n'est pas déjà attribuée
+                {   //On verifie que la cle n'est pas dÃ©jÃ  attribuÃ©e
                     string nom = OutilsExt.OutilsSql.NomSurCle(txtNumCle.Text);
                     if (nom != null && nom != "")
                     {
                         string nomFiche = txtTa_Nom.Text + ' ' + txtTa_Prenom.Text;
                         if (nom != nomFiche)
                         {
-                            MessageBox.Show("Clé déjà attribuée à " + nom);
+                bool isExistingAbonnement = tbAbonnement.Tag != null && tbAbonnement.Tag.ToString() != "-1";
+                if (rBTypeBoitier4.Checked)
+                {
+                    if (cbNumeroBoitier.SelectedValue == null || cbNumeroBoitier.SelectedIndex < 0)
+                    {
+                        flag = false;
+                        MessageBox.Show("Veuillez slectionner un botier DOMO 4G disponible.");
+                        return;
+                    }
+
+                    string initialComparable = initialDomoContactId == null ? string.Empty : initialDomoContactId.TrimStart('0');
+                    string selectedComparable = selectedDomoContactId == null ? string.Empty : selectedDomoContactId.TrimStart('0');
+                    bool domoBoxChanged = isExistingAbonnement && !string.IsNullOrEmpty(initialComparable) && !string.Equals(initialComparable, selectedComparable, StringComparison.Ordinal);
+                    bool switchingToDomo = isExistingAbonnement && AncienCheck != 4;
+                    if ((domoBoxChanged || switchingToDomo) && string.IsNullOrEmpty(cBoxMotifChangement.Text))
+                    {
+                        flag = false;
+                        MessageBox.Show("Veuillez indiquer le motif de changement de botier.");
+                        return;
+                    }
+                }
+
+                            MessageBox.Show("ClÃ© dÃ©jÃ  attribuÃ©e Ã  " + nom);
                             return;
                         }
                     }
@@ -4970,17 +5068,17 @@ namespace ImportSosGeneve
                 if (txtIdContrat.Text == "")
                 {
                     flag = false;
-                    MessageBox.Show("Champs Numéro Contrat obligatoire.");
+                    MessageBox.Show("Champs NumÃ©ro Contrat obligatoire.");
                     return;
                 }
                 else if (txtIdContrat.Text == "-1")
                 {
                     flag = false;
-                    MessageBox.Show("Il n'y a plus de matériel disponible...Impossible d'enregistrer cet abonnement.");
+                    MessageBox.Show("Il n'y a plus de matÃ©riel disponible...Impossible d'enregistrer cet abonnement.");
                     return;
                 }
 
-                //Est-ce un médicalerte?
+                //Est-ce un mÃ©dicalerte?
                 if (int.Parse(txtIdContrat.Text) >= 30000)
                 {                   
                     Medicalerte = 1;                    
@@ -4990,11 +5088,11 @@ namespace ImportSosGeneve
                 if (!rdPeriodFac0.Checked && !rdPeriodFac1.Checked && !rdPeriodFac2.Checked && !rdPeriodFac3.Checked && !rdPeriodFac4.Checked)
                 {
                     flag = false;
-                    MessageBox.Show("Choississez une périodicité de facturation");
+                    MessageBox.Show("Choississez une pÃ©riodicitÃ© de facturation");
                     return;
                 }
 
-                // Vérification du type de champs               
+                // VÃ©rification du type de champs               
                 try
                 {
                     DateTime d = DateTime.Parse(txtTa_Naissance.Text);
@@ -5011,11 +5109,11 @@ namespace ImportSosGeneve
                 // Si c'est un premier enregistrement				
                 if (tbAbonnement.Tag.ToString() == "-1")
                 {
-                    // S'il n'y a rien de stocké dans le bouton "Existant" c'est un tout nouvel enregistrement					
+                    // S'il n'y a rien de stockÃ© dans le bouton "Existant" c'est un tout nouvel enregistrement					
                     if (bVerif.Tag == null)
                         ds = OutilsExt.OutilsSql.NouveauAbonnement(-1, -1);
                     else
-                        // Sinon on transmet les index de patient récupérés
+                        // Sinon on transmet les index de patient rÃ©cupÃ©rÃ©s
                         ds = OutilsExt.OutilsSql.NouveauAbonnement(long.Parse(bVerif.Tag.ToString().Split('/')[1]), long.Parse(bVerif.Tag.ToString().Split('/')[0]));
 
                     if (ds != null)
@@ -5037,7 +5135,7 @@ namespace ImportSosGeneve
                 else
                 {
                     // Sinon Maj
-                    ds = OutilsExt.OutilsSql.RecupereAbonnement(int.Parse(tbAbonnement.Tag.ToString()), 0);       //Domi  07.11.2013 (2ème argument dans la fct)
+                    ds = OutilsExt.OutilsSql.RecupereAbonnement(int.Parse(tbAbonnement.Tag.ToString()), 0);       //Domi  07.11.2013 (2Ã¨me argument dans la fct)
 
                     string[] AjoutModules = { "AjoutModules" };
 
@@ -5103,7 +5201,7 @@ namespace ImportSosGeneve
                                 else row["StopRappelTA"] = "'" + DateTime.Now.ToString("dd.MM.yyyy") + "'";
                             }
 
-                            //Pour la facture de Médicalerte
+                            //Pour la facture de MÃ©dicalerte
                             if (rdOnglet3Type4.Checked)
                             {
                                 row["ActiverFacture"] = 0;
@@ -5172,7 +5270,7 @@ namespace ImportSosGeneve
                             else if (rdPeriodFac4.Checked)
                                 row["Periodicite"] = "MeS";
                             else if (rdPeriodFac3.Checked)
-                                row["Periodicite"] = "B";    //Bloquée
+                                row["Periodicite"] = "B";    //BloquÃ©e
                         }
                         else
                         {
@@ -5185,7 +5283,7 @@ namespace ImportSosGeneve
                             else if (rdPeriodFac4.Checked)
                                 row["Periodicite"] = "S";
                             else if (rdPeriodFac3.Checked)
-                                row["Periodicite"] = "B";    //Bloquée
+                                row["Periodicite"] = "B";    //BloquÃ©e
                         }
 
                         /* else if (rdPeriodFac3.Enabled == false)
@@ -5194,7 +5292,7 @@ namespace ImportSosGeneve
                                  row["Periodicite"] = "B";
                          }     */
 
-                        //Pour la facture de Médicalerte
+                        //Pour la facture de MÃ©dicalerte
                         if (bActiverFacture.Enabled == true)
                         {
                             row["ActiverFacture"] = 0;
@@ -5238,7 +5336,7 @@ namespace ImportSosGeneve
                             ds.Tables[2].Rows.Add(rowTable1);
                         }
 
-                        // Table contenant le dossier médical succint
+                        // Table contenant le dossier mÃ©dical succint
                         ds.Tables[3].Rows[0]["TD_PbMedicaux"] = txtOnglet3Pb.Text;
                         ds.Tables[3].Rows[0]["TD_Traitements"] = txtOnglet3Medic.Text;
                         ds.Tables[3].Rows[0]["TD_Poids"] = txtOnglet3Poids.Text;
@@ -5262,7 +5360,7 @@ namespace ImportSosGeneve
                             ds.Tables[3].Rows[0]["TD_Autres_services"] = "0";
 
 
-                        //Utilisation du champ TD_FS_repas (obsolète) pour la gestion des sourds et malentendants
+                        //Utilisation du champ TD_FS_repas (obsolÃ¨te) pour la gestion des sourds et malentendants
                         if (CB_Sourd.Checked)
                         {
                             ds.Tables[3].Rows[0]["TD_FS_repas"] = "1";
@@ -5281,39 +5379,39 @@ namespace ImportSosGeneve
                             //On passe les parametres query et connection
                             SqlDataAdapter Query1 = new SqlDataAdapter(sqlstr1, dbConnection);
 
-                            //on déclare le DataSet pour recevoir les diverses données
+                            //on dÃ©clare le DataSet pour recevoir les diverses donnÃ©es
                             DataSet DSResult = new DataSet();
 
-                            //on déclare une table pour cet ensemble de donnée
+                            //on dÃ©clare une table pour cet ensemble de donnÃ©e
                             DSResult.Tables.Add("Patient_remarque");
 
                             //on execute
                             Query1.Fill(DSResult, "Patient_remarque");
 
-                            //si trouvé
+                            //si trouvÃ©
                             if (DSResult.Tables["Patient_remarque"].Rows.Count > 0)
                             {
-                                //on rajoute la phrase dans Medical patient_remarque si elle n'y est pas déjà
+                                //on rajoute la phrase dans Medical patient_remarque si elle n'y est pas dÃ©jÃ 
                                 string recherche = DSResult.Tables["Patient_remarque"].Rows[0]["Medical"].ToString();
-                                bool reponse = recherche.StartsWith("\nMalentendant: se déplacer dans tous les cas.", System.StringComparison.CurrentCultureIgnoreCase);
+                                bool reponse = recherche.StartsWith("\nMalentendant: se dÃ©placer dans tous les cas.", System.StringComparison.CurrentCultureIgnoreCase);
 
                                 if (reponse == false)
                                 { //s'il n'y est pas, on ajoute le commentaire
                                     string remarqueMedicale = DSResult.Tables["Patient_remarque"].Rows[0]["Medical"].ToString();
-                                    remarqueMedicale += "\n" + "Malentendant: se déplacer dans tous les cas.";
+                                    remarqueMedicale += "\n" + "Malentendant: se dÃ©placer dans tous les cas.";
                                     remarqueMedicale = remarqueMedicale.ToString().Replace("'", "''");
 
                                     OutilsExt.OutilsSql.ExecuteCommandeSansRetour("Update Patient_remarque set Medical = '" + remarqueMedicale + "' where Idpatient = " + ds.Tables[0].Rows[0]["IdPatient"].ToString());
 
-                                    mouchard.evenement("Modification de la fiche TA pour  " + txtTa_Nom.Text.ToString() + " " + txtTa_Prenom.Text.ToString() + ": Ajout remarque médicale sourd-malentendant.", VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());  //log
+                                    mouchard.evenement("Modification de la fiche TA pour  " + txtTa_Nom.Text.ToString() + " " + txtTa_Prenom.Text.ToString() + ": Ajout remarque mÃ©dicale sourd-malentendant.", VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());  //log
                                 }
                             }
                             else
                             {
                                 //sinon on rajoute un enregistrement dans la table patient_remarque
-                                string remarqueM = "\nMalentendant: se déplacer dans tous les cas.";
+                                string remarqueM = "\nMalentendant: se dÃ©placer dans tous les cas.";
 
-                                //on définie la requette
+                                //on dÃ©finie la requette
                                 string ajouteRemarque = "INSERT INTO patient_remarque";
                                 ajouteRemarque += " ( IdPatient, Encaisse, Cession, Medical, Economique, Export, Archive, DateValidite, IdUtilisateur ) VALUES ( ";
 
@@ -5331,14 +5429,14 @@ namespace ImportSosGeneve
                                 //On execute la requette
                                 OutilsExt.OutilsSql.ExecuteCommandeSansRetour(ajouteRemarque);
 
-                                mouchard.evenement("Modification de la fiche TA pour  " + txtTa_Nom.Text.ToString() + " " + txtTa_Prenom.Text.ToString() + ": Ajout remarque médicale sourd-malentendant.", VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());  //log
+                                mouchard.evenement("Modification de la fiche TA pour  " + txtTa_Nom.Text.ToString() + " " + txtTa_Prenom.Text.ToString() + ": Ajout remarque mÃ©dicale sourd-malentendant.", VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());  //log
                             }
                         }
                         else
-                        {  //Pas coché
+                        {  //Pas cochÃ©
                             ds.Tables[3].Rows[0]["TD_FS_repas"] = "0";
 
-                            //On va regardé si la chaine "Malentendant: se déplacer dans tous les cas." est dans 
+                            //On va regardÃ© si la chaine "Malentendant: se dÃ©placer dans tous les cas." est dans 
                             //patient_remarquable
 
                             //Chaine de connection
@@ -5354,42 +5452,42 @@ namespace ImportSosGeneve
                             //On passe les parametres query et connection
                             SqlDataAdapter Query1 = new SqlDataAdapter(sqlstr1, dbConnection);
 
-                            //on déclare le DataSet pour recevoir les diverses données
+                            //on dÃ©clare le DataSet pour recevoir les diverses donnÃ©es
                             DataSet DSResult = new DataSet();
 
-                            //on déclare une table pour cet ensemble de donnée
+                            //on dÃ©clare une table pour cet ensemble de donnÃ©e
                             DSResult.Tables.Add("Patient_remarque");
 
                             //on execute
                             Query1.Fill(DSResult, "Patient_remarque");
 
-                            //si trouvé
+                            //si trouvÃ©
                             if (DSResult.Tables["Patient_remarque"].Rows.Count > 0)
                             {
                                 //on ENLEVE la phrase dans Medical patient_remarque si elle n'y est.
                                 string recherche = DSResult.Tables["Patient_remarque"].Rows[0]["Medical"].ToString();
-                                bool reponse = recherche.StartsWith("\nMalentendant: se déplacer dans tous les cas.", System.StringComparison.CurrentCultureIgnoreCase);
+                                bool reponse = recherche.StartsWith("\nMalentendant: se dÃ©placer dans tous les cas.", System.StringComparison.CurrentCultureIgnoreCase);
 
                                 if (reponse == true)
                                 { //s'il y est, on vire le commentaire
                                     string remarqueMedicale = DSResult.Tables["Patient_remarque"].Rows[0]["Medical"].ToString();
 
-                                    // Ici on spécifie que l'on ne veut pas tenir compte dela casse du
+                                    // Ici on spÃ©cifie que l'on ne veut pas tenir compte dela casse du
                                     // texte dans le remplacements.
-                                    Regex maRegEx = new Regex("\nMalentendant: se déplacer dans tous les cas.", RegexOptions.IgnoreCase);
+                                    Regex maRegEx = new Regex("\nMalentendant: se dÃ©placer dans tous les cas.", RegexOptions.IgnoreCase);
 
                                     // Remplacement de la chaine par des ""
                                     remarqueMedicale = maRegEx.Replace(remarqueMedicale, "");
 
                                     OutilsExt.OutilsSql.ExecuteCommandeSansRetour("Update Patient_remarque set Medical = '" + remarqueMedicale + "' where Idpatient = " + ds.Tables[0].Rows[0]["IdPatient"].ToString());
 
-                                    mouchard.evenement("Modification de la fiche TA pour  " + txtTa_Nom.Text.ToString() + " " + txtTa_Prenom.Text.ToString() + ": Suppression de la remarque médicale sourd-malentendant.", VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());  //log
+                                    mouchard.evenement("Modification de la fiche TA pour  " + txtTa_Nom.Text.ToString() + " " + txtTa_Prenom.Text.ToString() + ": Suppression de la remarque mÃ©dicale sourd-malentendant.", VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());  //log
                                 }
                             }
                         }
 
 
-                        //Type de boitier 1 = Imad; 2 = Swisscom; 3 = Aucun; 4 = Medicalerte; 5 = Privé
+                        //Type de boitier 1 = Imad; 2 = Swisscom; 3 = Aucun; 4 = Medicalerte; 5 = PrivÃ©
                         if (rdOnglet3Type1.Checked)
                             ds.Tables[3].Rows[0]["TD_TypeAppareil"] = "1";
                         else if (rdOnglet3Type2.Checked)
@@ -5404,7 +5502,7 @@ namespace ImportSosGeneve
                         string ListeMedTTT = "";
                         for (int y = 0; y < lwMedTTT.Items.Count; y++)
                         {
-                            ListeMedTTT += lwMedTTT.Items[y].Tag.ToString() + "¤";
+                            ListeMedTTT += lwMedTTT.Items[y].Tag.ToString() + "Â¤";
                         }
                         if (ListeMedTTT.Length > 0) ListeMedTTT = ListeMedTTT.Remove(ListeMedTTT.Length - 1, 1);
 
@@ -5414,7 +5512,7 @@ namespace ImportSosGeneve
 
                         ds.Tables[3].Rows[0]["TD_ListeMedicaments"] = ListeMedicaments;
 
-                        // Sauvegarde de la clé :
+                        // Sauvegarde de la clÃ© :
                         ds.Tables[4].Rows[0]["NumeroCle"] = txtNumCle.Text;
                         ds.Tables[4].Rows[0]["Commentaire"] = txtCommentaireCle.Text;
 
@@ -5422,22 +5520,22 @@ namespace ImportSosGeneve
                         {
                             this.Cursor = Cursors.Default;
 
-                            //On ajoute le n° de tel dans Tel_personne s'il n'y est pas déjà
+                            //On ajoute le nÂ° de tel dans Tel_personne s'il n'y est pas dÃ©jÃ 
                             AjouteTel(ds.Tables[0].Rows[0]["IdPersonne"].ToString(), "+" + EMaskTel1.Text.Replace("-", "").Replace(" ","").Replace("+",""));
 
                             AjouteListTel(ds.Tables[0].Rows[0]["IdPersonne"].ToString());
 
-                            //On supprime eventuellement des n° de Tel
+                            //On supprime eventuellement des nÂ° de Tel
                             SupprimeTel(ds.Tables[0].Rows[0]["IdPersonne"].ToString());
 
                             if (NvlAbonnement == 0)
                             {
-                                MessageBox.Show("Modification réussie");
+                                MessageBox.Show("Modification rÃ©ussie");
                                 mouchard.evenement("Modification de la fiche TA pour  " + txtTa_Nom.Text.ToString() + " " + txtTa_Prenom.Text.ToString(), VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());  //log
                             }
                             else
                             {
-                                MessageBox.Show("Ajout de la fiche TA réussie");
+                                MessageBox.Show("Ajout de la fiche TA rÃ©ussie");
                                 mouchard.evenement("Ajout de la fiche TA pour  " + txtTa_Nom.Text.ToString() + " " + txtTa_Prenom.Text.ToString(), VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());  //log
                             }
 
@@ -5464,9 +5562,9 @@ namespace ImportSosGeneve
         {
             if (lwAbonne.SelectedIndices.Count > 0)
             {                
-                // Affiche l'abonné TA sélectionné :
+                // Affiche l'abonnÃ© TA sÃ©lectionnÃ© :
                 long IdAbonnement = long.Parse(lwAbonne.Items[lwAbonne.SelectedIndices[0]].SubItems[4].Text);
-                DataSet ds = OutilsExt.OutilsSql.RecupereAbonnement((int)IdAbonnement, 0);                       //Domi  07.11.2013 (2ème argument dans la fct)
+                DataSet ds = OutilsExt.OutilsSql.RecupereAbonnement((int)IdAbonnement, 0);                       //Domi  07.11.2013 (2Ã¨me argument dans la fct)
 
                 //on vide la liste des materiels
                 dtNvxMateriel.Rows.Clear();
@@ -5480,7 +5578,7 @@ namespace ImportSosGeneve
         }
 
         // ******************************************************************
-        // Déroulement de la fenetre d'attente de l'application
+        // DÃ©roulement de la fenetre d'attente de l'application
         // ******************************************************************
         public void Timer_Tick(object sender, EventArgs e)
         {
@@ -5517,11 +5615,11 @@ namespace ImportSosGeneve
             string nom = OutilsExt.OutilsSql.NomSurCle(txtNumCle.Text);
             if (nom != null && nom != "")
             {
-                MessageBox.Show("Clé déjà attribuée à " + nom);
+                MessageBox.Show("ClÃ© dÃ©jÃ  attribuÃ©e Ã  " + nom);
                 return;
             }
             else
-                MessageBox.Show("Clé disponible");
+                MessageBox.Show("ClÃ© disponible");
         }
 
         private void btnCopyAdresse_Click(object sender, System.EventArgs e)
@@ -5583,7 +5681,7 @@ namespace ImportSosGeneve
             txtOnglet2Tel2bis.Text = "";
             txtOnglet2Tel2ter.Text = "";
 
-            //On initialise l'état des boutons
+            //On initialise l'Ã©tat des boutons
             bNouveau2.Visible = false;
             bSupprimer2.ImageIndex = 1;
             bSupprimer2.Enabled = false;
@@ -5638,7 +5736,7 @@ namespace ImportSosGeneve
             if (tbAbonnement.Tag == null) 
                 return;
 
-            // Vérification des champs vide
+            // VÃ©rification des champs vide
             if (cbOnglet2Lien2.Text == "")
             {
                 MessageBox.Show("Champs Lien Obligatoire");
@@ -5651,12 +5749,12 @@ namespace ImportSosGeneve
             }
             if (txtOnglet2PreNom2.Text == "")
             {
-                MessageBox.Show("Champs Prénom Obligatoire");
+                MessageBox.Show("Champs PrÃ©nom Obligatoire");
                 return;
             }
             if (txtOnglet2Tel2.Text == "")
             {
-                MessageBox.Show("Champs Téléphone Obligatoire");
+                MessageBox.Show("Champs TÃ©lÃ©phone Obligatoire");
                 return;
             }
 
@@ -5734,7 +5832,7 @@ namespace ImportSosGeneve
             {
                 ModifContactUrgent = 1;   //On passe en modif
                 
-                //On gère l'état des boutons                               
+                //On gÃ¨re l'Ã©tat des boutons                               
                 bNouveau2.Enabled = false;
                 bNouveau2.Visible = false;
 
@@ -5789,7 +5887,7 @@ namespace ImportSosGeneve
                     //on ouvre la connexion
                     dbConnection.Open();
 
-                    //on définit la requette
+                    //on dÃ©finit la requette
                     sqlstr1 = "SELECT Distinct(Nom_NPA)";
                     sqlstr1 += " From adresses_officielles";
                     sqlstr1 += " where Nom_NPA like '" + txtTa_Localite.Text + "%'";
@@ -5798,16 +5896,16 @@ namespace ImportSosGeneve
                     //On passe les parametres query et connection
                     SqlDataAdapter Query1 = new SqlDataAdapter(sqlstr1, dbConnection);
 
-                    //on déclare le DataSet pour recevoir les diverses données
+                    //on dÃ©clare le DataSet pour recevoir les diverses donnÃ©es
                     DataSet DSResult = new DataSet();
 
-                    //on déclare une table pour cet ensemble de donnée
+                    //on dÃ©clare une table pour cet ensemble de donnÃ©e
                     DSResult.Tables.Add("Adresse");
 
                     //on execute
                     Query1.Fill(DSResult, "Adresse");
 
-                    //si trouvé
+                    //si trouvÃ©
                     if (DSResult.Tables["Adresse"].Rows.Count > 0)
                     {
 
@@ -5821,7 +5919,7 @@ namespace ImportSosGeneve
                     //On ferme les connctions
                     dbConnection.Close();
 
-                    //on remet à blanc la chaine de connection
+                    //on remet Ã  blanc la chaine de connection
                     dbConnection = null;
 
                     if (lstCommunes.Items.Count > 0)
@@ -5863,7 +5961,7 @@ namespace ImportSosGeneve
                     //on ouvre la connexion
                     dbConnection.Open();
 
-                    //on définit la requette                 
+                    //on dÃ©finit la requette                 
                     sqlstr1 = "select TOP 1 Adresse from adresses_officielles";
                     // sqlstr1 += " where adresse like '%" + txtTa_Adresse.Text + "%'";
                     sqlstr1 += " where adresse like '%" + txtTa_Adresse.Text.Replace("'", "''") + "%'";
@@ -5872,16 +5970,16 @@ namespace ImportSosGeneve
                     //On passe les parametres query et connection
                     SqlDataAdapter Query1 = new SqlDataAdapter(sqlstr1, dbConnection);
 
-                    //on déclare le DataSet pour recevoir les diverses données
+                    //on dÃ©clare le DataSet pour recevoir les diverses donnÃ©es
                     DataSet DSResult = new DataSet();
 
-                    //on déclare une table pour cet ensemble de donnée
+                    //on dÃ©clare une table pour cet ensemble de donnÃ©e
                     DSResult.Tables.Add("Adresse");
 
                     //on execute
                     Query1.Fill(DSResult, "Adresse");
 
-                    //si trouvé
+                    //si trouvÃ©
                     if (DSResult.Tables["Adresse"].Rows.Count > 0)
                     {
 
@@ -5901,7 +5999,7 @@ namespace ImportSosGeneve
                     //On ferme les connctions
                     dbConnection.Close();
 
-                    //on remet à blanc la chaine de connection
+                    //on remet Ã  blanc la chaine de connection
                     dbConnection = null;
 
                     if (lstCommunes.Items.Count > 0)
@@ -5917,14 +6015,14 @@ namespace ImportSosGeneve
         private void txtTa_Etage_Enter(object sender, System.EventArgs e)
         {
 
-            //Si on a quelque chose dans l'adresse et localité...
+            //Si on a quelque chose dans l'adresse et localitÃ©...
             if (txtTa_Localite.Text != "" && txtTa_Adresse.Text != "")
             {
                 string sqlstr1;
 
                 if (txtTa_No.Text == "")
                 {
-                    MessageBox.Show("N° de rue vide");
+                    MessageBox.Show("NÂ° de rue vide");
                 }
 
                 //Chaine de connection                
@@ -5935,7 +6033,7 @@ namespace ImportSosGeneve
                 dbConnection.Open();
 
 
-                //on définit la requette
+                //on dÃ©finit la requette
                 sqlstr1 = "SELECT Longitude, Latitude,";
                 sqlstr1 += "((CASE WHEN type_voie='' THEN '' ELSE type_voie + ' ' END)+";
                 sqlstr1 += "(CASE WHEN Liant Like '%-' THEN Liant WHEN Liant='' THEN Liant ELSE Liant + ' ' END)+";
@@ -5948,10 +6046,10 @@ namespace ImportSosGeneve
                 //On passe les parametres query et connection
                 SqlDataAdapter Query1 = new SqlDataAdapter(sqlstr1, dbConnection);
 
-                //on déclare le DataSet pour recevoir les diverses données
+                //on dÃ©clare le DataSet pour recevoir les diverses donnÃ©es
                 DataSet DSResult = new DataSet();
 
-                //on déclare une table pour cet ensemble de donnée
+                //on dÃ©clare une table pour cet ensemble de donnÃ©e
                 DSResult.Tables.Add("Adresse");
 
                 //on execute
@@ -5960,7 +6058,7 @@ namespace ImportSosGeneve
                 //On ferme les connections
                 dbConnection.Close();
 
-                //on remet à blanc la chaine de connection
+                //on remet Ã  blanc la chaine de connection
                 dbConnection = null;
             }
         }
@@ -6026,7 +6124,7 @@ namespace ImportSosGeneve
             }
             else
             {
-                MessageBox.Show("Sélectionnez d'abord un abonnement ou bien sauvegardez celui en cours");
+                MessageBox.Show("SÃ©lectionnez d'abord un abonnement ou bien sauvegardez celui en cours");
             }
         }
 
@@ -6066,11 +6164,11 @@ namespace ImportSosGeneve
 
             else if (txtFind_Abonnement.Text != "" && IsNumeric(txtFind_Abonnement.Text) == true)
             {
-                ds = OutilsExt.OutilsSql.RecupereAbonnement(int.Parse(txtFind_Abonnement.Text), TypeArchive);    //Domi  07.11.2013 (2ème argument dans la fct)
+                ds = OutilsExt.OutilsSql.RecupereAbonnement(int.Parse(txtFind_Abonnement.Text), TypeArchive);    //Domi  07.11.2013 (2Ã¨me argument dans la fct)
             }
             else if (txtFind_DateNaiss.Text != "")
             {
-                //Pour la vérif de la date saisie
+                //Pour la vÃ©rif de la date saisie
                 bool DateOk = true;
 
                 try
@@ -6122,7 +6220,7 @@ namespace ImportSosGeneve
         {
             if (fpOnglet5_Sheet1.ActiveRowIndex > -1 && fpOnglet5_Sheet1.ActiveColumnIndex > -1)
             {
-                if (MessageBox.Show("Voulez vous supprimer cette opération ?", "Journal", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Voulez vous supprimer cette opÃ©ration ?", "Journal", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     if (fpOnglet5_Sheet1.RowCount == 0 || fpOnglet5_Sheet1.Rows[fpOnglet5_Sheet1.ActiveRowIndex] == null)
                     {
@@ -6184,7 +6282,7 @@ namespace ImportSosGeneve
             }
             else
             {
-                MessageBox.Show("Sélectionner d'abord un abonnement ou bien sauvegardez celui en cours");
+                MessageBox.Show("SÃ©lectionner d'abord un abonnement ou bien sauvegardez celui en cours");
                 return;
             }
         }
@@ -6196,7 +6294,7 @@ namespace ImportSosGeneve
             // Insertion de la ligne dans le tableau
             if (!rdOnglet5Annulation.Checked && !rdOnglet5Cle.Checked && !rdOnglet5Dossier.Checked && !rdOnglet5Retourcontrat.Checked)
             {
-                MessageBox.Show("Veuillez sélectionner un type d'opération");
+                MessageBox.Show("Veuillez sÃ©lectionner un type d'opÃ©ration");
                 return;
             }
 
@@ -6280,7 +6378,7 @@ namespace ImportSosGeneve
         }
 
 
-        //Ajouter un médecin traitant
+        //Ajouter un mÃ©decin traitant
         private void bAjoutMedecin_Click(object sender, EventArgs e)
         {
             frmAjoutDestinataire ajout = new frmAjoutDestinataire(this, -1, false, true);
@@ -6288,7 +6386,7 @@ namespace ImportSosGeneve
             ajout.Dispose();
         }
 
-        //Supprimer un médecin traitant
+        //Supprimer un mÃ©decin traitant
         private void bSupprMedecin_Click(object sender, EventArgs e)
         {
             if (lwMedTTT.SelectedIndices.Count > 0)
@@ -6375,27 +6473,27 @@ namespace ImportSosGeneve
             //On envoi un mail si c'est un contrat IMAD
             if (rdOnglet3Type1.Checked)
             {
-                string SujetMail = "Nouveau contrat TéléAlarme... Récupérer clés à l'Imad";
-                string MessageMail = "Clé à récupérer pour le n° de PROM " + txtIdContrat.Text + " à l'Imad.";
+                string SujetMail = "Nouveau contrat TÃ©lÃ©Alarme... RÃ©cupÃ©rer clÃ©s Ã  l'Imad";
+                string MessageMail = "ClÃ© Ã  rÃ©cupÃ©rer pour le nÂ° de PROM " + txtIdContrat.Text + " Ã  l'Imad.";
                 string ListeAdresse = "soslogistik@gmail.com; ckabbaj@sos-medecins.ch;" + VariablesApplicatives.Utilisateurs.EMail.ToString();
 
                 if (SendMail(SujetMail, MessageMail, ListeAdresse, "", ""))
                 {
-                    mouchard.evenement("Envoi d'un mail pour récupérer la clé dont la PROM est " + txtIdContrat.Text, VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());  //log      
+                    mouchard.evenement("Envoi d'un mail pour rÃ©cupÃ©rer la clÃ© dont la PROM est " + txtIdContrat.Text, VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());  //log      
                     bEnvoiMail.ImageIndex = 9;
                     bEnvoiMail.Enabled = false;
                 }
             }
             else if (rdOnglet3Type4.Checked)
             {
-                string SujetMail = "Nouveau contrat Médicalerte";
-                string MessageMail = "Boitier " + txtIdContrat.Text + " à paramétrer au nom de " + txtTa_Nom + " " + txtTa_Prenom.Text + "\n\r";
+                string SujetMail = "Nouveau contrat MÃ©dicalerte";
+                string MessageMail = "Boitier " + txtIdContrat.Text + " Ã  paramÃ©trer au nom de " + txtTa_Nom + " " + txtTa_Prenom.Text + "\n\r";
                 MessageMail += " Id Abonnement: " + tbAbonnement.Tag.ToString();
                 string ListeAdresse = "nadja.froidevaux@gmail.com; ckabbaj@sos-medecins.ch; informatique@sos-medecins.ch" + VariablesApplicatives.Utilisateurs.EMail.ToString();
 
                 if (SendMail(SujetMail, MessageMail, ListeAdresse, "", ""))
                 {
-                    mouchard.evenement("Envoi d'un mail pour nvl abonnement médicalerte pour " + txtTa_Nom + " " + txtTa_Prenom.Text + "PROM: " + txtIdContrat.Text + " Id Abonnement: " + tbAbonnement.Tag.ToString(), VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());  //log      
+                    mouchard.evenement("Envoi d'un mail pour nvl abonnement mÃ©dicalerte pour " + txtTa_Nom + " " + txtTa_Prenom.Text + "PROM: " + txtIdContrat.Text + " Id Abonnement: " + tbAbonnement.Tag.ToString(), VariablesApplicatives.Utilisateurs.NomUtilisateur.ToString());  //log      
                     bEnvoiMail.ImageIndex = 9;
                     bEnvoiMail.Enabled = false;
                 }
@@ -6428,7 +6526,7 @@ namespace ImportSosGeneve
                 // Message1.BodyEncoding = Encoding.GetEncoding("iso-8859-1");
 
                 //Message1.Attachments.Add(new Attachment(pieceJointe1));  //Envoi d'une piece jointe (ici les contracts)
-                //Message1.Attachments.Add(new Attachment(pieceJointe2));  //Envoi d'une autre piece jointe (ici les règlements)
+                //Message1.Attachments.Add(new Attachment(pieceJointe2));  //Envoi d'une autre piece jointe (ici les rÃ¨glements)
 
                 SmtpClient client = new SmtpClient("mail.sos-medecins.ch", 25);
 
@@ -6455,7 +6553,8 @@ namespace ImportSosGeneve
         {
             //Au chargement on regarde les droits des utilisateurs
 
-            //en fonction des droits on désactive certains controles
+            rBTypeBoitier4.Enabled = false;
+            //en fonction des droits on dÃ©sactive certains controles
             if (VariablesApplicatives.Utilisateurs.Droits == VariablesApplicatives.Utilisateurs.CodeDroits.Comptable
                 || VariablesApplicatives.Utilisateurs.Droits == VariablesApplicatives.Utilisateurs.CodeDroits.Chef
                 || VariablesApplicatives.Utilisateurs.Droits == VariablesApplicatives.Utilisateurs.CodeDroits.Admin)
@@ -6475,8 +6574,8 @@ namespace ImportSosGeneve
                 this.bsupprTel.Enabled = false;
             }
 
-            //On initialise l'état de certains controles par défaut
-            //On désactive les contrôles Materiels
+            //On initialise l'Ã©tat de certains controles par dÃ©faut
+            //On dÃ©sactive les contrÃ´les Materiels
             rBTypeBoitier1.Enabled = false;
             rBTypeBoitier2.Enabled = false;
             rBTypeBoitier3.Enabled = false;
@@ -6505,7 +6604,7 @@ namespace ImportSosGeneve
                 SqlCommand cmd = dbConnection.CreateCommand();
                 cmd.Connection = dbConnection;
 
-                //Gestion des n° de Tel...On regarde s'il existe dans la table Tel_Personne                                                                       
+                //Gestion des nÂ° de Tel...On regarde s'il existe dans la table Tel_Personne                                                                       
                 string sqlstr0 = "SELECT NumPersonne, NumTel";
                 sqlstr0 += " FROM Tel_Personne";
                 sqlstr0 += " WHERE NumPersonne = @IdPersonne";
@@ -6520,7 +6619,7 @@ namespace ImportSosGeneve
                 DataTable Telephone = new DataTable();
                 Telephone.Load(cmd.ExecuteReader());
 
-                //Si on ne l'a pas trouvé, on l'ajoute à la table
+                //Si on ne l'a pas trouvÃ©, on l'ajoute Ã  la table
                 if (Telephone.Rows.Count == 0)
                 {
                     sqlstr0 = "INSERT INTO Tel_Personne";
@@ -6558,7 +6657,7 @@ namespace ImportSosGeneve
             txtOnglet2Tel1bis.Text = "";
             txtOnglet2Tel1ter.Text = "";
 
-            //On initialise l'état des boutons
+            //On initialise l'Ã©tat des boutons
             bNouveau1.Visible = false;
             bSupprimer1.ImageIndex = 1;
             bSupprimer1.Enabled = false;
@@ -6569,7 +6668,7 @@ namespace ImportSosGeneve
         {
             if (tbAbonnement.Tag == null) return;
 
-            // Vérification des champs vide
+            // VÃ©rification des champs vide
             if (cbOnglet2Lien1.Text == "")
             {
                 MessageBox.Show("Champs Lien Obligatoire");
@@ -6582,12 +6681,10 @@ namespace ImportSosGeneve
             }
             if (txtOnglet2PreNom1.Text == "")
             {
-                MessageBox.Show("Champs Prénom Obligatoire");
-                return;
             }
-            if (txtOnglet2Tel1.Text == "")
-            {
-                MessageBox.Show("Champs Téléphone Obligatoire");
+                row["Tel2"] = DBNull.Value;
+                row["Tel3"] = DBNull.Value;
+                MessageBox.Show("Champs TÃ©lÃ©phone Obligatoire");
                 return;
             }
 
@@ -6661,7 +6758,7 @@ namespace ImportSosGeneve
         {
             if (lwMemoire.SelectedIndices.Count > 0)
             {              
-                //On gère juste l'état des boutons                                               
+                //On gÃ¨re juste l'Ã©tat des boutons                                               
                 ModifContact = 1;    //On est en modif
 
                 bNouveau1.Enabled = false;
@@ -6730,13 +6827,13 @@ namespace ImportSosGeneve
 
         private void lwMedTTT_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //On recupère le n° de tel du médecin traitant
-            //On verifie qu'on a bien selectionné quelque chose
+            //On recupÃ¨re le nÂ° de tel du mÃ©decin traitant
+            //On verifie qu'on a bien selectionnÃ© quelque chose
             if (lwMedTTT.SelectedItems.Count > 0)
             {
                 if (lwMedTTT.SelectedItems[0].Tag != null)
                 {
-                    //Puis on en recherche le n° de tel pour l'afficher
+                    //Puis on en recherche le nÂ° de tel pour l'afficher
                     txtOnglet3Tel.Text = TelMedecinTraitant(lwMedTTT.SelectedItems[0].Tag.ToString());
                 }
             }
@@ -6760,7 +6857,7 @@ namespace ImportSosGeneve
 
         private void bDesarchiver_Click(object sender, EventArgs e)
         {
-            DeSupprimeAbonnement();  //On le dé-archive
+            DeSupprimeAbonnement();  //On le dÃ©-archive
         }
 
         private string VerifArchive(string Abonnement)
@@ -6773,7 +6870,7 @@ namespace ImportSosGeneve
 
             SqlCommand cmd = dbConnection.CreateCommand();
 
-            string reponse = "Archivé";
+            string reponse = "ArchivÃ©";
 
             try
             {
@@ -6786,12 +6883,12 @@ namespace ImportSosGeneve
                 DataTable dtAbonnement = new DataTable();
                 dtAbonnement.Load(cmd.ExecuteReader());
 
-                //Si on l'a trouvé
+                //Si on l'a trouvÃ©
                 if (dtAbonnement.Rows.Count > 0)
                 {
                     if (dtAbonnement.Rows[0][0].ToString() == "1")
-                        reponse = "Archivé";
-                    else reponse = "Non Archivé";
+                        reponse = "ArchivÃ©";
+                    else reponse = "Non ArchivÃ©";
                 }
             }
             catch (Exception e)
@@ -6815,7 +6912,7 @@ namespace ImportSosGeneve
 
         private string TelMedecinTraitant(string NumMedecin)
         {
-            //On recherche le médecin
+            //On recherche le mÃ©decin
             string connex = ConfigurationManager.ConnectionStrings["Connection_Base"].ToString();
             SqlConnection dbConnection = new SqlConnection(connex);
 
@@ -6836,7 +6933,7 @@ namespace ImportSosGeneve
                 DataTable dtMedecin = new DataTable();
                 dtMedecin.Load(cmd.ExecuteReader());
 
-                //Si on l'a trouvé
+                //Si on l'a trouvÃ©
                 if (dtMedecin.Rows.Count > 0)
                 {
                     reponse = dtMedecin.Rows[0][0].ToString();
@@ -6859,7 +6956,7 @@ namespace ImportSosGeneve
 
         private void rdOnglet3Type4_CheckedChanged(object sender, EventArgs e)
         {
-            //Si c'est coché (SOS MEDECINS), on envoi pas d'Email pour le moment
+            //Si c'est cochÃ© (SOS MEDECINS), on envoi pas d'Email pour le moment
             if (rdOnglet3Type4.Checked)
             {
                 bEnvoiMail.ImageIndex = 9;
@@ -6869,29 +6966,29 @@ namespace ImportSosGeneve
 
         private void lwMedTTT_DoubleClick(object sender, EventArgs e)
         {
-            //Quand on clique sur 1 médecin, on l'édite
+            //Quand on clique sur 1 mÃ©decin, on l'Ã©dite
 
-            //On verifie qu'on a bien selectionné quelque chose (sinon erreur) ET qu'on est en modif
+            //On verifie qu'on a bien selectionnÃ© quelque chose (sinon erreur) ET qu'on est en modif
             if (lwMedTTT.SelectedItems.Count > 0 && bAjoutMedecin.Enabled == true && bSupprMedecin.Enabled == true)
             {
                 if (lwMedTTT.SelectedItems[0].Tag != null)
                 {
-                    //MessageBox.Show("on change : " + lwMedTTT.SelectedItems[0].Text.ToString() + " N° " + lwMedTTT.SelectedItems[0].Tag.ToString());
-                    //on appelle la fiche médecins Traitant en remontant le n° du médecin
-                    MedecinsTraitant = lwMedTTT.SelectedItems[0].Tag.ToString();     //Récup du n° du Médecin Traitant
+                    //MessageBox.Show("on change : " + lwMedTTT.SelectedItems[0].Text.ToString() + " NÂ° " + lwMedTTT.SelectedItems[0].Tag.ToString());
+                    //on appelle la fiche mÃ©decins Traitant en remontant le nÂ° du mÃ©decin
+                    MedecinsTraitant = lwMedTTT.SelectedItems[0].Tag.ToString();     //RÃ©cup du nÂ° du MÃ©decin Traitant
 
-                    //On appelle la forme pour modifier le médecin traitant
+                    //On appelle la forme pour modifier le mÃ©decin traitant
                     frmAjoutDestinataire ModifDest = new frmAjoutDestinataire(this, -1, true, true);
                     ModifDest.ShowDialog();
                     ModifDest.Dispose();
 
                     //On rafraichi l'abonnement                    
                     long IdAbonnement = long.Parse(lwAbonne.Items[lwAbonne.SelectedIndices[0]].SubItems[4].Text);
-                    DataSet ds = OutilsExt.OutilsSql.RecupereAbonnement((int)IdAbonnement, 0);                       //Domi  07.11.2013 (2ème argument dans la fct)				
+                    DataSet ds = OutilsExt.OutilsSql.RecupereAbonnement((int)IdAbonnement, 0);                       //Domi  07.11.2013 (2Ã¨me argument dans la fct)				
 
                     AfficheAbonnement(ds);
 
-                    //On remet les boutons a deverouillés
+                    //On remet les boutons a deverouillÃ©s
                     ModifieAbonnement();
                 }
             }
@@ -6902,7 +6999,7 @@ namespace ImportSosGeneve
         {
             /*if (EMaskTel1.Text.Replace("-", "").Length != 11)
             {
-                MessageBox.Show("Attention : Le numéro de téléphone doit comporter exactement 11 chiffres...Sans compter le +.");
+                MessageBox.Show("Attention : Le numÃ©ro de tÃ©lÃ©phone doit comporter exactement 11 chiffres...Sans compter le +.");
                 return;
             }*/
             
@@ -6946,7 +7043,9 @@ namespace ImportSosGeneve
 
                 bVerif.Tag = recherche.IdPatient + "/" + recherche.IdPersonne;
 
-                //On charge la liste des N° de Tel du patient
+                rBTypeBoitier4.Enabled = true;
+                rBTypeBoitier4.Enabled = false;
+                //On charge la liste des NÂ° de Tel du patient
                 ChargeListTel(recherche.Personne["IdPersonne"].ToString());
 
             }
@@ -6956,7 +7055,7 @@ namespace ImportSosGeneve
 
         private void rdOnglet3Type4_CheckedChanged_1(object sender, EventArgs e)
         {
-            //on défini IDContrat (!= IMAD) = PROM
+            //on dÃ©fini IDContrat (!= IMAD) = PROM
             if (rdOnglet3Type4.Checked)
             {
                 rBTypeBoitier1.Enabled = true;
@@ -6968,7 +7067,7 @@ namespace ImportSosGeneve
                 bAjoutMat1.Enabled = true;
                 bSupprMatos.Enabled = true;               
             }
-            else   //On déactive les contrôles
+            else   //On dÃ©active les contrÃ´les
             {
                 rBTypeBoitier1.Enabled = false;
                 rBTypeBoitier2.Enabled = false;
@@ -6983,7 +7082,7 @@ namespace ImportSosGeneve
 
         private void rdOnglet3Type2_Click(object sender, EventArgs e)
         {
-            //Si c'est une nouvel abonnement, on défini IDContrat (!= IMAD)
+            //Si c'est une nouvel abonnement, on dÃ©fini IDContrat (!= IMAD)
             if (tbAbonnement.Tag != null && tbAbonnement.Tag.ToString() == "-1")
             {
                 if (rdOnglet3Type2.Checked)
@@ -6996,7 +7095,7 @@ namespace ImportSosGeneve
 
         private void rdOnglet3Type5_CheckedChanged(object sender, EventArgs e)
         {
-            //Si c'est une nouvel abonnement, on défini IDContrat (!= IMAD)
+            //Si c'est une nouvel abonnement, on dÃ©fini IDContrat (!= IMAD)
             if (tbAbonnement.Tag != null && tbAbonnement.Tag.ToString() == "-1")
             {
                 if (rdOnglet3Type5.Checked)
@@ -7009,7 +7108,7 @@ namespace ImportSosGeneve
 
         private void rdOnglet3Type3_CheckedChanged(object sender, EventArgs e)
         {
-            //Si c'est une nouvel abonnement, on défini IDContrat (!= IMAD)
+            //Si c'est une nouvel abonnement, on dÃ©fini IDContrat (!= IMAD)
             if (tbAbonnement.Tag != null && tbAbonnement.Tag.ToString() == "-1")
             {
                 if (rdOnglet3Type3.Checked)
@@ -7051,7 +7150,7 @@ namespace ImportSosGeneve
             bEnvoiMail.Enabled = false;
 
 
-            //Pour l'état des boutons
+            //Pour l'Ã©tat des boutons
             bNouveau1.Visible = true;
             bNouveau1.Enabled = false;
             bNouveau1.ImageIndex = 7;
@@ -7087,19 +7186,20 @@ namespace ImportSosGeneve
             rBTypeBoitier1.Enabled = false;
             rBTypeBoitier2.Enabled = false;
             rBTypeBoitier3.Enabled = false;
+            rBTypeBoitier4.Enabled = false;
             comboBMateriel.Enabled = false;
             listViewMat1.Enabled = false;
             tBoxSupprMatos.Enabled = false;
             bAjoutMat1.Enabled = false;
             bSupprMatos.Enabled = false;
                     
-            //liste N° de Tel
+            //liste NÂ° de Tel
             listViewTel.Enabled = false;
 
         }
 
 
-        //Mise à jour de la table Materiel avec l'IDAbonnement
+        //Mise Ã  jour de la table Materiel avec l'IDAbonnement
         public void MajMateriel(string ContactID, string IdAbonnement, string[] TypeOpe)
         {
             //On complete le ContactID avec des 0
@@ -7114,7 +7214,7 @@ namespace ImportSosGeneve
 
            // SqlTransaction transaction;             //Pour l'insert avec transaction
 
-           // transaction = dbConnection.BeginTransaction("transac");     //Démarre une transaction locale
+           // transaction = dbConnection.BeginTransaction("transac");     //DÃ©marre une transaction locale
 
             string sqlstr0 = "";
 
@@ -7123,13 +7223,13 @@ namespace ImportSosGeneve
                 cmd.Connection = dbConnection;
                // cmd.Transaction = transaction;    //On affecte la transaction
 
-                if (TypeOpe[0] == "Ajout")    //Ajout d'une Box ET du médaillon attaché à cette derniere
-                {
+                    sqlstr0 += " AND Type_tarif in ('L3GSL', 'L3G', 'L4', 'D4G')";
+                    sqlstr0 += " AND Type_tarif in ('L3GSL', 'L3G', 'L4', 'D4G')";
                     sqlstr0 = "Update TA_Materiel ";
-                    sqlstr0 += " Set IdAbonnement = @Abonnement, ";
+                    sqlstr0 += " AND Type_tarif in ('L3GSL', 'L3G', 'L4', 'D4G')";
                     sqlstr0 += " DateMES = case when DateMES is null then getdate() else DateMES end, DateDerniereAttrib = getdate()";
                     sqlstr0 += " WHERE ContactID = @IdContact";
-
+                    sqlstr0 += " AND Type_tarif in ('L3GSL', 'L3G', 'L4', 'D4G')";
                     cmd.CommandText = sqlstr0;
 
                     cmd.Parameters.Clear();
@@ -7140,7 +7240,7 @@ namespace ImportSosGeneve
                 }
                 else if (TypeOpe[0] == "Boitier HS")
                 {
-                    //Suppression du luna (sans son médaillon) Pour attribution d'un autre du même type
+                    //Suppression du luna (sans son mÃ©daillon) Pour attribution d'un autre du mÃªme type
                     sqlstr0 = "Update TA_Materiel ";
                     sqlstr0 += " Set IdAbonnement = Null, ";
                     sqlstr0 += " DateHS = case when DateHS is null then getdate() else DateHS end, DateDerniereAttrib = getdate()";
@@ -7154,7 +7254,7 @@ namespace ImportSosGeneve
 
                     cmd.ExecuteNonQuery();
 
-                    //Puis ajout de la nouvelle box (sans le médaillon associé)
+                    //Puis ajout de la nouvelle box (sans le mÃ©daillon associÃ©)
                     sqlstr0 = "Update TA_Materiel ";
                     sqlstr0 += " Set IdAbonnement = @Abonnement, ";
                     sqlstr0 += " Type_tarif = 'R', DateDerniereAttrib = getdate(), ";
@@ -7170,8 +7270,8 @@ namespace ImportSosGeneve
 
                     cmd.ExecuteNonQuery();
 
-                    //Les médaillons:                   
-                    //On déassocie le médaillon de la NVLLE box de tout: ContactId = 00000000)
+                    //Les mÃ©daillons:                   
+                    //On dÃ©associe le mÃ©daillon de la NVLLE box de tout: ContactId = 00000000)
                     sqlstr0 = "Update TA_Materiel ";
                     sqlstr0 += " Set ContactID = '00000000'";
                     sqlstr0 += " WHERE ContactID = @IdContact";
@@ -7184,7 +7284,7 @@ namespace ImportSosGeneve
 
                     cmd.ExecuteNonQuery();
 
-                    //On affecte l'ANCIEN médaillon à la nouvelle box
+                    //On affecte l'ANCIEN mÃ©daillon Ã  la nouvelle box
                     sqlstr0 = "Update TA_Materiel ";
                     sqlstr0 += " Set ContactID = @IdContact ";
                     sqlstr0 += " WHERE IdAbonnement = @Abonnement";
@@ -7198,9 +7298,9 @@ namespace ImportSosGeneve
 
                     cmd.ExecuteNonQuery();
                 }
-                else if (TypeOpe[0] == "Changement de version" || TypeOpe[0] == "Réaffectation de boitier")
+                else if (TypeOpe[0] == "Changement de version" || TypeOpe[0] == "RÃ©affectation de boitier")
                 {
-                    //Suppression du luna (sans son médaillon) Pour attribution d'un autre modèle de boitier
+                    //Suppression du luna (sans son mÃ©daillon) Pour attribution d'un autre modÃ¨le de boitier
                     sqlstr0 = "Update TA_Materiel ";
                     sqlstr0 += " Set IdAbonnement = Null, ";
                     sqlstr0 += " DateDerniereAttrib = getdate()";
@@ -7231,7 +7331,7 @@ namespace ImportSosGeneve
                 }
                 else if (TypeOpe[0] == "Archive")
                 {
-                    //Suppression du luna...remise en stock avec son médaillon
+                    //Suppression du luna...remise en stock avec son mÃ©daillon
                     sqlstr0 = "Update TA_Materiel ";
                     sqlstr0 += " Set IdAbonnement = Null ";
                     sqlstr0 += " WHERE IdAbonnement = @Abonnement";                    
@@ -7298,16 +7398,18 @@ namespace ImportSosGeneve
                     AncienCheck = 2;
                 else if (rBTypeBoitier3.Checked)
                     AncienCheck = 3;
+                else if (rBTypeBoitier4.Checked)
+                    AncienCheck = 4;
                 else AncienCheck = 0;
 
             }
             catch (Exception ex)
             {               
-                //On gère ici toute kes erreurs qui ont pu survenir pour empêcher le Rollback...
-                //comme par exemple une connexion fermée...
+                //On gÃ¨re ici toute kes erreurs qui ont pu survenir pour empÃªcher le Rollback...
+                //comme par exemple une connexion fermÃ©e...
                 Console.WriteLine("Rollback Exeption Type: {0}", ex.GetType());
                 Console.WriteLine("   Message: {0}", ex.Message);
-                MessageBox.Show("Erreur Lors de la mise à jour de la table matériel. Le message est: " + ex.Message);
+                MessageBox.Show("Erreur Lors de la mise Ã  jour de la table matÃ©riel. Le message est: " + ex.Message);
                 
             }
             finally
@@ -7331,8 +7433,8 @@ namespace ImportSosGeneve
 
         private void bAjoutMat1_Click(object sender, EventArgs e)
         {
-            //On ajoute le matériel à la liste
-            //Mettre dans le dataset le contenu de la list box (recherche à partir du libellé)
+            //On ajoute le matÃ©riel Ã  la liste
+            //Mettre dans le dataset le contenu de la list box (recherche Ã  partir du libellÃ©)
             //Recherche du produit
             if (tBoxNumSerie.Text != "")
             {
@@ -7349,22 +7451,22 @@ namespace ImportSosGeneve
                     item1.SubItems.Add(Matos.Rows[0]["VID"].ToString());
                     listViewMat1.Items.Add(item1);
 
-                    //On vide et desactive le champs n° de serie
+                    //On vide et desactive le champs nÂ° de serie
                     tBoxNumSerie.Text = "";
                     tBoxNumSerie.Enabled = false;
                 }
                 else
                 {
-                    MessageBox.Show("Désolé ce modèle n'existe pas ou il n'est plus en stock.", "Stock Materiel", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show("DÃ©solÃ© ce modÃ¨le n'existe pas ou il n'est plus en stock.", "Stock Materiel", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
             }
             else
-                MessageBox.Show("Vous devez rentrer le n° de serie de l'appareil à affecter", "Affectation d'un appareil", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Vous devez rentrer le nÂ° de serie de l'appareil Ã  affecter", "Affectation d'un appareil", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void comboBMateriel_SelectedValueChanged(object sender, EventArgs e)
         {
-            //On ouvre le panneau pour saisir le n° de serie de l'appareil à attribuer
+            //On ouvre le panneau pour saisir le nÂ° de serie de l'appareil Ã  attribuer
             tBoxNumSerie.Enabled = true;
         }
 
@@ -7413,7 +7515,7 @@ namespace ImportSosGeneve
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erreur Lors de la recherche dans la table matériel. Le message est: " + ex.Message);
+                Console.WriteLine("Erreur Lors de la recherche dans la table matÃ©riel. Le message est: " + ex.Message);
             }
 
             return Matos;
@@ -7442,10 +7544,10 @@ namespace ImportSosGeneve
 
         private void rBTypeBoitier1_CheckedChanged(object sender, EventArgs e)
         {
-            //Si c'est une nouvel abonnement, on défini IDContrat (!= IMAD) = PROM
+            //Si c'est une nouvel abonnement, on dÃ©fini IDContrat (!= IMAD) = PROM
             if (tbAbonnement.Tag != null && tbAbonnement.Tag.ToString() == "-1")
             {
-                //on défini IDContrat (!= IMAD) = PROM
+                //on dÃ©fini IDContrat (!= IMAD) = PROM
                 if (rBTypeBoitier1.Checked)
                 {
                     string[] BoitierDispo;
@@ -7456,7 +7558,7 @@ namespace ImportSosGeneve
 
                     if (BoitierDispo[0] == "-1")
                     {
-                        MessageBox.Show("Il n'y a plus de boitier Disponible en stock pour ce modèle.", "Stock Materiel", MessageBoxButtons.OK ,MessageBoxIcon.Stop);
+                        MessageBox.Show("Il n'y a plus de boitier Disponible en stock pour ce modÃ¨le.", "Stock Materiel", MessageBoxButtons.OK ,MessageBoxIcon.Stop);
                     }                   
                 }
             }       
@@ -7465,10 +7567,10 @@ namespace ImportSosGeneve
 
         private void rBTypeBoitier2_CheckedChanged(object sender, EventArgs e)
         {
-            //Si c'est une nouvel abonnement, on défini IDContrat (!= IMAD) = PROM
+            //Si c'est une nouvel abonnement, on dÃ©fini IDContrat (!= IMAD) = PROM
             if (tbAbonnement.Tag != null && tbAbonnement.Tag.ToString() == "-1")
             {
-                //on défini IDContrat (!= IMAD) = PROM
+                //on dÃ©fini IDContrat (!= IMAD) = PROM
                 if (rBTypeBoitier2.Checked)
                 {
                     string[] BoitierDispo;
@@ -7479,7 +7581,7 @@ namespace ImportSosGeneve
 
                     if (BoitierDispo[0] == "-1")
                     {
-                        MessageBox.Show("Il n'y a plus de boitier Disponible en stock pour ce modèle.", "Stock Materiel", MessageBoxButtons.OK ,MessageBoxIcon.Stop);
+                        MessageBox.Show("Il n'y a plus de boitier Disponible en stock pour ce modÃ¨le.", "Stock Materiel", MessageBoxButtons.OK ,MessageBoxIcon.Stop);
                     }                                                        
                 }                             
             }           
@@ -7488,10 +7590,10 @@ namespace ImportSosGeneve
 
         private void rBTypeBoitier3_CheckedChanged(object sender, EventArgs e)
         {
-            //Si c'est une nouvel abonnement, on défini IDContrat (!= IMAD) = PROM
+            //Si c'est une nouvel abonnement, on dÃ©fini IDContrat (!= IMAD) = PROM
             if (tbAbonnement.Tag != null && tbAbonnement.Tag.ToString() == "-1")
             {
-                //on défini IDContrat (!= IMAD) = PROM
+                //on dÃ©fini IDContrat (!= IMAD) = PROM
                 if (rBTypeBoitier3.Checked)
                 {
                     string[] BoitierDispo;
@@ -7502,7 +7604,7 @@ namespace ImportSosGeneve
 
                     if (BoitierDispo[0] == "-1")
                     {
-                        MessageBox.Show("Il n'y a plus de boitier Disponible en stock pour ce modèle.", "Stock Materiel", MessageBoxButtons.OK ,MessageBoxIcon.Stop);
+                        MessageBox.Show("Il n'y a plus de boitier Disponible en stock pour ce modÃ¨le.", "Stock Materiel", MessageBoxButtons.OK ,MessageBoxIcon.Stop);
                     }                                                   
                 }
             }         
@@ -7511,8 +7613,8 @@ namespace ImportSosGeneve
 
         private string[] RecupContactIDLuna(string TypeLuna)
         {
-            //On récupère un materiel dans le stock et on lui attribue le ContactId
-            //Recup du plus grand n°                    
+            //On rÃ©cupÃ¨re un materiel dans le stock et on lui attribue le ContactId
+            //Recup du plus grand nÂ°                    
             string[] reponse = {"-1",""};
             
             string connex = ConfigurationManager.ConnectionStrings["Connection_Base"].ToString();
@@ -7539,7 +7641,217 @@ namespace ImportSosGeneve
                 //On attribut ContactID
                 if (dtMaxNum.Rows.Count > 0 && dtMaxNum.Rows[0][0] != DBNull.Value)
                 {
-                    reponse[0] = int.Parse(dtMaxNum.Rows[0][0].ToString()).ToString();   //On enlève les 0 devant
+        private void RefreshDomoBoxes(string ensureContactId, string ensureVid, string ensurePhone)
+        {
+            isLoadingDomoCombo = true;
+            cbNumeroBoitier.DataSource = null;
+            dtDomoBoxes.Rows.Clear();
+
+            try
+            {
+                string connex = ConfigurationManager.ConnectionStrings["Connection_Base"].ToString();
+                using (SqlConnection dbConnection = new SqlConnection(connex))
+                {
+                    dbConnection.Open();
+
+                    using (SqlCommand cmd = dbConnection.CreateCommand())
+                    {
+                        cmd.CommandText = "SELECT ContactID, VID, Num_tel_Sim FROM TA_Materiel WHERE Type_tarif = @TypeTarif AND (IDAbonnement IS NULL OR IDAbonnement = '') AND (DateHS IS NULL) ORDER BY ContactID";
+                        cmd.Parameters.AddWithValue("TypeTarif", TypeTarifDomo4G);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            DataTable disponibles = new DataTable();
+                            disponibles.Load(reader);
+
+                            foreach (DataRow row in disponibles.Rows)
+                            {
+                                DataRow option = dtDomoBoxes.NewRow();
+                                option["ContactID"] = row["ContactID"].ToString();
+                                option["VID"] = row["VID"].ToString();
+                                option["Num_tel_Sim"] = row["Num_tel_Sim"].ToString();
+                                option["Display"] = BuildDomoDisplay(option["ContactID"].ToString(), option["VID"].ToString(), option["Num_tel_Sim"].ToString());
+                                dtDomoBoxes.Rows.Add(option);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erreur lors du chargement des boitiers DOMO 4G : " + ex.Message);
+            }
+
+            if (!string.IsNullOrEmpty(ensureContactId))
+            {
+                string filtre = "ContactID = '" + ensureContactId.Replace("'", "''") + "'";
+                if (dtDomoBoxes.Select(filtre).Length == 0)
+                {
+                    DataRow option = dtDomoBoxes.NewRow();
+                    option["ContactID"] = ensureContactId;
+                    option["VID"] = ensureVid ?? string.Empty;
+                    option["Num_tel_Sim"] = ensurePhone ?? string.Empty;
+                    option["Display"] = BuildDomoDisplay(option["ContactID"].ToString(), option["VID"].ToString(), option["Num_tel_Sim"].ToString());
+                    dtDomoBoxes.Rows.InsertAt(option, 0);
+                }
+            }
+
+            cbNumeroBoitier.DisplayMember = "Display";
+            cbNumeroBoitier.ValueMember = "ContactID";
+            cbNumeroBoitier.DataSource = dtDomoBoxes;
+
+            if (!string.IsNullOrEmpty(ensureContactId))
+            {
+                cbNumeroBoitier.SelectedValue = ensureContactId;
+                selectedDomoContactId = ensureContactId;
+            }
+            else
+            {
+                cbNumeroBoitier.SelectedIndex = -1;
+                selectedDomoContactId = string.Empty;
+            }
+
+            isLoadingDomoCombo = false;
+        }
+
+        private static string BuildDomoDisplay(string contactId, string vid, string phone)
+        {
+            string formattedPhone = phone == null ? string.Empty : phone.Replace(" ", string.Empty);
+            if (!string.IsNullOrEmpty(formattedPhone) && !formattedPhone.StartsWith("+"))
+            {
+                formattedPhone = "+" + formattedPhone;
+            }
+
+            return string.Format("{0} / {1} / {2}", contactId, vid, formattedPhone);
+        }
+
+        private void ShowDomoSelection(string ensureContactId, string ensureVid, string ensurePhone)
+        {
+            labelNumeroBoitier.Visible = true;
+            cbNumeroBoitier.Visible = true;
+            cbNumeroBoitier.Enabled = true;
+            RefreshDomoBoxes(ensureContactId, ensureVid, ensurePhone);
+        }
+
+        private void HideDomoSelection()
+        {
+            labelNumeroBoitier.Visible = false;
+            cbNumeroBoitier.Visible = false;
+            cbNumeroBoitier.Enabled = false;
+            cbNumeroBoitier.SelectedIndex = -1;
+            cbNumeroBoitier.DataSource = null;
+            if (dtDomoBoxes.Rows.Count > 0)
+                dtDomoBoxes.Rows.Clear();
+            selectedDomoContactId = string.Empty;
+        }
+
+        private void cbNumeroBoitier_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (isLoadingDomoCombo)
+                return;
+
+            if (cbNumeroBoitier.SelectedValue == null || cbNumeroBoitier.SelectedIndex < 0)
+            {
+                if (rBTypeBoitier4.Checked)
+                {
+                    txtIdContrat.Text = string.Empty;
+                    lblContrat.Text = string.Empty;
+                    EMaskTel1.Text = string.Empty;
+                }
+                selectedDomoContactId = string.Empty;
+                return;
+            }
+
+            selectedDomoContactId = cbNumeroBoitier.SelectedValue.ToString();
+            string filtre = "ContactID = '" + selectedDomoContactId.Replace("'", "''") + "'";
+            DataRow[] selection = dtDomoBoxes.Select(filtre);
+            if (selection.Length > 0)
+            {
+                string phone = selection[0]["Num_tel_Sim"].ToString();
+                string vid = selection[0]["VID"].ToString();
+
+                txtIdContrat.Text = selectedDomoContactId;
+                lblContrat.Text = "Contrat : " + txtIdContrat.Text;
+                if (!string.IsNullOrEmpty(phone))
+                {
+                    EMaskTel1.Text = phone;
+                }
+
+                if (string.IsNullOrEmpty(initialDomoContactId))
+                {
+                    initialDomoContactId = selectedDomoContactId;
+                    initialDomoVid = vid;
+                    initialDomoPhone = phone;
+                }
+            }
+        }
+
+        private void rBTypeBoitier4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rBTypeBoitier4.Checked)
+            {
+                ShowDomoSelection(initialDomoContactId, initialDomoVid, initialDomoPhone);
+                rBTypeBoitier1.Enabled = false;
+                rBTypeBoitier2.Enabled = false;
+                rBTypeBoitier3.Enabled = false;
+
+                if (tbAbonnement.Tag != null && tbAbonnement.Tag.ToString() == "-1")
+                {
+                    txtIdContrat.Text = string.Empty;
+                    lblContrat.Text = string.Empty;
+                    EMaskTel1.Text = string.Empty;
+                }
+            }
+            else
+            {
+                HideDomoSelection();
+            }
+        }
+
+        private void rBTypeBoitier4_Click(object sender, EventArgs e)
+        {
+            if (AncienCheck != 4)
+            {
+                if (tbAbonnement.Tag != null && tbAbonnement.Tag.ToString() != "-1")
+                {
+                    DialogResult result1 = MessageBox.Show("Voulez vous changer la box de cette personne? Si oui, veuillez en indiquer le motif. ", "Changement de box",
+                                           MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (result1 == DialogResult.Yes)
+                    {
+                        cBoxMotifChangement.Enabled = true;
+                    }
+                    else
+                    {
+                        cBoxMotifChangement.Text = string.Empty;
+                        cBoxMotifChangement.Enabled = false;
+                        if (AncienCheck == 3)
+                            rBTypeBoitier3.Checked = true;
+                        else if (AncienCheck == 2)
+                            rBTypeBoitier2.Checked = true;
+                        else if (AncienCheck == 4)
+                            rBTypeBoitier4.Checked = true;
+                        else if (AncienCheck == 1)
+                            rBTypeBoitier1.Checked = true;
+                        else
+                            rBTypeBoitier4.Checked = false;
+                    }
+                }
+            }
+        }
+
+                            case "D4G":
+                                rBTypeBoitier4.Checked = true;
+                                AncienCheck = 4;
+                                initialDomoContactId = dtMateriel.Rows[i]["ContactID"].ToString();
+                                initialDomoVid = dtMateriel.Rows[i]["VID"].ToString();
+                                initialDomoPhone = dtMateriel.Rows[i]["Num_tel_Sim"].ToString();
+                                ShowDomoSelection(initialDomoContactId, initialDomoVid, initialDomoPhone);
+                                rBTypeBoitier1.Enabled = false;
+                                rBTypeBoitier2.Enabled = false;
+                                rBTypeBoitier3.Enabled = false;
+                                break;
+                    reponse[0] = int.Parse(dtMaxNum.Rows[0][0].ToString()).ToString();   //On enlÃ¨ve les 0 devant
                     reponse[1] = dtMaxNum.Rows[0][1].ToString();
                 }
                 else
@@ -7551,7 +7863,7 @@ namespace ImportSosGeneve
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erreur Lors de la recherche du n° de contrat Le message est: " + ex.Message);
+                Console.WriteLine("Erreur Lors de la recherche du nÂ° de contrat Le message est: " + ex.Message);
             }
 
             return reponse;
@@ -7585,7 +7897,7 @@ namespace ImportSosGeneve
                     //On rempli le DataTable(Pour enregistrer ou modifier par la suite) et la liste view                
                     for (int i = 0; i < dtMateriel.Rows.Count; i++)
                     {
-                        //En fonction du Type_tarif, on determine quel boitier est affecté à cet abonnement
+                        //En fonction du Type_tarif, on determine quel boitier est affectÃ© Ã  cet abonnement
                         switch (dtMateriel.Rows[i]["Type_tarif"].ToString())
                         {
                             case "L3GSL": rBTypeBoitier1.Checked = true; AncienCheck = 1; break;
@@ -7621,15 +7933,32 @@ namespace ImportSosGeneve
         }
 
 
-        // Methode pour completer les chaines avec des 0 ( exemple 135 donnera 00135 si longueur est à 5)
-        private String Complete(String Chaine, int longueur)
-        {
-            int nbCara = longueur - Chaine.Length;
-            String ChaineFinale = "";
-            if (nbCara >= 0)
+            //on regarde s'il y en a de dispo
+            if (rBTypeBoitier4.Checked)
             {
-                for (int i = 1; i < nbCara + 1; i++)
+                Desafection[0] = cBoxMotifChangement.Text;
+                Desafection[1] = Complete(txtIdContrat.Text, 8);
+                ShowDomoSelection(null, null, null);
+                txtIdContrat.Text = string.Empty;
+                lblContrat.Text = string.Empty;
+                EMaskTel1.Text = string.Empty;
+                return;
+            }
+
+            if (rBTypeBoitier1.Checked)
+                Luna = "L3GSL";
+                Luna = "L3G";
+
+
+
+                    rBTypeBoitier3.Checked = true;
                 {
+                        else if (AncienCheck == 4)
+                            rBTypeBoitier4.Checked = true;
+                        else if (AncienCheck == 4)
+                            rBTypeBoitier4.Checked = true;
+                        else if (AncienCheck == 4)
+                            rBTypeBoitier4.Checked = true;
                     ChaineFinale = ChaineFinale + "0";
                 }
                 ChaineFinale = ChaineFinale + Chaine;
@@ -7658,7 +7987,7 @@ namespace ImportSosGeneve
 
             if (BoitierDispo[0] == "-1")
             {
-                MessageBox.Show("Il n'y a plus de boitier Disponible en stock pour ce modèle.", "Stock Materiel", MessageBoxButtons.OK ,MessageBoxIcon.Stop);
+                MessageBox.Show("Il n'y a plus de boitier Disponible en stock pour ce modÃ¨le.", "Stock Materiel", MessageBoxButtons.OK ,MessageBoxIcon.Stop);
                 
                 //on remet sur l'ancien check
                 cBoxMotifChangement.Text = "";
@@ -7673,7 +8002,7 @@ namespace ImportSosGeneve
             }
             else
             {
-                //On prépare la déaffectation l'ancien boitier
+                //On prÃ©pare la dÃ©affectation l'ancien boitier
                 Desafection[0] = cBoxMotifChangement.Text;
                 Desafection[1] = Complete(txtIdContrat.Text, 8);
 
@@ -7774,7 +8103,7 @@ namespace ImportSosGeneve
         }
 
 
-        //Charge la liste des n° de Tel de la personne
+        //Charge la liste des nÂ° de Tel de la personne
         private void ChargeListTel(string IdPersonne)
         {
             string connex = ConfigurationManager.ConnectionStrings["Connection_Base"].ToString();
@@ -7812,15 +8141,15 @@ namespace ImportSosGeneve
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Erreur Lors du chargement de la liste des téléphones du patient. Le message est: " + ex.Message);
+                Console.WriteLine("Erreur Lors du chargement de la liste des tÃ©lÃ©phones du patient. Le message est: " + ex.Message);
             }
 
         }
 
         private void bAjouteTel1_Click(object sender, EventArgs e)
         {
-            //On ajoute le n° de Tel, après avoir vérifié qu'il n'existe pas déjà
-            //Formatage du n°
+            //On ajoute le nÂ° de Tel, aprÃ¨s avoir vÃ©rifiÃ© qu'il n'existe pas dÃ©jÃ 
+            //Formatage du nÂ°
             if (EmaskAjoutTel.Text.Replace("-", "").Replace("+", "") != "")
             {
                 string Tel = EmaskAjoutTel.Text;
@@ -7868,7 +8197,7 @@ namespace ImportSosGeneve
 
         private void AjouteListTel(string IdPersonne)
         {            
-            //On essai d'ajouter les N° de Tel qui ont été ajoutés à la liste         
+            //On essai d'ajouter les NÂ° de Tel qui ont Ã©tÃ© ajoutÃ©s Ã  la liste         
             string connex = ConfigurationManager.ConnectionStrings["Connection_Base"].ToString();
             SqlConnection dbConnection = new SqlConnection(connex);
 
@@ -7879,7 +8208,7 @@ namespace ImportSosGeneve
                 SqlCommand cmd = dbConnection.CreateCommand();
                 cmd.Connection = dbConnection;
 
-                //Gestion des n° de Tel...On regarde s'il existe dans la table Tel_Personne                                                                       
+                //Gestion des nÂ° de Tel...On regarde s'il existe dans la table Tel_Personne                                                                       
                 for (int i = 0; i < dtNvxTel.Rows.Count; i++)
                 {
                     string sqlstr0 = "SELECT NumPersonne, NumTel";
@@ -7896,7 +8225,7 @@ namespace ImportSosGeneve
                     DataTable Telephone = new DataTable();
                     Telephone.Load(cmd.ExecuteReader());
 
-                    //Si on ne l'a pas trouvé, on l'ajoute à la table
+                    //Si on ne l'a pas trouvÃ©, on l'ajoute Ã  la table
                     if (Telephone.Rows.Count == 0)
                     {
                         sqlstr0 = "INSERT INTO Tel_Personne";
@@ -7920,7 +8249,7 @@ namespace ImportSosGeneve
         }
 
 
-        //On supprime un n° de Tel de la personne
+        //On supprime un nÂ° de Tel de la personne
         private void SupprimeTel(string IdPersonne)
         {
             string connex = ConfigurationManager.ConnectionStrings["Connection_Base"].ToString();
@@ -7946,7 +8275,7 @@ namespace ImportSosGeneve
                     cmd.ExecuteReader();
                 }
 
-                //On vide la liste des Tel à effacer
+                //On vide la liste des Tel Ã  effacer
                 dtDelTel.Rows.Clear();                                               
             }
             catch (Exception ex)
@@ -7977,13 +8306,13 @@ namespace ImportSosGeneve
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-           //On recherche les opérations pour cette facture            
+           //On recherche les opÃ©rations pour cette facture            
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 //On vide le dataGridView2
                 dataGridView2.Columns.Clear();
                 
-                //Recherche des opérations de cette facture
+                //Recherche des opÃ©rations de cette facture
                 string connex = ConfigurationManager.ConnectionStrings["Connection_Base"].ToString();
                 SqlConnection dbConnection = new SqlConnection(connex);
 
@@ -8019,14 +8348,14 @@ namespace ImportSosGeneve
                     //Si on a quelque chose...
                     if (DetailFactureOp.Rows.Count != 0)
                     {                                
-                        //Paramètres du datagridView... On détermine les colonnes à afficher                                      
+                        //ParamÃ¨tres du datagridView... On dÃ©termine les colonnes Ã  afficher                                      
                         dataGridView2.DataSource = DetailFactureOp;
                         dataGridView2.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                         dataGridView2.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                         dataGridView2.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                         dataGridView2.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                
-                        dataGridView2.Columns[0].HeaderText = "N° de facture";
+                        dataGridView2.Columns[0].HeaderText = "NÂ° de facture";
                         dataGridView2.Columns[1].HeaderText = "Date Encaissement";
                         dataGridView2.Columns[2].HeaderText = "Montant";           
                         dataGridView2.Columns[3].HeaderText = "Moyen de paiement";
@@ -8060,12 +8389,12 @@ namespace ImportSosGeneve
 
         private void bsupprTel_Click(object sender, EventArgs e)
         {
-            //si on a selectionné quelque chose
+            //si on a selectionnÃ© quelque chose
             if (listViewTel.SelectedIndices.Count > 0)
             {
                 string Tel = listViewTel.Items[listViewTel.SelectedIndices[0]].Text.Replace(" ", "");
 
-                //On suprime le N° de Tel il en faut au moins 1
+                //On suprime le NÂ° de Tel il en faut au moins 1
                 if (listViewTel.Items.Count > 1)
                 {
                     if (Tel != EMaskTel1.Text.Replace(" ", ""))
@@ -8078,15 +8407,15 @@ namespace ImportSosGeneve
                     }
                     else
                     {
-                        MessageBox.Show("Vous ne pouvez supprimer ce n° car c'est celui de la box!");
+                        MessageBox.Show("Vous ne pouvez supprimer ce nÂ° car c'est celui de la box!");
                     }                   
                 }
                 else
                 {
-                    MessageBox.Show("Vous ne pouvez supprimer ce n° car il en faut au moins 1!");
+                    MessageBox.Show("Vous ne pouvez supprimer ce nÂ° car il en faut au moins 1!");
                 }
 
-                //Puis on deselectionne les N°
+                //Puis on deselectionne les NÂ°
                 listViewTel.SelectedIndices.Clear();
 
             }
@@ -8101,6 +8430,6 @@ namespace ImportSosGeneve
 
 //Panneau modules
 
-//Voir le fonctionnement Quand TA pour les 2 d'une même famille (débloquer la recherche sur Même n°)
+//Voir le fonctionnement Quand TA pour les 2 d'une mÃªme famille (dÃ©bloquer la recherche sur MÃªme nÂ°)
 
 
