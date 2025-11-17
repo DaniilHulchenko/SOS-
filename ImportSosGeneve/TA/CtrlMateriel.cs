@@ -97,7 +97,7 @@ namespace ImportSosGeneve
                     cmd.Parameters.AddWithValue("Libelle", cbLibelle.Text);
                     
                     if (tbxContactID.Text != "")
-                        cmd.Parameters.AddWithValue("ContactID", "0003" + tbxContactID.Text);                       
+                        cmd.Parameters.AddWithValue("ContactID", tbxContactID.Text);
                     else
                         cmd.Parameters.AddWithValue("ContactID", "00000000");                       
 
@@ -660,14 +660,11 @@ namespace ImportSosGeneve
         private bool ContactIdExists(int candidate)
         {
             string connex = ConfigurationManager.ConnectionStrings["Connection_Base_IP"].ToString();
-            string candidateWithPrefix = "0003" + candidate.ToString();
-
             using (SqlConnection dbConnection = new SqlConnection(connex))
             using (SqlCommand cmd = dbConnection.CreateCommand())
             {
-                cmd.CommandText = "SELECT COUNT(1) FROM TA_Materiel WHERE ContactID = @ContactID OR ContactID = @ContactIdWithoutPrefix";
-                cmd.Parameters.AddWithValue("@ContactID", candidateWithPrefix);
-                cmd.Parameters.AddWithValue("@ContactIdWithoutPrefix", candidate.ToString());
+                cmd.CommandText = "SELECT COUNT(1) FROM TA_Materiel WHERE ContactID = @ContactID";
+                cmd.Parameters.AddWithValue("@ContactID", candidate.ToString());
 
                 dbConnection.Open();
 
@@ -683,9 +680,6 @@ namespace ImportSosGeneve
                 return false;
 
             string numeric = contactId.Trim();
-
-            if (numeric.StartsWith("0003") && numeric.Length > 4)
-                numeric = numeric.Substring(4);
 
             if (!int.TryParse(numeric, out int value))
                 return false;
