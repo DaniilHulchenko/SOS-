@@ -18,6 +18,7 @@ namespace ImportSosGeneve.TA
         private static readonly string[] AdditionalLibelleOptions = new[] { "Domo KIT", "Domo Button", "Domo Buton chute" };
         private static readonly string[] AdditionalTypeTarifOptions = new[] { "D4G", "DM4", "DMC4" };
         private static readonly HashSet<string> AutoContactLibelles = new HashSet<string>(AdditionalLibelleOptions, StringComparer.OrdinalIgnoreCase);
+        private static readonly HashSet<string> MedaillonLibelles = new HashSet<string>(new[] { "LUNA 3G SL", "LUNA 3G", "LUNA 4" }, StringComparer.OrdinalIgnoreCase);
         private static readonly Random RandomGenerator = new Random();
 
         //vid -> utilisé dans la requête pour passer les enregistrements sur la page de gauche
@@ -525,17 +526,15 @@ namespace ImportSosGeneve.TA
         private void cbLibelle_TextChanged(object sender, EventArgs e)
         {
             //Si on ajoute une box, il faut lui attribuer systématiquement un médaillon
-            if (cbLibelle.Text == "LUNA 3G SL" || cbLibelle.Text == "LUNA 3G" || cbLibelle.Text == "LUNA 4")
+            if (MedaillonLibelles.Contains(cbLibelle.Text))
             {
-                //on débloque les textbox pour ajouter le VID du medaillon et le numero de tel
+                //on débloque les textbox pour ajouter le VID du medaillon
                 tbxVIDm.Enabled = true;
-                tbxTel.Enabled = true;
             }
             else
             {
-                //sinon les textbox pour ajouter le VID du medaillon et le numero de tel son désactivé
+                //sinon la saisie du VID médaillon est désactivée
                 tbxVIDm.Enabled = false;
-                tbxTel.Enabled = false;
             }
 
             if (AutoContactLibelles.Contains(cbLibelle.Text))
