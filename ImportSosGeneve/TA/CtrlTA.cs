@@ -1900,7 +1900,17 @@ namespace ImportSosGeneve
             this.comboBMateriel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBMateriel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBMateriel.Items.AddRange(new object[] {
-            this.comboBMateriel.TabIndex = 9;
+            "DOMO 4G",
+            "Luna Porte radio",
+            "Luna Présence radio",
+            "Detecteur Incendie",
+            "Tirette d\'appel",
+            "Luna Led",
+            "Luna Porte Bluetooth",
+            "Luna Présence Bluetooth",
+            "Luna Média Wifi",
+            "Luna Audio Wifi",
+            "Detecteur chute Vibby"});
             //
             // rBTypeBoitier4
             //
@@ -1912,16 +1922,6 @@ namespace ImportSosGeneve
             this.rBTypeBoitier4.CheckedChanged += new System.EventHandler(this.rBTypeBoitier4_CheckedChanged);
             this.rBTypeBoitier4.Click += new System.EventHandler(this.rBTypeBoitier4_Click);
 
-            "Luna Porte radio",
-            "Luna Présence radio",
-            "Detecteur Incendie",
-            "Tirette d\'appel",
-            "Luna Led",
-            "Luna Porte Bluetooth",
-            "Luna Présence Bluetooth",
-            "Luna Média Wifi",
-            "Luna Audio Wifi",
-            "Detecteur chute Vibby"});
             this.comboBMateriel.Location = new System.Drawing.Point(12, 207);
             this.comboBMateriel.Name = "comboBMateriel";
             this.comboBMateriel.Size = new System.Drawing.Size(248, 24);
@@ -7716,13 +7716,22 @@ namespace ImportSosGeneve
 
         private static string BuildDomoDisplay(string contactId, string vid, string phone)
         {
-            string formattedPhone = phone == null ? string.Empty : phone.Replace(" ", string.Empty);
-            if (!string.IsNullOrEmpty(formattedPhone) && !formattedPhone.StartsWith("+"))
+            if (string.IsNullOrWhiteSpace(contactId))
             {
-                formattedPhone = "+" + formattedPhone;
+                contactId = string.Empty;
             }
 
-            return string.Format("{0} / {1} / {2}", contactId, vid, formattedPhone);
+            if (string.IsNullOrWhiteSpace(vid))
+            {
+                vid = string.Empty;
+            }
+
+            if (!string.IsNullOrEmpty(contactId) && !string.IsNullOrEmpty(vid))
+            {
+                return string.Format("{0} / {1}", contactId, vid);
+            }
+
+            return contactId + vid;
         }
 
         private void ShowDomoSelection(string ensureContactId, string ensureVid, string ensurePhone)
