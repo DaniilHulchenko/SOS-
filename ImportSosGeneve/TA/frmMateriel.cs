@@ -15,6 +15,10 @@ namespace ImportSosGeneve.TA
     {
         private int Etat = 0;   //Etat = 0 -> Lecture, 1 -> Ajout, 2 -> Modification
         private int HS = 0;     //Etat du matériel
+        private static readonly string[] AdditionalLibelleOptions = new[] { "Domo KIT", "Domo Button", "Domo Buton chute" };
+        private static readonly string[] AdditionalTypeTarifOptions = new[] { "D4G", "DM4", "DMC4" };
+        private static readonly HashSet<string> AutoContactLibelles = new HashSet<string>(AdditionalLibelleOptions, StringComparer.OrdinalIgnoreCase);
+        private static readonly Random RandomGenerator = new Random();
 
         //vid -> utilisé dans la requête pour passer les enregistrements sur la page de gauche
         private string vid;
@@ -100,7 +104,7 @@ namespace ImportSosGeneve.TA
                         cmd.Parameters.AddWithValue("Libelle", cbLibelle.Text);
 
                         if (tbxContactID.Text != "")
-                            cmd.Parameters.AddWithValue("ContactID", "0003" + tbxContactID.Text);
+                            cmd.Parameters.AddWithValue("ContactID", tbxContactID.Text);
                         else
                             cmd.Parameters.AddWithValue("ContactID", "00000000");
 
@@ -242,6 +246,7 @@ namespace ImportSosGeneve.TA
         private void VideChamps()
         {
             tbxContactID.Text = "";
+            tbxContactID.ReadOnly = false;
             tbxVID.Text = "";
             tbxTel.Text = "";
             tbxPrixAchat.Text = "";
@@ -469,6 +474,8 @@ namespace ImportSosGeneve.TA
                 {
                     cbLibelle.Items.Add(libelle.Rows[i]["Libelle"].ToString());
                 }
+
+                EnsureAdditionalItems(cbLibelle, AdditionalLibelleOptions);
             }
             catch (Exception ex)
             {
@@ -504,6 +511,8 @@ namespace ImportSosGeneve.TA
                 {
                     cbTypeTarif.Items.Add(Tarif.Rows[i]["id"].ToString());
                 }
+
+                EnsureAdditionalItems(cbTypeTarif, AdditionalTypeTarifOptions);
             }
             catch (Exception ex)
             {
@@ -527,7 +536,28 @@ namespace ImportSosGeneve.TA
                 //sinon les textbox pour ajouter le VID du medaillon et le numero de tel son désactivé
                 tbxVIDm.Enabled = false;
                 tbxTel.Enabled = false;
-            }            
+            }
+
+            if (AutoContactLibelles.Contains(cbLibelle.Text))
+            {
+                tbxContactID.ReadOnly = true;
+
+                if (Etat == 1 && !IsContactIdInRange(tbxContactID.Text))
+                {
+                    try
+                    {
+                        tbxContactID.Text = GenerateUniqueContactId();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Erreur lors de la génération du Contact ID : " + ex.Message);
+                    }
+                }
+            }
+            else
+            {
+                tbxContactID.ReadOnly = false;
+            }
         }
 
         private void tbxRecherche_KeyPress(object sender, KeyPressEventArgs e)
@@ -625,8 +655,75 @@ namespace ImportSosGeneve.TA
             else if (tbxContactID.Text != "" && tbxVID.Text != "" && tbxTel.Text != "" && cbTypeTarif.Text != ""
                      && tbxPrixAchat.Text != "" && cbLibelle.Text != "")
                      retour = "OK";
-           
+
             return retour;
+        }
+
+        private static void EnsureAdditionalItems(ComboBox comboBox, IEnumerable<string> additionalValues)
+        {
+            foreach (string value in additionalValues)
+            {
+                bool exists = false;
+
+                foreach (object item in comboBox.Items)
+                {
+                    if (string.Equals(item?.ToString(), value, StringComparison.OrdinalIgnoreCase))
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                    comboBox.Items.Add(value);
+            }
+        }
+
+        private string GenerateUniqueContactId()
+        {
+            const int minValue = 50000;
+            const int maxValue = 60000;
+            int attempts = maxValue - minValue + 1;
+
+            for (int i = 0; i < attempts; i++)
+            {
+                int candidate = RandomGenerator.Next(minValue, maxValue + 1);
+
+                if (!ContactIdExists(candidate))
+                    return candidate.ToString();
+            }
+
+            throw new InvalidOperationException("Aucun Contact ID disponible dans la plage définie.");
+        }
+
+        private bool ContactIdExists(int candidate)
+        {
+            string connex = ConfigurationManager.ConnectionStrings["Connection_Base_IP"].ToString();
+            using (SqlConnection dbConnection = new SqlConnection(connex))
+            using (SqlCommand cmd = dbConnection.CreateCommand())
+            {
+                cmd.CommandText = "SELECT COUNT(1) FROM TA_Materiel WHERE ContactID = @ContactID";
+                cmd.Parameters.AddWithValue("@ContactID", candidate.ToString());
+
+                dbConnection.Open();
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                return count > 0;
+            }
+        }
+
+        private static bool IsContactIdInRange(string contactId)
+        {
+            if (string.IsNullOrWhiteSpace(contactId))
+                return false;
+
+            string numeric = contactId.Trim();
+
+            if (!int.TryParse(numeric, out int value))
+                return false;
+
+            return value >= 50000 && value <= 60000;
         }
 
 
