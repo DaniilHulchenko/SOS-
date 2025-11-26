@@ -18,6 +18,12 @@ namespace ImportSosGeneve.TA
         private static readonly string[] AdditionalLibelleOptions = new[] { "Domo KIT", "Domo Button", "Domo Buton chute" };
         private static readonly string[] AdditionalTypeTarifOptions = new[] { "D4G", "DM4", "DMC4" };
         private static readonly HashSet<string> AutoContactLibelles = new HashSet<string>(AdditionalLibelleOptions, StringComparer.OrdinalIgnoreCase);
+        private static readonly HashSet<string> LinkedMedallionLibelles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "LUNA 3G SL",
+            "LUNA 3G",
+            "LUNA 4"
+        };
         private static readonly Random RandomGenerator = new Random();
 
         //vid -> utilisé dans la requête pour passer les enregistrements sur la page de gauche
@@ -440,11 +446,7 @@ namespace ImportSosGeneve.TA
                 //on désactive la partie recherche
                 splitContainer2.Panel1.Enabled = false;
 
-                if (cbLibelle.Text == "LUNA 3G SL" || cbLibelle.Text == "LUNA 3G" || cbLibelle.Text == "LUNA 4")
-                {
-                    tbxVIDm.Enabled = true;
-                    tbxTel.Enabled = true;
-                }
+                UpdateAccessoryFieldsState();
             }
         }
 
@@ -524,19 +526,7 @@ namespace ImportSosGeneve.TA
 
         private void cbLibelle_TextChanged(object sender, EventArgs e)
         {
-            //Si on ajoute une box, il faut lui attribuer systématiquement un médaillon
-            if (cbLibelle.Text == "LUNA 3G SL" || cbLibelle.Text == "LUNA 3G" || cbLibelle.Text == "LUNA 4")
-            {
-                //on débloque les textbox pour ajouter le VID du medaillon et le numero de tel
-                tbxVIDm.Enabled = true;
-                tbxTel.Enabled = true;
-            }
-            else
-            {
-                //sinon les textbox pour ajouter le VID du medaillon et le numero de tel son désactivé
-                tbxVIDm.Enabled = false;
-                tbxTel.Enabled = false;
-            }
+            UpdateAccessoryFieldsState();
 
             if (AutoContactLibelles.Contains(cbLibelle.Text))
             {
@@ -558,6 +548,24 @@ namespace ImportSosGeneve.TA
             {
                 tbxContactID.ReadOnly = false;
             }
+        }
+
+        private void UpdateAccessoryFieldsState()
+        {
+            bool requiresMedallion = RequiresLinkedMedallion(cbLibelle.Text);
+
+            tbxVIDm.Enabled = requiresMedallion;
+            tbxTel.Enabled = RequiresPhoneEntry(cbLibelle.Text);
+        }
+
+        private static bool RequiresLinkedMedallion(string libelle)
+        {
+            return !string.IsNullOrWhiteSpace(libelle) && LinkedMedallionLibelles.Contains(libelle);
+        }
+
+        private static bool RequiresPhoneEntry(string libelle)
+        {
+            return RequiresLinkedMedallion(libelle) || string.Equals(libelle, "Domo KIT", StringComparison.OrdinalIgnoreCase);
         }
 
         private void tbxRecherche_KeyPress(object sender, KeyPressEventArgs e)
@@ -645,16 +653,27 @@ namespace ImportSosGeneve.TA
         {
             string retour = "KO";
 
+            bool baseFieldsFilled =
+                !string.IsNullOrWhiteSpace(tbxVID.Text) &&
+                !string.IsNullOrWhiteSpace(cbLibelle.Text) &&
+                !string.IsNullOrWhiteSpace(cbTypeTarif.Text) &&
+                !string.IsNullOrWhiteSpace(tbxPrixAchat.Text);
+
             //Tout les champs doivent être saisies Sauf si...
             if (cbLibelle.Text == "Detecteur chute Vibby" || cbLibelle.Text == "Luna Porte radio"
                 || cbLibelle.Text == "Tirette d'appel" || cbLibelle.Text == "Médaillon radio M4")
             {
-                if (tbxVID.Text != "" &&  cbLibelle.Text != "" && cbTypeTarif.Text != "" && tbxPrixAchat.Text != "")
+                if (baseFieldsFilled)
                     retour = "OK";
             }
-            else if (tbxContactID.Text != "" && tbxVID.Text != "" && tbxTel.Text != "" && cbTypeTarif.Text != ""
-                     && tbxPrixAchat.Text != "" && cbLibelle.Text != "")
-                     retour = "OK";
+            else if (!string.IsNullOrWhiteSpace(tbxContactID.Text) && baseFieldsFilled)
+            {
+                bool phoneRequired = tbxTel.Enabled;
+                bool phoneFilled = !string.IsNullOrWhiteSpace(tbxTel.Text);
+
+                if (!phoneRequired || phoneFilled)
+                    retour = "OK";
+            }
 
             return retour;
         }
