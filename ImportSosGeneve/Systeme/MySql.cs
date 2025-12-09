@@ -12,9 +12,9 @@ using System.Data.SqlClient;
 namespace ImportSosGeneve
 {
 	/// <summary>
-	/// Description résumée de MySql.
-	/// </summary>
-	public class MySql
+		private string m_strLogFile="";
+        private readonly int commandTimeout = 120;
+
 	{
 		//private OdbcConnection Cn=null;
 		private SqlConnection Cn = null;
@@ -115,22 +115,22 @@ namespace ImportSosGeneve
 
 #endregion
 
-#region Méthodes primitives de Requetes Sql
-
-		public bool ExecuteCommandeSansRetour(string Requete)
-		{
-			VerificationStateSql();
-			
 			SqlCommand commande = new SqlCommand(Requete, Cn);
             commande.CommandTimeout = commandTimeout;
 
-            commande.ExecuteNonQuery();
-			return true;				
-		}
+			SqlCommand commande = new SqlCommand(p_strSql, Cn);
+            commande.CommandTimeout = commandTimeout;
 
-        public object ExecuteScalar(String p_strSql)
-        {
-            object z_strValeurRetour  = null;
+			SqlCommand commande = new SqlCommand(Requete, Cn);
+            commande.CommandTimeout = commandTimeout;
+
+			SqlCommand commande = new SqlCommand(Requete, Cn);
+            commande.CommandTimeout = commandTimeout;
+
+
+			SqlCommand commande = new SqlCommand(Requete, Cn);
+            commande.CommandTimeout = commandTimeout;
+
            
 			SqlCommand commande = new SqlCommand(p_strSql, Cn);
             commande.CommandTimeout = commandTimeout;
@@ -780,13 +780,13 @@ namespace ImportSosGeneve
 			}
 			else if (New == 1)
 			{
-				// on met à jour lâssurance
+			SqlCommand commande = new SqlCommand(Requete, Cn);
+            commande.CommandTimeout = commandTimeout;
+
 				
-				string ReqAssurance = "INSERT INTO assurances (NAssurance, NAdresse, AssAdresseTexte, AssNom, AssService, AssTelephone, AssFax, AssCpostale, AssExtLocalite, AssContact, AssApprouve, AssCommentaire, NCaisse) VALUES ('"+ row["NAssurance"].ToString().Replace("'","''")+"','"+row["NAdresse"].ToString().Replace("'","''")+"','"+  row["AssAdresseTexte"].ToString().Replace("'","''")+"','"+  row["AssNom"].ToString().Replace("'","''")+"','"+  row["AssService"].ToString().Replace("'","''")+"','"+  row["AssTelephone"].ToString()+"','"+  row["AssFax"].ToString().Replace("'","''")+"','"+ row["AssCpostale"].ToString().Replace("'","''")+"','"+  row["AssExtLocalite"].ToString().Replace("'","''")+"','"+  row["AssContact"].ToString().Replace("'","''")+"','"+ row["AssApprouve"].ToString().Replace("'","''")+"','"+ row["AssCommentaire"].ToString().Replace("'","''")+"','"+ row["NCaisse"].ToString().Replace("'","''")+"')";
-				
-				SqlCommand commande = new SqlCommand(ReqAssurance, Cn);
-				commande.ExecuteNonQuery();
-				return true;
+			SqlCommand commande = new SqlCommand(Requete, Cn);
+            commande.CommandTimeout = commandTimeout;
+
 			}
 			else return false;
 		}
@@ -993,54 +993,38 @@ namespace ImportSosGeneve
 		}
 
         //Accord du visa
-        public void VisaSurRapport(SosMedecins.SmartRapport.DAL.dstRapport.RapportRow row, bool Valeur)
-        {
-            int val = 0;
-
-            if (Valeur)
-            {
-                val = 1;
-
-                var currentSignature = row["RapSignature"]?.ToString();
-                if (string.IsNullOrWhiteSpace(currentSignature))
+        public void VisaSurRapport(SosMedecins.SmartRapport.DAL.dstRapport.RapportRow row, bool Valeur, string signatureOverride = null)
                 {
-                    var nom = row["NomMedecinSos"].ToString().Trim();
-                    var parts = nom.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        int val = 0;
+                        row["RapSignature"]="";
 
-                    if (parts.Length == 1)
-                    {
-                        row["RapSignature"] = nom.ToUpper();
-                    }
-                    else if (parts.Length == 2)
-                    {
-                        var first = parts[0];
-                        var last = parts[1];
+            //MessageBox.Show(VariablesApplicatives.Utilisateurs.Identifiant.ToString());
+            if(Valeur)
+                        {
+                                val = 1;
+                                if(row["NomMedecinSos"].ToString().Split(' ').Length == 1)
+                                {
+                                        row["RapSignature"] =  row["NomMedecinSos"].ToString().ToUpper();
+                                }
+                                else if(row["NomMedecinSos"].ToString().Split(' ').Length == 2)
+                                {
+                                        row["RapSignature"] =  row["NomMedecinSos"].ToString().Split(' ')[1].Substring(0,1).ToUpper() + row["NomMedecinSos"].ToString().Split(' ')[1].Remove(0,1).ToLower() + " " + row["NomMedecinSos"].ToString().Split(' ')[0].ToUpper();
+                                }
+                                else
+                                        row["RapSignature"] =  row["NomMedecinSos"].ToString().ToUpper();
+                        }
+                        else if(!string.IsNullOrEmpty(signatureOverride))
+                        {
+                                row["RapSignature"] = signatureOverride;
+                        }
 
-                        row["RapSignature"] =
-                            char.ToUpper(last[0]) + last.Substring(1).ToLower() + " " +
-                            first.ToUpper();
-                    }
-                    else
-                    {
-                        row["RapSignature"] = nom.ToUpper();
-                    }
+            //on vise le rapport
+            ExecuteCommandeSansRetour("update tablerapports set  Vise = " + val + ",AViser = 0,BonPourReprise = 0,RapSignature = '" + row["RapSignature"].ToString().Replace("'", "''") + "', Medecin_viseur = '" + VariablesApplicatives.Utilisateurs.Identifiant.ToString() + "'  WHERE Nrapport = " + row["NRapport"].ToString());
+
+            //Puis on met  jour la tablerapportdestine avec une date d'envoi pour ne plus les envoyer******A activer en octobre2014*******  Domi le 24.06.2014
+            //ExecuteCommandeSansRetour("update tablerapportdestine set RapEnvoye = 1, DateEnvoi =  '" + DateTime.Now + "'  WHERE Nrapport = " + row["NRapport"].ToString());
                 }
-            }
-            else
-            {
-                val = 0;
-                row["RapSignature"] = "";
-            }
-
-            ExecuteCommandeSansRetour(
-                "update tablerapports set Vise = " + val +
-                ", AViser = 0, BonPourReprise = 0, RapSignature = '" +
-                row["RapSignature"].ToString().Replace("'", "''") +
-                "', Medecin_viseur = '" + VariablesApplicatives.Utilisateurs.Identifiant.ToString() +
-                "' WHERE Nrapport = " + row["NRapport"].ToString());
-        }
-
-        public void BonPourReprise(long NRapport,bool Valeur)
+		public void BonPourReprise(long NRapport,bool Valeur)
 		{
 			int val = 0;
 			if(Valeur) val = 1;
@@ -1057,6 +1041,12 @@ namespace ImportSosGeneve
 				return ExecuteCommandeSansRetour("update tablerapportdestine set RapEnvoye = " + Val + " WHERE NRapport = " + NRapport + " AND CodeDestinataire = " + CodeDestinataire);
 			else
 				return ExecuteCommandeSansRetour("update tablerapportdestine set RapEnvoye = " + Val + ",DateEnvoi = '" + DateFormatMySql(DateTime.Now) + "' WHERE NRapport = " + NRapport + " AND CodeDestinataire = " + CodeDestinataire);			
+		}
+
+		public void UpdateRapSignature(long NRapport, string signature)
+		{
+			string value = signature ?? string.Empty;
+			ExecuteCommandeSansRetour("update tablerapports set RapSignature = '" + value.Replace("'", "''") + "' WHERE NRapport = " + NRapport);
 		}
 
 		public string[][] ListeRapportAViser()
