@@ -93,7 +93,7 @@ namespace ImportSosGeneve
                     cmd.Parameters.AddWithValue("Libelle", cbLibelle.Text);
                     
                     if (tbxContactID.Text != "")
-                        cmd.Parameters.AddWithValue("ContactID", "0003" + tbxContactID.Text);                       
+                        cmd.Parameters.AddWithValue("ContactID", tbxContactID.Text);
                     else
                         cmd.Parameters.AddWithValue("ContactID", "00000000");                       
 

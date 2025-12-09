@@ -7020,8 +7020,14 @@ namespace ImportSosGeneve
                             case "2908":      //Pelet François
                                 CrystalUtility.SetVisibleImage(Donnees.MonEtatRapport, "Picture6", !bVise);
                                 break;
-                            case "D614":      //MBAYO Paul
+                            case "614":      //MBAYO Paul
                                 CrystalUtility.SetVisibleImage(Donnees.MonEtatRapport, "Picture7", !bVise);
+                                break;
+                            case "616":      // Angelo Juliano
+                                CrystalUtility.SetVisibleImage(Donnees.MonEtatRapport, "Picture8", !bVise);
+                                break;
+                            case "615":      // Patrick Susz
+                                CrystalUtility.SetVisibleImage(Donnees.MonEtatRapport, "Picture9", !bVise);
                                 break;
                             default:         //MBAYO Paul
                                 CrystalUtility.SetVisibleImage(Donnees.MonEtatRapport, "Picture7", !bVise);

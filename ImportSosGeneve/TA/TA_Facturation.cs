@@ -13,6 +13,9 @@ using SosMedecins.SmartRapport.GestionApplication;
 //using QRCoder;
 using ImportSosGeneve.Properties;
 using Codecrete.SwissQRBill.Generator;
+using System.Collections.Generic;
+
+
 
 namespace ImportSosGeneve.TA
 {
@@ -1959,9 +1962,9 @@ namespace ImportSosGeneve.TA
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             //DataSet dsAbo = null;
             Donnees.MesFactures_TA = new SosMedecins.SmartRapport.DAL.dstTaFacture();
-            
-            da.Fill(Donnees.MesFactures_TA.Tables[0]);
-      			
+
+            FillFacturesWithValidation(da, sqlstr0, Donnees.MesFactures_TA.Tables[0], dbConnection);
+
             foreach (DataRow z_drw in Donnees.MesFactures_TA.Tables[0].Rows)
             {
                 PrepareFacture(z_drw, "1er Envoi");
@@ -2099,7 +2102,7 @@ namespace ImportSosGeneve.TA
 
                 Donnees.MesFactures_TA = new SosMedecins.SmartRapport.DAL.dstTaFacture();
 
-                da.Fill(Donnees.MesFactures_TA.Tables[0]);
+                FillFacturesWithValidation(da, sqlstr0, Donnees.MesFactures_TA.Tables[0], dbConnection);
 
                 PrepareFacture(Donnees.MesFactures_TA.Tables[0].Rows[0], "1er Envoi");
 
@@ -2461,7 +2464,75 @@ namespace ImportSosGeneve.TA
             
 		}
 
-	
+        private void FillFacturesWithValidation(SqlDataAdapter adapter, string sqlQuery, DataTable targetTable, SqlConnection connection)
+        {
+            try
+            {
+                adapter.Fill(targetTable);
+            }
+            catch (Exception ex)
+            {
+                List<string> npErrors = GetInvalidNpValues(connection, sqlQuery);
+
+                if (npErrors.Count > 0)
+                {
+                    throw new InvalidOperationException(
+                        "Erreur lors du chargement des factures : NP contient une valeur non numrique pour " +
+                        string.Join("; ", npErrors),
+                        ex);
+                }
+
+                throw;
+            }
+        }
+
+        private List<string> GetInvalidNpValues(SqlConnection dbConnection, string sqlQuery)
+        {
+            List<string> issues = new List<string>();
+            bool shouldClose = false;
+
+            if (dbConnection.State != ConnectionState.Open)
+            {
+                dbConnection.Open();
+                shouldClose = true;
+            }
+
+            using (SqlCommand checkCmd = new SqlCommand(sqlQuery, dbConnection))
+            using (SqlDataReader reader = checkCmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    object rawNp = reader["NP"];
+
+                    if (rawNp != DBNull.Value)
+                    {
+                        string npText = rawNp.ToString();
+
+                        if (!long.TryParse(npText, out _))
+                        {
+                            string facture = reader["N_Facture"].ToString();
+                            string nom = reader["Nom"].ToString();
+
+                            issues.Add($"facture {facture} ({nom}) : NP = '{npText}'");
+
+                            if (issues.Count >= 3)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (shouldClose)
+            {
+                dbConnection.Close();
+            }
+
+            return issues;
+        }
+
+
 
         private void PrepareFacture(DataRow p_drw, string typeFacture)
         {
@@ -3090,8 +3161,8 @@ namespace ImportSosGeneve.TA
 
             Donnees.MesFactures_TA = new SosMedecins.SmartRapport.DAL.dstTaFacture();
 
-            da.Fill(Donnees.MesFactures_TA.Tables[0]);
-                
+            FillFacturesWithValidation(da, sqlstr0, Donnees.MesFactures_TA.Tables[0], dbConnection);
+
             foreach (DataRow z_drw in Donnees.MesFactures_TA.Tables[0].Rows)
             {
                 PrepareFacture(z_drw, "1er Envoi");
@@ -3386,7 +3457,7 @@ namespace ImportSosGeneve.TA
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             
             Donnees.MesFactures_TA = new SosMedecins.SmartRapport.DAL.dstTaFacture();
-            da.Fill(Donnees.MesFactures_TA.Tables[0]);
+            FillFacturesWithValidation(da, sqlstr0, Donnees.MesFactures_TA.Tables[0], dbConnection);
 
             foreach (DataRow z_drw in Donnees.MesFactures_TA.Tables[0].Rows)
             {

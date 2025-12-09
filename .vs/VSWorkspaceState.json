@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\ImportSosGeneve"
+    "\\ImportSosGeneve",
+    "\\ImportSosGeneve\\Commun",
+    "\\ImportSosGeneve\\Rapport"
   ],
-  "SelectedNode": "\\ImportSosGeneve\\Commun",
+  "SelectedNode": "\\ImportSosGeneve\\Commun\\frmGeneral.cs",
   "PreviewInSolutionExplorer": false
 }

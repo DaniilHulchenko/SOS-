@@ -15,6 +15,11 @@ namespace ImportSosGeneve.TA
     {
         private int Etat = 0;   //Etat = 0 -> Lecture, 1 -> Ajout, 2 -> Modification
         private int HS = 0;     //Etat du matériel
+        private static readonly string[] AdditionalLibelleOptions = new[] { "Domo KIT", "Domo Button", "Domo Buton chute" };
+        private static readonly string[] AdditionalTypeTarifOptions = new[] { "D4G", "DM4", "DMC4" };
+        private static readonly HashSet<string> AutoContactLibelles = new HashSet<string>(AdditionalLibelleOptions, StringComparer.OrdinalIgnoreCase);
+        private static readonly HashSet<string> MedaillonLibelles = new HashSet<string>(new[] { "LUNA 3G SL", "LUNA 3G", "LUNA 4" }, StringComparer.OrdinalIgnoreCase);
+        private static readonly Random RandomGenerator = new Random();
 
         //vid -> utilisé dans la requête pour passer les enregistrements sur la page de gauche
         private string vid;
@@ -58,6 +63,7 @@ namespace ImportSosGeneve.TA
             //si tout les champs sont bien remplis
             if (VerifSaisie() == "OK")
             {
+
                 string connex = ConfigurationManager.ConnectionStrings["Connection_Base_IP"].ToString();
                 SqlConnection dbConnection = new SqlConnection(connex);
 
@@ -100,7 +106,7 @@ namespace ImportSosGeneve.TA
                         cmd.Parameters.AddWithValue("Libelle", cbLibelle.Text);
 
                         if (tbxContactID.Text != "")
-                            cmd.Parameters.AddWithValue("ContactID", "0003" + tbxContactID.Text);
+                            cmd.Parameters.AddWithValue("ContactID", tbxContactID.Text);
                         else
                             cmd.Parameters.AddWithValue("ContactID", "00000000");
 
@@ -242,6 +248,7 @@ namespace ImportSosGeneve.TA
         private void VideChamps()
         {
             tbxContactID.Text = "";
+            tbxContactID.ReadOnly = false;
             tbxVID.Text = "";
             tbxTel.Text = "";
             tbxPrixAchat.Text = "";
@@ -397,6 +404,9 @@ namespace ImportSosGeneve.TA
                     tbxPrixAchat.Text = Materiel.Rows[0]["Prix_Achat"].ToString();
                     cbLibelle.Text = Materiel.Rows[0]["Libelle"].ToString();
 
+                    UpdatePhoneFieldVisibility();
+
+
                     //si datehs est nul on ne coche pas le checkbox
                     if (Materiel.Rows[0]["DateHS"].ToString() == "")
                     {
@@ -438,8 +448,12 @@ namespace ImportSosGeneve.TA
                 if (cbLibelle.Text == "LUNA 3G SL" || cbLibelle.Text == "LUNA 3G" || cbLibelle.Text == "LUNA 4")
                 {
                     tbxVIDm.Enabled = true;
-                    tbxTel.Enabled = true;
+                    if (!IsDomoButton(cbLibelle.Text))
+                        tbxTel.Enabled = true;
                 }
+
+                UpdatePhoneFieldVisibility();
+
             }
         }
 
@@ -469,6 +483,8 @@ namespace ImportSosGeneve.TA
                 {
                     cbLibelle.Items.Add(libelle.Rows[i]["Libelle"].ToString());
                 }
+                EnsureAdditionalItems(cbLibelle, AdditionalLibelleOptions);
+
             }
             catch (Exception ex)
             {
@@ -504,6 +520,8 @@ namespace ImportSosGeneve.TA
                 {
                     cbTypeTarif.Items.Add(Tarif.Rows[i]["id"].ToString());
                 }
+                EnsureAdditionalItems(cbTypeTarif, AdditionalTypeTarifOptions);
+
             }
             catch (Exception ex)
             {
@@ -521,13 +539,19 @@ namespace ImportSosGeneve.TA
                 //on débloque les textbox pour ajouter le VID du medaillon et le numero de tel
                 tbxVIDm.Enabled = true;
                 tbxTel.Enabled = true;
+                if (!IsDomoButton(cbLibelle.Text))
+                    tbxTel.Enabled = true;
             }
             else
             {
                 //sinon les textbox pour ajouter le VID du medaillon et le numero de tel son désactivé
                 tbxVIDm.Enabled = false;
-                tbxTel.Enabled = false;
-            }            
+
+                if (!IsDomoButton(cbLibelle.Text))
+
+
+                    UpdatePhoneFieldVisibility();
+            }
         }
 
         private void tbxRecherche_KeyPress(object sender, KeyPressEventArgs e)
@@ -615,18 +639,116 @@ namespace ImportSosGeneve.TA
         {
             string retour = "KO";
 
+            bool baseFieldsFilled =
+                !string.IsNullOrWhiteSpace(tbxVID.Text) &&
+                !string.IsNullOrWhiteSpace(cbLibelle.Text) &&
+                !string.IsNullOrWhiteSpace(cbTypeTarif.Text) &&
+                !string.IsNullOrWhiteSpace(tbxPrixAchat.Text);
+
             //Tout les champs doivent être saisies Sauf si...
             if (cbLibelle.Text == "Detecteur chute Vibby" || cbLibelle.Text == "Luna Porte radio"
-                || cbLibelle.Text == "Tirette d'appel" || cbLibelle.Text == "Médaillon radio M4")
+                || cbLibelle.Text == "Tirette d'appel" || cbLibelle.Text == "Médaillon radio M4" || IsDomoButton(cbLibelle.Text))
             {
-                if (tbxVID.Text != "" &&  cbLibelle.Text != "" && cbTypeTarif.Text != "" && tbxPrixAchat.Text != "")
+                if (baseFieldsFilled)
                     retour = "OK";
             }
-            else if (tbxContactID.Text != "" && tbxVID.Text != "" && tbxTel.Text != "" && cbTypeTarif.Text != ""
-                     && tbxPrixAchat.Text != "" && cbLibelle.Text != "")
-                     retour = "OK";
-           
+            else if (!string.IsNullOrWhiteSpace(tbxContactID.Text) && baseFieldsFilled)
+            {
+                bool phoneRequired = tbxTel.Enabled;
+                bool phoneFilled = !string.IsNullOrWhiteSpace(tbxTel.Text);
+
+                if (!phoneRequired || phoneFilled)
+                    retour = "OK";
+            }
+            
             return retour;
+        }
+
+        private void UpdatePhoneFieldVisibility()
+        {
+            bool isDomoButton = IsDomoButton(cbLibelle.Text);
+
+            if (isDomoButton)
+            {
+                tbxTel.Text = string.Empty;
+            }
+
+            tbxTel.Visible = !isDomoButton;
+            lblTel.Visible = !isDomoButton;
+        }
+
+        private static bool IsDomoButton(string libelle)
+        {
+            return string.Equals(libelle, "Domo Button", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static void EnsureAdditionalItems(ComboBox comboBox, IEnumerable<string> additionalValues)
+        {
+            foreach (string value in additionalValues)
+            {
+                bool exists = false;
+
+                foreach (object item in comboBox.Items)
+                {
+                    if (string.Equals(item?.ToString(), value, StringComparison.OrdinalIgnoreCase))
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                    comboBox.Items.Add(value);
+            }
+        }
+
+        private string GenerateUniqueContactId()
+        {
+            const int minValue = 50000;
+            const int maxValue = 60000;
+            int attempts = maxValue - minValue + 1;
+
+            for (int i = 0; i < attempts; i++)
+            {
+                int candidate = RandomGenerator.Next(minValue, maxValue + 1);
+
+                if (!ContactIdExists(candidate))
+                    return candidate.ToString();
+            }
+
+            throw new InvalidOperationException("Aucun Contact ID disponible dans la plage définie.");
+        }
+
+        private bool ContactIdExists(int candidate)
+        {
+            string connex = ConfigurationManager.ConnectionStrings["Connection_Base_IP"].ToString();
+
+            using (SqlConnection dbConnection = new SqlConnection(connex))
+            using (SqlCommand cmd = dbConnection.CreateCommand())
+            {
+                cmd.CommandText = "SELECT COUNT(1) FROM TA_Materiel WHERE ContactID = @ContactID";
+                cmd.Parameters.AddWithValue("@ContactID", candidate.ToString());
+
+                dbConnection.Open();
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                return count > 0;
+            }
+        }
+
+        private static bool IsContactIdInRange(string contactId)
+        {
+            if (string.IsNullOrWhiteSpace(contactId))
+                return false;
+
+            string numeric = contactId.Trim();
+
+ 
+            if (!int.TryParse(numeric, out int value))
+                return false;
+
+            return value >= 50000 && value <= 60000;
         }
 
 

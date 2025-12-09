@@ -220,6 +220,16 @@ namespace ImportSosGeneve
         private MaskedTextBox txtOnglet2Tel1ter;
         private MaskedTextBox txtOnglet2Tel1bis;
         private MaskedTextBox txtOnglet2Tel1;
+        private const string TypeTarifDomo4G = "D4G";
+        private const string LibelleDomoButton = "Domo Button";
+        private readonly DataTable dtDomoBoxes = new DataTable();
+        private readonly DataTable dtDomoButtons = new DataTable();
+        private bool isLoadingDomoCombo;
+        private bool isLoadingDomoButton;
+        private string selectedDomoContactId = string.Empty;
+        private string initialDomoContactId = string.Empty;
+        private string initialDomoVid = string.Empty;
+        private string initialDomoPhone = string.Empty;
         private MaskedTextBox txtOnglet2Tel2ter;
         private MaskedTextBox txtOnglet2Tel2bis;
         private MaskedTextBox txtOnglet2Tel2;
@@ -271,7 +281,12 @@ namespace ImportSosGeneve
         private RadioButton rBTypeBoitier3;
         private RadioButton rBTypeBoitier2;
         private RadioButton rBTypeBoitier1;
+        private RadioButton rBTypeBoitier4;
         private ComboBox comboBMateriel;
+        private ComboBox cbNumeroBoitier;
+        private ComboBox cbDomoButton;
+        private Label labelNumeroBoitier;
+        private Label labelDomoButton;
         private IContainer components;
         private Button bAjoutMat1;
         private TextBox tBoxSupprMatos;
@@ -331,7 +346,53 @@ namespace ImportSosGeneve
             //Idem pour le DataTable Liste des Telephones
             dtNvxTel.Columns.Add("NumTel", typeof(string));
             dtDelTel.Columns.Add("NumTel", typeof(string));
-            
+
+            if (dtDomoBoxes.Columns.Count == 0)
+            {
+                dtDomoBoxes.Columns.Add("ContactID", typeof(string));
+                dtDomoBoxes.Columns.Add("VID", typeof(string));
+                dtDomoBoxes.Columns.Add("Num_tel_Sim", typeof(string));
+                dtDomoBoxes.Columns.Add("Display", typeof(string));
+                dtDomoBoxes.CaseSensitive = false;
+            }
+
+            if (dtDomoButtons.Columns.Count == 0)
+            {
+                dtDomoButtons.Columns.Add("VID", typeof(string));
+                dtDomoButtons.Columns.Add("Libelle", typeof(string));
+                dtDomoButtons.Columns.Add("IdAbonnement", typeof(string));
+                dtDomoButtons.Columns.Add("Display", typeof(string));
+                dtDomoButtons.CaseSensitive = false;
+            }
+
+            HideDomoSelection();
+
+            labelDomoButton = new Label();
+            labelDomoButton.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            labelDomoButton.Location = new Point(13, 234);
+            labelDomoButton.Name = "labelDomoButton";
+            labelDomoButton.Size = new Size(158, 20);
+            labelDomoButton.Text = "Domo Button :";
+            labelDomoButton.Visible = false;
+
+            cbDomoButton = new ComboBox();
+            cbDomoButton.DropDownStyle = ComboBoxStyle.DropDown;
+            cbDomoButton.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            cbDomoButton.Location = new Point(12, 257);
+            cbDomoButton.Name = "cbDomoButton";
+            cbDomoButton.Size = new Size(248, 24);
+            cbDomoButton.Visible = false;
+            cbDomoButton.TextChanged += cbDomoButton_TextChanged;
+            cbDomoButton.SelectedIndexChanged += cbDomoButton_SelectedIndexChanged;
+
+            splitContainer3.Panel2.Controls.Add(labelDomoButton);
+            splitContainer3.Panel2.Controls.Add(cbDomoButton);
+
+            cbNumeroBoitier.DropDownStyle = ComboBoxStyle.DropDown;
+            cbNumeroBoitier.TextChanged += cbNumeroBoitier_TextChanged;
+
+            RefreshDomoButtons();
+
             Desafection[0] = string.Empty;
             Desafection[1] = string.Empty;
 
@@ -473,9 +534,12 @@ namespace ImportSosGeneve
             this.tBoxSupprMatos = new System.Windows.Forms.TextBox();
             this.bAjoutMat1 = new System.Windows.Forms.Button();
             this.comboBMateriel = new System.Windows.Forms.ComboBox();
+            this.cbNumeroBoitier = new System.Windows.Forms.ComboBox();
+            this.labelNumeroBoitier = new System.Windows.Forms.Label();
             this.rBTypeBoitier3 = new System.Windows.Forms.RadioButton();
             this.rBTypeBoitier2 = new System.Windows.Forms.RadioButton();
             this.rBTypeBoitier1 = new System.Windows.Forms.RadioButton();
+            this.rBTypeBoitier4 = new System.Windows.Forms.RadioButton();
             this.tbContacts = new System.Windows.Forms.TabPage();
             this.lwUrgence = new System.Windows.Forms.ListView();
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -1510,6 +1574,9 @@ namespace ImportSosGeneve
             this.splitContainer3.Panel2.Controls.Add(this.tBoxSupprMatos);
             this.splitContainer3.Panel2.Controls.Add(this.bAjoutMat1);
             this.splitContainer3.Panel2.Controls.Add(this.comboBMateriel);
+            this.splitContainer3.Panel2.Controls.Add(this.labelNumeroBoitier);
+            this.splitContainer3.Panel2.Controls.Add(this.cbNumeroBoitier);
+            this.splitContainer3.Panel2.Controls.Add(this.rBTypeBoitier4);
             this.splitContainer3.Panel2.Controls.Add(this.rBTypeBoitier3);
             this.splitContainer3.Panel2.Controls.Add(this.rBTypeBoitier2);
             this.splitContainer3.Panel2.Controls.Add(this.rBTypeBoitier1);
@@ -1843,12 +1910,38 @@ namespace ImportSosGeneve
             this.toolTip1.SetToolTip(this.bAjoutMat1, "Nouvelle personne");
             this.bAjoutMat1.UseVisualStyleBackColor = false;
             this.bAjoutMat1.Click += new System.EventHandler(this.bAjoutMat1_Click);
+            //
+            // labelNumeroBoitier
+            //
+            this.labelNumeroBoitier.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNumeroBoitier.Location = new System.Drawing.Point(270, 95);
+            this.labelNumeroBoitier.Name = "labelNumeroBoitier";
+            this.labelNumeroBoitier.Size = new System.Drawing.Size(100, 20);
+            this.labelNumeroBoitier.TabIndex = 53;
+            this.labelNumeroBoitier.Text = "Botier n :";
+            this.labelNumeroBoitier.Visible = false;
+            //
+            // cbNumeroBoitier
+            //
+            this.cbNumeroBoitier.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbNumeroBoitier.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbNumeroBoitier.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbNumeroBoitier.Enabled = false;
+            this.cbNumeroBoitier.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbNumeroBoitier.FormattingEnabled = true;
+            this.cbNumeroBoitier.Location = new System.Drawing.Point(270, 117);
+            this.cbNumeroBoitier.Name = "cbNumeroBoitier";
+            this.cbNumeroBoitier.Size = new System.Drawing.Size(183, 24);
+            this.cbNumeroBoitier.TabIndex = 8;
+            this.cbNumeroBoitier.Visible = false;
+            this.cbNumeroBoitier.SelectedIndexChanged += new System.EventHandler(this.cbNumeroBoitier_SelectedIndexChanged);
             // 
             // comboBMateriel
             // 
             this.comboBMateriel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBMateriel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBMateriel.Items.AddRange(new object[] {
+                "DOMO 4G",
             "Médaillon radio M4",
             "Luna Porte radio",
             "Luna Présence radio",
@@ -1865,6 +1958,16 @@ namespace ImportSosGeneve
             this.comboBMateriel.Size = new System.Drawing.Size(248, 24);
             this.comboBMateriel.TabIndex = 7;
             this.comboBMateriel.SelectedValueChanged += new System.EventHandler(this.comboBMateriel_SelectedValueChanged);
+            //
+            // rBTypeBoitier4
+            //
+            this.rBTypeBoitier4.Location = new System.Drawing.Point(25, 56);
+            this.rBTypeBoitier4.Name = "rBTypeBoitier4";
+            this.rBTypeBoitier4.Size = new System.Drawing.Size(104, 24);
+            this.rBTypeBoitier4.TabIndex = 8;
+            this.rBTypeBoitier4.Text = "DOMO 4G";
+            this.rBTypeBoitier4.CheckedChanged += new System.EventHandler(this.rBTypeBoitier4_CheckedChanged);
+            this.rBTypeBoitier4.Click += new System.EventHandler(this.rBTypeBoitier4_Click);
             // 
             // rBTypeBoitier3
             // 
@@ -2409,22 +2512,26 @@ namespace ImportSosGeneve
             // 
             // txtOnglet2Tel1ter
             // 
+            this.txtOnglet2Tel1ter.Enabled = false;
             this.txtOnglet2Tel1ter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOnglet2Tel1ter.Location = new System.Drawing.Point(121, 410);
             this.txtOnglet2Tel1ter.Mask = "+00-00-000-00-00";
             this.txtOnglet2Tel1ter.Name = "txtOnglet2Tel1ter";
             this.txtOnglet2Tel1ter.Size = new System.Drawing.Size(130, 22);
             this.txtOnglet2Tel1ter.TabIndex = 23;
+            this.txtOnglet2Tel1ter.TabStop = false;
             this.txtOnglet2Tel1ter.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
             // txtOnglet2Tel1bis
             // 
+            this.txtOnglet2Tel1bis.Enabled = false;
             this.txtOnglet2Tel1bis.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOnglet2Tel1bis.Location = new System.Drawing.Point(121, 378);
             this.txtOnglet2Tel1bis.Mask = "+00-00-000-00-00";
             this.txtOnglet2Tel1bis.Name = "txtOnglet2Tel1bis";
             this.txtOnglet2Tel1bis.Size = new System.Drawing.Size(131, 22);
             this.txtOnglet2Tel1bis.TabIndex = 22;
+            this.txtOnglet2Tel1bis.TabStop = false;
             this.txtOnglet2Tel1bis.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
             // txtOnglet2Tel1
@@ -4034,8 +4141,8 @@ namespace ImportSosGeneve
             row["Nom"] = "SOS";
             row["Prenom"] = "Médecins";
             row["Telephone"] = "+41227484949";
-            row["Tel2"] = "";
-            row["Tel3"] = "";
+            row["Tel2"] = DBNull.Value;
+            row["Tel3"] = DBNull.Value;
             row["NumeroRue"] = "";
             row["Rue"] = "";
             row["Np"] = "";
@@ -4063,6 +4170,7 @@ namespace ImportSosGeneve
             rBTypeBoitier1.Enabled = false;
             rBTypeBoitier2.Enabled = false;
             rBTypeBoitier3.Enabled = false;
+            rBTypeBoitier4.Enabled = false;
             comboBMateriel.Enabled = false;
             listViewMat1.Enabled = false;
             tBoxSupprMatos.Enabled = false;
@@ -4196,6 +4304,7 @@ namespace ImportSosGeneve
                 rBTypeBoitier1.Enabled = true;
                 rBTypeBoitier2.Enabled = true;
                 rBTypeBoitier3.Enabled = true;
+                rBTypeBoitier4.Enabled = true;
                 comboBMateriel.Enabled = true;
                 listViewMat1.Enabled = true;
                 tBoxSupprMatos.Enabled = true;
@@ -4207,6 +4316,7 @@ namespace ImportSosGeneve
                 rBTypeBoitier1.Enabled = false;
                 rBTypeBoitier2.Enabled = false;
                 rBTypeBoitier3.Enabled = false;
+                rBTypeBoitier4.Enabled = false;
                 comboBMateriel.Enabled = false;
                 listViewMat1.Enabled = false;
                 tBoxSupprMatos.Enabled = false;
@@ -4289,6 +4399,11 @@ namespace ImportSosGeneve
             txtNumCle.Text = "";
             txtCommentaireCle.Text = "";
             txtIdContrat.Text = "";
+            initialDomoContactId = string.Empty;
+            initialDomoVid = string.Empty;
+            initialDomoPhone = string.Empty;
+            selectedDomoContactId = string.Empty;
+            HideDomoSelection();
             rdPeriodFac0.Checked = false;
             rdPeriodFac1.Checked = false;
             rdPeriodFac2.Checked = false;
@@ -4662,6 +4777,7 @@ namespace ImportSosGeneve
                     rBTypeBoitier1.Enabled = true;
                     rBTypeBoitier2.Enabled = true;
                     rBTypeBoitier3.Enabled = true;
+                    rBTypeBoitier4.Enabled = true;
                     comboBMateriel.Enabled = true;
                     listViewMat1.Enabled = true;
                     tBoxSupprMatos.Enabled = true;
@@ -4676,6 +4792,7 @@ namespace ImportSosGeneve
                     rBTypeBoitier1.Enabled = false;
                     rBTypeBoitier2.Enabled = false;
                     rBTypeBoitier3.Enabled = false;
+                    rBTypeBoitier4.Enabled = true;
                     comboBMateriel.Enabled = false;
                     listViewMat1.Enabled = false;
                     tBoxSupprMatos.Enabled = false;
@@ -4979,6 +5096,29 @@ namespace ImportSosGeneve
                     MessageBox.Show("Il n'y a plus de matériel disponible...Impossible d'enregistrer cet abonnement.");
                     return;
                 }
+
+                bool isExistingAbonnement = tbAbonnement.Tag != null && tbAbonnement.Tag.ToString() != "-1";
+                if (rBTypeBoitier4.Checked)
+                {
+                    if (cbNumeroBoitier.SelectedValue == null || cbNumeroBoitier.SelectedIndex < 0)
+                    {
+                        flag = false;
+                        MessageBox.Show("Veuillez slectionner un botier DOMO 4G disponible.");
+                        return;
+                    }
+
+                    string initialComparable = initialDomoContactId == null ? string.Empty : initialDomoContactId.TrimStart('0');
+                    string selectedComparable = selectedDomoContactId == null ? string.Empty : selectedDomoContactId.TrimStart('0');
+                    bool domoBoxChanged = isExistingAbonnement && !string.IsNullOrEmpty(initialComparable) && !string.Equals(initialComparable, selectedComparable, StringComparison.Ordinal);
+                    bool switchingToDomo = isExistingAbonnement && AncienCheck != 4;
+                    if ((domoBoxChanged || switchingToDomo) && string.IsNullOrEmpty(cBoxMotifChangement.Text))
+                    {
+                        flag = false;
+                        MessageBox.Show("Veuillez indiquer le motif de changement de botier.");
+                        return;
+                    }
+                }
+
 
                 //Est-ce un médicalerte?
                 if (int.Parse(txtIdContrat.Text) >= 30000)
@@ -6480,6 +6620,7 @@ namespace ImportSosGeneve
             rBTypeBoitier1.Enabled = false;
             rBTypeBoitier2.Enabled = false;
             rBTypeBoitier3.Enabled = false;
+            rBTypeBoitier4.Enabled = false;
             comboBMateriel.Enabled = false;
             listViewMat1.Enabled = false;
             tBoxSupprMatos.Enabled = false;
@@ -6599,8 +6740,6 @@ namespace ImportSosGeneve
                 row["Nom"] = txtOnglet2Nom1.Text;
                 row["Prenom"] = txtOnglet2PreNom1.Text;
                 row["Telephone"] = "+" + txtOnglet2Tel1.Text.Replace("-", "");
-                row["Tel2"] = "+" + txtOnglet2Tel1bis.Text.Replace("-", "");
-                row["Tel3"] = "+" + txtOnglet2Tel1ter.Text.Replace("-", "");
                 row["NumeroRue"] = txtOnglet2NRue1.Text;
                 row["Rue"] = txtOnglet2Adresse1.Text;
                 row["Np"] = txtOnglet2Np1.Text;
@@ -6620,8 +6759,8 @@ namespace ImportSosGeneve
                 row["Nom"] = txtOnglet2Nom1.Text;
                 row["Prenom"] = txtOnglet2PreNom1.Text;
                 row["Telephone"] = "+" + txtOnglet2Tel1.Text.Replace("-", "");
-                row["Tel2"] = "+" + txtOnglet2Tel1bis.Text.Replace("-", "");
-                row["Tel3"] = "+" + txtOnglet2Tel1ter.Text.Replace("-", "");
+                row["Tel2"] = DBNull.Value;
+                row["Tel3"] = DBNull.Value;
                 row["NumeroRue"] = txtOnglet2NRue1.Text;
                 row["Rue"] = txtOnglet2Adresse1.Text;
                 row["Np"] = txtOnglet2Np1.Text;
@@ -6962,6 +7101,7 @@ namespace ImportSosGeneve
                 rBTypeBoitier1.Enabled = true;
                 rBTypeBoitier2.Enabled = true;
                 rBTypeBoitier3.Enabled = true;
+                rBTypeBoitier4.Enabled = true;
                 comboBMateriel.Enabled = true;
                 listViewMat1.Enabled = true;
                 tBoxSupprMatos.Enabled = true;
@@ -6973,6 +7113,7 @@ namespace ImportSosGeneve
                 rBTypeBoitier1.Enabled = false;
                 rBTypeBoitier2.Enabled = false;
                 rBTypeBoitier3.Enabled = false;
+                rBTypeBoitier4.Enabled = true;
                 comboBMateriel.Enabled = false;
                 listViewMat1.Enabled = false;
                 tBoxSupprMatos.Enabled = false;
@@ -7087,6 +7228,7 @@ namespace ImportSosGeneve
             rBTypeBoitier1.Enabled = false;
             rBTypeBoitier2.Enabled = false;
             rBTypeBoitier3.Enabled = false;
+            rBTypeBoitier4.Enabled = true;
             comboBMateriel.Enabled = false;
             listViewMat1.Enabled = false;
             tBoxSupprMatos.Enabled = false;
@@ -7145,7 +7287,7 @@ namespace ImportSosGeneve
                     sqlstr0 += " Set IdAbonnement = Null, ";
                     sqlstr0 += " DateHS = case when DateHS is null then getdate() else DateHS end, DateDerniereAttrib = getdate()";
                     sqlstr0 += " WHERE ContactID = @IdContact";
-                    sqlstr0 += " AND Type_tarif in ('L3GSL', 'L3G', 'L4')";
+                    sqlstr0 += " AND Type_tarif in ('L3GSL', 'L3G', 'L4', 'D4G')";
 
                     cmd.CommandText = sqlstr0;
 
@@ -7160,7 +7302,7 @@ namespace ImportSosGeneve
                     sqlstr0 += " Type_tarif = 'R', DateDerniereAttrib = getdate(), ";
                     sqlstr0 += " DateMES = case when DateMES is null then getdate() else DateMES end";
                     sqlstr0 += " WHERE ContactID = @IdContact";
-                    sqlstr0 += " AND Type_tarif in ('L3GSL', 'L3G', 'L4')";
+                    sqlstr0 += " AND Type_tarif in ('L3GSL', 'L3G', 'L4', 'D4G')";
 
                     cmd.CommandText = sqlstr0;
 
@@ -7205,7 +7347,7 @@ namespace ImportSosGeneve
                     sqlstr0 += " Set IdAbonnement = Null, ";
                     sqlstr0 += " DateDerniereAttrib = getdate()";
                     sqlstr0 += " WHERE ContactID = @IdContact";
-                    sqlstr0 += " AND Type_tarif in ('L3GSL', 'L3G', 'L4')";
+                    sqlstr0 += " AND Type_tarif in ('L3GSL', 'L3G', 'L4', 'D4G')";
 
                     cmd.CommandText = sqlstr0;
 
@@ -7219,7 +7361,7 @@ namespace ImportSosGeneve
                     sqlstr0 += " Set IdAbonnement = @Abonnement, ";
                     sqlstr0 += " DateMES = case when DateMES is null then getdate() else DateMES end, DateDerniereAttrib = getdate()";
                     sqlstr0 += " WHERE ContactID = @IdContact";
-                    sqlstr0 += " AND Type_tarif in ('L3GSL', 'L3G', 'L4')";
+                    sqlstr0 += " AND Type_tarif in ('L3GSL', 'L3G', 'L4', 'D4G')";
 
                     cmd.CommandText = sqlstr0;
 
@@ -7298,6 +7440,8 @@ namespace ImportSosGeneve
                     AncienCheck = 2;
                 else if (rBTypeBoitier3.Checked)
                     AncienCheck = 3;
+                else if (rBTypeBoitier4.Checked)
+                    AncienCheck = 4;
                 else AncienCheck = 0;
 
             }
@@ -7334,6 +7478,27 @@ namespace ImportSosGeneve
             //On ajoute le matériel à la liste
             //Mettre dans le dataset le contenu de la list box (recherche à partir du libellé)
             //Recherche du produit
+            if (string.Equals(comboBMateriel.Text, LibelleDomoButton, StringComparison.OrdinalIgnoreCase))
+            {
+                if (cbDomoButton.SelectedItem is DataRowView selectedButton)
+                {
+                    dtNvxMateriel.Rows.Add(selectedButton["VID"].ToString(), selectedButton["Libelle"].ToString(), selectedButton["IdAbonnement"].ToString());
+
+                    ListViewItem item1 = new ListViewItem(selectedButton["Display"].ToString());
+                    item1.SubItems.Add(selectedButton["VID"].ToString());
+                    listViewMat1.Items.Add(item1);
+
+                    cbDomoButton.SelectedIndex = -1;
+                    cbDomoButton.Text = string.Empty;
+                }
+                else
+                {
+                    MessageBox.Show("Vous devez s?lectionner un Domo Button disponible", "Affectation d'un appareil", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                return;
+            }
+
             if (tBoxNumSerie.Text != "")
             {
                 DataTable Matos = new DataTable();
@@ -7365,7 +7530,18 @@ namespace ImportSosGeneve
         private void comboBMateriel_SelectedValueChanged(object sender, EventArgs e)
         {
             //On ouvre le panneau pour saisir le n° de serie de l'appareil à attribuer
-            tBoxNumSerie.Enabled = true;
+            bool isDomoButton = string.Equals(comboBMateriel.Text, LibelleDomoButton, StringComparison.OrdinalIgnoreCase);
+            if (isDomoButton)
+            {
+                tBoxNumSerie.Text = string.Empty;
+                tBoxNumSerie.Enabled = false;
+                ShowDomoButtonSelection();
+            }
+            else
+            {
+                HideDomoButtonSelection();
+                tBoxNumSerie.Enabled = true;
+            }
         }
 
         public DataTable RetourneProduit(string Libelle, string NumSerie)
@@ -7557,6 +7733,335 @@ namespace ImportSosGeneve
             return reponse;
         }
 
+        private void RefreshDomoButtons()
+        {
+            isLoadingDomoButton = true;
+            dtDomoButtons.Rows.Clear();
+
+            try
+            {
+                string connex = ConfigurationManager.ConnectionStrings["Connection_Base"].ToString();
+                using (SqlConnection dbConnection = new SqlConnection(connex))
+                {
+                    dbConnection.Open();
+
+                    using (SqlCommand cmd = dbConnection.CreateCommand())
+                    {
+                        cmd.CommandText = "SELECT VID, Libelle, IdAbonnement FROM TA_Materiel WHERE Libelle = @Libelle AND (IDAbonnement IS NULL OR IDAbonnement = '') AND (DateHS IS NULL) ORDER BY VID";
+                        cmd.Parameters.AddWithValue("Libelle", LibelleDomoButton);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            DataTable disponibles = new DataTable();
+                            disponibles.Load(reader);
+
+                            foreach (DataRow row in disponibles.Rows)
+                            {
+                                DataRow option = dtDomoButtons.NewRow();
+                                option["VID"] = row["VID"].ToString();
+                                option["Libelle"] = row["Libelle"].ToString();
+                                option["IdAbonnement"] = row["IdAbonnement"].ToString();
+                                option["Display"] = row["VID"].ToString();
+                                dtDomoButtons.Rows.Add(option);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erreur lors du chargement des Domo Buttons : " + ex.Message);
+            }
+
+            cbDomoButton.DisplayMember = "Display";
+            cbDomoButton.ValueMember = "VID";
+            cbDomoButton.DataSource = dtDomoButtons.DefaultView;
+            cbDomoButton.SelectedIndex = -1;
+            isLoadingDomoButton = false;
+        }
+
+        private void ApplyDomoButtonFilter(string filterText)
+        {
+            if (isLoadingDomoButton)
+                return;
+
+            isLoadingDomoButton = true;
+            string sanitized = string.IsNullOrWhiteSpace(filterText) ? string.Empty : filterText.Replace("'", "''");
+            dtDomoButtons.DefaultView.RowFilter = string.IsNullOrWhiteSpace(sanitized)
+                ? string.Empty
+                : string.Format("Display LIKE '%{0}%'", sanitized);
+            cbDomoButton.SelectedIndex = -1;
+            isLoadingDomoButton = false;
+        }
+
+        private void cbDomoButton_TextChanged(object sender, EventArgs e)
+        {
+            ApplyDomoButtonFilter(cbDomoButton.Text);
+        }
+
+        private void cbDomoButton_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (isLoadingDomoButton)
+                return;
+        }
+
+        private void ShowDomoButtonSelection()
+        {
+            labelDomoButton.Visible = true;
+            cbDomoButton.Visible = true;
+            RefreshDomoButtons();
+        }
+
+        private void HideDomoButtonSelection()
+        {
+            labelDomoButton.Visible = false;
+            cbDomoButton.Visible = false;
+            cbDomoButton.DataSource = null;
+            dtDomoButtons.DefaultView.RowFilter = string.Empty;
+            dtDomoButtons.Rows.Clear();
+        }
+
+        private void RefreshDomoBoxes(string ensureContactId, string ensureVid, string ensurePhone)
+        {
+            isLoadingDomoCombo = true;
+            cbNumeroBoitier.DataSource = null;
+            dtDomoBoxes.Rows.Clear();
+
+            try
+            {
+                string connex = ConfigurationManager.ConnectionStrings["Connection_Base"].ToString();
+                using (SqlConnection dbConnection = new SqlConnection(connex))
+                {
+                    dbConnection.Open();
+
+                    using (SqlCommand cmd = dbConnection.CreateCommand())
+                    {
+                        cmd.CommandText = "SELECT ContactID, VID, Num_tel_Sim FROM TA_Materiel WHERE Type_tarif = @TypeTarif AND (IDAbonnement IS NULL OR IDAbonnement = '') AND (DateHS IS NULL) ORDER BY ContactID";
+                        cmd.Parameters.AddWithValue("TypeTarif", TypeTarifDomo4G);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            DataTable disponibles = new DataTable();
+                            disponibles.Load(reader);
+
+                            foreach (DataRow row in disponibles.Rows)
+                            {
+                                DataRow option = dtDomoBoxes.NewRow();
+                                option["ContactID"] = row["ContactID"].ToString();
+                                option["VID"] = row["VID"].ToString();
+                                option["Num_tel_Sim"] = row["Num_tel_Sim"].ToString();
+                                option["Display"] = BuildDomoDisplay(option["ContactID"].ToString(), option["VID"].ToString(), option["Num_tel_Sim"].ToString());
+                                dtDomoBoxes.Rows.Add(option);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erreur lors du chargement des boitiers DOMO 4G : " + ex.Message);
+            }
+
+            if (!string.IsNullOrEmpty(ensureContactId))
+            {
+                string filtre = "ContactID = '" + ensureContactId.Replace("'", "''") + "'";
+                if (dtDomoBoxes.Select(filtre).Length == 0)
+                {
+                    DataRow option = dtDomoBoxes.NewRow();
+                    option["ContactID"] = ensureContactId;
+                    option["VID"] = ensureVid ?? string.Empty;
+                    option["Num_tel_Sim"] = ensurePhone ?? string.Empty;
+                    option["Display"] = BuildDomoDisplay(option["ContactID"].ToString(), option["VID"].ToString(), option["Num_tel_Sim"].ToString());
+                    dtDomoBoxes.Rows.InsertAt(option, 0);
+                }
+            }
+
+            cbNumeroBoitier.DisplayMember = "Display";
+            cbNumeroBoitier.ValueMember = "ContactID";
+            cbNumeroBoitier.DataSource = dtDomoBoxes.DefaultView;
+
+            if (!string.IsNullOrEmpty(ensureContactId))
+            {
+                cbNumeroBoitier.SelectedValue = ensureContactId;
+                selectedDomoContactId = ensureContactId;
+            }
+            else
+            {
+                cbNumeroBoitier.SelectedIndex = -1;
+                selectedDomoContactId = string.Empty;
+            }
+
+            isLoadingDomoCombo = false;
+        }
+
+        private static string BuildDomoDisplay(string contactId, string vid, string phone)
+        {
+            if (string.IsNullOrWhiteSpace(contactId))
+            {
+                contactId = string.Empty;
+            }
+
+            if (string.IsNullOrWhiteSpace(vid))
+            {
+                vid = string.Empty;
+            }
+
+            if (!string.IsNullOrEmpty(contactId) && !string.IsNullOrEmpty(vid))
+            {
+                return string.Format("{0} / {1}", contactId, vid);
+            }
+
+            return contactId + vid;
+        }
+
+        private void ShowDomoSelection(string ensureContactId, string ensureVid, string ensurePhone)
+        {
+            labelNumeroBoitier.Visible = true;
+            cbNumeroBoitier.Visible = true;
+            cbNumeroBoitier.Enabled = true;
+            RefreshDomoBoxes(ensureContactId, ensureVid, ensurePhone);
+        }
+
+        private void HideDomoSelection()
+        {
+            labelNumeroBoitier.Visible = false;
+            cbNumeroBoitier.Visible = false;
+            cbNumeroBoitier.Enabled = false;
+            cbNumeroBoitier.SelectedIndex = -1;
+            cbNumeroBoitier.DataSource = null;
+            dtDomoBoxes.DefaultView.RowFilter = string.Empty;
+            if (dtDomoBoxes.Rows.Count > 0)
+                dtDomoBoxes.Rows.Clear();
+            selectedDomoContactId = string.Empty;
+        }
+
+        private void cbNumeroBoitier_TextChanged(object sender, EventArgs e)
+        {
+            ApplyDomoBoxFilter(cbNumeroBoitier.Text);
+        }
+
+        private void cbNumeroBoitier_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (isLoadingDomoCombo)
+                return;
+
+            if (cbNumeroBoitier.SelectedValue == null || cbNumeroBoitier.SelectedIndex < 0)
+            {
+                if (rBTypeBoitier4.Checked)
+                {
+                    txtIdContrat.Text = string.Empty;
+                    lblContrat.Text = string.Empty;
+                    EMaskTel1.Text = string.Empty;
+                }
+                selectedDomoContactId = string.Empty;
+                return;
+            }
+
+            selectedDomoContactId = cbNumeroBoitier.SelectedValue.ToString();
+            string filtre = "ContactID = '" + selectedDomoContactId.Replace("'", "''") + "'";
+            DataRow[] selection = dtDomoBoxes.Select(filtre);
+            if (selection.Length > 0)
+            {
+                string phone = selection[0]["Num_tel_Sim"].ToString();
+                string vid = selection[0]["VID"].ToString();
+
+                txtIdContrat.Text = selectedDomoContactId;
+                lblContrat.Text = "Contrat : " + txtIdContrat.Text;
+                if (!string.IsNullOrEmpty(phone))
+                {
+                    EMaskTel1.Text = phone;
+                }
+
+                if (string.IsNullOrEmpty(initialDomoContactId))
+                {
+                    initialDomoContactId = selectedDomoContactId;
+                    initialDomoVid = vid;
+                    initialDomoPhone = phone;
+                }
+            }
+        }
+
+        private void ApplyDomoBoxFilter(string filterText)
+        {
+            if (isLoadingDomoCombo)
+                return;
+
+            isLoadingDomoCombo = true;
+            string sanitized = string.IsNullOrWhiteSpace(filterText) ? string.Empty : filterText.Replace("'", "''");
+            dtDomoBoxes.DefaultView.RowFilter = string.IsNullOrWhiteSpace(sanitized)
+                ? string.Empty
+                : string.Format("Display LIKE '%{0}%'", sanitized);
+            cbNumeroBoitier.DataSource = dtDomoBoxes.DefaultView;
+            cbNumeroBoitier.DisplayMember = "Display";
+            cbNumeroBoitier.ValueMember = "ContactID";
+
+            if (!string.IsNullOrEmpty(selectedDomoContactId) && dtDomoBoxes.Select("ContactID = '" + selectedDomoContactId.Replace("'", "''") + "'").Length > 0)
+            {
+                cbNumeroBoitier.SelectedValue = selectedDomoContactId;
+            }
+            else
+            {
+                cbNumeroBoitier.SelectedIndex = -1;
+            }
+
+            isLoadingDomoCombo = false;
+        }
+
+
+        private void rBTypeBoitier4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rBTypeBoitier4.Checked)
+            {
+                ShowDomoSelection(initialDomoContactId, initialDomoVid, initialDomoPhone);
+                rBTypeBoitier1.Enabled = false;
+                rBTypeBoitier2.Enabled = false;
+                rBTypeBoitier3.Enabled = false;
+
+                if (tbAbonnement.Tag != null && tbAbonnement.Tag.ToString() == "-1")
+                {
+                    txtIdContrat.Text = string.Empty;
+                    lblContrat.Text = string.Empty;
+                    EMaskTel1.Text = string.Empty;
+                }
+            }
+            else
+            {
+                HideDomoSelection();
+            }
+        }
+
+        private void rBTypeBoitier4_Click(object sender, EventArgs e)
+        {
+            if (AncienCheck != 4)
+            {
+                if (tbAbonnement.Tag != null && tbAbonnement.Tag.ToString() != "-1")
+                {
+                    DialogResult result1 = MessageBox.Show("Voulez vous changer la box de cette personne? Si oui, veuillez en indiquer le motif. ", "Changement de box",
+                                           MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (result1 == DialogResult.Yes)
+                    {
+                        cBoxMotifChangement.Enabled = true;
+                    }
+                    else
+                    {
+                        cBoxMotifChangement.Text = string.Empty;
+                        cBoxMotifChangement.Enabled = false;
+                        if (AncienCheck == 3)
+                            rBTypeBoitier3.Checked = true;
+                        else if (AncienCheck == 2)
+                            rBTypeBoitier2.Checked = true;
+                        else if (AncienCheck == 4)
+                            rBTypeBoitier4.Checked = true;
+                        else if (AncienCheck == 1)
+                            rBTypeBoitier1.Checked = true;
+                        else
+                            rBTypeBoitier4.Checked = false;
+                    }
+                }
+            }
+        }
+
 
         private void ChargeListMateriel(string IdAbonnement)
         {
@@ -7591,6 +8096,17 @@ namespace ImportSosGeneve
                             case "L3GSL": rBTypeBoitier1.Checked = true; AncienCheck = 1; break;
                             case "L3G": rBTypeBoitier2.Checked = true; AncienCheck = 2; break;
                             case "L4": rBTypeBoitier3.Checked = true; AncienCheck = 3; break;
+                            case "D4G":
+                                rBTypeBoitier4.Checked = true;
+                                AncienCheck = 4;
+                                initialDomoContactId = dtMateriel.Rows[i]["ContactID"].ToString();
+                                initialDomoVid = dtMateriel.Rows[i]["VID"].ToString();
+                                initialDomoPhone = dtMateriel.Rows[i]["Num_tel_Sim"].ToString();
+                                ShowDomoSelection(initialDomoContactId, initialDomoVid, initialDomoPhone);
+                                rBTypeBoitier1.Enabled = false;
+                                rBTypeBoitier2.Enabled = false;
+                                rBTypeBoitier3.Enabled = false;
+                                break;
                             default:
                                 {
                                     dtNvxMateriel.Rows.Add(dtMateriel.Rows[i]["VID"].ToString(), dtMateriel.Rows[i]["Libelle"].ToString(), dtMateriel.Rows[i]["IdAbonnement"].ToString());
@@ -7643,7 +8159,17 @@ namespace ImportSosGeneve
         {
 
             //On fait le changement de boitier
-            //on regarde s'il y en a de dispo                                                            
+            //on regarde s'il y en a de dispo
+            if (rBTypeBoitier4.Checked)
+            {
+                Desafection[0] = cBoxMotifChangement.Text;
+                Desafection[1] = Complete(txtIdContrat.Text, 8);
+                ShowDomoSelection(null, null, null);
+                txtIdContrat.Text = string.Empty;
+                lblContrat.Text = string.Empty;
+                EMaskTel1.Text = string.Empty;
+                return;
+            }
             string[] BoitierDispo;
             string Luna = "";
 
@@ -7708,6 +8234,8 @@ namespace ImportSosGeneve
                             rBTypeBoitier3.Checked = true;
                         else if (AncienCheck == 1)
                             rBTypeBoitier1.Checked = true;
+                        else if (AncienCheck == 4)
+                            rBTypeBoitier4.Checked = true;
                     }
                 }
             }
@@ -7738,6 +8266,8 @@ namespace ImportSosGeneve
                             rBTypeBoitier2.Checked = true;
                         else if (AncienCheck == 1)
                             rBTypeBoitier1.Checked = true;
+                        else if (AncienCheck == 4)
+                            rBTypeBoitier4.Checked = true;
                     }
                 }
             }
@@ -7767,6 +8297,8 @@ namespace ImportSosGeneve
                             rBTypeBoitier3.Checked = true;
                         else if (AncienCheck == 2)
                             rBTypeBoitier2.Checked = true;
+                        else if (AncienCheck == 4)
+                            rBTypeBoitier4.Checked = true;
                     }
                 }
             }
