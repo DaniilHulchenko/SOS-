@@ -404,9 +404,6 @@ namespace ImportSosGeneve.TA
                     tbxPrixAchat.Text = Materiel.Rows[0]["Prix_Achat"].ToString();
                     cbLibelle.Text = Materiel.Rows[0]["Libelle"].ToString();
 
-                    UpdatePhoneFieldVisibility();
-
-
                     //si datehs est nul on ne coche pas le checkbox
                     if (Materiel.Rows[0]["DateHS"].ToString() == "")
                     {
@@ -448,12 +445,8 @@ namespace ImportSosGeneve.TA
                 if (cbLibelle.Text == "LUNA 3G SL" || cbLibelle.Text == "LUNA 3G" || cbLibelle.Text == "LUNA 4")
                 {
                     tbxVIDm.Enabled = true;
-                    if (!IsDomoButton(cbLibelle.Text))
-                        tbxTel.Enabled = true;
+                    tbxTel.Enabled = true;
                 }
-
-                UpdatePhoneFieldVisibility();
-
             }
         }
 
@@ -534,23 +527,35 @@ namespace ImportSosGeneve.TA
         private void cbLibelle_TextChanged(object sender, EventArgs e)
         {
             //Si on ajoute une box, il faut lui attribuer systématiquement un médaillon
-            if (cbLibelle.Text == "LUNA 3G SL" || cbLibelle.Text == "LUNA 3G" || cbLibelle.Text == "LUNA 4")
+            if (MedaillonLibelles.Contains(cbLibelle.Text))
             {
                 //on débloque les textbox pour ajouter le VID du medaillon et le numero de tel
                 tbxVIDm.Enabled = true;
-                tbxTel.Enabled = true;
-                if (!IsDomoButton(cbLibelle.Text))
-                    tbxTel.Enabled = true;
             }
             else
             {
                 //sinon les textbox pour ajouter le VID du medaillon et le numero de tel son désactivé
                 tbxVIDm.Enabled = false;
+            }
+            if (AutoContactLibelles.Contains(cbLibelle.Text))
+            {
+                tbxContactID.ReadOnly = true;
 
-                if (!IsDomoButton(cbLibelle.Text))
-
-
-                    UpdatePhoneFieldVisibility();
+                if (Etat == 1 && !IsContactIdInRange(tbxContactID.Text))
+                {
+                    try
+                    {
+                        tbxContactID.Text = GenerateUniqueContactId();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Erreur lors de la génération du Contact ID : " + ex.Message);
+                    }
+                }
+            }
+            else
+            {
+                tbxContactID.ReadOnly = false;
             }
         }
 
@@ -647,7 +652,7 @@ namespace ImportSosGeneve.TA
 
             //Tout les champs doivent être saisies Sauf si...
             if (cbLibelle.Text == "Detecteur chute Vibby" || cbLibelle.Text == "Luna Porte radio"
-                || cbLibelle.Text == "Tirette d'appel" || cbLibelle.Text == "Médaillon radio M4" || IsDomoButton(cbLibelle.Text))
+                || cbLibelle.Text == "Tirette d'appel" || cbLibelle.Text == "Médaillon radio M4")
             {
                 if (baseFieldsFilled)
                     retour = "OK";
@@ -663,25 +668,6 @@ namespace ImportSosGeneve.TA
             
             return retour;
         }
-
-        private void UpdatePhoneFieldVisibility()
-        {
-            bool isDomoButton = IsDomoButton(cbLibelle.Text);
-
-            if (isDomoButton)
-            {
-                tbxTel.Text = string.Empty;
-            }
-
-            tbxTel.Visible = !isDomoButton;
-            lblTel.Visible = !isDomoButton;
-        }
-
-        private static bool IsDomoButton(string libelle)
-        {
-            return string.Equals(libelle, "Domo Button", StringComparison.OrdinalIgnoreCase);
-        }
-
         private static void EnsureAdditionalItems(ComboBox comboBox, IEnumerable<string> additionalValues)
         {
             foreach (string value in additionalValues)
