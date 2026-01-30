@@ -7203,8 +7203,11 @@ namespace ImportSosGeneve
         //Mise à jour de la table Materiel avec l'IDAbonnement
         public void MajMateriel(string ContactID, string IdAbonnement, string[] TypeOpe)
         {
-            //On complete le ContactID avec des 0
-            string CID = Complete(ContactID, 8);
+            //On normalise le ContactID selon le type de boitier
+            bool isDomoCurrent = rBTypeBoitier4.Checked;
+            bool isDomoPrevious = AncienCheck == 4;
+            string CID = NormalizeContactId(ContactID, isDomoCurrent);
+            string oldContactId = TypeOpe.Length > 1 ? NormalizeContactId(TypeOpe[1], isDomoPrevious) : string.Empty;
 
             string connex = ConfigurationManager.ConnectionStrings["Connection_Base"].ToString();
             SqlConnection dbConnection = new SqlConnection(connex);
@@ -7253,7 +7256,7 @@ namespace ImportSosGeneve
                     cmd.CommandText = sqlstr0;
 
                     cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("IdContact", TypeOpe[1]);
+                    cmd.Parameters.AddWithValue("IdContact", oldContactId);
 
                     cmd.ExecuteNonQuery();
 
@@ -7314,7 +7317,7 @@ namespace ImportSosGeneve
                     cmd.CommandText = sqlstr0;
 
                     cmd.Parameters.Clear();
-                    cmd.Parameters.AddWithValue("IdContact", TypeOpe[1]);
+                    cmd.Parameters.AddWithValue("IdContact", oldContactId);
 
                     cmd.ExecuteNonQuery();
 
@@ -7926,30 +7929,6 @@ namespace ImportSosGeneve
         }
 
 
-        // Methode pour completer les chaines avec des 0 ( exemple 135 donnera 00135 si longueur est à 5)
-        // Methode pour completer les chaines avec des 0 ( exemple 135 donnera 00135 si longueur est ? 5)
-        //private string Complete(string Chaine, int longueur)
-        //{
-        //    if (Chaine == null)
-        //        return string.Empty;
-
-        //    int nbCara = longueur - Chaine.Length;
-
-        //    // ÷òîáû íå ïîëó÷èòü "" è íå ëîìàòü ContactID.
-        //    if (nbCara <= 0)
-        //    {
-        //        return Chaine;
-        //    }
-
-        //    string ChaineFinale = string.Empty;
-        //    for (int i = 0; i < nbCara; i++)
-        //    {
-        //        ChaineFinale += "0";
-        //    }
-
-        //    ChaineFinale += Chaine;
-        //    return ChaineFinale;
-        //} 12.12.25 old Domo4G
         private string Complete(string Chaine, int longueur)
         {
 
@@ -7959,6 +7938,15 @@ namespace ImportSosGeneve
             return Chaine;
         }
 
+        private string NormalizeContactId(string contactId, bool isDomo4G)
+        {
+            if (isDomo4G)
+            {
+                return contactId ?? string.Empty;
+            }
+
+            return Complete(contactId, 8);
+        }
 
 
         private void cBoxMotifChangement_SelectedIndexChanged(object sender, EventArgs e)
@@ -7969,7 +7957,7 @@ namespace ImportSosGeneve
             if (rBTypeBoitier4.Checked)
             {
                 Desafection[0] = cBoxMotifChangement.Text;
-                Desafection[1] = Complete(txtIdContrat.Text, 8);
+                Desafection[1] = NormalizeContactId(txtIdContrat.Text, AncienCheck == 4);
                 ShowDomoSelection(null, null, null);
                 txtIdContrat.Text = string.Empty;
                 lblContrat.Text = string.Empty;
@@ -8007,7 +7995,7 @@ namespace ImportSosGeneve
             {
                 //On prépare la déaffectation l'ancien boitier
                 Desafection[0] = cBoxMotifChangement.Text;
-                Desafection[1] = Complete(txtIdContrat.Text, 8);
+                Desafection[1] = NormalizeContactId(txtIdContrat.Text, AncienCheck == 4);
 
                 //Affectation du nvx boitier et changement du Tel Patient
                 txtIdContrat.Text = BoitierDispo[0];
@@ -8440,5 +8428,3 @@ namespace ImportSosGeneve
 //Panneau modules
 
 //Voir le fonctionnement Quand TA pour les 2 d'une même famille (débloquer la recherche sur Même n°)
-
-
